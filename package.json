@@ -1,0 +1,27 @@
+{
+  "name": "carwellness",
+  "version": "1.0.0",
+  "description": "Webpage for car cleaning company in Slovakia",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephanides/carwellness.git"
+  },
+  "keywords": [
+    "car",
+    "carwellness"
+  ],
+  "author": "CodeBrothers",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stephanides/carwellness/issues"
+  },
+  "homepage": "https://github.com/stephanides/carwellness#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "typescript": "^2.8.3"
+  }
+}
