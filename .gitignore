@@ -1,6 +1,7 @@
 dist/server/**/**
 dist/public/**/**
 !dist/public/images
+!dist/public/js/carwellness-main.js
 
 # Logs
 logs
