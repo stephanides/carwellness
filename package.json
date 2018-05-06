@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon ./dist/server/carwellness-index.js",
-    "sass": "sass ./src/public/scss/main-style.scss ./dist/public/css/main-style.css",
+    "sass": "sass ./src/public/scss/main-style.scss ./dist/public/css/main-style.css --style compressed",
     "tsc": "tsc -w",
     "webpack": "webpack --watch --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"

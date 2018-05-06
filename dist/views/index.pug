@@ -1,7 +1,151 @@
 extends layout
 
 block content  
-  .wrapper    
+  #wrapper
+    nav.navbar.navbar-expand-lg.navbar-light.fixed-top
+      .container
+        a.navbar-brand
+          img(src='./assets/images/logo.png')
+        button.navbar-toggler(type='button' data-toggle='collapse' data-target='navbarCollapse')
+          span.navbar-toggler-icon
+        .collapse.navbar-collapse.justify-content-end#navbarCollapse
+          ul.navbar-nav
+            li.nav-item
+              a.nav-link Domov
+            li.nav-item
+              a.nav-link O nás
+            li.nav-item
+              a.nav-link Služby
+            li.nav-item
+              a.nav-link Galéria
+            li.nav-item
+              a.nav-link Kontakt
+            li.nav-item
+              a.nav-link Reklamácia
+            li.nav-item
+              a.nav-link.online-order Online objednávka
+    .main-carousel.container-fluid
+      .carousel.slide#mainCarousel(data-ride='carousel')
+        .carousel-inner
+          .carousel-item.active
+            img(src='./assets/images/slider-1.png')
+          .carousel-item
+            img(src='./assets/images/slider-1.png')
+          .carousel-item
+            img(src='./assets/images/slider-1.png')
+        a.carousel-control-prev(href='#mainCarousel' data-slide='prev')
+          span.carousel-control-prev-icon
+        a.carousel-control-next(href='#mainCarousel' data-slide='next')
+          span.carousel-control-next-icon
+    section.services.container
+      h3 Profesionálna ručná autoumývarka
+      p Ručné umývanie exteriérov a interiérov áut, leštenie a renovovanie lakov,tepovanie interiérov.
+      .services-carousel.container
+        .row.mx-auto.my-auto
+          .carousel.slide.w-100#servicesCarousel(data-ride='carousel')
+            .carousel-inner.w-100(role='listbox')
+              .carousel-item.active.row
+                .col-lg-3
+                  .head
+                    img(src='./assets/images/service4.png')
+                    h4 Čistenie diskov <br>a ošetrenie pneumatík
+                  p To, aby zostali pneumatiky krásne čierne a prípadne i lesklé, zaistíme dôkladným čistením, ktorým sa nečistoty narušia a odstránia.
+                .col-lg-3
+                  .head
+                    img(src='./assets/images/service3.png')
+                    h4 Dezinfekcia <br>klimatizácie a interiéru
+                  p Dezinfekcia klimatizácie a interiéru vozidla generátorom Ozónu (O3). Ozón ma smrtiaci účinok na baktérie, vírusy, plesne, riasy...
+                .col-lg-3
+                  .head
+                    img(src='./assets/images/service2.png')
+                    h4 Renovácia <br>a leštenie laku
+                  p Renovácia a leštenie je proces opracovania povrchov, pri ktorom dochádza k veľmi jemnému odberu materiálu, rádovo v mikrónoch.
+                .col-lg-3
+                  .head
+                    img(src='./assets/images/service1.png')
+                    h4 Čistenie <br>a impregnáciu kože
+                  p Koža je jedným z najstarších prírodných materiálov a pre svoje jedinečné vlastnosti je koža veľmi obľúbený materiál.
+              .carousel-item.row
+                .col-lg-3
+                  img(src='./assets/images/service3.png')
+                  h4 Dezinfekcia <br>klimatizácie a interiéru
+                  p Dezinfekcia klimatizácie a interiéru vozidla generátorom Ozónu (O3). Ozón ma smrtiaci účinok na baktérie, vírusy, plesne, riasy...
+                .col-lg-3
+                  img(src='./assets/images/service2.png')
+                  h4 Renovácia <br>a leštenie laku
+                  p Renovácia a leštenie je proces opracovania povrchov, pri ktorom dochádza k veľmi jemnému odberu materiálu, rádovo v mikrónoch.
+                .col-lg-3
+                  img(src='./assets/images/service1.png')
+                  h4 Čistenie <br>a impregnáciu kože
+                  p Koža je jedným z najstarších prírodných materiálov a pre svoje jedinečné vlastnosti je koža veľmi obľúbený materiál.
+                .col-lg-3
+                  img(src='./assets/images/service5.png')
+                  h4 Aplikácia SmartCoat <br>nanotechnológie TiO2
+                  p SmartCoat je revolučný spôsob odovzádavania antimikrobiálnych účinkov na povrchy plôch a to bez zdravodných rizík.
+              .carousel-item.row
+                .col-lg-3
+                  img(src='./assets/images/service2.png')
+                  h4 Renovácia <br>a leštenie laku
+                  p Renovácia a leštenie je proces opracovania povrchov, pri ktorom dochádza k veľmi jemnému odberu materiálu, rádovo v mikrónoch.
+                .col-lg-3
+                  img(src='./assets/images/service1.png')
+                  h4 Čistenie <br>a impregnáciu kože
+                  p Koža je jedným z najstarších prírodných materiálov a pre svoje jedinečné vlastnosti je koža veľmi obľúbený materiál.
+                .col-lg-3
+                  img(src='./assets/images/service5.png')
+                  h4 Aplikácia SmartCoat <br>nanotechnológie TiO2
+                  p SmartCoat je revolučný spôsob odovzádavania antimikrobiálnych účinkov na povrchy plôch a to bez zdravodných rizík.
+                .col-lg-3
+                  img(src='./assets/images/service4.png')
+                  h4 Čistenie diskov <br>a ošetrenie pneumatík
+                  p To, aby zostali pneumatiky krásne čierne a prípadne i lesklé, zaistíme dôkladným čistením, ktorým sa nečistoty narušia a odstránia.
+              .carousel-item.row
+                .col-lg-3
+                  img(src='./assets/images/service1.png')
+                  h4 Čistenie <br>a impregnáciu kože
+                  p Koža je jedným z najstarších prírodných materiálov a pre svoje jedinečné vlastnosti je koža veľmi obľúbený materiál.
+                .col-lg-3
+                  img(src='./assets/images/service5.png')
+                  h4 Aplikácia SmartCoat <br>nanotechnológie TiO2
+                  p SmartCoat je revolučný spôsob odovzádavania antimikrobiálnych účinkov na povrchy plôch a to bez zdravodných rizík.
+                .col-lg-3
+                  img(src='./assets/images/service4.png')
+                  h4 Čistenie diskov <br>a ošetrenie pneumatík
+                  p To, aby zostali pneumatiky krásne čierne a prípadne i lesklé, zaistíme dôkladným čistením, ktorým sa nečistoty narušia a odstránia.
+                .col-lg-3
+                  img(src='./assets/images/service3.png')
+                  h4 Dezinfekcia <br>klimatizácie a interiéru
+                  p Dezinfekcia klimatizácie a interiéru vozidla generátorom Ozónu (O3). Ozón ma smrtiaci účinok na baktérie, vírusy, plesne, riasy...
+              .carousel-item.row
+                .col-lg-3
+                  img(src='./assets/images/service5.png')
+                  h4 Aplikácia SmartCoat <br>nanotechnológie TiO2
+                  p SmartCoat je revolučný spôsob odovzádavania antimikrobiálnych účinkov na povrchy plôch a to bez zdravodných rizík.
+                .col-lg-3
+                  img(src='./assets/images/service4.png')
+                  h4 Čistenie diskov <br>a ošetrenie pneumatík
+                  p To, aby zostali pneumatiky krásne čierne a prípadne i lesklé, zaistíme dôkladným čistením, ktorým sa nečistoty narušia a odstránia.
+                .col-lg-3
+                  img(src='./assets/images/service3.png')
+                  h4 Dezinfekcia <br>klimatizácie a interiéru
+                  p Dezinfekcia klimatizácie a interiéru vozidla generátorom Ozónu (O3). Ozón ma smrtiaci účinok na baktérie, vírusy, plesne, riasy...
+                .col-lg-3
+                  img(src='./assets/images/service2.png')
+                  h4 Renovácia <br>a leštenie laku
+                  p Renovácia a leštenie je proces opracovania povrchov, pri ktorom dochádza k veľmi jemnému odberu materiálu, rádovo v mikrónoch.
+    section.aboutus
+      .container  
+        .row
+          .col-lg-6
+            img(src='./assets/images/aboutus.png')
+          .col-lg-6
+            h3 Kto sme a čo pre Vás urobíme?<br>Spoznajte #[strong Car]wellness.
+            p Pripravíme pre Vás umývanie auta podľa požiadaviek Vás a Vášho auta. Pre každého zákazníka máme pripravené maximálne výhodné ceny a kvalitu, ktorú nenájdete v širokom okolí.<br><br>Ponúkame bezdotykové umývanie, ručné umývanie exteriéru a čistenie interiéru auta, vysávanie a tepovanie interiéru, čistenie a impregnáciu kože, leštenie a renováciu laku. Množstvo kamier zabezpečí maximálnu bezpečnosť pre Vašu spokojnosť s našími službami.
+            button.onlineorder Online objednávka
+      .rightpanel
+
+
+
 
 block script
   script(src='./assets/js/carwellness-main.js' deffer)
