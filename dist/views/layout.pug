@@ -1,14 +1,15 @@
 doctype html
 html(lang='en')
+  block vars
+    
   head
+    title= pageTitle
     // Required meta tags
     meta(charset='utf-8')
     meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
-
+    
     // Main CSS
     block css
-
-    title Carwellness
   body
     block content
 

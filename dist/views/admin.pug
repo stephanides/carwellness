@@ -1,12 +1,18 @@
 extends layout
 
+block vars
+  - var pageTitle= 'CarWellness | Admin'
+
 block css
   link(rel='stylesheet' href='../assets/css/main-style.css')
 
-block content  
+block content 
   #wrapper.admin
 
 block script
   script(src='../assets/js/react.development.js' deffer)
   script(src='../assets/js/react-dom.development.js' deffer)
   script(src='../assets/js/admin-bundle.js' deffer)
+  script.
+    console.log('PUG VARIABLE')
+    console.log(!{JSON.stringify(pageTitle)})
