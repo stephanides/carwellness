@@ -90,6 +90,7 @@ class App {
     this.router.get('/', (req, res) => { res.render('index') })
     this.router.get('/admin', (req, res) => { res.render('admin') })
     this.router.get('/admin/:action', (req, res) => { res.render('admin') })
+    this.router.get('/sluzby', (req, res) => { res.render('services') })
 
     this.app.use('/', UserRouter)
     this.app.use(this.router)
