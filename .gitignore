@@ -2,6 +2,10 @@ dist/server/**/**
 dist/public/**/**
 !dist/public/images
 !dist/public/js/carwellness-main.js
+!dist/public/js/react.development.js
+!dist/public/js/react.production.min.js
+!dist/public/js/react-dom.development.js
+!dist/public/js/react-dom.production.min.js
 
 # Logs
 logs
