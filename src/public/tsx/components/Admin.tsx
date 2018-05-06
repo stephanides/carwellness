@@ -13,7 +13,7 @@ export class Admin extends React.Component<Props, {}> {
 
   render() {
     return(
-      <div>
+      <div className='admin-content'>
         <nav className='navbar navbar-expand-lg navbar-light'>
           <div className='container'>
             <a className='navbar-brand'>

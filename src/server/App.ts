@@ -8,6 +8,7 @@ import * as helmet from 'helmet'
 import * as morgan from 'morgan'
 import * as bodyParser from 'body-parser'
 
+import OrderRouter from './routes/Order.router'
 import UserRouter from './routes/User.router'
 
 class App {
@@ -92,7 +93,8 @@ class App {
     this.router.get('/admin/:action', (req, res) => { res.render('admin') })
     this.router.get('/sluzby', (req, res) => { res.render('services') })
 
-    this.app.use('/', UserRouter)
+    this.app.use(OrderRouter)
+    this.app.use(UserRouter)
     this.app.use(this.router)
   }
 }

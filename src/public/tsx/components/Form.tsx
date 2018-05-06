@@ -13,7 +13,7 @@ export class Form extends React.Component<Props, {}> {
 
   render() {
     return(
-      <form onSubmit={e => { this.props.submitForm(e, 'admin/'+this.props.formType, this.props.formType) }}>
+      <form onSubmit={e => { this.props.submitForm(e, 'user/'+this.props.formType, this.props.formType) }}>
         {
           this.props.formType === 'register' ?
           [
