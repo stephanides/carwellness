@@ -8,6 +8,8 @@ import * as helmet from 'helmet'
 import * as morgan from 'morgan'
 import * as bodyParser from 'body-parser'
 
+import UserRouter from './routes/User.router'
+
 class App {
   public app: express.Application
   private db: mongoose.Connection
@@ -47,8 +49,8 @@ class App {
     
     //Compression should be managed by nginx server in production
     this.app.use(compression())
-    this.app.use(bodyParser.json({ limit: '15mb' }))
-    this.app.use(bodyParser.urlencoded({ parameterLimit: 300000, limit: '15mb', extended: false }))
+    this.app.use(bodyParser.json({ limit: '5mb' }))
+    this.app.use(bodyParser.urlencoded({ parameterLimit: 10000, limit: '5mb', extended: false }))
     
     //Set service worker header for service-worker.js - Should be managed by nginx server in production
     //Optional service worker config for offline site behaviour
@@ -65,7 +67,7 @@ class App {
     // Set pug as default template engine
     this.app.set('view engine', 'pug')
     this.app.locals.pretty = false; //False in production
-    this.app.set('views', path.join(__dirname, '../views')); 
+    this.app.set('views', path.join(__dirname, '../views'))
     
     // Connect to DB
     this.dbConnect()
@@ -85,10 +87,11 @@ class App {
   * Methode listing all routes of the application
   */
   private routes(): void {
-    this.router.get('/', (req, res) => {
-      res.render('index')
-    })
-    
+    this.router.get('/', (req, res) => { res.render('index') })
+    this.router.get('/admin', (req, res) => { res.render('admin') })
+    this.router.get('/admin/:action', (req, res) => { res.render('admin') })
+
+    this.app.use('/', UserRouter)
     this.app.use(this.router)
   }
 }
