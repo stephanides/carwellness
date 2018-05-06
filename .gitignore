@@ -1,3 +1,7 @@
+dist/server/**/**
+dist/public/**/**
+!dist/public/images
+
 # Logs
 logs
 *.log
