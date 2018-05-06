@@ -65,9 +65,7 @@ class App {
     this.app.use('/assets', express.static(__dirname + '/../public/'))
     
     // Set pug as default template engine
-    //this.app.set('view engine', 'pug')
-    this.app.engine('pug', require('pug').__express)
-    //this.app.set('view options', { layout: false })
+    this.app.set('view engine', 'pug')
     this.app.locals.pretty = false; //False in production
     this.app.set('views', path.join(__dirname, '../views'))
     
