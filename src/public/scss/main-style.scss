@@ -1,6 +1,11 @@
 @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css');
 @import url('https://use.fontawesome.com/releases/v5.0.12/css/all.css');
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700');
+@import url('./admin-style.css');
+
+
+//variables
+$carwellness-red:rgb(220,0,46);
 
 * { font-family: 'Source Sans Pro', sans-serif; }
 
@@ -16,14 +21,14 @@
       cursor:pointer;
       padding: 30px 10px;
       &:hover{
-        color:rgb(220,0,46);
+        color:$carwellness-red;
       }
     }
     .online-order{
-      background-color:rgb(220,0,46);
+      background-color:$carwellness-red;
       color:white;
       &:hover{
-        background-color:rgb(220,0,46)!important;
+        background-color:$carwellness-red!important;
         color:white!important;
       }
     }
@@ -96,7 +101,7 @@
         cursor:pointer;
         &:hover{
           h4{
-          color:rgb(220,0,46);
+          color:$carwellness-red;
           }
         }
       }
@@ -133,7 +138,7 @@
       }
     }
     strong{
-      color:rgb(220,0,46);
+      color:$carwellness-red;
     }
     .rightpanel{
       width:100vw;
@@ -141,7 +146,7 @@
       height:100%;
       position:absolute;
       z-index: 1000;
-      margin-left:600px;
+      margin-left:500px;
     }
   }
   .gallery{
@@ -185,11 +190,11 @@
     .divider{
       width:100px;
       height: 4px;
-      background-color:rgb(220,0,46);
+      background-color:$carwellness-red;
       margin-bottom:20px;
     }
     strong{
-      color:rgb(220,0,46);
+      color:$carwellness-red;
     }
     h6{
       font-weight:600;
@@ -201,7 +206,7 @@
       margin-bottom:0.4rem;
     }
     .highlight{
-      color:rgb(220,0,46);
+      color:$carwellness-red;
       text-decoration:underline;
     }
     .padding-left-30{
@@ -210,6 +215,18 @@
     .strongblack{
       font-weight:bold;
       color:black !important;
+    }
+    button{
+      padding: 15px 30px;
+      background-color:$carwellness-red;
+      border:none;
+      color:white;
+      outline:none;
+      cursor:pointer;
+      margin-top: 15px;
+      &:hover{
+        background-color:#ae0024;
+      }
     }
   }
 }
