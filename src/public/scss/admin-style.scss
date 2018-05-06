@@ -1,0 +1,35 @@
+
+$cwRed: #dc002e;
+$cwGrey: #eceef2;
+
+#wrapper {
+  &.admin {
+    .navbar {
+      border-bottom: 1px solid $cwGrey;
+      padding: .5rem 0;
+
+      .navbar-brand {
+        display: inline-block;
+        
+        img {
+          width: 50%;
+          margin-right: .5rem;
+        }
+        span {
+          vertical-align: sub
+        }
+      }
+      .navbar-nav {
+        li {
+          button {
+            background-color: transparent;
+            border: 0 none;
+            color: $cwRed;
+            cursor: pointer;
+            outline: none;
+          }
+        }
+      }
+    }
+  }
+}

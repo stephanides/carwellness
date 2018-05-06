@@ -1,12 +1,11 @@
 import * as React from 'react'
 import createBrowserHistory from 'history/createBrowserHistory'
-
 import { Router, Route, Redirect, Switch } from 'react-router'
-
 import { Admin } from './components/Admin'
 import { Login } from './components/Login'
 import { Modal } from './components/Modal'
 import { Register } from './components/Register'
+import { UserPayLoad } from './interfaces/UserPayLoad.interface'
 
 const history = createBrowserHistory()
 
@@ -16,11 +15,6 @@ interface State {
   modalTitle?: string
   login: boolean
   user?: UserPayLoad
-}
-
-interface UserPayLoad {
-  token: string
-  firstName: string
 }
 
 const initialState: State = {
@@ -47,7 +41,7 @@ export class App extends React.Component<{}, State> {
     const user: UserPayLoad | null = this.getUserData() as UserPayLoad
 
     if(user)
-      this.setState({ authorised: true })
+      this.setState({ authorised: true, user: user })
   }
 
   getUserData() {
@@ -65,8 +59,13 @@ export class App extends React.Component<{}, State> {
     return user
   }
 
-  handleModal(message: string, title: string) {
-    this.setState({ modalMessage: message, modalTitle: title.toUpperCase() }, () => { $('#modal').modal('show') })
+  handleModal(message: string, success: boolean) {
+    const title: string = success ? '' : 'Chyba'
+
+    console.log('MODAL')
+    console.log(success)
+
+    this.setState({ modalMessage: message, modalTitle: title }, () => { $('#modal').modal('show') })
   }
 
   storeUserData(data: object): void {
@@ -93,21 +92,24 @@ export class App extends React.Component<{}, State> {
     xhttp.open('POST', _url, true)    
     xhttp.setRequestHeader('Content-Type', 'application/json')
     xhttp.onreadystatechange = () => {
-      if (xhttp.readyState != 4 || xhttp.status != 200) return
+      if(xhttp.readyState === 4) {
+        const resp = JSON.parse(xhttp.response)
 
-      const resp = JSON.parse(xhttp.response)
+        if(xhttp.status === 200) {
+          if(action === 'login') {
+            if(resp['user']['approved']) {
+              const data: UserPayLoad = {
+                token: resp.token,
+                firstName: resp.user.firstName
+              }
 
-      if(action === 'login') {
-        if(resp['user']['approved']) {
-          const data: UserPayLoad = {
-            token: resp.token,
-            firstName: resp.user.firstName
+              self.storeUserData(data)
+            }
+            else self.handleModal('Váš účet zatiaľ nebol schválený. Skúste neskôr prosím.', resp['success'])
           }
-
-          self.storeUserData(data)
+          else self.handleModal(resp['message'], resp['success'])
         }
-        else
-          self.handleModal('Váš účet zatiaľ nebol schválený. Skúste neskôr prosím.')
+        else self.handleModal(resp['message'], resp['success'])
       }
     }
 
@@ -122,7 +124,13 @@ export class App extends React.Component<{}, State> {
     return(
       <Router history={history}>
         <Switch>
-          <Route exact path='/admin' render={() => (this.state.authorised ? <Admin /> : <Redirect to='/admin/login' />)} />
+          <Route exact path='/admin' render={() => (
+            this.state.authorised ?
+            <Admin
+              user={this.state.user}
+            /> :
+            <Redirect to='/admin/login' />
+          )} />
           <Route path='/admin/login' render={() => (
             <Login
               authorised={this.state.authorised}
@@ -132,7 +140,14 @@ export class App extends React.Component<{}, State> {
               submitForm={this.submitForm}
             />
           )} />
-          <Route path='/admin/register' render={() => (<Register submitForm={this.submitForm} />)} />
+          <Route path='/admin/register' render={() => (
+            <Register
+              modalMessage={this.state.modalMessage}
+              modalTitle={this.state.modalTitle}
+
+              submitForm={this.submitForm}
+            />
+          )} />
         </Switch>
       </Router>
     )

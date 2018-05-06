@@ -68,7 +68,7 @@ export class UserController {
         const userCreate: object = await Users.create(newUser)
 
         if(userCreate)
-          res.json({ message: 'User has been sucessfully registered', succes: true })
+          res.json({ message: 'User has been sucessfully registered', success: true })
         else
           this.throwError('Can\'t register user', 500, next)
       }
