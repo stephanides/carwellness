@@ -8,6 +8,134 @@ block css
 
 block content  
   #wrapper
+    nav.navbar.navbar-expand-lg.navbar-light.fixed-top
+      .container
+        a.navbar-brand
+          img(src='./assets/images/logo.png')
+        button.navbar-toggler(type='button' data-toggle='collapse' data-target='navbarCollapse')
+          span.navbar-toggler-icon
+        .collapse.navbar-collapse.justify-content-end#navbarCollapse
+          ul.navbar-nav
+            li.nav-item
+              a.nav-link Domov
+            li.nav-item
+              a.nav-link O nás
+            li.nav-item
+              a.nav-link Služby
+            li.nav-item
+              a.nav-link Galéria
+            li.nav-item
+              a.nav-link Kontakt
+            li.nav-item
+              a.nav-link Reklamácia
+            li.nav-item
+              a.nav-link.online-order Online objednávka
+    .container-fluid.serviceshead
+      img.headpicture(src='./assets/images/serviceshead.png')
+      .container.headContainer
+        h3 Naše služby
+    .container.serviceContent
+      h4 #[strong CAR]wellness je stvorený pre Vaše auto.
+      p Po naších procedúrach nebude žiariť len Vaše auto ale aj Vy od spokojnosti s našími službami.
+    .container.serviceInfo
+      .row.rowservice
+        .col-lg-6
+          img(src='./assets/images/cistenie_diskov.png')
+        .col-lg-6
+          h4 Čistenie diskov <br> a ošetrenie pneumatík
+          p To, aby zostali pneumatiky krásne čierne a prípadne i lesklé, zaistíme dôkladným čistením, ktorým sa nečistoty narušia a odstránia. Na disky kolies používame k tomu určené špeciálne štetce a kefy, ktoré preniknú do všetkých škár a výsledok je stopercentný. Teraz máme kolesá čisté a na rade je impregnácia!
+          p Na impregnáciu používame prípravky, ktoré sú priamo určené na pneumatiky. Majú lepšie vstrebávacie vlastnosti ako prípravky na plasty a odstránia problémy, ktoré postihujú pneumatiky.
+          button Pozrieť na mape
+      .row.rowservice
+        .col-lg-6
+          h4 Dezinfekcia <br> klimatizácie a interiéru
+          p Dezinfekcia klimatizácie a interiéru vozidla generátorom Ozónu (O3).Ozón má smrtiaci účinok na baktérie, vírusy, plesne, riasy, parazity, huby a všetky alergénne látky prítomné v potrubí cirkulácie vzduchu Vášho vozidla. Ozón má navyše tzv. dezodoračný efekt, čoho výsledkom je rozklad zapachajúcich látok a tým odstránenie zápachu.
+          p Oxidáciou likviduje ozón vysokomolekulárne zlúčeniny, organické zlúčeniny a jedovaté aromatické látky.
+          button Pozrieť na mape
+        .col-lg-6
+          img(src='./assets/images/klima.png')
+      .row.rowservice
+        .col-lg-6
+          img(src='./assets/images/lak.png')
+        .col-lg-6
+          h4 Renovácia laku
+          p Renovácia a leštenie je proces opracovania povrchov, pri ktorom dochádza k veľmi jemnému odberu materiálu, rádovo v mikrónoch. Pri leštení lakov automobilov, ale aj iných produktov, dochádza pôsobením abrazív k veľmi jemnému brúseniu povrchu a to až tak, že stopy po tomto mechanickom pôsobení nie sú viditeľné voľným okom.
+          p Povrch je po tomto opracovaní čistý, hladký a lesklý. Hlavným účelom je zlepšenie vzhľadu a zvýšenie kvality povrchu laku na Vašom vozidle.
+          button Pozrieť na mape
+      .row.rowservice
+        .col-lg-6
+          h4 Čistenie <br> a impregnácia kože
+          p Kože je jedným z najstarších prírodných materiálov a pre svoje jedinečné vlastnosti je koža veľmi obľúbený materiál. Kožená sedacia súprava si zachová dlhodobo svoj exkluzívny vzhľad a pôvodné vlastnosti iba v prípade správnej starostlivosti a údržby. Čistenie koženej sedačky sa odporúča dvakrát za rok a po čistení je potrebné urobiť aj ošetrenie čo sa odporúča tiež dvakrát ročne. 
+          p Pri koži si treba dávať veľký pozor na fixky a perá. Popísanú kožu, na ktorú nebol aplikovaný ochranný krém veľmi ťažko vyčistíte.
+          button Pozrieť na mape
+        .col-lg-6
+          img(src='./assets/images/leather.png')
+      .row.rowservice
+        .col-lg-6
+          img(src='./assets/images/cleaning.png')
+        .col-lg-6
+          h4 Vysávanie a tepovanie
+          p Automobil sa starostlivo a detailne vysaje, následne špeciálnym zariadením na tlakový vzduch, ktoré vytvára vzušný vír, odstráni všetok prach aj z miest veľmi ťažko dostupných. Ďalej je na rade starostlivosť o plastové časti interiéru vozidla. Plasty obsahujú okrem iného zmäkčovadlá pre svoju pružnosť a plnidlá, ktoré určujú vlastnosti povrchu.
+          p UV žiarenie, teplo, mráz, čistidlá s obsahom rozpúšťadiel a iné vplyvy prostredia doľahnú časom aj na plasty. Vysušia ich a plasty potom strácajú svoju pružnosť a farbu a tým môže dochádzať aj k popraskaniu. 
+          button Pozrieť na mape
+    section.gallery
+      .container
+        h3 Galéria
+        p Zoznámte sa s našou prácou, ktorú sme odovzdali spokojným klientom.
+        .row
+          .col-lg-6
+            img(src='./assets/images/gallerybentley.png')
+            h4 CARwellness Žilina (Aupark)
+          .col-lg-6
+            img(src='./assets/images/gallerybmw.png')
+            h4 CARwellness Nitra (Mlyny)
+    section.footer
+      .container
+        .row
+          .col-lg-6
+            .row
+              .col
+                h4 Kontakt
+                .divider
+            .row
+              .col-lg-6
+                h6 #[strong Car ]wellness s.r.o
+                p J.Grešáka 2877/22
+                p 085 01, Bardejov
+                p Slovenská republika
+                p &nbsp;
+                p IČO: 46 471 308
+                p DIČ: 2023405230
+              .col-lg-6
+                h6 Zodpovedný vedúci / Manager
+                p Jiří Laník
+                p +421 903 716 656
+                p.highlight j.lanik@carwellness.sk 
+          .col-lg-6
+            .row
+              .col-lg-6.padding-left-30
+                h4 #[strong Car]wellness Žilina
+                .divider
+              .col-lg-6.padding-left-30
+                h4 #[strong Car]wellness Nitra
+                .divider
+            .row
+              .col-lg-6.padding-left-30
+                p Pondelok - Piatok
+                p.strongblack od 7.00 do 21.00
+                p &nbsp;
+                p Sobota - Nedeľa
+                p.strongblack od 8.00 do 21.00
+                button.linkmap Pozrieť na mape
+              .col-lg-6.padding-left-30
+                p Pondelok - Piatok
+                p.strongblack od 8.00 do 21.00
+                p &nbsp;
+                p Sobota - Nedeľa
+                p.strongblack od 8.30 do 21.00
+                button.linkmap Pozrieť na mape
+        
+
     
 block script
   script(src='./assets/js/carwellness-main.js' deffer)

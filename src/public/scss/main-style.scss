@@ -86,6 +86,7 @@ $carwellness-red:rgb(220,0,46);
       }
       .carousel-item{
         background-color:white !important;
+        margin-left:0;
       }
       h4{
         font-size:22px;
@@ -106,11 +107,28 @@ $carwellness-red:rgb(220,0,46);
         }
       }
     }
+    .carousel-control-prev{
+      width:unset;
+      left:-15px;
+      opacity:.65;
+     }
+    .carousel-control-next{
+      width:unset;
+      right:-15px;
+      opacity:.65;
+    }
+    .carousel-control-prev-icon{
+      width:24px;
+      height:24px;
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ff0000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+    }
+    .carousel-control-next-icon{
+      width:24px;
+      height:24px;
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ff0000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+    }
   }
-  .carousel-control-next-icon, .carousel-control-prev-icon{
-    width:30px;
-    height:30px;
-  }
+
   .aboutus{
     position:relative;
     top:150px;
@@ -148,6 +166,18 @@ $carwellness-red:rgb(220,0,46);
       z-index: 1000;
       margin-left:500px;
     }
+    button{
+      padding: 15px 30px;
+      background-color:$carwellness-red;
+      border:none;
+      color:white;
+      outline:none;
+      cursor:pointer;
+      margin-top: 15px;
+      &:hover{
+        background-color:#ae0024;
+      }
+    }
   }
   .gallery{
     position:relative;
@@ -172,6 +202,13 @@ $carwellness-red:rgb(220,0,46);
       font-weight:bold;
       margin-top:10px;
       margin-left: 15px;
+    }
+    img{
+      transition: transform .2s;
+      cursor:pointer;
+      &:hover{
+        transform: scale(1.05);
+      }
     }
   }
   .footer{
@@ -226,6 +263,75 @@ $carwellness-red:rgb(220,0,46);
       margin-top: 15px;
       &:hover{
         background-color:#ae0024;
+      }
+    }
+  }
+.serviceshead{
+    position:relative;
+    top:84px;
+    float:right;
+    padding:0;
+    display:flex;
+    align-items:center;
+    .headpicture{
+      width:100%;
+    }
+    .headContainer{
+      position:absolute;
+      color:white;
+      margin-left:50%;
+      transform:translateX(-50%);
+    }
+    h3{
+      font-size:54px;
+      font-weight:bold;
+      margin:0;
+    }
+  }
+  .serviceContent{
+    position:relative;
+    top:160px;
+    text-align:center;
+    h4{
+      font-size:38px;
+      font-weight:bold;
+      strong{
+        color:$carwellness-red;
+      }
+    }
+    p{
+      font-size:16px;
+      color:rgb(120,124,135);
+    }
+  }
+  .rowservice{
+    position:relative;
+    top:160px;
+    margin-top:100px;
+    .col-lg-6{
+      img{
+        width:100%;
+      }
+      h4{
+        font-size:34px;
+        color:rgb(60,65,71);
+        font-weight:bold;
+      }
+      p{
+        font-size:16px;
+        color:rgb(120,124,135);
+      }
+      button{
+        padding: 15px 30px;
+        background-color:$carwellness-red;
+        border:none;
+        color:white;
+        outline:none;
+        cursor:pointer;
+        margin-top: 15px;
+        &:hover{
+          background-color:#ae0024;
+        }
       }
     }
   }

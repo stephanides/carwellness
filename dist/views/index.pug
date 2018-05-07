@@ -1,5 +1,8 @@
 extends layout
 
+block vars
+  - var pageTitle= 'CarWellness'
+
 block css
   link(rel='stylesheet' href='./assets/css/main-style.css')
 
@@ -136,6 +139,11 @@ block content
                   img(src='./assets/images/service2.png')
                   h4 Renovácia <br>a leštenie laku
                   p Renovácia a leštenie je proces opracovania povrchov, pri ktorom dochádza k veľmi jemnému odberu materiálu, rádovo v mikrónoch.
+            a.carousel-control-prev(href='#servicesCarousel' data-slide='prev')
+              span.carousel-control-prev-icon
+            a.carousel-control-next(href='#servicesCarousel' data-slide='next')
+              span.carousel-control-next-icon
+
     section.aboutus
       .container  
         .row
