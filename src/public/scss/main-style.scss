@@ -6,6 +6,7 @@
 
 //variables
 $carwellness-red:rgb(220,0,46);
+$card-background:rgb(60,65,71);
 
 * { font-family: 'Source Sans Pro', sans-serif; }
 
@@ -332,6 +333,156 @@ $carwellness-red:rgb(220,0,46);
         &:hover{
           background-color:#ae0024;
         }
+      }
+    }
+  }
+  .price-listContent{
+    position:relative;
+    top:160px;
+    text-align:center;
+    h4{
+      font-size:38px;
+      font-weight:bold;
+      strong{
+        color:$carwellness-red;
+      }
+    }
+    p{
+      font-size:16px;
+      color:rgb(120,124,135);
+    }
+  }
+  .price-added-services{
+    position:relative;
+    top:240px;
+    text-align:center;
+    h4{
+      font-size:38px;
+      font-weight:bold;
+      strong{
+        color:$carwellness-red;
+      }
+    }
+    p{
+      font-size:16px;
+      color:rgb(120,124,135);
+    }
+  }
+  .price-list-price{
+    position:relative;
+    top:200px;
+    text-align:center;
+    .card-deck{
+      .card-body{
+        padding:0;
+        background-color:rgb(225,227,232);
+      }
+      .card-body-header{
+        background-color:$card-background;
+        padding:24px;
+          h4{
+            font-size:22px;
+            color:white;
+            font-weight:bold;
+          }
+          h5{
+            font-size:16px;
+            color:rgb(120,124,135);
+            strong{
+              color:white;
+            }
+          } 
+      }
+      .card-body-body{
+        padding-bottom:140px;
+        .light-grey{
+          background-color:rgb(242,243,246);
+        }
+        .dark-grey{
+          background-color:rgb(225,227,232);
+        }
+        p{
+          font-size:14px;
+          color:rgb(60,65,71);
+          font-weight:bold;
+          padding:6px 20px;
+          margin:0;
+        }
+        .price{
+          font-size:34px;
+          color:rgb(120,124,135);
+          font-weight:bold;
+          position:absolute;
+          bottom:64px;
+          width:100%;
+        }
+        button{
+          background-color:$carwellness-red;
+          font-size:16px;
+          color:white;
+          font-weight:bold;
+          position:absolute;
+          bottom:0;
+          width:100%;
+          left:0;
+          padding:20px;
+          outline:none;
+          border:none;
+          cursor:pointer;
+          &:hover{
+            background-color:#ae0024;
+          }
+        }
+      } 
+    }
+  }
+  .top-240{
+    top:240px;
+  }
+  .top-260{
+    top:260px;
+  }
+  .added-services{
+    top:300px;
+    h5{
+      font-size:22px;
+      color:rgb(60,65,71);
+      font-weight:bold;
+      padding: 20px 40px;
+      background-color: #f2f3f6;
+      text-align:left;
+      margin-bottom: 30px;
+    }
+    p{
+      font-size:14px;
+      color: rgb(60,65,71);
+      font-weight:bold;
+      text-align: left;
+      margin: 0;
+      padding: 4px 40px;
+      padding-right:0;
+      strong{
+        text-align:right;
+        color:black;
+      }
+    }
+    .col-lg-9{
+      padding-right:0;
+    }
+    .col-lg-3{
+      padding-left:0;
+      p{
+        text-align:right;
+      }
+    }
+    .col-lg-11{
+      padding-right:0;
+    }  
+    .col-lg-1{
+      padding-left:0;
+      p{
+        text-align:right;
+        padding-left:0;
       }
     }
   }

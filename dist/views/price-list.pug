@@ -8,6 +8,247 @@ block css
 
 block content  
   #wrapper
+    nav.navbar.navbar-expand-lg.navbar-light.fixed-top
+      .container
+        a.navbar-brand
+          img(src='./assets/images/logo.png')
+        button.navbar-toggler(type='button' data-toggle='collapse' data-target='navbarCollapse')
+          span.navbar-toggler-icon
+        .collapse.navbar-collapse.justify-content-end#navbarCollapse
+          ul.navbar-nav
+            li.nav-item
+              a.nav-link Domov
+            li.nav-item
+              a.nav-link Služby
+            li.nav-item
+              a.nav-link Cenník
+            li.nav-item
+              a.nav-link Galéria
+            li.nav-item
+              a.nav-link Kontakt
+            li.nav-item
+              a.nav-link Reklamácia
+            li.nav-item
+              a.nav-link.online-order Online objednávka
+    .container-fluid.serviceshead
+      img.headpicture(src='./assets/images/price-listhead.png')
+      .container.headContainer
+        h3 Cenník služieb
+    .container.price-listContent
+      h4 Pozrite si cenník služieb a programov.
+      p Ak chcete viac informácií ohľadom naších služieb neváhajte nás kontaktovať.
+    .container.price-list-price
+      .card-deck
+        .card
+          .card-body
+            .card-body-header
+              h4 COMFORT
+              h5 Čas trvania: #[strong 1h 30m]
+            .card-body-body
+              p.light-grey Služba obsahuje kombináciu programov #[strong EXTERIÉR a INTERIÉR]
+              p.price 28,00 €
+              button Objednať online
+        .card
+          .card-body
+            .card-body-header
+              h4 EXCLUSIVE
+              h5 Čas trvania: #[strong 4 hodiny]
+            .card-body-body
+              p.light-grey Služba obsahuje program #[strong COMFORT]
+              p Vyčistenie a vyleštenie okien
+              p.light-grey Ošetrenie všetkých plastov interiéru
+              p Tepovanie / čistenie interiéru (záleží od materiálov použitých v interiéri) vrátane batožinového priestoru, všetkých kobercov, sedadiel a operadiel
+              p.light-grey Vyčistenie a leštenie čelného skla
+              p.price 78,00 €
+              button Objednať online
+        .card
+          .card-body
+            .card-body-header
+              h4 EXTERIÉR
+              h5 Čas trvania: #[strong 45 minút]
+            .card-body-body
+              p.light-grey Nanesenie chémie na predumytie vozidla
+              p Odstránenie nečistôt silným tlakom
+              p.light-grey Čistenie diskov kolies
+              p Ručné umývanie šampónom
+              p.light-grey Samosušiaci vosk
+              p Sušenie karosérie a všetkých vnútroných hrán vrátane použitia kompresora
+              p.light-grey Ošetrenie podbehov a pneu
+              p.price 15,00 €
+              button Objednať online
+        .card
+          .card-body
+            .card-body-header
+              h4 INTERIÉR
+              h5 Čas trvania: #[strong 45 minút]
+            .card-body-body
+              p.light-grey Luxovanie interiéru a batožinového priestoru
+              p Suché čistenie interiéru a batožinového priestoru
+              p.light-grey Ošetrenie všetkých plastov interiéru
+              p Prevoňanie interiéru
+              p.light-grey Vyčistenie a leštenie čelného skla
+              p.price 18,00 €
+              button Objednať online
+    .container.price-list-price.top-240
+      .card-deck
+        .card
+          .card-body
+            .card-body-header
+              h4 PRÉMIUM EXTERIÉR
+              h5 Čas trvania: #[strong 12 hodín]
+            .card-body-body
+              p.light-grey Umývanie motora a ošetrenie motorových plastov, nanesenie chémie na predumytie vozidla
+              p Detailné odstránenie nečistôt silným tlakovým umytím, čistenie diskov a kolies, ručné umývanie šampónom
+              p.light-grey Detailné odstránenie asfaltu z karosérie a kolies, odmastnenie karosérie a starých voskov, živice a prilepených kvetov
+              p Detailné clay-ovanie, sušenie karosérie a všetkých vnútroných hrán vrátane použitia kompresora
+              p.light-grey Ošetrenie vonkajších plastových, chromovaných a humových dielov, podbehov a pneu
+              p Ručné leštenie čistiacou a leštiacou pastou s voskom, nanesenie tvrdého karnaubského vosku(produkt ponúka ochranu trvajúcu až 6 mesiacov)
+              p.light-grey Tekuté stierače
+              p.price 108,00 €
+              button Objednať online
+        .card
+          .card-body
+            .card-body-header
+              h4 PREMIUM INTERIÉR
+              h5 Čas trvania: #[strong 12 hodín]
+            .card-body-body
+              p.light-grey Detailné luxovanie interiéru vrátane batožinového priestoru
+              p Detailné suché čistenie interiéru vrátane batožinového priestoru
+              p.light-grey Detailné ošetrenie všetkých plastov interiéru, vyčistenie a vyleštenie okien
+              p Použitie tornádora, tepovanie interiéru vrátane batožinového priestoru, všetkých kobercov, všetkých sedadiel a operadiel
+              p.light-grey Tepovanie stropu, sušenie interiéru, detailné hĺbkové vyčistenie a ošetrenie kožených sedadiel, nanesenie vyživujúcej emulzie
+              p.price 108,00 €
+              button Objednať online
+        .card
+          .card-body
+            .card-body-header
+              h4 AVANGARDE
+              h5 Čas trvania: #[strong 2h 30 minút]
+            .card-body-body
+              p.light-grey Služba obsahuje program #[strong COMFORT]
+              p Vyčistenie a vyleštenie okien
+              p.light-grey Vyčistenie a leštenie čelného skla
+              p.price 58,00 €
+              button Objednať online
+        .card
+          .card-body
+            .card-body-header
+              h4 TOP GLANZ
+              h5 Čas trvania: #[strong 3 hodiny]
+            .card-body-body
+              p.light-grey Služba obsahuje program #[strong COMFORT]
+              p Vyčistenie a vyleštenie okien
+              p.light-grey Ošetrenie vonkajších plastových, chromovaných a gumových dielov
+              p Ručné leštenie čistiacou a leštiacou pastou s voskom
+              p.light-grey (Produkt ponúka ochranu trvajúcu 2 mesiace pred znečistením vonkajšími vplyvmi)
+              p.price 68,00 €
+              button Objednať online
+    .container.price-listContent.added-services
+      h4 Doplnkové služby
+      .row
+        .col-lg-6
+          h5 EXTERIÉR
+          .row
+            .col-lg-9
+              p -odstránenie asfaltu z karosérie a kolies 
+              p -odstránenie živice a prilepených kvetov 
+              p -detailné clay-ovanie 
+              p -umytie motora a ošetrenie motorových plastov 
+              p -tekuté stierače - NANO4life
+              p -renovácia svetlometov 1ks 
+              p -aplikácia leštiacej pasty s voskom 
+            .col-lg-3
+              p #[strong 12€ /24€ /48€]
+              p #[strong 12€ /24€ /48€]
+              p #[strong 24€ /36€]
+              p #[strong 13€]
+              p #[strong 15€ /28€]
+              p #[strong 25€]
+              p #[strong 45€]
+        .col-lg-6
+          h5 INTERIÉR
+          .row
+            .col-lg-11
+              p -tepovanie stropu 
+              p -tepovanie sedadla 
+              p -tepovanie sedadiel a operadiel 
+              p -hĺbkové vyčistenie a ošetrenie kožených sedadiel,
+              p nanesenie vyživujúcej emulzie 
+              p -použitie tornádora 
+              p -dezinfekcia klimatizácie prostriedkom OdorBact Out 
+              p -dezinfekcia klimatizácie a interiéru vozidla generátorom ozónu 
+              p -aplikácie nanotechnológie SmartCoat do interiéru vozidla 
+              p (prevencia pred vírusovými chorobami, riešenie pre alergikov<br>a masívna eliminácia výskytu mikroorganizmov)
+            .col-lg-1
+              p #[span 18€]
+              p #[strong 12€]
+              p #[strong 48€]
+              p &nbsp;
+              p #[strong 48€]
+              p #[strong 15€]
+              p #[strong 12€]
+              p #[strong 20€]
+              p #[strong 88€]
+    section.gallery.top-260
+      .container
+        h3 Galéria
+        p Zoznámte sa s našou prácou, ktorú sme odovzdali spokojným klientom.
+        .row
+          .col-lg-6
+            img(src='./assets/images/gallerybentley.png')
+            h4 CARwellness Žilina (Aupark)
+          .col-lg-6
+            img(src='./assets/images/gallerybmw.png')
+            h4 CARwellness Nitra (Mlyny)
+    section.footer.top-260
+      .container
+        .row
+          .col-lg-6
+            .row
+              .col
+                h4 Kontakt
+                .divider
+            .row
+              .col-lg-6
+                h6 #[strong Car ]wellness s.r.o
+                p J.Grešáka 2877/22
+                p 085 01, Bardejov
+                p Slovenská republika
+                p &nbsp;
+                p IČO: 46 471 308
+                p DIČ: 2023405230
+              .col-lg-6
+                h6 Zodpovedný vedúci / Manager
+                p Jiří Laník
+                p +421 903 716 656
+                p.highlight j.lanik@carwellness.sk 
+          .col-lg-6
+            .row
+              .col-lg-6.padding-left-30
+                h4 #[strong Car]wellness Žilina
+                .divider
+              .col-lg-6.padding-left-30
+                h4 #[strong Car]wellness Nitra
+                .divider
+            .row
+              .col-lg-6.padding-left-30
+                p Pondelok - Piatok
+                p.strongblack od 7.00 do 21.00
+                p &nbsp;
+                p Sobota - Nedeľa
+                p.strongblack od 8.00 do 21.00
+                button.linkmap Pozrieť na mape
+              .col-lg-6.padding-left-30
+                p Pondelok - Piatok
+                p.strongblack od 8.00 do 21.00
+                p &nbsp;
+                p Sobota - Nedeľa
+                p.strongblack od 8.30 do 21.00
+                button.linkmap Pozrieť na mape
+
+
+
+
         
 block script
   script(src='./assets/js/carwellness-main.js' deffer)
