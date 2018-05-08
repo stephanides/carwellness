@@ -92,6 +92,9 @@ class App {
     this.router.get('/admin', (req, res) => { res.render('admin') })
     this.router.get('/admin/:action', (req, res) => { res.render('admin') })
     this.router.get('/sluzby', (req, res) => { res.render('services') })
+    this.router.get('/cennik', (req, res) => { res.render('price-list') })
+    this.router.get('/kontakt', (req, res) => { res.render('contact') })
+    this.router.get('/online-objednavka', (req, res) => { res.render('order') })
 
     this.app.use(OrderRouter)
     this.app.use(UserRouter)
