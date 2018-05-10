@@ -486,5 +486,100 @@ $card-background:rgb(60,65,71);
       }
     }
   }
+  .contact{
+    position:relative;
+    top:240px;
+    h4{
+      font-size:22px;
+      color:rgb(60,65,71);
+      font-weight: bold;
+      margin-bottom:32px;
+    }
+    .divider{
+      width:100px;
+      height: 4px;
+      background-color:$carwellness-red;
+      margin-bottom:20px;
+    }
+    strong{
+      color:$carwellness-red;
+    }
+    h6{
+      font-weight:600;
+      font-size:18px;
+    }
+    p{
+      font-size:18px;
+      color:rgb(120,124,135);
+      margin-bottom: 1px;
+    }
+    .highlight{
+      color:$carwellness-red;
+      text-decoration:underline;
+    }
+    .padding-left-30{
+      padding-left:30px;
+    }
+    .strongblack{
+      font-weight:bold;
+      color:black !important;
+    }
+    button{
+      padding: 15px 30px;
+      background-color:$carwellness-red;
+      border:none;
+      color:white;
+      outline:none;
+      cursor:pointer;
+      margin-top: 0px;
+      &:hover{
+        background-color:#ae0024;
+      }
+      width:100%;
+    }
+    .padding-left-100{
+      padding-left:100px;
+    }
+    form{
+      label{
+        font-size:18px;
+        color: rgb(120, 124, 135);
+        font-weight: bold;
+      }
+      input{
+        font-size:16px;
+        color: rgb(120, 124, 135);
+      }
+      textarea{
+        font-size:16px;
+        color: rgb(120, 124, 135);
+      }
+      .form-control{
+        padding:10px 26px;
+        border:2px solid #b8b9c0;
+        box-shadow:none !important;
+      }
+    }
+  }
+  .mapcontainer{
+    position:relative;
+    top:300px;
+    .map{
+      height:360px;
+    }
+    h4{
+      font-size:22px;
+      color:rgb(60,65,71);
+      font-weight: bold;
+      margin-bottom:32px;
+      text-align:center;
+    }
+    strong{
+      color:$carwellness-red;
+    }
+  }
+  .footerContactSection{
+    top:320px;
+  }
 }
 
