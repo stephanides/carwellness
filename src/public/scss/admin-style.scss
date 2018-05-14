@@ -1,6 +1,7 @@
 
 $cwRed: #dc002e;
 $cwGrey: #eceef2;
+$white: #fff;
 
 #wrapper {
   &.admin {
@@ -27,6 +28,61 @@ $cwGrey: #eceef2;
             color: $cwRed;
             cursor: pointer;
             outline: none;
+          }
+
+          &:hover {
+            .hover-nav {
+              display: block;
+            }  
+          }
+
+          .hover-nav {
+            display: none;
+            cursor: pointer;
+            position: absolute;
+            left: 50%;
+            bottom: -55px;
+            transform: translateX(-50%);
+            padding: 0;
+            z-index: 5;
+
+            &:after, &:before {
+              position: absolute;
+              content: '';
+              width: 0;
+              height: 0;
+              left: 50%;
+              transform: translateX(-50%);
+            }
+            &:after {
+              top: -16px;
+              border-left: 16px solid transparent;
+              border-right: 16px solid transparent;
+              border-bottom: 16px solid $cwGrey;
+            }
+            &:before {
+              top: -14px;
+              border-left: 15px solid transparent;
+              border-right: 15px solid transparent;
+              border-bottom: 15px solid $white;
+              z-index: 1;
+            }
+
+            li {
+              list-style: none;
+              padding: .5rem;
+              border: 1px solid $cwGrey;
+              border-radius: .4rem;
+              background-color: #fff;
+
+              a {
+                white-space: nowrap;
+
+                i {
+                  margin-right: .5rem;
+                }
+              }
+            }
           }
         }
       }

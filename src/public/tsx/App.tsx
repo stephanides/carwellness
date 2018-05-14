@@ -5,6 +5,7 @@ import { Admin } from './components/Admin'
 import { Login } from './components/Login'
 import { Modal } from './components/Modal'
 import { Register } from './components/Register'
+import { Settings } from './components/Settings'
 import { UserPayLoad } from './interfaces/UserPayLoad.interface'
 //import * as WebSocket from 'ws'
 
@@ -66,6 +67,7 @@ export class App extends React.Component<{}, State> {
         console.log(resp.statusText)
     }
   }
+
   getUserData() {
     let user: object | null = {} as UserPayLoad
 
@@ -187,6 +189,14 @@ export class App extends React.Component<{}, State> {
               modalTitle: this.state.modalTitle,
               submitForm: this.submitForm
             })
+          )} />
+          <Route path='/admin/settings' render={() => (
+            this.state.authorised ?
+            Settings({
+              user: this.state.user,
+              signOut: this.signOut
+            }) :
+            <Redirect to='/admin/login' />
           )} />
         </Switch>
       </Router>
