@@ -10,26 +10,26 @@ block content
   #wrapper
     nav.navbar.navbar-expand-lg.navbar-light.fixed-top
       .container
-        a.navbar-brand
+        a.navbar-brand(href='./#')
           img(src='./assets/images/logo.png')
         button.navbar-toggler(type='button' data-toggle='collapse' data-target='navbarCollapse')
           span.navbar-toggler-icon
         .collapse.navbar-collapse.justify-content-end#navbarCollapse
           ul.navbar-nav
             li.nav-item
-              a.nav-link Domov
+              a.nav-link(href='./#') Domov
             li.nav-item
-              a.nav-link Služby
+              a.nav-link(href='./sluzby') Služby
             li.nav-item
-              a.nav-link Cenník
+              a.nav-link(href='./cennik') Cenník
             li.nav-item
-              a.nav-link Galéria
+              a.nav-link(href='./galeria') Galéria
             li.nav-item
-              a.nav-link Kontakt
+              a.nav-link(href='./kontakt') Kontakt
             li.nav-item
-              a.nav-link Reklamácia
+              a.nav-link(href='./reklamacia') Reklamácia
             li.nav-item
-              a.nav-link.online-order Online objednávka
+              a.nav-link.online-order(href='./online-objednavka') Online objednávka
     .container-fluid.serviceshead
       img.headpicture(src='./assets/images/price-listhead.png')
       .container.headContainer

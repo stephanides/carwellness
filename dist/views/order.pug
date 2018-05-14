@@ -8,6 +8,92 @@ block css
 
 block content  
   #wrapper
+    nav.navbar.navbar-expand-lg.navbar-light.fixed-top
+      .container
+        a.navbar-brand(href='./#')
+          img(src='./assets/images/logo.png')
+        button.navbar-toggler(type='button' data-toggle='collapse' data-target='navbarCollapse')
+          span.navbar-toggler-icon
+        .collapse.navbar-collapse.justify-content-end#navbarCollapse
+          ul.navbar-nav
+            li.nav-item
+              a.nav-link(href='./#') Domov
+            li.nav-item
+              a.nav-link(href='./sluzby') Služby
+            li.nav-item
+              a.nav-link(href='./cennik') Cenník
+            li.nav-item
+              a.nav-link(href='./galeria') Galéria
+            li.nav-item
+              a.nav-link(href='./kontakt') Kontakt
+            li.nav-item
+              a.nav-link(href='./reklamacia') Reklamácia
+            li.nav-item
+              a.nav-link.online-order(href='./online-objednavka') Online objednávka
+    .container-fluid.serviceshead
+      img.headpicture(src='./assets/images/order.png')
+      .container.headContainer
+        h3 Online objednávka
+    .container.price-listContent
+      h4 Vyberte si #[strong CAR]wellness vo vašom meste.
+      p O vaše auto sa postará profesionálny tím, ktorý spraví maximum pre Vašu spokojnosť.
+    .container.orderContainer
+      .container.orderChooseCity
+        .row
+          h4 1. Vyberte si autoumyvárku
+          .container
+            .row
+              .col-lg-8
+                .col-lg4
+                  button.choosed CARwellness Žilina (Aupark)
+                  button CARwellness Nitra (Mlyny)
+      .container.orderChooseCarType
+        .row
+          h4 2. Vyberte si typ auta
+          .container
+            .row
+              .col-lg-8
+                .col-lg4
+                  button Auto KLASIK (Kombi,Sedan...)
+                  button.choosed Auto SUV
+      .container.orderChooseProgram
+        .row
+          h4 3. Vyberte si program
+          .container
+            .row.ml-0
+              .col-md-3
+                h5 COMFORT
+                h6 Čas trvania: #[strong 1h 30m]
+                p.price 28,00 €
+              .col-md-3.choosed
+                h5 EXCLUSIVE
+                h6 Čas trvania: #[strong 4 hodiny]
+                p.price 78,00 €
+              .col-md-3
+                h5 EXTERIÉR
+                h6 Čas trvania: #[strong 45 minút]
+                p.price 15,00 €
+              .col-md-3
+                h5 INTERIÉR
+                h6 Čas trvania: #[strong 45 minút]
+                p.price 18,00 €
+              .col-md-3
+                h5 PREMIUM EXTERIÉR
+                h6 Čas trvania: #[strong 12 hodín]
+                p.price 108,00 €
+              .col-md-3
+                h5 PREMIUM INTERIÉR
+                h6 Čas trvania: #[strong 12 hodín]
+                p.price 108,00 €
+              .col-md-3
+                h5 AVANGARDE
+                h6 Čas trvania: #[strong 2h 15m]
+                p.price 78,00 €
+              .col-md-3
+                h5 TOP GLANZ
+                h6 Čas trvania: #[strong 3 hodiny]
+                p.price 68,00 €
+
         
 block script
   script(src='./assets/js/carwellness-main.js' deffer)
