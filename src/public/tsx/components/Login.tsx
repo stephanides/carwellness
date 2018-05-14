@@ -6,34 +6,26 @@ import { Form } from './Form'
 
 interface Props {
   authorised: boolean
-  modalMessage: string
+  modalMessage?: string
   modalTitle: string
 
   submitForm(event: React.FormEvent<HTMLElement>, url: string, action: string): void
 }
 
-export class Login extends React.Component<Props, {}> {
-  constructor(props: Props) {
-    super(props)
-  }
-
-  render() {
-    return(
-      this.props.authorised ? <Redirect to='/admin' /> :
-      [
-        <Modal
-          modalMessage={this.props.modalMessage}
-          modalTitle={this.props.modalTitle}
-
-          key={0}
-        />,
-        <div className='container' key={1}>
-          <h1>Log in</h1>
-
-          <Form formType='login' submitForm={this.props.submitForm} />
-          <p>You don't have an account? <Link to='/admin/register'>Register</Link> please.</p>
-        </div>
-      ]
-    )
-  }
+export const Login: Function = (props: Props) => {
+  return props.authorised ?
+  <Redirect to='/admin' /> :
+  <div className='container' key={1}>
+    {
+      Modal({
+        modalMessage: props.modalMessage,
+        modalTitle: props.modalTitle
+      })
+    }
+    <h1>Log in</h1>
+    {
+      Form({ formType: 'login', submitForm: props.submitForm })
+    }
+    <p>You don't have an account? <Link to='/admin/register'>Register</Link> please.</p>
+  </div>
 }

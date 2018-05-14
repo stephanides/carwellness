@@ -37,7 +37,7 @@ export class OrderController {
       if(!orders || orders.length === 0)
         this.throwError('Nothing found', 404, next)
       else
-        res.json({ message: orders, success: true })
+        res.json({ data: orders, success: true })
     }
     catch(err) {
       return next(err)

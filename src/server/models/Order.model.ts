@@ -7,7 +7,7 @@ export class Order {
   date: string
   deleted: boolean
   email: string
-  name: string
+  fullName: string
   message: string
   phone: string
   program: number
@@ -18,7 +18,7 @@ export class Order {
     date: string
     deleted: boolean
     email: string
-    name: string
+    fullName: string
     message: string
     phone: string
     program: number
@@ -28,7 +28,7 @@ export class Order {
     this.date = data.date
     this.deleted = data.deleted
     this.email = data.email
-    this.name = data.name
+    this.fullName = data.fullName
     this.message = data.message
     this.phone = data.phone
     this.program = data.program
@@ -47,7 +47,7 @@ const OrderSchema = new Schema({
     default: false
   },
   email: String,
-  name: String,
+  fullName: String,
   message: String,
   phone: String,
   program: Number

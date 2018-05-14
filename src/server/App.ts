@@ -7,21 +7,27 @@ import config from './config'
 import * as helmet from 'helmet'
 import * as morgan from 'morgan'
 import * as bodyParser from 'body-parser'
+import * as io from 'socket.io'
+import * as http from 'http'
 
 import OrderRouter from './routes/Order.router'
 import UserRouter from './routes/User.router'
 
 class App {
-  public app: express.Application
+  private app: express.Application
   private db: mongoose.Connection
   private mongoose
   private router: express.Router
+  private io: io
+  public http
   
   constructor() {
     this.app = express()
     this.mongoose = mongoose
     this.db = this.mongoose.connection
     this.router = express.Router()
+    this.http = http.createServer(this.app)
+    this.io = io(this.http)
 
     this.config()
     this.routes()
@@ -64,7 +70,7 @@ class App {
 
     //Serve static files from imaginary /assets directory
     this.app.use('/assets', express.static(__dirname + '/../public/'))
-    
+
     // Set pug as default template engine
     this.app.set('view engine', 'pug')
     this.app.locals.pretty = false; //False in production
@@ -95,6 +101,12 @@ class App {
     this.router.get('/cennik', (req, res) => { res.render('price-list') })
     this.router.get('/kontakt', (req, res) => { res.render('contact') })
     this.router.get('/online-objednavka', (req, res) => { res.render('order') })
+    this.router.get('/galeria', (req, res) => { res.render('gallery') })
+    this.router.get('/reklamacia', (req, res) => { res.render('claim') })
+
+    this.io.on('connection', socket => {
+      console.log('User connected')
+    })
 
     this.app.use(OrderRouter)
     this.app.use(UserRouter)
@@ -102,4 +114,4 @@ class App {
   }
 }
 
-export default new App().app
+export default new App().http

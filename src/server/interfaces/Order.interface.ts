@@ -4,7 +4,7 @@ export interface IOrder {
   date: string
   deleted: boolean
   email: string
-  name: string
+  fullName: string
   message: string
   phone: string
   program: number

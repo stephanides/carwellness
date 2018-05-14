@@ -6,6 +6,7 @@ import { Login } from './components/Login'
 import { Modal } from './components/Modal'
 import { Register } from './components/Register'
 import { UserPayLoad } from './interfaces/UserPayLoad.interface'
+//import * as WebSocket from 'ws'
 
 const history = createBrowserHistory()
 
@@ -14,6 +15,7 @@ interface State {
   modalMessage?: string
   modalTitle?: string
   login: boolean
+  orderList?: Array<object>
   user?: UserPayLoad
 }
 
@@ -24,15 +26,20 @@ const initialState: State = {
 
 export class App extends React.Component<{}, State> {
   private myStorage: Storage
-
+  private ws: WebSocket
+  
   constructor(props: State) {
     super(props)
 
     this.myStorage = localStorage
     this.state = initialState
+    //this.ws = new WebSocket('ws:/localhost:4141/order/order-create')
 
     this.authenticate = this.authenticate.bind(this)
+    this.getOrderList = this.getOrderList.bind(this)
     this.handleModal = this.handleModal.bind(this)
+    //this.onWebSockets = this.onWebSockets.bind(this)
+    this.signOut = this.signOut.bind(this)
     this.storeUserData = this.storeUserData.bind(this)
     this.submitForm = this.submitForm.bind(this)
   }
@@ -44,6 +51,21 @@ export class App extends React.Component<{}, State> {
       this.setState({ authorised: true, user: user })
   }
 
+  async getOrderList() {
+    const url = '/order/orders'
+    const resp: Response = await fetch(url)
+
+    if(resp) {
+      if(resp.status === 200) {
+        const respJSON: Array<object> = await resp.json()
+
+        if(respJSON)
+          this.setState({ orderList: respJSON['data'] })
+      }
+      else
+        console.log(resp.statusText)
+    }
+  }
   getUserData() {
     let user: object | null = {} as UserPayLoad
 
@@ -53,8 +75,7 @@ export class App extends React.Component<{}, State> {
         firstName: this.myStorage.getItem('uFN')
       }
     }
-    else
-      user = null
+    else user = null
 
     return user
   }
@@ -62,10 +83,27 @@ export class App extends React.Component<{}, State> {
   handleModal(message: string, success: boolean) {
     const title: string = success ? '' : 'Chyba'
 
-    console.log('MODAL')
-    console.log(success)
-
     this.setState({ modalMessage: message, modalTitle: title }, () => { $('#modal').modal('show') })
+  }
+
+  /*onWebSockets() {
+    this.ws.onopen = () => {
+      console.log('OPENING WS')
+    }
+
+    this.ws.onerror = (error) => {
+      console.log(error)
+    }
+
+    this.ws.onmessage = (data) => {
+      console.log('RECIEVE SOMETHING')
+      console.log(data)
+    }
+  }*/
+
+  signOut() {
+    this.setState({ authorised: false, user: {} as UserPayLoad })
+    this.myStorage.clear()
   }
 
   storeUserData(data: object): void {
@@ -126,27 +164,29 @@ export class App extends React.Component<{}, State> {
         <Switch>
           <Route exact path='/admin' render={() => (
             this.state.authorised ?
-            <Admin
-              user={this.state.user}
-            /> :
+            Admin({
+              user: this.state.user,
+              signOut: this.signOut,
+              getOrderList: this.getOrderList,
+              //onWebSockets: this.onWebSockets,
+              orderList: this.state.orderList
+            }) :
             <Redirect to='/admin/login' />
           )} />
           <Route path='/admin/login' render={() => (
-            <Login
-              authorised={this.state.authorised}
-              modalMessage={this.state.modalMessage}
-              modalTitle={this.state.modalTitle}
-
-              submitForm={this.submitForm}
-            />
+            Login({
+              authorised: this.state.authorised,
+              modalMessage: this.state.modalMessage,
+              modalTitle: this.state.modalTitle,
+              submitForm: this.submitForm
+            })
           )} />
           <Route path='/admin/register' render={() => (
-            <Register
-              modalMessage={this.state.modalMessage}
-              modalTitle={this.state.modalTitle}
-
-              submitForm={this.submitForm}
-            />
+            Register({
+              modalMessage: this.state.modalMessage,
+              modalTitle: this.state.modalTitle,
+              submitForm: this.submitForm
+            })
           )} />
         </Switch>
       </Router>
