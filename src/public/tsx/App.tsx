@@ -36,6 +36,7 @@ export class App extends React.Component<{}, State> {
     this.state = initialState
     //this.ws = new WebSocket('ws:/localhost:4141/order/order-create')
     this.authenticate = this.authenticate.bind(this)
+    this.changeUserApprovedProperty = this.changeUserApprovedProperty.bind(this)
     this.getOrderList = this.getOrderList.bind(this)
     this.getUsersList = this.getUsersList.bind(this)
     this.handleModal = this.handleModal.bind(this)
@@ -43,6 +44,7 @@ export class App extends React.Component<{}, State> {
     this.signOut = this.signOut.bind(this)
     this.storeUserData = this.storeUserData.bind(this)
     this.submitForm = this.submitForm.bind(this)
+    this.updateUser = this.updateUser.bind(this)
   }
 
   authenticate(): void {
@@ -50,6 +52,13 @@ export class App extends React.Component<{}, State> {
 
     if(user)
       this.setState({ authorised: true, user: user })
+  }
+
+  changeUserApprovedProperty(updatedUsers: Array<object>, callback?:() => void) {
+    this.setState({ usersList: updatedUsers }, () => {
+      if(typeof callback === 'function')
+        callback()
+    })
   }
 
   async getOrderList() {
@@ -83,6 +92,30 @@ export class App extends React.Component<{}, State> {
     return user
   }
 
+  async updateUser(user: object) {
+    const url: string = '/user/user/'+user['_id']
+    const data: object = user
+
+    const response: Response = await fetch(url, {
+      body: JSON.stringify(data),
+      headers: { 'content-type': 'application/json' },
+      method: 'PUT'
+    })
+
+    if(response) {
+      if(response.status === 200) {
+        const responseJSON: object = await response.json()
+
+        if(responseJSON['success'])
+          console.log(responseJSON['message'])
+        else
+          console.log(responseJSON['message'])
+      }
+      else
+        console.log(response.statusText)
+    }
+  }
+
   async getUsersList() {
     const url = '/user/users'
     const resp: Response = await fetch(url)
@@ -94,8 +127,7 @@ export class App extends React.Component<{}, State> {
         if(respJSON)
           this.setState({ usersList: respJSON['data'] })
       }
-      else
-        console.log(resp.statusText)
+      else console.log(resp.statusText)
     }
   }
 
@@ -221,7 +253,9 @@ export class App extends React.Component<{}, State> {
               user: this.state.user,
               usersList: this.state.usersList,
               signOut: this.signOut,
-              getUsersList: this.getUsersList
+              changeUserApprovedProperty: this.changeUserApprovedProperty,
+              getUsersList: this.getUsersList,
+              updateUser: this.updateUser
             }) :
             <Redirect to='/admin/login' />
           )} />

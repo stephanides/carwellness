@@ -16,4 +16,8 @@ router.post('/user/register', (req, res, next) => {
   user.register(req, res, next)
 })
 
+router.put('/user/user/:id', (req, res, next) => {
+  user.updateUser(req, res, next)
+})
+
 export default router
