@@ -10,15 +10,12 @@ interface Props {
 }
 
 export const Settings: Function = (props: Props) => {
-  console.log('SETTINGS')
-  console.log(props)
-
   return(
     <div className='admin-content'>
       {
         Nav({ user: props.user, signOut: props.signOut })
       }
-      <div>USER SETTINGS</div>
+      <div className='container-fluid'>USER SETTINGS</div>
     </div>
   )
 }

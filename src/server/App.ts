@@ -69,6 +69,7 @@ class App {
     })*/
 
     //Serve static files from imaginary /assets directory
+    //Should be managed by nginx server in production
     this.app.use('/assets', express.static(__dirname + '/../public/'))
 
     // Set pug as default template engine

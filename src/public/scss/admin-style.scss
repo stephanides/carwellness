@@ -87,5 +87,8 @@ $white: #fff;
         }
       }
     }
+    .no-orders {
+      height: calc(100vh - 200px)
+    }
   }
 }

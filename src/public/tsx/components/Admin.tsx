@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Link } from 'react-router'
 import { Nav } from './Nav'
+import { Redirect } from 'react-router'
 import { UserPayLoad } from '../interfaces/UserPayLoad.interface'
 
 interface Props {
@@ -14,7 +14,6 @@ interface Props {
 
 export const Admin: Function = (props: Props) => {
   //props.onWebSockets()
-
   if(!props.orderList || props.orderList.length === 0)
     props.getOrderList()
 
@@ -24,6 +23,8 @@ export const Admin: Function = (props: Props) => {
         Nav({ user: props.user, signOut: props.signOut })
       }
       <div className='container-fluid'>
+        <h3>Objednávky</h3>
+
         <div className='list-group order-list-container'>
           <div className='list-group-item'>
             <div className='row'>
@@ -56,7 +57,14 @@ export const Admin: Function = (props: Props) => {
                   </div>
                 </div>
               )
-            }) : null
+            }) :
+            <div className='no-orders list-group-item d-flex justify-content-center align-items-center'>
+              <div className='row'>
+                <div className='col'>
+                  <h6 className='text-center'>Neboli nájdené žiadne objednávky</h6>
+                </div>
+              </div>
+            </div>
           }
         </div>
       </div>

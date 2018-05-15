@@ -3,12 +3,10 @@ import createBrowserHistory from 'history/createBrowserHistory'
 import { Router, Route, Redirect, Switch } from 'react-router'
 import { Admin } from './components/Admin'
 import { Login } from './components/Login'
-import { Modal } from './components/Modal'
 import { Register } from './components/Register'
 import { Settings } from './components/Settings'
 import { UserPayLoad } from './interfaces/UserPayLoad.interface'
 //import * as WebSocket from 'ws'
-
 const history = createBrowserHistory()
 
 interface State {
@@ -35,7 +33,6 @@ export class App extends React.Component<{}, State> {
     this.myStorage = localStorage
     this.state = initialState
     //this.ws = new WebSocket('ws:/localhost:4141/order/order-create')
-
     this.authenticate = this.authenticate.bind(this)
     this.getOrderList = this.getOrderList.bind(this)
     this.handleModal = this.handleModal.bind(this)
@@ -74,7 +71,8 @@ export class App extends React.Component<{}, State> {
     if(this.myStorage.getItem('token') && this.myStorage.getItem('uFN')) {
       user = {
         token: this.myStorage.getItem('token'),
-        firstName: this.myStorage.getItem('uFN')
+        firstName: this.myStorage.getItem('uFN'),
+        role: parseInt(this.myStorage.getItem('uR'))
       }
     }
     else user = null
@@ -92,11 +90,9 @@ export class App extends React.Component<{}, State> {
     this.ws.onopen = () => {
       console.log('OPENING WS')
     }
-
     this.ws.onerror = (error) => {
       console.log(error)
     }
-
     this.ws.onmessage = (data) => {
       console.log('RECIEVE SOMETHING')
       console.log(data)
@@ -111,6 +107,7 @@ export class App extends React.Component<{}, State> {
   storeUserData(data: object): void {
     this.myStorage.setItem('token', data['token'])
     this.myStorage.setItem('uFN', data['firstName'])
+    this.myStorage.setItem('uR', data['role'])
 
     this.authenticate()
   }
@@ -140,7 +137,8 @@ export class App extends React.Component<{}, State> {
             if(resp['user']['approved']) {
               const data: UserPayLoad = {
                 token: resp.token,
-                firstName: resp.user.firstName
+                firstName: resp.user.firstName,
+                role: resp.user.role
               }
 
               self.storeUserData(data)
