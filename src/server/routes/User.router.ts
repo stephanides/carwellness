@@ -4,6 +4,10 @@ import { UserController } from '../controllers/User.controller'
 const router = express.Router()
 const user = new UserController()
 
+router.get('/user/users', (req, res, next) => {
+  user.getUsers(req, res, next)
+})
+
 router.post('/user/login', (req, res, next) => {
   user.login(req, res, next)
 })

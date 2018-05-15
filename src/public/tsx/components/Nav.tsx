@@ -9,7 +9,6 @@ interface Props {
 }
 
 export const Nav: Function = (props: Props) => {
-  console.log(props.user)
   return(
     <nav className='navbar navbar-expand-lg navbar-light mb-3'>
       <div className='container'>

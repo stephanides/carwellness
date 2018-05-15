@@ -18,6 +18,20 @@ export class UserController {
     this.setToken = this.setToken.bind(this)
   }
 
+  async getUsers(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const users: Array<object> = await Users.find()
+
+      if(!users || users.length === 0)
+        this.throwError('No user found', 404, next)
+      else
+        res.json({ data: users, success: true })
+    }
+    catch(err) {
+      return next(err)
+    }
+  }
+
   async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const userItem: object = await Users.findOne({ email: req.body.email })

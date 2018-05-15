@@ -5,6 +5,7 @@ import { Admin } from './components/Admin'
 import { Login } from './components/Login'
 import { Register } from './components/Register'
 import { Settings } from './components/Settings'
+import { Users } from './components/Users'
 import { UserPayLoad } from './interfaces/UserPayLoad.interface'
 //import * as WebSocket from 'ws'
 const history = createBrowserHistory()
@@ -16,6 +17,7 @@ interface State {
   login: boolean
   orderList?: Array<object>
   user?: UserPayLoad
+  usersList?: Array<object>
 }
 
 const initialState: State = {
@@ -35,6 +37,7 @@ export class App extends React.Component<{}, State> {
     //this.ws = new WebSocket('ws:/localhost:4141/order/order-create')
     this.authenticate = this.authenticate.bind(this)
     this.getOrderList = this.getOrderList.bind(this)
+    this.getUsersList = this.getUsersList.bind(this)
     this.handleModal = this.handleModal.bind(this)
     //this.onWebSockets = this.onWebSockets.bind(this)
     this.signOut = this.signOut.bind(this)
@@ -78,6 +81,22 @@ export class App extends React.Component<{}, State> {
     else user = null
 
     return user
+  }
+
+  async getUsersList() {
+    const url = '/user/users'
+    const resp: Response = await fetch(url)
+
+    if(resp) {
+      if(resp.status === 200) {
+        const respJSON: Array<object> = await resp.json()
+
+        if(respJSON)
+          this.setState({ usersList: respJSON['data'] })
+      }
+      else
+        console.log(resp.statusText)
+    }
   }
 
   handleModal(message: string, success: boolean) {
@@ -193,6 +212,16 @@ export class App extends React.Component<{}, State> {
             Settings({
               user: this.state.user,
               signOut: this.signOut
+            }) :
+            <Redirect to='/admin/login' />
+          )} />
+          <Route path='/admin/users' render={() => (
+            this.state.authorised ?
+            Users({
+              user: this.state.user,
+              usersList: this.state.usersList,
+              signOut: this.signOut,
+              getUsersList: this.getUsersList
             }) :
             <Redirect to='/admin/login' />
           )} />
