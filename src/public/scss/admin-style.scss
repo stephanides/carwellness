@@ -145,5 +145,22 @@ $white: #fff;
     .no-orders {
       height: calc(100vh - 200px)
     }
+    form {
+      .input-group {
+        .input-group-append {
+          .input-group-text {
+            button {
+              border: 0;
+              background-color: transparent;
+              outline: none;
+
+              &:hover {
+                color: $cwRed;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

@@ -16,13 +16,15 @@ interface State {
   modalTitle?: string
   login: boolean
   orderList?: Array<object>
+  showHidePassword: boolean
   user?: UserPayLoad
   usersList?: Array<object>
 }
 
 const initialState: State = {
   authorised: false,
-  login: true
+  login: true,
+  showHidePassword: false
 } 
 
 export class App extends React.Component<{}, State> {
@@ -37,6 +39,7 @@ export class App extends React.Component<{}, State> {
     //this.ws = new WebSocket('ws:/localhost:4141/order/order-create')
     this.authenticate = this.authenticate.bind(this)
     this.changeUserApprovedProperty = this.changeUserApprovedProperty.bind(this)
+    this.changeShowHidePassword = this.changeShowHidePassword.bind(this)
     this.getOrderList = this.getOrderList.bind(this)
     this.getUsersList = this.getUsersList.bind(this)
     this.handleModal = this.handleModal.bind(this)
@@ -59,6 +62,13 @@ export class App extends React.Component<{}, State> {
       if(typeof callback === 'function')
         callback()
     })
+  }
+
+  changeShowHidePassword() {
+    if(this.state.showHidePassword)
+      this.setState({ showHidePassword: false })
+    else
+      this.setState({ showHidePassword: true })
   }
 
   async getOrderList() {
@@ -242,7 +252,9 @@ export class App extends React.Component<{}, State> {
           <Route path='/admin/settings' render={() => (
             this.state.authorised ?
             Settings({
+              showHidePassword: this.state.showHidePassword,
               user: this.state.user,
+              changeShowHidePassword: this.changeShowHidePassword,
               signOut: this.signOut
             }) :
             <Redirect to='/admin/login' />
