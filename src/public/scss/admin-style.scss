@@ -12,13 +12,18 @@ $white: #fff;
 
       .navbar-brand {
         display: inline-block;
-        
+
+        &:hover {
+          span {
+            color: $cwRed;
+          }
+        }        
         img {
           width: 50%;
           margin-right: .5rem;
         }
         span {
-          vertical-align: sub
+          vertical-align: sub;
         }
       }
       .navbar-nav {

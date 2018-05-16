@@ -3,6 +3,7 @@ import createBrowserHistory from 'history/createBrowserHistory'
 import { Router, Route, Redirect, Switch } from 'react-router'
 import { Admin } from './components/Admin'
 import { Login } from './components/Login'
+import { Link } from 'react-router-dom'
 import { Register } from './components/Register'
 import { Settings } from './components/Settings'
 import { Users } from './components/Users'
@@ -12,13 +13,14 @@ const history = createBrowserHistory()
 
 interface State {
   authorised: boolean
-  modalMessage?: string
+  modalMessage?: string | JSX.Element
   modalTitle?: string
   login: boolean
-  orderList?: Array<object>
+  orderList?: Array<object> | null
+  claimList?: Array<object> | null
   showHidePassword: boolean
   user?: UserPayLoad
-  usersList?: Array<object>
+  usersList?: Array<object> | null
 }
 
 const initialState: State = {
@@ -41,6 +43,7 @@ export class App extends React.Component<{}, State> {
     this.changeUserApprovedProperty = this.changeUserApprovedProperty.bind(this)
     this.changeShowHidePassword = this.changeShowHidePassword.bind(this)
     this.getOrderList = this.getOrderList.bind(this)
+    this.getClaimList = this.getClaimList.bind(this)
     this.getUsersList = this.getUsersList.bind(this)
     this.handleModal = this.handleModal.bind(this)
     //this.onWebSockets = this.onWebSockets.bind(this)
@@ -72,7 +75,7 @@ export class App extends React.Component<{}, State> {
   }
 
   async getOrderList() {
-    const url = '/order/orders'
+    const url = '/order/orders/'+this.state.user.city
     const resp: Response = await fetch(url)
 
     if(resp) {
@@ -81,6 +84,22 @@ export class App extends React.Component<{}, State> {
 
         if(respJSON)
           this.setState({ orderList: respJSON['data'] })
+      }
+      else
+        console.log(resp.statusText)
+    }
+  }
+
+  async getClaimList() {
+    const url = '/claim/claims/'+this.state.user.city
+    const resp: Response = await fetch(url)
+
+    if(resp) {
+      if(resp.status === 200) {
+        const respJSON: Array<object> = await resp.json()
+
+        if(respJSON)
+          this.setState({ claimList: respJSON['data'] })
       }
       else
         console.log(resp.statusText)
@@ -162,7 +181,14 @@ export class App extends React.Component<{}, State> {
   }*/
 
   signOut() {
-    this.setState({ authorised: false, user: {} as UserPayLoad })
+    this.setState({ 
+      authorised: false,
+      orderList: null,
+      showHidePassword: false,
+      user: {} as UserPayLoad,
+      claimList: null,
+      usersList: null
+    })
     this.myStorage.clear()
   }
 
@@ -213,6 +239,11 @@ export class App extends React.Component<{}, State> {
             }
             else self.handleModal('Váš účet zatiaľ nebol schválený. Skúste neskôr prosím.', resp['success'])
           }
+          else if(action === 'register') {
+            if(resp['success']) {
+              self.handleModal(<span>Registrácia prebehla úspešne. <Link to='/admin/login' onClick={() => {$('#modal').modal('hide')}}>Prihláste sa</Link> prosím.</span>, resp['success'])
+            }
+          }
           else self.handleModal(resp['message'], resp['success'])
         }
         else self.handleModal(resp['message'], resp['success'])
@@ -236,7 +267,9 @@ export class App extends React.Component<{}, State> {
               user: this.state.user,
               signOut: this.signOut,
               getOrderList: this.getOrderList,
+              getClaimList: this.getClaimList,
               //onWebSockets: this.onWebSockets,
+              claimList: this.state.claimList,
               orderList: this.state.orderList
             }) :
             <Redirect to='/admin/login' />

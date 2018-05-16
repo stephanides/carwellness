@@ -5,7 +5,7 @@ export class User {
   firstName: string
   lastName: string
   email: string
-  city: number
+  city?: number
   password: string
   role: number
   approved: boolean
@@ -14,7 +14,7 @@ export class User {
     firstName: string
     lastName: string
     email: string
-    city: number
+    city?: number
     password: string
     role?: number
     approved?: boolean

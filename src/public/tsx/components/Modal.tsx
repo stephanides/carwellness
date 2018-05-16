@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 interface Props {
-  modalMessage?: string
+  modalMessage?: string | JSX.Element
   modalTitle?: string
 }
 
