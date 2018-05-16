@@ -239,6 +239,8 @@ export class App extends React.Component<{}, State> {
               authorised: this.state.authorised,
               modalMessage: this.state.modalMessage,
               modalTitle: this.state.modalTitle,
+              showHidePassword: this.state.showHidePassword,
+              changeShowHidePassword: this.changeShowHidePassword,
               submitForm: this.submitForm
             })
           )} />
@@ -246,6 +248,8 @@ export class App extends React.Component<{}, State> {
             Register({
               modalMessage: this.state.modalMessage,
               modalTitle: this.state.modalTitle,
+              changeShowHidePassword: this.changeShowHidePassword,
+              showHidePassword: this.state.showHidePassword,
               submitForm: this.submitForm
             })
           )} />

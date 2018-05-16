@@ -6,7 +6,9 @@ import { Form } from './Form'
 interface Props {
   modalMessage?: string
   modalTitle?: string
+  showHidePassword: boolean
   
+  changeShowHidePassword(): void
   submitForm(event: React.FormEvent<HTMLElement>, url: string, action: string): void
 }
 
@@ -19,11 +21,16 @@ export const Register: Function = (props: Props) => {
           modalTitle: props.modalTitle
         })
       }
-      <h1>Register</h1>
+      <h1>Registerácia</h1>
       {
-        Form({ formType: 'register', submitForm: props.submitForm})
+        Form({
+          formType: 'register',
+          showHidePassword: props.showHidePassword,
+          changeShowHidePassword: props.changeShowHidePassword,
+          submitForm: props.submitForm
+        })
       }
-      <p>You allready have an account? <Link to='/admin/login'>Log in</Link> please.</p>
+      <p>Už máte účet? <Link to='/admin/login'>Prihláste sa</Link> prosím.</p>
     </div>
   ]
 }

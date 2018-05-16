@@ -7,5 +7,5 @@ export interface IOrder {
   fullName: string
   message: string
   phone: string
-  program: number
+  program: Array<boolean> //number
 }

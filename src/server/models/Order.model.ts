@@ -10,7 +10,7 @@ export class Order {
   fullName: string
   message: string
   phone: string
-  program: number
+  program: Array<boolean> //number
 
   constructor(data: {
     city: string
@@ -21,7 +21,7 @@ export class Order {
     fullName: string
     message: string
     phone: string
-    program: number
+    program: Array<boolean> //number
   }) {
     this.city = data.city
     this.carType = data.carType
@@ -50,7 +50,7 @@ const OrderSchema = new Schema({
   fullName: String,
   message: String,
   phone: String,
-  program: Number
+  program: Array
 })
 
 export interface OrderDocument extends Order, Document {}

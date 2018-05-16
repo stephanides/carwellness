@@ -8,7 +8,9 @@ interface Props {
   authorised: boolean
   modalMessage?: string
   modalTitle: string
+  showHidePassword: boolean
 
+  changeShowHidePassword(): void
   submitForm(event: React.FormEvent<HTMLElement>, url: string, action: string): void
 }
 
@@ -22,10 +24,15 @@ export const Login: Function = (props: Props) => {
         modalTitle: props.modalTitle
       })
     }
-    <h1>Log in</h1>
+    <h1>Prihlásenie</h1>
     {
-      Form({ formType: 'login', submitForm: props.submitForm })
+      Form({
+          formType: 'login',
+          showHidePassword: props.showHidePassword,
+          changeShowHidePassword: props.changeShowHidePassword,
+          submitForm: props.submitForm
+        })
     }
-    <p>You don't have an account? <Link to='/admin/register'>Register</Link> please.</p>
+    <p>Nemáte účet? <Link to='/admin/register'>Zaregistrujte sa</Link> prosím.</p>
   </div>
 }
