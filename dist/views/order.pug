@@ -8,91 +8,206 @@ block css
 
 block content  
   #wrapper
-    nav.navbar.navbar-expand-lg.navbar-light.fixed-top
-      .container
-        a.navbar-brand(href='./#')
-          img(src='./assets/images/logo.png')
-        button.navbar-toggler(type='button' data-toggle='collapse' data-target='navbarCollapse')
-          span.navbar-toggler-icon
-        .collapse.navbar-collapse.justify-content-end#navbarCollapse
-          ul.navbar-nav
-            li.nav-item
-              a.nav-link(href='./#') Domov
-            li.nav-item
-              a.nav-link(href='./sluzby') Služby
-            li.nav-item
-              a.nav-link(href='./cennik') Cenník
-            li.nav-item
-              a.nav-link(href='./galeria') Galéria
-            li.nav-item
-              a.nav-link(href='./kontakt') Kontakt
-            li.nav-item
-              a.nav-link(href='./reklamacia') Reklamácia
-            li.nav-item
-              a.nav-link.online-order(href='./online-objednavka') Online objednávka
-    .container-fluid.serviceshead
-      img.headpicture(src='./assets/images/order.png')
-      .container.headContainer
-        h3 Online objednávka
-    .container.price-listContent
-      h4 Vyberte si #[strong CAR]wellness vo vašom meste.
-      p O vaše auto sa postará profesionálny tím, ktorý spraví maximum pre Vašu spokojnosť.
-    .container.orderContainer
-      .container.orderChooseCity
+    .orderwrapper
+      nav.navbar.navbar-expand-lg.navbar-light.fixed-top
+        .container
+          a.navbar-brand(href='./#')
+            img(src='./assets/images/logo.png')
+          button.navbar-toggler(type='button' data-toggle='collapse' data-target='navbarCollapse')
+            span.navbar-toggler-icon
+          .collapse.navbar-collapse.justify-content-end#navbarCollapse
+            ul.navbar-nav
+              li.nav-item
+                a.nav-link(href='./#') Domov
+              li.nav-item
+                a.nav-link(href='./sluzby') Služby
+              li.nav-item
+                a.nav-link(href='./cennik') Cenník
+              li.nav-item
+                a.nav-link(href='./galeria') Galéria
+              li.nav-item
+                a.nav-link(href='./kontakt') Kontakt
+              li.nav-item
+                a.nav-link(href='./reklamacia') Reklamácia
+              li.nav-item
+                a.nav-link.online-order(href='./online-objednavka') Online objednávka
+      .container-fluid.serviceshead
+        img.headpicture(src='./assets/images/order.png')
+        .container.headContainer
+          h3 Online objednávka
+      .container.price-listContent
+        h4 Vyberte si #[strong CAR]wellness vo vašom meste.
+        p O vaše auto sa postará profesionálny tím, ktorý spraví maximum pre Vašu spokojnosť.
+      .container.orderContainer
+        .container.orderChooseCity
+          .row
+            h4 1. Vyberte si autoumyvárku
+            .container
+              .row
+                .col-md-10
+                  .row
+                    .col-md-6
+                      button.btn-block.choosed CARwellness Žilina (Aupark)
+                    .col-md-6
+                      button.btn-block CARwellness Nitra (Mlyny)
+        .container.orderChooseCarType
+          .row
+            h4 2. Vyberte si typ auta
+            .container
+              .row
+                .col-md-10
+                  .row
+                    .col-md-6
+                      button.btn-block Auto KLASIK (Kombi,Sedan...)
+                    .col-md-6
+                      button.btn-block.choosed Auto SUV
+        .container.orderChooseProgram
+          .row
+            h4 3. Vyberte si program
+            .container
+              .row.ml-0
+                .col-md-3
+                  h5 COMFORT
+                  h6 Čas trvania: #[strong 1h 30m]
+                  p.price 28,00 €
+                .col-md-3.choosed
+                  h5 EXCLUSIVE
+                  h6 Čas trvania: #[strong 4 hodiny]
+                  p.price 78,00 €
+                .col-md-3
+                  h5 EXTERIÉR
+                  h6 Čas trvania: #[strong 45 minút]
+                  p.price 15,00 €
+                .col-md-3
+                  h5 INTERIÉR
+                  h6 Čas trvania: #[strong 45 minút]
+                  p.price 18,00 €
+                .col-md-3
+                  h5 PREMIUM EXTERIÉR
+                  h6 Čas trvania: #[strong 12 hodín]
+                  p.price 108,00 €
+                .col-md-3
+                  h5 PREMIUM INTERIÉR
+                  h6 Čas trvania: #[strong 12 hodín]
+                  p.price 108,00 €
+                .col-md-3
+                  h5 AVANGARDE
+                  h6 Čas trvania: #[strong 2h 15m]
+                  p.price 78,00 €
+                .col-md-3
+                  h5 TOP GLANZ
+                  h6 Čas trvania: #[strong 3 hodiny]
+                  p.price 68,00 €
+        .container.orderChooseDate
+          .row
+            h4 4. Vyberte si dátum a čas
+            .container
+              form
+                .row
+                  .col-lg-3.form-group
+                    svg(fill="#FF0000" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg")
+                      path(d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z")
+                      path(d="M0 0h24v24H0z" fill="none")
+                    input#datepicker(type='text' placeholder='DD/MM/YYYY')
+                  .col-lg-3.form-group
+                    svg(xmlns="http://www.w3.org/2000/svg" fill="#FF0000" width="36" height="36" viewBox="0 0 24 24")
+                      path(d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z")
+                      path(d="M0 0h24v24H0z" fill="none")
+                      path(d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z")
+                    input#timepicker(type='text' placeholder='00:00')
+                  button.col-lg-3 Pozrieť voľné termíny
+        .container.orderMoreInfo
+          .row
+            .col-lg-6
+              h4 5. Doplňujúce informácie
+              form
+                .form-group
+                  label(for='nameSurname') Meno a priezvisko
+                  input.form-control#orderName(placeholder='Vaše meno a priezvisko')
+                .form-group
+                  label(for='email') E-mailová adresa
+                  input.form-control#orderEmail(placeholder='Váš e-mail' type='email')
+                .form-group
+                  label(for='tel') Telefónne číslo
+                  input.form-control#orderTel(placeholder='Vaše telefónne číslo')
+                .form-group
+                  label(for='carType') Typ vozidla
+                  input.form-control#carType(placeholder='Napr. Audi Q7 a pod.')
+                .form-group
+                  label(for='sprava') Vaša správa
+                  textarea.form-control#orderMessage(rows="6" placeholder='Správa pre nás')
+            .col-lg-6.pl-30
+              .row
+                h4.padding-left-30 6. Súhrn objednávky
+              .row
+                p Autoumývarka
+                h5 CARwellness Žilina
+
+          .row
+        .container.p-0
+          button.btn-block.orderButton OBJEDNAŤ
+      .container.orderCancelInfo
+        p Minimálny čas rezervácie je 6 hodín pred príchodom do Carwellness. Rezervácia je platná až po telefonickom, resp. e-mailovom potvrdení.<br>V prípade, že si prajete zrušiť rezerváciu, je potrebné tak urobiť čímskôr, najneskôr však 1 hodinu pred príchodom. <br>Nepožadujeme predplatbu za rezerváciu.
+      section.gallery
+        .container
+          h3 Galéria
+          p Zoznámte sa s našou prácou, ktorú sme odovzdali spokojným klientom.
+          .row
+            .col-lg-6
+              img(src='./assets/images/gallerybentley.png')
+              h4 CARwellness Žilina (Aupark)
+            .col-lg-6
+              img(src='./assets/images/gallerybmw.png')
+              h4 CARwellness Nitra (Mlyny)
+      section.footer
+        .container
         .row
-          h4 1. Vyberte si autoumyvárku
-          .container
+          .col-md-6
             .row
-              .col-lg-8
-                .col-lg4
-                  button.choosed CARwellness Žilina (Aupark)
-                  button CARwellness Nitra (Mlyny)
-      .container.orderChooseCarType
-        .row
-          h4 2. Vyberte si typ auta
-          .container
+              .col
+                h4 Kontakt
+                .divider
             .row
-              .col-lg-8
-                .col-lg4
-                  button Auto KLASIK (Kombi,Sedan...)
-                  button.choosed Auto SUV
-      .container.orderChooseProgram
-        .row
-          h4 3. Vyberte si program
-          .container
-            .row.ml-0
-              .col-md-3
-                h5 COMFORT
-                h6 Čas trvania: #[strong 1h 30m]
-                p.price 28,00 €
-              .col-md-3.choosed
-                h5 EXCLUSIVE
-                h6 Čas trvania: #[strong 4 hodiny]
-                p.price 78,00 €
-              .col-md-3
-                h5 EXTERIÉR
-                h6 Čas trvania: #[strong 45 minút]
-                p.price 15,00 €
-              .col-md-3
-                h5 INTERIÉR
-                h6 Čas trvania: #[strong 45 minút]
-                p.price 18,00 €
-              .col-md-3
-                h5 PREMIUM EXTERIÉR
-                h6 Čas trvania: #[strong 12 hodín]
-                p.price 108,00 €
-              .col-md-3
-                h5 PREMIUM INTERIÉR
-                h6 Čas trvania: #[strong 12 hodín]
-                p.price 108,00 €
-              .col-md-3
-                h5 AVANGARDE
-                h6 Čas trvania: #[strong 2h 15m]
-                p.price 78,00 €
-              .col-md-3
-                h5 TOP GLANZ
-                h6 Čas trvania: #[strong 3 hodiny]
-                p.price 68,00 €
+              .col-md-6
+                h6 #[strong Car ]wellness s.r.o
+                p J.Grešáka 2877/22
+                p 085 01, Bardejov
+                p Slovenská republika
+                p &nbsp;
+                p IČO: 46 471 308
+                p DIČ: 2023405230
+              .col-md-6
+                h6 Zodpovedný vedúci / Manager
+                p Jiří Laník
+                p +421 903 716 656
+                p.highlight j.lanik@carwellness.sk 
+          .col-md-6
+            .row
+              .col-md-6.padding-left-30.hide-mobile
+                h4 #[strong Car]wellness Žilina
+                .divider
+              .col-md-6.padding-left-30.hide-mobile
+                h4 #[strong Car]wellness Nitra
+                .divider
+            .row
+              .col-md-6.padding-left-30
+                h4.hide-desktop #[strong Car]wellness Žilina
+                .divider.hide-desktop
+                p Pondelok - Piatok
+                p.strongblack od 7.00 do 21.00
+                p &nbsp;
+                p Sobota - Nedeľa
+                p.strongblack od 8.00 do 21.00
+                button.linkmap Pozrieť na mape
+              .col-md-6.padding-left-30
+                h4.hide-desktop #[strong Car]wellness Nitra
+                .divider.hide-desktop
+                p Pondelok - Piatok
+                p.strongblack od 8.00 do 21.00
+                p &nbsp;
+                p Sobota - Nedeľa
+                p.strongblack od 8.30 do 21.00
+                button.linkmap Pozrieť na mape
 
         
 block script

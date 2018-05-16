@@ -19,7 +19,7 @@ block content
             li.nav-item
               a.nav-link(href='./#') Domov
             li.nav-item
-              a.nav-link(href='./sluzby') Služby
+              a.nav-link.active(href='./sluzby') Služby
             li.nav-item
               a.nav-link(href='./cennik') Cenník
             li.nav-item
@@ -45,7 +45,7 @@ block content
           h4 Čistenie diskov <br> a ošetrenie pneumatík
           p To, aby zostali pneumatiky krásne čierne a prípadne i lesklé, zaistíme dôkladným čistením, ktorým sa nečistoty narušia a odstránia. Na disky kolies používame k tomu určené špeciálne štetce a kefy, ktoré preniknú do všetkých škár a výsledok je stopercentný. Teraz máme kolesá čisté a na rade je impregnácia!
           p Na impregnáciu používame prípravky, ktoré sú priamo určené na pneumatiky. Majú lepšie vstrebávacie vlastnosti ako prípravky na plasty a odstránia problémy, ktoré postihujú pneumatiky.
-          button Objednať online
+          a(href='./online-objednavka') Objednať online
       .row.rowservice
         .col-lg-6.order-lg-2
           img(src='./assets/images/klima.png')
@@ -53,7 +53,7 @@ block content
           h4 Dezinfekcia <br> klimatizácie a interiéru
           p Dezinfekcia klimatizácie a interiéru vozidla generátorom Ozónu (O3).Ozón má smrtiaci účinok na baktérie, vírusy, plesne, riasy, parazity, huby a všetky alergénne látky prítomné v potrubí cirkulácie vzduchu Vášho vozidla. Ozón má navyše tzv. dezodoračný efekt, čoho výsledkom je rozklad zapachajúcich látok a tým odstránenie zápachu.
           p Oxidáciou likviduje ozón vysokomolekulárne zlúčeniny, organické zlúčeniny a jedovaté aromatické látky.
-          button Objednať online
+          a(href='./online-objednavka') Objednať online
       .row.rowservice
         .col-lg-6
           img(src='./assets/images/lak.png')
@@ -61,7 +61,7 @@ block content
           h4 Renovácia laku
           p Renovácia a leštenie je proces opracovania povrchov, pri ktorom dochádza k veľmi jemnému odberu materiálu, rádovo v mikrónoch. Pri leštení lakov automobilov, ale aj iných produktov, dochádza pôsobením abrazív k veľmi jemnému brúseniu povrchu a to až tak, že stopy po tomto mechanickom pôsobení nie sú viditeľné voľným okom.
           p Povrch je po tomto opracovaní čistý, hladký a lesklý. Hlavným účelom je zlepšenie vzhľadu a zvýšenie kvality povrchu laku na Vašom vozidle.
-          button Objednať online
+          a(href='./online-objednavka') Objednať online
       .row.rowservice
         .col-lg-6.order-lg-2
           img(src='./assets/images/leather.png')
@@ -69,7 +69,7 @@ block content
           h4 Čistenie <br> a impregnácia kože
           p Kože je jedným z najstarších prírodných materiálov a pre svoje jedinečné vlastnosti je koža veľmi obľúbený materiál. Kožená sedacia súprava si zachová dlhodobo svoj exkluzívny vzhľad a pôvodné vlastnosti iba v prípade správnej starostlivosti a údržby. Čistenie koženej sedačky sa odporúča dvakrát za rok a po čistení je potrebné urobiť aj ošetrenie čo sa odporúča tiež dvakrát ročne. 
           p Pri koži si treba dávať veľký pozor na fixky a perá. Popísanú kožu, na ktorú nebol aplikovaný ochranný krém veľmi ťažko vyčistíte.
-          button Objednať online
+          a(href='./online-objednavka') Objednať online
       .row.rowservice
         .col-lg-6
           img(src='./assets/images/cleaning.png')
@@ -77,7 +77,7 @@ block content
           h4 Vysávanie a tepovanie
           p Automobil sa starostlivo a detailne vysaje, následne špeciálnym zariadením na tlakový vzduch, ktoré vytvára vzušný vír, odstráni všetok prach aj z miest veľmi ťažko dostupných. Ďalej je na rade starostlivosť o plastové časti interiéru vozidla. Plasty obsahujú okrem iného zmäkčovadlá pre svoju pružnosť a plnidlá, ktoré určujú vlastnosti povrchu.
           p UV žiarenie, teplo, mráz, čistidlá s obsahom rozpúšťadiel a iné vplyvy prostredia doľahnú časom aj na plasty. Vysušia ich a plasty potom strácajú svoju pružnosť a farbu a tým môže dochádzať aj k popraskaniu. 
-          button Objednať online
+          a(href='./online-objednavka') Objednať online
     section.gallery
       .container
         h3 Galéria
@@ -92,13 +92,13 @@ block content
     section.footer
       .container
         .row
-          .col-lg-6
+          .col-md-6
             .row
               .col
                 h4 Kontakt
                 .divider
             .row
-              .col-lg-6
+              .col-md-6
                 h6 #[strong Car ]wellness s.r.o
                 p J.Grešáka 2877/22
                 p 085 01, Bardejov
@@ -106,28 +106,32 @@ block content
                 p &nbsp;
                 p IČO: 46 471 308
                 p DIČ: 2023405230
-              .col-lg-6
+              .col-md-6
                 h6 Zodpovedný vedúci / Manager
                 p Jiří Laník
                 p +421 903 716 656
                 p.highlight j.lanik@carwellness.sk 
-          .col-lg-6
+          .col-md-6
             .row
-              .col-lg-6.padding-left-30
+              .col-md-6.padding-left-30.hide-mobile
                 h4 #[strong Car]wellness Žilina
                 .divider
-              .col-lg-6.padding-left-30
+              .col-md-6.padding-left-30.hide-mobile
                 h4 #[strong Car]wellness Nitra
                 .divider
             .row
-              .col-lg-6.padding-left-30
+              .col-md-6.padding-left-30
+                h4.hide-desktop #[strong Car]wellness Žilina
+                .divider.hide-desktop
                 p Pondelok - Piatok
                 p.strongblack od 7.00 do 21.00
                 p &nbsp;
                 p Sobota - Nedeľa
                 p.strongblack od 8.00 do 21.00
                 button.linkmap Pozrieť na mape
-              .col-lg-6.padding-left-30
+              .col-md-6.padding-left-30
+                h4.hide-desktop #[strong Car]wellness Nitra
+                .divider.hide-desktop
                 p Pondelok - Piatok
                 p.strongblack od 8.00 do 21.00
                 p &nbsp;

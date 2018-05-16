@@ -25,7 +25,7 @@ block content
             li.nav-item
               a.nav-link(href='./galeria') Galéria
             li.nav-item
-              a.nav-link(href='./kontakt') Kontakt
+              a.nav-link.active(href='./kontakt') Kontakt
             li.nav-item
               a.nav-link(href='./reklamacia') Reklamácia
             li.nav-item
@@ -37,7 +37,7 @@ block content
       .row
         .col-lg-6
           .row
-            .col-lg-6
+            .col-md-6
               h4 Kontaktné údaje
               h6 #[strong Car ]wellness s.r.o
               p J.Grešáka 2877/22
@@ -51,7 +51,7 @@ block content
               p Jiří Laník
               p +421 903 716 656
               p.highlight j.lanik@carwellness.sk
-            .col-lg-6
+            .col-md-6
               h4 Prevádzky
               h6 Aupark Shopping Center Žilina
               p Veľká okružná 59A, -1 podlažie
@@ -75,7 +75,7 @@ block content
               input.form-control#name(placeholder='Vaše meno a priezvisko')
             .form-group
               label(for='email') E-mailová adresa
-              input.form-control#name(placeholder='Váš e-mail' type='email')
+              input.form-control#email(placeholder='Váš e-mail' type='email')
             .form-group
               label(for='tel') Telefónne číslo
               input.form-control#tel(placeholder='Vaše telefónne číslo')
@@ -94,13 +94,13 @@ block content
     section.footer.footerContactSection
       .container
         .row
-          .col-lg-6
+          .col-md-6
             .row
               .col
                 h4 Kontakt
                 .divider
             .row
-              .col-lg-6
+              .col-md-6
                 h6 #[strong Car ]wellness s.r.o
                 p J.Grešáka 2877/22
                 p 085 01, Bardejov
@@ -108,28 +108,32 @@ block content
                 p &nbsp;
                 p IČO: 46 471 308
                 p DIČ: 2023405230
-              .col-lg-6
+              .col-md-6
                 h6 Zodpovedný vedúci / Manager
                 p Jiří Laník
                 p +421 903 716 656
                 p.highlight j.lanik@carwellness.sk 
-          .col-lg-6
+          .col-md-6
             .row
-              .col-lg-6.padding-left-30
+              .col-md-6.padding-left-30.hide-mobile
                 h4 #[strong Car]wellness Žilina
                 .divider
-              .col-lg-6.padding-left-30
+              .col-md-6.padding-left-30.hide-mobile
                 h4 #[strong Car]wellness Nitra
                 .divider
             .row
-              .col-lg-6.padding-left-30
+              .col-md-6.padding-left-30
+                h4.hide-desktop #[strong Car]wellness Žilina
+                .divider.hide-desktop
                 p Pondelok - Piatok
                 p.strongblack od 7.00 do 21.00
                 p &nbsp;
                 p Sobota - Nedeľa
                 p.strongblack od 8.00 do 21.00
                 button.linkmap Pozrieť na mape
-              .col-lg-6.padding-left-30
+              .col-md-6.padding-left-30
+                h4.hide-desktop #[strong Car]wellness Nitra
+                .divider.hide-desktop
                 p Pondelok - Piatok
                 p.strongblack od 8.00 do 21.00
                 p &nbsp;

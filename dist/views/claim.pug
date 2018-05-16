@@ -8,6 +8,121 @@ block css
 
 block content  
   #wrapper
+    nav.navbar.navbar-expand-lg.navbar-light.fixed-top
+      .container
+        a.navbar-brand(href='./#')
+          img(src='./assets/images/logo.png')
+        button.navbar-toggler(type='button' data-toggle='collapse' data-target='navbarCollapse')
+          span.navbar-toggler-icon
+        .collapse.navbar-collapse.justify-content-end#navbarCollapse
+          ul.navbar-nav
+            li.nav-item
+              a.nav-link(href='./#') Domov
+            li.nav-item
+              a.nav-link(href='./sluzby') Služby
+            li.nav-item
+              a.nav-link(href='./cennik') Cenník
+            li.nav-item
+              a.nav-link(href='./galeria') Galéria
+            li.nav-item
+              a.nav-link(href='./kontakt') Kontakt
+            li.nav-item
+              a.nav-link.active(href='./reklamacia') Reklamácia
+            li.nav-item
+              a.nav-link.online-order(href='./online-objednavka') Online objednávka
+    .container-fluid.serviceshead
+      img.headpicture(src='./assets/images/claim.png')
+      .container.headContainer
+        h3 Reklamácia
+    .container.price-listContent
+      h4 Najrýchlejšia online reklamácia
+      p Robíme všetko, čo je v našich silách pre to, aby sme vždy poskytli naším zákazníkom vynikajúce služby.
+    .container.claimContainer
+      .row
+        .col-lg-6
+          h5.md-center Informácie k reklamácií
+          p V záujme hladkého vybavenia reklamácie odporúčame zvýšenú pozornosť k nižšie uvedeným riadkom:
+          p 1. Prosím, vyplňte všetky požadované polia reklamačného formulára <br>-urýchlite tým vybavenie Vašej reklamácie
+          p 2. Priložením fotografie urýchlite vybavenie Vašej reklamácie.
+          p Ďakujeme za pochopenie.
+          p Oddelenie starostlivosti o zákazníkov:
+          h6.highlight reklamacia@carwellness.sk
+        .col-lg-6
+          h5.md-center Reklamačný formulár
+          .container.pl-0
+            h6 Vyberte si autoumyvárku
+            .row
+              .col-sm-6
+                button#city-2(onclick = 'cityForClaim(2)') CARwellness Žilina (Aupark)
+              .col-sm-6
+                button#city-1(onclick = 'cityForClaim(1)') CARwellness Nitra (Mlyny)
+          form(onsubmit='return false;')
+            .form-group
+              label(for='nameSurname') Meno a priezvisko
+              input.form-control#claimName(placeholder='Vaše meno a priezvisko' required="true")
+            .form-group
+              label(for='email') E-mailová adresa
+              input.form-control#claimEmail(placeholder='Váš e-mail' type='email' required="true")
+            .form-group
+              label(for='tel') Telefónne číslo
+              input.form-control#claimTel(placeholder='Vaše telefónne číslo')
+            .form-group
+              label(for='image') Príloha
+              input.pl-0.form-control#claimImage(type='file' accept="image/*")
+            .form-group
+              label(for='sprava') Vaša správa
+              textarea.form-control#claimMessage(rows="6" placeholder='Správa pre nás')
+            button(type="submit" onclick="sendClaim()") ODOSLAŤ SPRÁVU
+    section.footer.footerContactSection
+      .container
+        .row
+          .col-md-6
+            .row
+              .col
+                h4 Kontakt
+                .divider
+            .row
+              .col-md-6
+                h6 #[strong Car ]wellness s.r.o
+                p J.Grešáka 2877/22
+                p 085 01, Bardejov
+                p Slovenská republika
+                p &nbsp;
+                p IČO: 46 471 308
+                p DIČ: 2023405230
+              .col-md-6
+                h6 Zodpovedný vedúci / Manager
+                p Jiří Laník
+                p +421 903 716 656
+                p.highlight j.lanik@carwellness.sk 
+          .col-md-6
+            .row
+              .col-md-6.padding-left-30.hide-mobile
+                h4 #[strong Car]wellness Žilina
+                .divider
+              .col-md-6.padding-left-30.hide-mobile
+                h4 #[strong Car]wellness Nitra
+                .divider
+            .row
+              .col-md-6.padding-left-30
+                h4.hide-desktop #[strong Car]wellness Žilina
+                .divider.hide-desktop
+                p Pondelok - Piatok
+                p.strongblack od 7.00 do 21.00
+                p &nbsp;
+                p Sobota - Nedeľa
+                p.strongblack od 8.00 do 21.00
+                button.linkmap Pozrieť na mape
+              .col-md-6.padding-left-30
+                h4.hide-desktop #[strong Car]wellness Nitra
+                .divider.hide-desktop
+                p Pondelok - Piatok
+                p.strongblack od 8.00 do 21.00
+                p &nbsp;
+                p Sobota - Nedeľa
+                p.strongblack od 8.30 do 21.00
+                button.linkmap Pozrieť na mape
+
 
 block script
   script(src='./assets/js/carwellness-main.js' deffer)

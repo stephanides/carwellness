@@ -17,7 +17,7 @@ block content
         .collapse.navbar-collapse.justify-content-end#navbarCollapse
           ul.navbar-nav
             li.nav-item
-              a.nav-link(href='./#') Domov
+              a.nav-link.active(href='./#') Domov
             li.nav-item
               a.nav-link(href='./sluzby') Služby
             li.nav-item
@@ -46,7 +46,7 @@ block content
     section.services.container
       h3 Profesionálna ručná autoumývarka
       p Ručné umývanie exteriérov a interiérov áut, leštenie a renovovanie lakov,tepovanie interiérov.
-      .services-carousel.container
+      .services-carousel.container.hide-mobile
         .row.mx-auto.my-auto
           .carousel.slide.w-100#servicesCarousel(data-ride='carousel')
             .carousel-inner.w-100(role='listbox')
@@ -143,7 +143,40 @@ block content
               span.carousel-control-prev-icon
             a.carousel-control-next(href='#servicesCarousel' data-slide='next')
               span.carousel-control-next-icon
-
+      .services-carousel.container.hide-desktop
+        .row.mx-auto.my-auto
+          .carousel.slide.w-100#servicesCarouselMobile(data-ride='carousel')
+            .carousel-inner.w-100(role='listbox')
+              .carousel-item.active.row
+                .col-lg-3
+                  .head
+                    img(src='./assets/images/service4.png')
+                    h4 Čistenie diskov <br>a ošetrenie pneumatík
+                    p To, aby zostali pneumatiky krásne čierne a prípadne i lesklé, zaistíme dôkladným čistením, ktorým sa nečistoty narušia a odstránia.
+              .carousel-item.row
+                .col-lg-3
+                  img(src='./assets/images/service3.png')
+                  h4 Dezinfekcia <br>klimatizácie a interiéru
+                  p Dezinfekcia klimatizácie a interiéru vozidla generátorom Ozónu (O3). Ozón ma smrtiaci účinok na baktérie, vírusy, plesne, riasy...
+              .carousel-item.row
+                .col-lg-3
+                  img(src='./assets/images/service2.png')
+                  h4 Renovácia <br>a leštenie laku
+                  p Renovácia a leštenie je proces opracovania povrchov, pri ktorom dochádza k veľmi jemnému odberu materiálu, rádovo v mikrónoch.
+              .carousel-item.row
+                .col-lg-3
+                  img(src='./assets/images/service1.png')
+                  h4 Čistenie <br>a impregnáciu kože
+                  p Koža je jedným z najstarších prírodných materiálov a pre svoje jedinečné vlastnosti je koža veľmi obľúbený materiál.
+              .carousel-item.row
+                .col-lg-3
+                  img(src='./assets/images/service5.png')
+                  h4 Aplikácia SmartCoat <br>nanotechnológie TiO2
+                  p SmartCoat je revolučný spôsob odovzádavania antimikrobiálnych účinkov na povrchy plôch a to bez zdravodných rizík.
+            a.carousel-control-prev(href='#servicesCarouselMobile' data-slide='prev')
+              span.carousel-control-prev-icon
+            a.carousel-control-next(href='#servicesCarouselMobile' data-slide='next')
+              span.carousel-control-next-icon
     section.aboutus
       .container  
         .row
@@ -153,7 +186,7 @@ block content
             h3 Kto sme a čo pre Vás urobíme?<br>Spoznajte #[strong Car]wellness.
             p Pripravíme pre Vás umývanie auta podľa požiadaviek Vás a Vášho auta. Pre každého zákazníka máme pripravené maximálne výhodné ceny a kvalitu, ktorú nenájdete v širokom okolí.<br><br>Ponúkame bezdotykové umývanie, ručné umývanie exteriéru a čistenie interiéru auta, vysávanie a tepovanie interiéru, čistenie a impregnáciu kože, leštenie a renováciu laku. Množstvo kamier zabezpečí maximálnu bezpečnosť pre Vašu spokojnosť s našími službami.
             button.onlineorder Online objednávka
-      .rightpanel
+      .rightpanel.hide-mobile
     section.gallery
       .container
         h3 Galéria
@@ -168,13 +201,13 @@ block content
     section.footer
       .container
         .row
-          .col-lg-6
+          .col-md-6
             .row
               .col
                 h4 Kontakt
                 .divider
             .row
-              .col-lg-6
+              .col-md-6
                 h6 #[strong Car ]wellness s.r.o
                 p J.Grešáka 2877/22
                 p 085 01, Bardejov
@@ -182,28 +215,32 @@ block content
                 p &nbsp;
                 p IČO: 46 471 308
                 p DIČ: 2023405230
-              .col-lg-6
+              .col-md-6
                 h6 Zodpovedný vedúci / Manager
                 p Jiří Laník
                 p +421 903 716 656
                 p.highlight j.lanik@carwellness.sk 
-          .col-lg-6
+          .col-md-6
             .row
-              .col-lg-6.padding-left-30
+              .col-md-6.padding-left-30.hide-mobile
                 h4 #[strong Car]wellness Žilina
                 .divider
-              .col-lg-6.padding-left-30
+              .col-md-6.padding-left-30.hide-mobile
                 h4 #[strong Car]wellness Nitra
                 .divider
             .row
-              .col-lg-6.padding-left-30
+              .col-md-6.padding-left-30
+                h4.hide-desktop #[strong Car]wellness Žilina
+                .divider.hide-desktop
                 p Pondelok - Piatok
                 p.strongblack od 7.00 do 21.00
                 p &nbsp;
                 p Sobota - Nedeľa
                 p.strongblack od 8.00 do 21.00
                 button.linkmap Pozrieť na mape
-              .col-lg-6.padding-left-30
+              .col-md-6.padding-left-30
+                h4.hide-desktop #[strong Car]wellness Nitra
+                .divider.hide-desktop
                 p Pondelok - Piatok
                 p.strongblack od 8.00 do 21.00
                 p &nbsp;
