@@ -1,5 +1,5 @@
 export interface IOrder {
-  city: string
+  city: number
   carType: number
   date: string
   deleted: boolean
@@ -7,5 +7,5 @@ export interface IOrder {
   fullName: string
   message: string
   phone: string
-  program: Array<boolean> //number
+  program: Array<boolean>
 }

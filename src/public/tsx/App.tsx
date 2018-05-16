@@ -94,7 +94,8 @@ export class App extends React.Component<{}, State> {
       user = {
         token: this.myStorage.getItem('token'),
         firstName: this.myStorage.getItem('uFN'),
-        role: parseInt(this.myStorage.getItem('uR'))
+        role: parseInt(this.myStorage.getItem('uR')),
+        city: parseInt(this.myStorage.getItem('cI'))
       }
     }
     else user = null
@@ -169,6 +170,7 @@ export class App extends React.Component<{}, State> {
     this.myStorage.setItem('token', data['token'])
     this.myStorage.setItem('uFN', data['firstName'])
     this.myStorage.setItem('uR', data['role'])
+    this.myStorage.setItem('cI', data['city'])
 
     this.authenticate()
   }
@@ -180,10 +182,14 @@ export class App extends React.Component<{}, State> {
     const self: any = this
     const form: HTMLElement = event.currentTarget as HTMLElement
     const formInputs: any = form.getElementsByTagName('input')
+    const select: HTMLSelectElement = form.querySelector('select')
     const _url: string = location.protocol+'//'+location.host+'/'+url
 
     for(let i: number = 0; i < formInputs.length; i++)
       data[formInputs[i]['id']] = formInputs[i].value
+
+    if(select)
+      data['city'] = parseInt(select.options[select.selectedIndex].value)
 
     const xhttp = new XMLHttpRequest()
 
@@ -199,7 +205,8 @@ export class App extends React.Component<{}, State> {
               const data: UserPayLoad = {
                 token: resp.token,
                 firstName: resp.user.firstName,
-                role: resp.user.role
+                role: resp.user.role,
+                city: resp.user.city
               }
 
               self.storeUserData(data)

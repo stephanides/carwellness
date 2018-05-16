@@ -2,7 +2,7 @@ export interface IUser {
   firstName: string
   lastName: string
   email: string
-  city: number
+  city?: number
   password: string
   role?: number
   approved?: boolean

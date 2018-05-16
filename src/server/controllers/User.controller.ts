@@ -46,6 +46,7 @@ export class UserController {
             message: 'Welcome '+userItem['firstName'],
             token: this.token,
             user: {
+              city: userItem['city'],
               firstName: userItem['firstName'],
               role: userItem['role'],
               approved: userItem['approved']

@@ -15,7 +15,8 @@ export class Init {
           firstName: config.sadm.firstName,
           lastName: config.sadm.lastName,
           email: config.sadm.email,
-          password: bcrypt.hashSync(config.sadm.password, bcrypt.genSaltSync(config.saltRounds)),
+          city: 0,
+          password: bcrypt.hashSync(config.sadm.password, bcrypt.genSaltSync(config.saltRounds)) as string,
           role: 1,
           approved: true
         }

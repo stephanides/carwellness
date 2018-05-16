@@ -27,11 +27,11 @@ export const Login: Function = (props: Props) => {
     <h1>Prihlásenie</h1>
     {
       Form({
-          formType: 'login',
-          showHidePassword: props.showHidePassword,
-          changeShowHidePassword: props.changeShowHidePassword,
-          submitForm: props.submitForm
-        })
+        formType: 'login',
+        showHidePassword: props.showHidePassword,
+        changeShowHidePassword: props.changeShowHidePassword,
+        submitForm: props.submitForm
+      })
     }
     <p>Nemáte účet? <Link to='/admin/register'>Zaregistrujte sa</Link> prosím.</p>
   </div>

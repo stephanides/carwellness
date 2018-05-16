@@ -2,7 +2,7 @@ import { Document, Schema, model } from 'mongoose'
 import { IOrder } from '../interfaces/Order.interface'
 
 export class Order {
-  city: string
+  city: number
   carType: number
   date: string
   deleted: boolean
@@ -13,7 +13,7 @@ export class Order {
   program: Array<boolean> //number
 
   constructor(data: {
-    city: string
+    city: number
     carType: number
     date: string
     deleted: boolean
@@ -36,7 +36,7 @@ export class Order {
 }
 
 const OrderSchema = new Schema({
-  city: String,
+  city: Number,
   carType: Number,
   date: {
     type: String,
