@@ -70,18 +70,21 @@ function mapNitra() {
 }
 
 //**Date and Time pickers**//
-
-$( function() {
-    $( "#datepicker" ).datepicker({
-    	minDate: 0,
-    	altField: "#actualDate"
-    });
-});
-$( function() {
-    $( "#timepicker" ).timepicker({
-    	'timeFormat': 'H:i:s'
-    });
-});
+if(document.getElementById("datepicker")){
+	$( function() {
+	    $( "#datepicker" ).datepicker({
+	    	minDate: 0,
+	    	altField: "#actualDate"
+	    });
+	});
+}
+if(document.getElementById("timepicker")){
+	$( function() {
+	    $( "#timepicker" ).timepicker({
+	    	'timeFormat': 'H:i:s'
+	    });
+	});
+}
 
 //** Gallery **//
 

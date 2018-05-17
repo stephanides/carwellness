@@ -2,8 +2,7 @@
 @import url('https://use.fontawesome.com/releases/v5.0.12/css/all.css');
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700');
 @import url('./admin-style.css');
-@import url('./jquery-ui.min.css');
-@import url('./jquery.timepicker.min.css');
+
 
 
 //variables
@@ -31,9 +30,6 @@ $break-small:576px;
 
 
 #wrapper {
-  .active{
-    color:$carwellness-red !important;
-  }
   .navbar{
     padding-top:0;
     padding-bottom:0;
@@ -46,6 +42,9 @@ $break-small:576px;
       padding: 30px 10px;
       &:hover{
         color:$carwellness-red;
+      }
+      &.active{
+        color:$carwellness-red !important;
       }
     }
     .online-order{
