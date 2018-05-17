@@ -4,7 +4,7 @@ import { IOrder } from '../interfaces/Order.interface'
 export class Order {
   city: number
   carType: number
-  date: string
+  date: Date
   deleted: boolean
   email: string
   fullName: string
@@ -15,7 +15,7 @@ export class Order {
   constructor(data: {
     city: number
     carType: number
-    date: string
+    date: Date
     deleted: boolean
     email: string
     fullName: string
@@ -38,10 +38,7 @@ export class Order {
 const OrderSchema = new Schema({
   city: Number,
   carType: Number,
-  date: {
-    type: String,
-    default: Date.now()
-  },
+  date: Date,
   deleted: {
     type: Boolean,
     default: false

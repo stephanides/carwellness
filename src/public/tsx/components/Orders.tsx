@@ -31,10 +31,13 @@ export const Orders: Function = (props: Props) => {
       </div>
       {
         props.list && props.list.length > 0 ? props.list.map((item, i) => {
-          const dt: Date = new Date(parseInt(item['date']))
+          const dt: Date = new Date(item['date'])
           const day: number = dt.getDate()
           const month: string = dt.getMonth() < 10 ? '0'+(dt.getMonth()+1) : String((dt.getMonth()+1))
           const year: number = dt.getFullYear()
+          const h: string = dt.getHours() < 10 ? '0'+dt.getHours() : String(dt.getHours())
+          const min: string = dt.getMinutes() < 10 ? '0'+dt.getMinutes() : String(dt.getMinutes())
+
           let programs: string = ''
 
           for(let i: number = 0; i < item['program'].length; i++)
@@ -51,7 +54,7 @@ export const Orders: Function = (props: Props) => {
                     <div className='col text-center align-items-center'>Žilina</div>
                   ) : null
                 }
-                <div className='col text-center align-items-center'>{day+'/'+month+'/'+year}</div>
+                <div className='col text-center align-items-center'>{day+'/'+month+'/'+year+' - '+h+':'+min}</div>
                 <div className='col text-center align-items-center'>{programs}</div>
                 <div className='col text-center align-items-center'>{item['carType']}</div>
                 <div className='col text-center align-items-center'>{item['fullName']}</div>

@@ -32,6 +32,8 @@ export const Claims: Function = (props: Props) => {
           const day: number = dt.getDate()
           const month: string = dt.getMonth() < 10 ? '0'+(dt.getMonth()+1) : String((dt.getMonth()+1))
           const year: number = dt.getFullYear()
+          const h: string = dt.getHours() < 10 ? '0'+dt.getHours() : String(dt.getHours())
+          const min: string = dt.getMinutes() < 10 ? '0'+dt.getMinutes() : String(dt.getMinutes())
           
           return(
             <div className='list-group-item' key={i}>
@@ -43,7 +45,7 @@ export const Claims: Function = (props: Props) => {
                     <div className='col text-center align-items-center'>Žilina</div>
                   ) : null
                 }
-                <div className='col text-center align-items-center'>{day+'/'+month+'/'+year}</div>
+                <div className='col text-center align-items-center'>{day+'/'+month+'/'+year+' - '+h+':'+min}</div>
                 <div className='col text-center align-items-center'>{item['image']['src']}</div>
                 <div className='col text-center align-items-center'>{item['fullName']}</div>
                 <div className='col text-center align-items-center'>{item['phone']}</div>

@@ -1,7 +1,7 @@
 export interface IOrder {
   city: number
   carType: number
-  date: string
+  date: Date
   deleted: boolean
   email: string
   fullName: string
