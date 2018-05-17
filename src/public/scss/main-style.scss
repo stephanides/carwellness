@@ -876,6 +876,27 @@ $break-small:576px;
       .orderMoreInfo{
         padding-left:40px;
         padding-right: 40px;
+        .col-lg-6{
+          margin-top:50px;
+          h4{
+          padding-left:0;
+          margin-top:0;
+          width:100%;
+        }
+        p{
+          width:100%;
+          font-size:16px;
+          color: rgb(120, 124, 135);
+          font-weight: bold;
+          margin-bottom:0;
+        }
+        h5{
+          width:100%;
+          font-size: 20px;
+          color: rgb(60, 65, 71);
+          font-weight:bold;
+        }
+        }
         form{
           label{
             font-size:18px;
@@ -895,9 +916,6 @@ $break-small:576px;
             border:2px solid #b8b9c0;
             box-shadow:none !important;
           }
-        }
-        h4{
-          padding-left:0;
         }
         .padding-left-30{
           padding-left:30px;

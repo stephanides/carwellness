@@ -1,45 +1,39 @@
 import { Document, Schema, model } from 'mongoose'
-import { IOrder } from '../interfaces/Order.interface'
+import { IClaim } from '../interfaces/Claim.interface'
 
-export class Order {
+export class Claim {
   city: number
-  carType: number
   date: string
   deleted: boolean
   email: string
   fullName: string
   message: string
   phone: string
-  program: Array<boolean> //number
+  image: string
 
   constructor(data: {
     city: number
-    carType: number
     date: string
     deleted: boolean
     email: string
     fullName: string
     message: string
     phone: string
-    program: Array<boolean> //number
+    image: string
   }) {
     this.city = data.city
-    this.carType = data.carType
-    this.date = data.date
-    this.deleted = data.deleted
     this.email = data.email
-    this.fullName = data.fullName
+    this.fullName = data.fullName    
     this.message = data.message
     this.phone = data.phone
-    this.program = data.program
+    this.image = data.image
   }
 }
 
-const OrderSchema = new Schema({
+const ClaimSchema = new Schema({
   city: Number,
-  carType: Number,
   date: {
-    type: String,
+    type: Date,
     default: Date.now()
   },
   deleted: {
@@ -50,9 +44,9 @@ const OrderSchema = new Schema({
   fullName: String,
   message: String,
   phone: String,
-  program: Array
+  image: String
 })
 
-export interface OrderDocument extends Order, Document {}
+export interface ClaimDocument extends Claim, Document {}
 
-export const Orders = model<OrderDocument>('Order', OrderSchema)
+export const Claims = model<ClaimDocument>('Claim', ClaimSchema)

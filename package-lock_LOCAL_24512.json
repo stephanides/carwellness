@@ -5100,13 +5100,13 @@
           "integrity": "sha512-oMrYrJERnKBLXNLVTqhm3vPEdJ/b2ZE28xN4YARiix1NOIOBPEpOUnm844K1iu/BkphCaf2WNFwMszv8Soi1pw==",
           "dev": true,
           "requires": {
-            "array-union": "1.0.2",
-            "dir-glob": "2.0.0",
-            "fast-glob": "2.2.1",
-            "glob": "7.1.2",
-            "ignore": "3.3.8",
-            "pify": "3.0.0",
-            "slash": "1.0.0"
+            "array-union": "^1.0.1",
+            "dir-glob": "^2.0.0",
+            "fast-glob": "^2.0.2",
+            "glob": "^7.1.2",
+            "ignore": "^3.3.5",
+            "pify": "^3.0.0",
+            "slash": "^1.0.0"
           }
         },
         "replace-ext": {
@@ -5121,12 +5121,12 @@
           "integrity": "sha1-Ah+cLPlR1rk5lDyJ617lrdT9kkw=",
           "dev": true,
           "requires": {
-            "clone": "2.1.1",
-            "clone-buffer": "1.0.0",
-            "clone-stats": "1.0.0",
-            "cloneable-readable": "1.1.2",
-            "remove-trailing-separator": "1.1.0",
-            "replace-ext": "1.0.0"
+            "clone": "^2.1.1",
+            "clone-buffer": "^1.0.0",
+            "clone-stats": "^1.0.0",
+            "cloneable-readable": "^1.0.0",
+            "remove-trailing-separator": "^1.0.1",
+            "replace-ext": "^1.0.0"
           }
         }
       }
@@ -8299,9 +8299,9 @@
           "integrity": "sha512-4FG+RSG9DL7uEwRUZXZn3SS34DiDPfzP0VOiEwtUWlE+AR2EIg+hSyvrIgUUfhdgR/UkAeW2QHgeP+hWrXs7jQ==",
           "dev": true,
           "requires": {
-            "string-width": "2.1.1",
-            "strip-ansi": "4.0.0",
-            "wrap-ansi": "2.1.0"
+            "string-width": "^2.1.1",
+            "strip-ansi": "^4.0.0",
+            "wrap-ansi": "^2.0.0"
           }
         },
         "y18n": {
@@ -8316,18 +8316,18 @@
           "integrity": "sha512-NwW69J42EsCSanF8kyn5upxvjp5ds+t3+udGBeTbFnERA+lF541DDpMawzo4z6W/QrzNM18D+BPMiOBibnFV5A==",
           "dev": true,
           "requires": {
-            "cliui": "4.1.0",
-            "decamelize": "1.2.0",
-            "find-up": "2.1.0",
-            "get-caller-file": "1.0.2",
-            "os-locale": "2.1.0",
-            "require-directory": "2.1.1",
-            "require-main-filename": "1.0.1",
-            "set-blocking": "2.0.0",
-            "string-width": "2.1.1",
-            "which-module": "2.0.0",
-            "y18n": "3.2.1",
-            "yargs-parser": "9.0.2"
+            "cliui": "^4.0.0",
+            "decamelize": "^1.1.1",
+            "find-up": "^2.1.0",
+            "get-caller-file": "^1.0.1",
+            "os-locale": "^2.0.0",
+            "require-directory": "^2.1.1",
+            "require-main-filename": "^1.0.1",
+            "set-blocking": "^2.0.0",
+            "string-width": "^2.0.0",
+            "which-module": "^2.0.0",
+            "y18n": "^3.2.1",
+            "yargs-parser": "^9.0.2"
           }
         }
       }

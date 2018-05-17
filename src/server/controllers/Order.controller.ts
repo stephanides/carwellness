@@ -32,7 +32,8 @@ export class OrderController {
 
   async getOrders(req: Request, res: Response, next: NextFunction) {
     try {
-      const orders: Array<object> = await Orders.find({ deleted: false })
+      const query: object = parseInt(req.params.city) > 0 ? { $and: [{ city: parseInt(req.params.city) }, { deleted: false }] } : { deleted: false }
+      const orders: Array<object> = await Orders.find(query)
 
       if(!orders || orders.length === 0)
         this.throwError('Nothing found', 404, next)

@@ -3,26 +3,30 @@ import createBrowserHistory from 'history/createBrowserHistory'
 import { Router, Route, Redirect, Switch } from 'react-router'
 import { Admin } from './components/Admin'
 import { Login } from './components/Login'
-import { Modal } from './components/Modal'
+import { Link } from 'react-router-dom'
 import { Register } from './components/Register'
 import { Settings } from './components/Settings'
+import { Users } from './components/Users'
 import { UserPayLoad } from './interfaces/UserPayLoad.interface'
 //import * as WebSocket from 'ws'
-
 const history = createBrowserHistory()
 
 interface State {
   authorised: boolean
-  modalMessage?: string
+  modalMessage?: string | JSX.Element
   modalTitle?: string
   login: boolean
-  orderList?: Array<object>
+  orderList?: Array<object> | null
+  claimList?: Array<object> | null
+  showHidePassword: boolean
   user?: UserPayLoad
+  usersList?: Array<object> | null
 }
 
 const initialState: State = {
   authorised: false,
-  login: true
+  login: true,
+  showHidePassword: false
 } 
 
 export class App extends React.Component<{}, State> {
@@ -35,14 +39,18 @@ export class App extends React.Component<{}, State> {
     this.myStorage = localStorage
     this.state = initialState
     //this.ws = new WebSocket('ws:/localhost:4141/order/order-create')
-
     this.authenticate = this.authenticate.bind(this)
+    this.changeUserApprovedProperty = this.changeUserApprovedProperty.bind(this)
+    this.changeShowHidePassword = this.changeShowHidePassword.bind(this)
     this.getOrderList = this.getOrderList.bind(this)
+    this.getClaimList = this.getClaimList.bind(this)
+    this.getUsersList = this.getUsersList.bind(this)
     this.handleModal = this.handleModal.bind(this)
     //this.onWebSockets = this.onWebSockets.bind(this)
     this.signOut = this.signOut.bind(this)
     this.storeUserData = this.storeUserData.bind(this)
     this.submitForm = this.submitForm.bind(this)
+    this.updateUser = this.updateUser.bind(this)
   }
 
   authenticate(): void {
@@ -52,8 +60,22 @@ export class App extends React.Component<{}, State> {
       this.setState({ authorised: true, user: user })
   }
 
+  changeUserApprovedProperty(updatedUsers: Array<object>, callback?:() => void) {
+    this.setState({ usersList: updatedUsers }, () => {
+      if(typeof callback === 'function')
+        callback()
+    })
+  }
+
+  changeShowHidePassword() {
+    if(this.state.showHidePassword)
+      this.setState({ showHidePassword: false })
+    else
+      this.setState({ showHidePassword: true })
+  }
+
   async getOrderList() {
-    const url = '/order/orders'
+    const url = '/order/orders/'+this.state.user.city
     const resp: Response = await fetch(url)
 
     if(resp) {
@@ -68,18 +90,75 @@ export class App extends React.Component<{}, State> {
     }
   }
 
+  async getClaimList() {
+    const url = '/claim/claims/'+this.state.user.city
+    const resp: Response = await fetch(url)
+
+    if(resp) {
+      if(resp.status === 200) {
+        const respJSON: Array<object> = await resp.json()
+
+        if(respJSON)
+          this.setState({ claimList: respJSON['data'] })
+      }
+      else
+        console.log(resp.statusText)
+    }
+  }
+
   getUserData() {
     let user: object | null = {} as UserPayLoad
 
     if(this.myStorage.getItem('token') && this.myStorage.getItem('uFN')) {
       user = {
         token: this.myStorage.getItem('token'),
-        firstName: this.myStorage.getItem('uFN')
+        firstName: this.myStorage.getItem('uFN'),
+        role: parseInt(this.myStorage.getItem('uR')),
+        city: parseInt(this.myStorage.getItem('cI'))
       }
     }
     else user = null
 
     return user
+  }
+
+  async updateUser(user: object) {
+    const url: string = '/user/user/'+user['_id']
+    const data: object = user
+
+    const response: Response = await fetch(url, {
+      body: JSON.stringify(data),
+      headers: { 'content-type': 'application/json' },
+      method: 'PUT'
+    })
+
+    if(response) {
+      if(response.status === 200) {
+        const responseJSON: object = await response.json()
+
+        if(responseJSON['success'])
+          console.log(responseJSON['message'])
+        else
+          console.log(responseJSON['message'])
+      }
+      else
+        console.log(response.statusText)
+    }
+  }
+
+  async getUsersList() {
+    const url = '/user/users'
+    const resp: Response = await fetch(url)
+
+    if(resp) {
+      if(resp.status === 200) {
+        const respJSON: Array<object> = await resp.json()
+
+        if(respJSON)
+          this.setState({ usersList: respJSON['data'] })
+      }
+      else console.log(resp.statusText)
+    }
   }
 
   handleModal(message: string, success: boolean) {
@@ -92,11 +171,9 @@ export class App extends React.Component<{}, State> {
     this.ws.onopen = () => {
       console.log('OPENING WS')
     }
-
     this.ws.onerror = (error) => {
       console.log(error)
     }
-
     this.ws.onmessage = (data) => {
       console.log('RECIEVE SOMETHING')
       console.log(data)
@@ -104,13 +181,22 @@ export class App extends React.Component<{}, State> {
   }*/
 
   signOut() {
-    this.setState({ authorised: false, user: {} as UserPayLoad })
+    this.setState({ 
+      authorised: false,
+      orderList: null,
+      showHidePassword: false,
+      user: {} as UserPayLoad,
+      claimList: null,
+      usersList: null
+    })
     this.myStorage.clear()
   }
 
   storeUserData(data: object): void {
     this.myStorage.setItem('token', data['token'])
     this.myStorage.setItem('uFN', data['firstName'])
+    this.myStorage.setItem('uR', data['role'])
+    this.myStorage.setItem('cI', data['city'])
 
     this.authenticate()
   }
@@ -122,10 +208,14 @@ export class App extends React.Component<{}, State> {
     const self: any = this
     const form: HTMLElement = event.currentTarget as HTMLElement
     const formInputs: any = form.getElementsByTagName('input')
+    const select: HTMLSelectElement = form.querySelector('select')
     const _url: string = location.protocol+'//'+location.host+'/'+url
 
     for(let i: number = 0; i < formInputs.length; i++)
       data[formInputs[i]['id']] = formInputs[i].value
+
+    if(select)
+      data['city'] = parseInt(select.options[select.selectedIndex].value)
 
     const xhttp = new XMLHttpRequest()
 
@@ -140,12 +230,19 @@ export class App extends React.Component<{}, State> {
             if(resp['user']['approved']) {
               const data: UserPayLoad = {
                 token: resp.token,
-                firstName: resp.user.firstName
+                firstName: resp.user.firstName,
+                role: resp.user.role,
+                city: resp.user.city
               }
 
               self.storeUserData(data)
             }
             else self.handleModal('Váš účet zatiaľ nebol schválený. Skúste neskôr prosím.', resp['success'])
+          }
+          else if(action === 'register') {
+            if(resp['success']) {
+              self.handleModal(<span>Registrácia prebehla úspešne. <Link to='/admin/login' onClick={() => {$('#modal').modal('hide')}}>Prihláste sa</Link> prosím.</span>, resp['success'])
+            }
           }
           else self.handleModal(resp['message'], resp['success'])
         }
@@ -170,7 +267,9 @@ export class App extends React.Component<{}, State> {
               user: this.state.user,
               signOut: this.signOut,
               getOrderList: this.getOrderList,
+              getClaimList: this.getClaimList,
               //onWebSockets: this.onWebSockets,
+              claimList: this.state.claimList,
               orderList: this.state.orderList
             }) :
             <Redirect to='/admin/login' />
@@ -180,6 +279,8 @@ export class App extends React.Component<{}, State> {
               authorised: this.state.authorised,
               modalMessage: this.state.modalMessage,
               modalTitle: this.state.modalTitle,
+              showHidePassword: this.state.showHidePassword,
+              changeShowHidePassword: this.changeShowHidePassword,
               submitForm: this.submitForm
             })
           )} />
@@ -187,14 +288,30 @@ export class App extends React.Component<{}, State> {
             Register({
               modalMessage: this.state.modalMessage,
               modalTitle: this.state.modalTitle,
+              changeShowHidePassword: this.changeShowHidePassword,
+              showHidePassword: this.state.showHidePassword,
               submitForm: this.submitForm
             })
           )} />
           <Route path='/admin/settings' render={() => (
             this.state.authorised ?
             Settings({
+              showHidePassword: this.state.showHidePassword,
               user: this.state.user,
+              changeShowHidePassword: this.changeShowHidePassword,
               signOut: this.signOut
+            }) :
+            <Redirect to='/admin/login' />
+          )} />
+          <Route path='/admin/users' render={() => (
+            this.state.authorised ?
+            Users({
+              user: this.state.user,
+              usersList: this.state.usersList,
+              signOut: this.signOut,
+              changeUserApprovedProperty: this.changeUserApprovedProperty,
+              getUsersList: this.getUsersList,
+              updateUser: this.updateUser
             }) :
             <Redirect to='/admin/login' />
           )} />

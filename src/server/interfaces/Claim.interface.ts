@@ -1,11 +1,10 @@
-export interface IOrder {
+export interface IClaim {
   city: number
-  carType: number
   date: string
   deleted: boolean
   email: string
   fullName: string
   message: string
   phone: string
-  program: Array<boolean>
+  image: string
 }

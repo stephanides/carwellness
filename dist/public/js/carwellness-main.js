@@ -83,6 +83,24 @@ $( function() {
     });
 });
 
+//** Gallery **//
+
+$(document).ready(function(){
+  $(".fancybox").fancybox({
+        openEffect: "none",
+        closeEffect: "none"
+    });
+    
+    $(".zoom").hover(function(){
+		
+		$(this).addClass('transition');
+	}, function(){
+        
+		$(this).removeClass('transition');
+	});
+});
+    
+
 //** Claim part - creating of JSon for Server**//
 
 var claimCity = null;

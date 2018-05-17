@@ -18,6 +18,20 @@ export class UserController {
     this.setToken = this.setToken.bind(this)
   }
 
+  async getUsers(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const users: Array<object> = await Users.find({ role: { $nin: [1, 2] } })
+
+      if(!users || users.length === 0)
+        this.throwError('No user found', 404, next)
+      else
+        res.json({ data: users, success: true })
+    }
+    catch(err) {
+      return next(err)
+    }
+  }
+
   async login(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const userItem: object = await Users.findOne({ email: req.body.email })
@@ -32,6 +46,7 @@ export class UserController {
             message: 'Welcome '+userItem['firstName'],
             token: this.token,
             user: {
+              city: userItem['city'],
               firstName: userItem['firstName'],
               role: userItem['role'],
               approved: userItem['approved']
@@ -86,6 +101,22 @@ export class UserController {
     const token: string = jwt.sign(payload, config['secret'], { expiresIn: 8 * 60 * 60 })
     
     this.token = token
+  }
+
+  async updateUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+    const userToUpdate: object = await Users.findOne({ _id: mongoose.Types.ObjectId(req.body._id) })
+
+    if(!userToUpdate)
+      this.throwError('No user found', 404, next)
+    else {
+      const updatedUser: object = new User(req.body as IUser)
+      const userUpdate: object = await Users.update({ _id: mongoose.Types.ObjectId(req.body._id) }, updatedUser)
+
+      if(userUpdate)
+        res.json({ message: 'User has been successfully updated', success: true })
+      else
+        this.throwError('Can\'t update user data', 500, next)
+    }
   }
 
   throwError(errMessage: string, errStatus: number, next: NextFunction): void {

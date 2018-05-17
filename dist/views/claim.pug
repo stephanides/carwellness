@@ -6,7 +6,17 @@ block vars
 block css
   link(rel='stylesheet' href='./assets/css/main-style.css')
 
-block content  
+block content
+  .modal#claimModal
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h4 Reklamácia bola prijatá 
+          button.close(type='button' data-dismiss='modal') &times;
+        .modal-body
+          p O vybavení reklamácie Vás budeme informovať prostredníctvom zadaného telefónného čísla alebo e-mailu. 
+        .modal-footer
+          button.btn.btn-danger(type='button' data-dismiss='modal') Zavrieť
   #wrapper
     nav.navbar.navbar-expand-lg.navbar-light.fixed-top
       .container
@@ -68,11 +78,11 @@ block content
               input.form-control#claimTel(placeholder='Vaše telefónne číslo')
             .form-group
               label(for='image') Príloha
-              input.pl-0.form-control#claimImage(type='file' accept="image/*")
+              input.border-0.pl-0.form-control#claimImage(type='file' accept="image/*")
             .form-group
               label(for='sprava') Vaša správa
               textarea.form-control#claimMessage(rows="6" placeholder='Správa pre nás')
-            button(type="submit" onclick="sendClaim()") ODOSLAŤ SPRÁVU
+            button(type="submit" onclick="sendClaim()" data-toggle="modal" data-target="#claimModal") ODOSLAŤ SPRÁVU
     section.footer.footerContactSection
       .container
         .row

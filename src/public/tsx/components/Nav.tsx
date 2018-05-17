@@ -12,9 +12,14 @@ export const Nav: Function = (props: Props) => {
   return(
     <nav className='navbar navbar-expand-lg navbar-light mb-3'>
       <div className='container'>
-        <a className='navbar-brand'>
-          <img src='../assets/images/logo.png' /><span>Admin</span>
-        </a>
+        <Link className='navbar-brand' to='/admin'>
+          <img src='../assets/images/logo.png' />
+          <span>
+            {
+              props.user.city > 0 ? (props.user.city > 1 ? 'Nitra - Admin' : 'Žilina - Admin') : 'BOSS - Admin'
+            }
+          </span>
+        </Link>
         <button type='button' data-toggle='collapse' data-target='navbarCollapse' className='navbar-toggler'>
           <span className='navbar-toggler-icon'></span>
         </button>
@@ -23,8 +28,14 @@ export const Nav: Function = (props: Props) => {
             <li className='nav-item position-relative'>
               {props.user['firstName']}
               <ul className='hover-nav'>
+                {
+                  props.user.role < 3 ?
+                  <li>
+                    <Link to='/admin/users'><i className='fas fa-address-book'></i>Užívateľské účty</Link>
+                  </li> : null
+                }
                 <li>
-                  <Link to='/admin/settings'><i className='fas fa-cog'></i>Nastavenie účtu</Link>
+                  <Link to='/admin/settings'><i className='fas fa-user-cog'></i>Nastavenie účtu</Link>
                 </li>
               </ul>
             </li>

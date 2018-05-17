@@ -1,6 +1,7 @@
 
 $cwRed: #dc002e;
 $cwGrey: #eceef2;
+$grey: #ccc;
 $white: #fff;
 
 #wrapper {
@@ -11,13 +12,18 @@ $white: #fff;
 
       .navbar-brand {
         display: inline-block;
-        
+
+        &:hover {
+          span {
+            color: $cwRed;
+          }
+        }        
         img {
           width: 50%;
           margin-right: .5rem;
         }
         span {
-          vertical-align: sub
+          vertical-align: sub;
         }
       }
       .navbar-nav {
@@ -41,9 +47,12 @@ $white: #fff;
             cursor: pointer;
             position: absolute;
             left: 50%;
-            bottom: -55px;
+            top: 40px;
             transform: translateX(-50%);
-            padding: 0;
+            padding: .5rem;
+            border: 1px solid $cwGrey;
+            border-radius: .4rem;
+            background-color: #fff;
             z-index: 5;
 
             &:after, &:before {
@@ -70,10 +79,6 @@ $white: #fff;
 
             li {
               list-style: none;
-              padding: .5rem;
-              border: 1px solid $cwGrey;
-              border-radius: .4rem;
-              background-color: #fff;
 
               a {
                 white-space: nowrap;
@@ -81,6 +86,81 @@ $white: #fff;
                 i {
                   margin-right: .5rem;
                 }
+              }
+            }
+          }
+        }
+      }
+    }
+    .list-group {
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+
+        input {
+          display:none;
+         
+          &:checked + .slider {
+            background-color: $cwRed;
+          }
+          &:focus + .slider {
+            box-shadow: 0 0 1px $cwRed; //
+          }
+          &:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+          }
+        }
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: $grey;
+          -webkit-transition: .4s;
+          transition: .4s;
+
+          &:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+          }
+
+          &.round {
+            border-radius: 34px;
+
+            &:before {
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+    }
+    .no-orders {
+      height: calc(100vh - 200px)
+    }
+    form {
+      .input-group {
+        .input-group-append {
+          .input-group-text {
+            button {
+              border: 0;
+              background-color: transparent;
+              outline: none;
+
+              &:hover {
+                color: $cwRed;
               }
             }
           }

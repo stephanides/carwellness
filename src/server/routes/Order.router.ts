@@ -4,7 +4,7 @@ import { OrderController } from '../controllers/Order.controller'
 const router = express.Router()
 const order = new OrderController()
 
-router.get('/order/orders', (req, res, next) => {
+router.get('/order/orders/:city', (req, res, next) => {
   order.getOrders(req, res, next)
 })
 

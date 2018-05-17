@@ -102,7 +102,7 @@ block content
           .row
             h4 4. Vyberte si dátum a čas
             .container
-              form
+              form(onsubmit='return false;')
                 .row
                   .col-lg-3.form-group
                     svg(fill="#FF0000" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg")
@@ -136,12 +136,14 @@ block content
                 .form-group
                   label(for='sprava') Vaša správa
                   textarea.form-control#orderMessage(rows="6" placeholder='Správa pre nás')
-            .col-lg-6.pl-30
+            .col-lg-6.padding-left-30
               .row
-                h4.padding-left-30 6. Súhrn objednávky
-              .row
-                p Autoumývarka
-                h5 CARwellness Žilina
+                h4 6. Súhrn objednávky
+                p Autoumývarka:
+                h5#orderChoosedCity Nebola zvolená žiadna autoumyvárka
+                p &nbsp;
+                p Typ vozidla:
+                h5 Nebolo zvolené žiadne vozidlo
 
           .row
         .container.p-0
@@ -161,53 +163,53 @@ block content
               h4 CARwellness Nitra (Mlyny)
       section.footer
         .container
-        .row
-          .col-md-6
-            .row
-              .col
-                h4 Kontakt
-                .divider
-            .row
-              .col-md-6
-                h6 #[strong Car ]wellness s.r.o
-                p J.Grešáka 2877/22
-                p 085 01, Bardejov
-                p Slovenská republika
-                p &nbsp;
-                p IČO: 46 471 308
-                p DIČ: 2023405230
-              .col-md-6
-                h6 Zodpovedný vedúci / Manager
-                p Jiří Laník
-                p +421 903 716 656
-                p.highlight j.lanik@carwellness.sk 
-          .col-md-6
-            .row
-              .col-md-6.padding-left-30.hide-mobile
-                h4 #[strong Car]wellness Žilina
-                .divider
-              .col-md-6.padding-left-30.hide-mobile
-                h4 #[strong Car]wellness Nitra
-                .divider
-            .row
-              .col-md-6.padding-left-30
-                h4.hide-desktop #[strong Car]wellness Žilina
-                .divider.hide-desktop
-                p Pondelok - Piatok
-                p.strongblack od 7.00 do 21.00
-                p &nbsp;
-                p Sobota - Nedeľa
-                p.strongblack od 8.00 do 21.00
-                button.linkmap Pozrieť na mape
-              .col-md-6.padding-left-30
-                h4.hide-desktop #[strong Car]wellness Nitra
-                .divider.hide-desktop
-                p Pondelok - Piatok
-                p.strongblack od 8.00 do 21.00
-                p &nbsp;
-                p Sobota - Nedeľa
-                p.strongblack od 8.30 do 21.00
-                button.linkmap Pozrieť na mape
+          .row
+            .col-md-6
+              .row
+                .col
+                  h4 Kontakt
+                  .divider
+              .row
+                .col-md-6
+                  h6 #[strong Car ]wellness s.r.o
+                  p J.Grešáka 2877/22
+                  p 085 01, Bardejov
+                  p Slovenská republika
+                  p &nbsp;
+                  p IČO: 46 471 308
+                  p DIČ: 2023405230
+                .col-md-6
+                  h6 Zodpovedný vedúci / Manager
+                  p Jiří Laník
+                  p +421 903 716 656
+                  p.highlight j.lanik@carwellness.sk 
+            .col-md-6
+              .row
+                .col-md-6.padding-left-30.hide-mobile
+                  h4 #[strong Car]wellness Žilina
+                  .divider
+                .col-md-6.padding-left-30.hide-mobile
+                  h4 #[strong Car]wellness Nitra
+                  .divider
+              .row
+                .col-md-6.padding-left-30
+                  h4.hide-desktop #[strong Car]wellness Žilina
+                  .divider.hide-desktop
+                  p Pondelok - Piatok
+                  p.strongblack od 7.00 do 21.00
+                  p &nbsp;
+                  p Sobota - Nedeľa
+                  p.strongblack od 8.00 do 21.00
+                  button.linkmap Pozrieť na mape
+                .col-md-6.padding-left-30
+                  h4.hide-desktop #[strong Car]wellness Nitra
+                  .divider.hide-desktop
+                  p Pondelok - Piatok
+                  p.strongblack od 8.00 do 21.00
+                  p &nbsp;
+                  p Sobota - Nedeľa
+                  p.strongblack od 8.30 do 21.00
+                  button.linkmap Pozrieť na mape
 
         
 block script

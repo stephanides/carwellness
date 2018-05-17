@@ -5,6 +5,7 @@ export class User {
   firstName: string
   lastName: string
   email: string
+  city?: number
   password: string
   role: number
   approved: boolean
@@ -13,6 +14,7 @@ export class User {
     firstName: string
     lastName: string
     email: string
+    city?: number
     password: string
     role?: number
     approved?: boolean
@@ -20,6 +22,7 @@ export class User {
     this.firstName = data.firstName
     this.lastName = data.lastName
     this.email = data.email
+    this.city = data.city
     this.password = data.password
     this.role = data.role
     this.approved = data.approved
@@ -33,6 +36,10 @@ const UserSchema = new Schema({
   	type: String,
   	required: true,
   	unique: true
+  },
+  city: {
+    type: Number,
+    default: 0
   },
   password: String,
   role: {
