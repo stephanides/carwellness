@@ -35,7 +35,7 @@ export const Orders: Function = (props: Props) => {
           const day: number = dt.getDate()
           const month: string = dt.getMonth() < 10 ? '0'+(dt.getMonth()+1) : String((dt.getMonth()+1))
           const year: number = dt.getFullYear()
-          const h: string = dt.getHours() < 10 ? '0'+dt.getHours() : String(dt.getHours())
+          const h: string = dt.getUTCHours() < 10 ? '0'+dt.getUTCHours() : String(dt.getUTCHours())
           const min: string = dt.getMinutes() < 10 ? '0'+dt.getMinutes() : String(dt.getMinutes())
 
           let programs: string = ''
