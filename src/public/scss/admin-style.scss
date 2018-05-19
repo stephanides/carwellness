@@ -3,6 +3,7 @@ $cwRed: #dc002e;
 $cwGrey: #eceef2;
 $grey: #ccc;
 $white: #fff;
+$black: #1d1d1d;
 
 #wrapper {
   &.admin {
@@ -163,6 +164,24 @@ $white: #fff;
                 color: $cwRed;
               }
             }
+          }
+        }
+      }
+    }
+    .table {
+      caption {
+        span {
+          color: $black;
+          padding: .25rem;
+          margin: 0 .25rem;
+        }
+      }
+      tr {
+        td, th {
+          vertical-align: middle;
+
+          select {
+            background-color: rgba(255, 255, 255, 0.5);
           }
         }
       }

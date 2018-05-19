@@ -4,9 +4,9 @@ import { IOrder } from '../interfaces/Order.interface'
 import { Order, OrderDocument, Orders } from '../models/Order.model'
 
 export class OrderController {
-  async createOrder(req: Request, res: Response, next: NextFunction) {
+  async createOrder(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const order = await Orders.findOne({ date: req.body.date })
+      const order = await Orders.findOne({ $and: [{ date: req.body.date }, { city: req.body.city}] })
       
       if(order)
         this.throwError('Order allready exist on selected time', 409, next)
@@ -30,7 +30,28 @@ export class OrderController {
     }
   }
 
-  async getOrders(req: Request, res: Response, next: NextFunction) {
+  async updateOrder(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const orderToUpdate: object = await Orders.findOne({ _id: mongoose.Types.ObjectId(req.params.id) })
+
+      if(!orderToUpdate)
+        this.throwError('Not Found', 404, next)
+      else {
+        const dataToUpdate: object = new Order(req.body as IOrder)
+        const updatedOrder: object = await Orders.update({ _id: mongoose.Types.ObjectId(req.body._id) }, dataToUpdate)
+
+        if(updatedOrder)
+          res.json({ message: 'Order has been successfully updated', success: true })
+        else
+          this.throwError('Can\'t update user data', 500, next)
+      }
+    }
+    catch(err) {
+      return next(err)
+    }
+  }
+
+  async getOrders(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const query: object = parseInt(req.params.city) > 0 ? { $and: [{ city: parseInt(req.params.city) }, { deleted: false }] } : { deleted: false }
       const orders: Array<object> = await Orders.find(query)

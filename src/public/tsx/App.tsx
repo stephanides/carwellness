@@ -17,6 +17,10 @@ interface State {
   modalTitle?: string
   login: boolean
   orderList?: Array<object> | null
+  orderedOrderList?: Array<object> | null
+  orderState: Array<string>
+  program: Array<string>
+  paginationItemCount: number
   claimList?: Array<object> | null
   showHidePassword: boolean
   user?: UserPayLoad
@@ -26,8 +30,11 @@ interface State {
 const initialState: State = {
   authorised: false,
   login: true,
+  program: ['COMFORT', 'EXCLUSIVE', 'EXTERIÉR', 'INTERIÉR', 'PREMIUM EXTERIÉR', 'PREMIUM INTERIÉR', 'AVANGARDE', 'TOP GLANZ'],
+  paginationItemCount: 10,
+  orderState: ['NOVÁ', 'VYBAVUJE SA', 'VYBAVENÁ'],
   showHidePassword: false
-} 
+}
 
 export class App extends React.Component<{}, State> {
   private myStorage: Storage
@@ -42,15 +49,20 @@ export class App extends React.Component<{}, State> {
     this.authenticate = this.authenticate.bind(this)
     this.changeUserApprovedProperty = this.changeUserApprovedProperty.bind(this)
     this.changeShowHidePassword = this.changeShowHidePassword.bind(this)
+    this.changeOrders = this.changeOrders.bind(this)
     this.getOrderList = this.getOrderList.bind(this)
     this.getClaimList = this.getClaimList.bind(this)
     this.getUsersList = this.getUsersList.bind(this)
     this.handleModal = this.handleModal.bind(this)
     //this.onWebSockets = this.onWebSockets.bind(this)
+    this.orderByTime = this.orderByTime.bind(this)
+    this.orderByOrderState = this.orderByOrderState.bind(this)
+    this.orderByOrderProgram = this.orderByOrderProgram.bind(this)
     this.signOut = this.signOut.bind(this)
     this.storeUserData = this.storeUserData.bind(this)
     this.submitForm = this.submitForm.bind(this)
     this.updateUser = this.updateUser.bind(this)
+    this.updateOrder = this.updateOrder.bind(this)
   }
 
   authenticate(): void {
@@ -83,10 +95,89 @@ export class App extends React.Component<{}, State> {
         const respJSON: Array<object> = await resp.json()
 
         if(respJSON)
-          this.setState({ orderList: respJSON['data'] })
+          this.setState({ orderList: respJSON['data'] }, this.orderByTime)
       }
       else
         console.log(resp.statusText)
+    }
+  }
+
+  orderByTime() {
+    if(this.state.orderList && this.state.orderList.length > 0) {
+      let arr: Array<object> = []
+
+      if(this.state.orderList.length > this.state.paginationItemCount) {
+        for(let i: number = 0; i < this.state.paginationItemCount; i++) //this.state.orderList.length
+          arr.push(this.state.orderList[i])
+
+        arr.sort((a: object, b: object) => ( a['date'].toLowerCase().localeCompare(b['date'].toLowerCase()) ))
+        this.setState({ orderedOrderList: arr })
+      }
+    }
+  }
+
+  orderByOrderState(orderState: number | null) {
+    let arr: Array<object> = []
+
+    if(orderState === null)
+      this.setState({ orderedOrderList: this.state.orderList })
+    else {
+      for(let i: number = 0; i < this.state.orderList.length; i++) {
+        if(this.state.orderList[i]['orderState'] === orderState)
+          arr.push(this.state.orderList[i])
+      }
+
+      this.setState({ orderedOrderList: arr })
+    }
+  }
+
+  orderByOrderProgram(orderProgram: number | null) {
+    let arr: Array<object> | null = []
+
+    if(orderProgram === null)
+      this.setState({ orderedOrderList: this.state.orderList })
+    else {
+      for(let i: number = 0; i < this.state.orderList.length; i++) {
+        if(this.state.orderList[i]['program'][orderProgram])
+          arr.push(this.state.orderList[i])
+      }
+
+      if(arr.length < 1)
+        arr = null
+
+      this.setState({ orderedOrderList: arr })
+    }
+  }
+
+  changeOrders(orders: Array<object>) {
+    this.setState({ orderList: orders })
+  }
+
+  async updateOrder(order: object, callBack?: () => void) {
+    const url: string = '/order/orders/'+order['_id']
+    const data: object = order
+
+    const response: Response = await fetch(url, {
+      body: JSON.stringify(data),
+      headers: { 'content-type': 'application/json' },
+      method: 'PUT'
+    })
+
+    if(response) {
+      if(response.status === 200) {
+        const responseJSON: object = await response.json()
+
+        if(responseJSON['success']) {
+          console.log(responseJSON['message'])
+
+          if(typeof callBack === 'function')
+            callBack()
+        }
+        else
+          console.log(responseJSON['message'])
+      }
+      else
+        console.log(response.statusText)
     }
   }
 
@@ -263,15 +354,24 @@ export class App extends React.Component<{}, State> {
         <Switch>
           <Route exact path='/admin' render={() => (
             this.state.authorised ?
-            Admin({
-              user: this.state.user,
-              signOut: this.signOut,
-              getOrderList: this.getOrderList,
-              getClaimList: this.getClaimList,
-              //onWebSockets: this.onWebSockets,
-              claimList: this.state.claimList,
-              orderList: this.state.orderList
-            }) :
+            <Admin
+              claimList={this.state.claimList}
+              orderList={this.state.orderList}
+              orderedOrderList={this.state.orderedOrderList}
+              orderState={this.state.orderState}
+              paginationItemCount={this.state.paginationItemCount}
+              program={this.state.program}
+              user={this.state.user}
+              
+              changeOrders={this.changeOrders}
+              getOrderList={this.getOrderList}
+              getClaimList={this.getClaimList}
+              orderByOrderState={this.orderByOrderState}
+              orderByOrderProgram={this.orderByOrderProgram}
+              orderByTime={this.orderByTime}
+              updateOrder={this.updateOrder}
+              signOut={this.signOut}
+            /> :
             <Redirect to='/admin/login' />
           )} />
           <Route path='/admin/login' render={() => (

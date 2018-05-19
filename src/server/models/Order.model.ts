@@ -6,32 +6,41 @@ export class Order {
   carType: number
   date: Date
   deleted: boolean
+  editedBy: string
+  editedAt: Date
   email: string
   fullName: string
   message: string
   phone: string
-  program: Array<boolean> //number
+  program: Array<boolean>
+  orderState: number
 
   constructor(data: {
     city: number
     carType: number
     date: Date
     deleted: boolean
+    editedBy: string
+    editedAt: Date
     email: string
     fullName: string
     message: string
     phone: string
-    program: Array<boolean> //number
+    program: Array<boolean>
+    orderState: number
   }) {
     this.city = data.city
     this.carType = data.carType
     this.date = data.date
     this.deleted = data.deleted
+    this.editedBy = data.editedBy
+    this.editedAt = data.editedAt
     this.email = data.email
     this.fullName = data.fullName
     this.message = data.message
     this.phone = data.phone
     this.program = data.program
+    this.orderState = data.orderState
   }
 }
 
@@ -43,11 +52,17 @@ const OrderSchema = new Schema({
     type: Boolean,
     default: false
   },
+  editedBy: String,
+  editedAt: Date,
   email: String,
   fullName: String,
   message: String,
   phone: String,
-  program: Array
+  program: Array,
+  orderState: {
+    type: Number,
+    default: 0
+  }
 })
 
 export interface OrderDocument extends Order, Document {}

@@ -12,4 +12,8 @@ router.post('/order/order-create', (req, res, next) => {
   order.createOrder(req, res, next)
 })
 
+router.put('/order/orders/:id', (req, res, next) => {
+  order.updateOrder(req, res, next)
+})
+
 export default router
