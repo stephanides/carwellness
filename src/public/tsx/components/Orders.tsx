@@ -1,14 +1,19 @@
 import * as React from 'react'
+import { Pagination } from './Pagination'
 
 interface Props {
   boss: number
   list?: Array<object>
+  page: number
   paginationItemCount: number
+  pagesCount: number
   program: Array<string>
   orderState: Array<string>
   orderList?: Array<object>
   
   changeOrders(orders: Array<object>): void
+  changePage(page: number): void
+  changePageItemsCount(itemsCount: number): void
   getList(): void
   updateItem(item: object, callBack?: () => void): void
 }
@@ -133,10 +138,29 @@ export class Orders extends React.Component<Props, {}> {
             }
           </tbody>
         </table>
-        {
-          this.props.orderList && this.props.orderList.length > this.props.paginationItemCount ?
-          <div>PAGINATION</div> : null
-        }
+        <div className='d-flex justify-content-end pagination-container'>
+          <div className='form-group row mr-3'>
+            <label className='col-form-label'>Počet zobrazených prvkov</label>
+            <select className='form-control ml-3' onChange={e => {
+              const pageItemsCountVal: number = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].value)
+
+              this.props.changePageItemsCount(pageItemsCountVal)
+            }}>
+              <option value='10'>10</option>
+              <option value='25'>25</option>
+              <option value='50'>50</option>
+              <option value='100'>∞</option>
+            </select>
+          </div>
+          {
+            this.props.orderList && this.props.orderList.length > this.props.paginationItemCount ?
+            Pagination({
+              page: this.props.page,
+              pagesCount: this.props.pagesCount,
+              changePage: this.props.changePage
+            }) : null
+          }
+        </div>
       </div>
     )
   }
