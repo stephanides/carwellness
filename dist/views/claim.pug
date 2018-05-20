@@ -78,7 +78,7 @@ block content
               input.form-control#claimTel(placeholder='Vaše telefónne číslo')
             .form-group
               label(for='image') Príloha
-              input.border-0.pl-0.form-control#claimImage(type='file' accept="image/*")
+              input.border-0.pl-0.form-control#claimImage(type='file' accept="image/*" onchange='imgtobase()')
             .form-group
               label(for='sprava') Vaša správa
               textarea.form-control#claimMessage(rows="6" placeholder='Správa pre nás')

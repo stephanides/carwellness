@@ -812,23 +812,11 @@ $break-small:576px;
           background-color:#e1e3e8;
           border:solid 2px #c6cad2;
           margin-bottom:2%;
-          &:hover{
-            background-color:#dc002e;
-            border:none;
-            h5{
-              color:white;
-            }
-            h6{
-              color:white;
-            }
-            p{
-              color:white;
-            }
-          }
+          cursor:pointer;
         }
         .choosed{
           background-color:#dc002e;
-          border:none;
+          border:solid 2px #dc002e;
           h5{
               color:white;
           }
