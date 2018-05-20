@@ -166,10 +166,7 @@ export class App extends React.Component<{}, State> {
       const arr: Array<object> = this.state.orderedOrderList
 
       arr.sort((a: object, b: object) => ( b['date'].toLowerCase().localeCompare(a['date'].toLowerCase()) ))
-      this.setState({ orderedOrderList: arr },() => {
-        console.log('ORDER LIST ORDERED BY TIME')
-        console.log(this.state.orderedOrderList)
-      })
+      this.setState({ orderedOrderList: arr })
     })
   }
 
@@ -177,9 +174,6 @@ export class App extends React.Component<{}, State> {
     let arr: Array<object> = []
     
     if(this.state.pagesCount > 1) {
-      console.log('ORDER LIST IS')
-      console.log(this.state.orderList)
-
       const fromItem: number = page > 0 ? page * this.state.paginationItemCount : 0
       const toItem: number = (page * this.state.paginationItemCount) + this.state.paginationItemCount
 
@@ -226,8 +220,9 @@ export class App extends React.Component<{}, State> {
       this.setState({ orderedOrderList: this.state.orderList })
     else {
       for(let i: number = 0; i < this.state.orderList.length; i++) {
-        if(this.state.orderList[i]['program'][orderProgram])
+        if(this.state.orderList[i]['program'][orderProgram]) {
           arr.push(this.state.orderList[i])
+        }
       }
 
       if(arr.length < 1)

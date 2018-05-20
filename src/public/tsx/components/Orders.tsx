@@ -28,10 +28,6 @@ export class Orders extends React.Component<Props, {}> {
   }
 
   render() {
-    if(this.props.orderList)
-      console.log('Order list ', this.props.orderList.length)
-    console.log('Pagination item count', this.props.paginationItemCount)
-
     return(
       <div className='table-responsive'>
         <table className='table'>
