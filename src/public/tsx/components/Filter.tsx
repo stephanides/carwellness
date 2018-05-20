@@ -21,7 +21,7 @@ export const Filter: Function = (props: Props) => {
         <tr>
           <td></td>
           <td>
-            <select onChange={e => {
+            <select className='form-control' onChange={e => {
               const stateNum: number = e.currentTarget.options[e.currentTarget.selectedIndex].value !== 'x' ?
                 parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].value) : null
 
@@ -34,7 +34,7 @@ export const Filter: Function = (props: Props) => {
             </select>
           </td>
           <td>
-            <select onChange={e => {
+            <select className='form-control' onChange={e => {
               const stateNum: number = e.currentTarget.options[e.currentTarget.selectedIndex].value !== 'x' ?
                 parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].value) : null
 

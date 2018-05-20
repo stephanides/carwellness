@@ -10,13 +10,17 @@ import { UserPayLoad } from '../interfaces/UserPayLoad.interface'
 interface Props {
   user: UserPayLoad
   claimList?: Array<object>
+  page: number
   paginationItemCount: number
+  pagesCount: number
   program: Array<string>
   orderList?: Array<object>
   orderedOrderList?: Array<object>
   orderState: Array<string>
 
   changeOrders(orders: Array<object>): void
+  changePage(page: number): void
+  changePageItemsCount(itemsCount: number): void
   getClaimList(): void
   getOrderList(): void
   orderByTime(): void
@@ -61,12 +65,16 @@ export class Admin extends React.Component<Props, {}> {
               <Orders
                 boss={this.props.user.city}
                 list={this.props.orderedOrderList}
+                page={this.props.page}
                 paginationItemCount={this.props.paginationItemCount}
+                pagesCount={this.props.pagesCount}
                 program={this.props.program}
                 orderList={this.props.orderList}
                 orderState={this.props.orderState}
 
                 changeOrders={this.props.changeOrders}
+                changePage={this.props.changePage}
+                changePageItemsCount={this.props.changePageItemsCount}
                 getList={this.props.getOrderList}
                 updateItem={this.props.updateOrder}
               />

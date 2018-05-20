@@ -2,6 +2,7 @@
 $cwRed: #dc002e;
 $cwGrey: #eceef2;
 $grey: #ccc;
+$greyText: #6c757d;
 $white: #fff;
 $black: #1d1d1d;
 
@@ -184,6 +185,14 @@ $black: #1d1d1d;
             background-color: rgba(255, 255, 255, 0.5);
           }
         }
+      }
+    }
+    .pagination-container {
+      label {
+        color: $greyText;
+      }
+      select {
+        width: auto;
       }
     }
   }

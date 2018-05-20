@@ -20,6 +20,8 @@ interface State {
   orderedOrderList?: Array<object> | null
   orderState: Array<string>
   program: Array<string>
+  page: number
+  pagesCount: number
   paginationItemCount: number
   claimList?: Array<object> | null
   showHidePassword: boolean
@@ -31,6 +33,8 @@ const initialState: State = {
   authorised: false,
   login: true,
   program: ['COMFORT', 'EXCLUSIVE', 'EXTERIÉR', 'INTERIÉR', 'PREMIUM EXTERIÉR', 'PREMIUM INTERIÉR', 'AVANGARDE', 'TOP GLANZ'],
+  page: 0,
+  pagesCount: 1,
   paginationItemCount: 10,
   orderState: ['NOVÁ', 'VYBAVUJE SA', 'VYBAVENÁ'],
   showHidePassword: false
@@ -50,10 +54,13 @@ export class App extends React.Component<{}, State> {
     this.changeUserApprovedProperty = this.changeUserApprovedProperty.bind(this)
     this.changeShowHidePassword = this.changeShowHidePassword.bind(this)
     this.changeOrders = this.changeOrders.bind(this)
+    this.changePage = this.changePage.bind(this)
+    this.changePageItemsCount = this.changePageItemsCount.bind(this)
     this.getOrderList = this.getOrderList.bind(this)
     this.getClaimList = this.getClaimList.bind(this)
     this.getUsersList = this.getUsersList.bind(this)
     this.handleModal = this.handleModal.bind(this)
+    this.handlePaginationData = this.handlePaginationData.bind(this)
     //this.onWebSockets = this.onWebSockets.bind(this)
     this.orderByTime = this.orderByTime.bind(this)
     this.orderByOrderState = this.orderByOrderState.bind(this)
@@ -86,6 +93,33 @@ export class App extends React.Component<{}, State> {
       this.setState({ showHidePassword: true })
   }
 
+  changePage(page: number) {
+    this.setState({ page: page }, () => this.handlePaginationData(this.state.page))
+  }
+
+  changePageItemsCount(itemsCount: number) {
+    if(this.state.paginationItemCount !== itemsCount) {
+
+      this.setState({
+        paginationItemCount: itemsCount,
+        page: 0
+      }, () => {
+        this.setState({
+          pagesCount: this.state.paginationItemCount === 100 ?
+            1 : 
+            (
+              this.state.orderList.length > this.state.paginationItemCount ?
+              (
+                this.state.orderList.length % this.state.paginationItemCount > 0 ?
+                parseInt(String(this.state.orderList.length / this.state.paginationItemCount).split('.')[0]) + 1 :
+                this.state.orderList.length / this.state.paginationItemCount
+              ) : 1
+            )
+        }, () => this.handlePaginationData(this.state.page))
+      })
+    }
+  }
+
   async getOrderList() {
     const url = '/order/orders/'+this.state.user.city
     const resp: Response = await fetch(url)
@@ -94,25 +128,61 @@ export class App extends React.Component<{}, State> {
       if(resp.status === 200) {
         const respJSON: Array<object> = await resp.json()
 
-        if(respJSON)
-          this.setState({ orderList: respJSON['data'] }, this.orderByTime)
+        if(respJSON) {
+          this.setState({ orderList: respJSON['data'] }, () => {
+            this.setState({
+              pagesCount: this.state.paginationItemCount === 100 ?
+                1 : 
+                (
+                  this.state.orderList.length > this.state.paginationItemCount ?
+                  (
+                    this.state.orderList.length % this.state.paginationItemCount > 0 ?
+                    parseInt(String(this.state.orderList.length / this.state.paginationItemCount).split('.')[0]) + 1 :
+                    this.state.orderList.length / this.state.paginationItemCount
+                  ) : 1
+                )
+            }, this.orderByTime)
+          })
+        }
       }
-      else
-        console.log(resp.statusText)
+      else console.log(resp.statusText)
     }
   }
 
   orderByTime() {
-    if(this.state.orderList && this.state.orderList.length > 0) {
-      let arr: Array<object> = []
+    this.handlePaginationData(this.state.page, () => {
+      const arr: Array<object> = this.state.orderedOrderList
 
-      if(this.state.orderList.length > this.state.paginationItemCount) {
-        for(let i: number = 0; i < this.state.paginationItemCount; i++) //this.state.orderList.length
+      arr.sort((a: object, b: object) => ( b['date'].toLowerCase().localeCompare(a['date'].toLowerCase()) ))
+      this.setState({ orderedOrderList: arr })
+    })
+  }
+
+  handlePaginationData(page: number, callBack?: () => void) {
+    let arr: Array<object> = []
+    
+    if(this.state.pagesCount > 1) {
+      const fromItem: number = page > 0 ? page * this.state.paginationItemCount : 0
+      const toItem: number = (page * this.state.paginationItemCount) + this.state.paginationItemCount
+
+      for(let i: number = fromItem; i < toItem; i++) {
+        if(this.state.orderList[i])
+          arr.push(this.state.orderList[i])
+      }
+
+      this.setState({ orderedOrderList: arr }, () => {
+        if(typeof callBack === 'function')
+          callBack()
+      })
+    }
+    else {
+      for(let i: number = 0; i < this.state.orderList.length; i++)
           arr.push(this.state.orderList[i])
 
-        arr.sort((a: object, b: object) => ( a['date'].toLowerCase().localeCompare(b['date'].toLowerCase()) ))
-        this.setState({ orderedOrderList: arr })
-      }
+      this.setState({ orderedOrderList: arr }, () => {
+        if(typeof callBack === 'function')
+          callBack()
+      })
     }
   }
 
@@ -359,11 +429,15 @@ export class App extends React.Component<{}, State> {
               orderList={this.state.orderList}
               orderedOrderList={this.state.orderedOrderList}
               orderState={this.state.orderState}
+              page={this.state.page}
               paginationItemCount={this.state.paginationItemCount}
+              pagesCount={this.state.pagesCount}
               program={this.state.program}
               user={this.state.user}
               
               changeOrders={this.changeOrders}
+              changePage={this.changePage}
+              changePageItemsCount={this.changePageItemsCount}
               getOrderList={this.getOrderList}
               getClaimList={this.getClaimList}
               orderByOrderState={this.orderByOrderState}
