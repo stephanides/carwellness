@@ -244,7 +244,7 @@ $break-small:576px;
       color:rgb(60,65,71);
       font-weight:bold;
       margin-top:10px;
-      margin-left: 15px;
+      text-align:center;
       @media screen and (max-width: $break-medium){
           margin-top:15px;
           margin-bottom:15px;
@@ -255,6 +255,8 @@ $break-small:576px;
     img{
       transition: transform .2s;
       cursor:pointer;
+      display:block;
+      margin:0 auto;
       &:hover{
         transform: scale(1.05);
       }
@@ -919,6 +921,27 @@ $break-small:576px;
         .padding-left-30{
           padding-left:30px;
         }
+        span{
+          font-size:18px;
+          color: rgb(60, 65, 71);
+          font-weight: bold;
+          padding: 4px 0px;
+          &.price{
+            color:$carwellness-red;
+            margin-right:30px;
+          }
+          button{
+            margin-left:20px;
+            outline: none;
+            border: none;
+            background-color: transparent;
+            width: 35px;
+            cursor: pointer;
+          }
+        }
+        .margin-top-20{
+          margin-top:20px;
+        }
       }
     }
     .gallery{
@@ -1048,7 +1071,52 @@ $break-small:576px;
       text-align:center;
     }
   }
-
+  .galleryContent{
+    position: relative;
+    top: 160px;
+    h4{
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+    }
+    strong{
+      color:$carwellness-red;
+    }
+    img{
+      &.zoom{
+         width: 250px;
+         height: 200px;
+        -webkit-transition: all .3s ease-in-out;
+        -moz-transition: all .3s ease-in-out;
+        -o-transition: all .3s ease-in-out;
+        -ms-transition: all .3s ease-in-out;
+        @media screen and (max-width: $break-small){
+          margin:0 auto;
+          display:block;
+        }
+      }
+      &.transition {
+      -webkit-transform: scale(1.2); 
+      -moz-transform: scale(1.2);
+      -o-transform: scale(1.2);
+      transform: scale(1.2);
+      }
+    }
+    .thumb{
+      margin-bottom: 20px;
+      @media screen and (max-width: $break-small){
+        max-width:unset;
+        flex:none;
+      }
+    }
+        
+    .page-top{
+      margin-top:150px;
+    }
+  }
+  .m-t-60{
+    margin-top:60px;
+  }
 }
 .ui-timepicker-list{
   li{

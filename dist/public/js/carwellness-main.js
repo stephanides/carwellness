@@ -78,10 +78,12 @@ if(document.getElementById("datepicker")){
 	    });
 	});
 }
+var inaccessibleTime;
 if(document.getElementById("timepicker")){
 	$( function() {
 	    $( "#timepicker" ).timepicker({
-	    	'timeFormat': 'H:i:s'
+	    	'timeFormat': 'H:i:s',
+
 	    });
 	});
 }
@@ -90,9 +92,14 @@ if(document.getElementById("timepicker")){
 
 $(document).ready(function(){
   $(".fancybox").fancybox({
-        openEffect: "none",
-        closeEffect: "none"
+        'cyclic': true,
+        arrows : true,
+        infobar: true,
+        protect: true,
+        loop: true,
+        animationEffect:"zoom-in-out"
     });
+
     
     $(".zoom").hover(function(){
 		
@@ -102,7 +109,13 @@ $(document).ready(function(){
 		$(this).removeClass('transition');
 	});
 });
-    
+
+//** Order part**//
+
+var orderCity = null;
+var orderCarType = "";
+var orderProgram = [false,false,false,false,false,false,false,false]
+var orderDate = new Date();
 
 //** Claim part - creating of JSon for Server**//
 
@@ -142,5 +155,11 @@ function sendClaim(){
 	claimObjectToSend.image = claimImage;
 	claimObjectToSend.message = claimMessage;
 
-	console.log(claimObjectToSend);
+	$.ajax({
+	  type: "POST",
+	  url: https:/localhost:4040/claim/claim-create,
+	  data: claimObjectToSend,
+	  success: success,
+	  dataType: "json"
+	});
 }
