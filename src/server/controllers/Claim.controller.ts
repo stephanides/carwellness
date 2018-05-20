@@ -6,7 +6,7 @@ import { Claim, ClaimDocument, Claims } from '../models/Claim.model'
 export class ClaimController {
   async createClaim(req: Request, res: Response, next: NextFunction) {
     try {
-      const claim = await Claims.find({ deleted: false })
+      const claim = await Claims.findOne({ $and: [{ date: req.body.date }, { email: req.body.email}] })
 
       if(claim)
         this.throwError('Allready exist', 409, next)
@@ -16,6 +16,12 @@ export class ClaimController {
         for(let i: number = 0; i < Object.keys(req.body).length; i++) {
           if(Object.keys(req.body)[i] !== 'image')
             claimData[Object.keys(req.body)[i]] = (<any>Object).values(req.body)[i]
+        }
+
+        const imageData = {
+          imageType: req.body.image.split(';base64,')[0].indexOf('image/jpeg') < 0 ?
+            (req.body.image.split(';base64,')[0].indexOf('image/png') < 0 ? 'gif' : 'png') : 'jpg',
+          imageBase64Data: req.body.image.split(';base64,')[1]
         }
 
         //TODO create image object with image name and image src

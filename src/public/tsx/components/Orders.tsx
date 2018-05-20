@@ -41,7 +41,7 @@ export class Orders extends React.Component<Props, {}> {
             <tr>
               <th className='text-center'>#</th>
               {
-                this.props.boss === 0 ? <th className='text-center'>Mesto</th> : null
+                this.props.boss === 0 ? <th className='text-center'>Prevádzka</th> : null
               }
               <th className='text-center' scope='col'>Termín</th>
               <th className='text-center' scope='col'>Stav Objednávky</th>
