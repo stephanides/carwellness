@@ -89,26 +89,27 @@ if(document.getElementById("timepicker")){
 }
 
 //** Gallery **//
+if(document.getElementById("timepicker")){
+	$(function(){
+	  $(".fancybox").fancybox({
+	        'cyclic': true,
+	        arrows : true,
+	        infobar: true,
+	        protect: true,
+	        loop: true,
+	        animationEffect:"zoom-in-out"
+	    });
 
-$(document).ready(function(){
-  $(".fancybox").fancybox({
-        'cyclic': true,
-        arrows : true,
-        infobar: true,
-        protect: true,
-        loop: true,
-        animationEffect:"zoom-in-out"
-    });
-
-    
-    $(".zoom").hover(function(){
-		
-		$(this).addClass('transition');
-	}, function(){
-        
-		$(this).removeClass('transition');
+	    
+	    $(".zoom").hover(function(){
+			
+			$(this).addClass('transition');
+		}, function(){
+	        
+			$(this).removeClass('transition');
+		});
 	});
-});
+}
 
 //** Order part**//
 
@@ -155,11 +156,22 @@ function sendClaim(){
 	claimObjectToSend.image = claimImage;
 	claimObjectToSend.message = claimMessage;
 
+	console.log(claimObjectToSend);
+
 	$.ajax({
 	  type: "POST",
-	  url: https:/localhost:4040/claim/claim-create,
-	  data: claimObjectToSend,
-	  success: success,
-	  dataType: "json"
-	});
+	  url: "https://localhost:4040/claim/claim-create",
+	  data: JSON.stringify(claimObjectToSend),
+	  dataType: "json",
+	  success:  function (response) {
+            if(response.status === "success") {
+                console.log(response);
+            } else if(response.status === "error") {
+                console.log(response);
+            }
+        },
+       error: function(err) {
+       	console.log(err);
+       }
+    });
 }
