@@ -53,7 +53,7 @@ export class App extends React.Component<{}, State> {
     this.authenticate = this.authenticate.bind(this)
     this.changeUserApprovedProperty = this.changeUserApprovedProperty.bind(this)
     this.changeShowHidePassword = this.changeShowHidePassword.bind(this)
-    this.changeOrders = this.changeOrders.bind(this)
+    this.changeOrder = this.changeOrder.bind(this)
     this.changePage = this.changePage.bind(this)
     this.changePageItemsCount = this.changePageItemsCount.bind(this)
     this.getOrderList = this.getOrderList.bind(this)
@@ -68,6 +68,7 @@ export class App extends React.Component<{}, State> {
     this.signOut = this.signOut.bind(this)
     this.storeUserData = this.storeUserData.bind(this)
     this.submitForm = this.submitForm.bind(this)
+    this.updateClaim = this.updateClaim.bind(this)
     this.updateUser = this.updateUser.bind(this)
     this.updateOrder = this.updateOrder.bind(this)
   }
@@ -149,12 +150,26 @@ export class App extends React.Component<{}, State> {
     }
   }
 
+  changeOrder(order: object) {
+    let newOrderList: Array<object> = this.state.orderedOrderList
+
+    for(let i: number = 0; i < newOrderList.length; i++) {
+      if(newOrderList[i]['_id'] === order['_id'])
+        newOrderList[i] = order
+    }
+
+    this.setState({ orderedOrderList: newOrderList })
+  }
+
   orderByTime() {
     this.handlePaginationData(this.state.page, () => {
       const arr: Array<object> = this.state.orderedOrderList
 
       arr.sort((a: object, b: object) => ( b['date'].toLowerCase().localeCompare(a['date'].toLowerCase()) ))
-      this.setState({ orderedOrderList: arr })
+      this.setState({ orderedOrderList: arr },() => {
+        console.log('ORDER LIST ORDERED BY TIME')
+        console.log(this.state.orderedOrderList)
+      })
     })
   }
 
@@ -162,6 +177,9 @@ export class App extends React.Component<{}, State> {
     let arr: Array<object> = []
     
     if(this.state.pagesCount > 1) {
+      console.log('ORDER LIST IS')
+      console.log(this.state.orderList)
+
       const fromItem: number = page > 0 ? page * this.state.paginationItemCount : 0
       const toItem: number = (page * this.state.paginationItemCount) + this.state.paginationItemCount
 
@@ -219,13 +237,37 @@ export class App extends React.Component<{}, State> {
     }
   }
 
-  changeOrders(orders: Array<object>) {
-    this.setState({ orderList: orders })
-  }
-
   async updateOrder(order: object, callBack?: () => void) {
     const url: string = '/order/orders/'+order['_id']
     const data: object = order
+
+    const response: Response = await fetch(url, {
+      body: JSON.stringify(data),
+      headers: { 'content-type': 'application/json' },
+      method: 'PUT'
+    })
+
+    if(response) {
+      if(response.status === 200) {
+        const responseJSON: object = await response.json()
+
+        if(responseJSON['success']) {
+          console.log(responseJSON['message'])
+
+          if(typeof callBack === 'function')
+            callBack()
+        }
+        else
+          console.log(responseJSON['message'])
+      }
+      else
+        console.log(response.statusText)
+    }
+  }
+
+  async updateClaim(claim: object, callBack?: () => void) {
+    const url: string = '/claim/claims/'+claim['_id']
+    const data: object = claim
 
     const response: Response = await fetch(url, {
       body: JSON.stringify(data),
@@ -435,7 +477,7 @@ export class App extends React.Component<{}, State> {
               program={this.state.program}
               user={this.state.user}
               
-              changeOrders={this.changeOrders}
+              changeOrder={this.changeOrder}
               changePage={this.changePage}
               changePageItemsCount={this.changePageItemsCount}
               getOrderList={this.getOrderList}
@@ -443,6 +485,7 @@ export class App extends React.Component<{}, State> {
               orderByOrderState={this.orderByOrderState}
               orderByOrderProgram={this.orderByOrderProgram}
               orderByTime={this.orderByTime}
+              updateClaim={this.updateClaim}
               updateOrder={this.updateOrder}
               signOut={this.signOut}
             /> :

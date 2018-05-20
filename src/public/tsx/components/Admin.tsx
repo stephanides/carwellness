@@ -18,7 +18,7 @@ interface Props {
   orderedOrderList?: Array<object>
   orderState: Array<string>
 
-  changeOrders(orders: Array<object>): void
+  changeOrder(orders: object): void
   changePage(page: number): void
   changePageItemsCount(itemsCount: number): void
   getClaimList(): void
@@ -27,6 +27,7 @@ interface Props {
   orderByOrderState(orderState: number | null): void
   orderByOrderProgram(orderProgram: number | null): void
   updateOrder(order: object, callBack?: () => void): void
+  updateClaim(claim: object, callBack?: () => void): void
   //onWebSockets(): void
   signOut(): void
 }
@@ -72,7 +73,7 @@ export class Admin extends React.Component<Props, {}> {
                 orderList={this.props.orderList}
                 orderState={this.props.orderState}
 
-                changeOrders={this.props.changeOrders}
+                changeOrder={this.props.changeOrder}
                 changePage={this.props.changePage}
                 changePageItemsCount={this.props.changePageItemsCount}
                 getList={this.props.getOrderList}
@@ -82,8 +83,12 @@ export class Admin extends React.Component<Props, {}> {
             <div className='tab-pane fade' id='claims' role='tabpanel' aria-labelledby='claims-tab'>
               <Claims
                 boss={this.props.user.city}
+                claimState={this.props.orderState}
                 list={this.props.claimList}
+
+                changeClaims={this.props.changeOrder}
                 getList={this.props.getClaimList}
+                updateItem={this.props.updateClaim}
               />
             </div>
           </div>

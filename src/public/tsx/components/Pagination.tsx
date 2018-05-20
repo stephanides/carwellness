@@ -1,10 +1,11 @@
 import * as React from 'react'
 
 interface Props {
+  order: boolean
   page: number
   pagesCount: number
 
-  changePage(page: number): void
+  changePage(page: number, order: boolean): void
 }
 
 export const Pagination: Function = (props:Props) => {
@@ -17,7 +18,7 @@ export const Pagination: Function = (props:Props) => {
           type='button'
           className='page-link btn-link'
           onClick={() => {
-            props.changePage(i)
+            props.changePage(i, props.order)
           }}
         >
           {i+1}
@@ -33,7 +34,7 @@ export const Pagination: Function = (props:Props) => {
             type='button'
             disabled={props.page > 0 ? false : true}
             className='page-link btn-link'
-            onClick={() => props.changePage(props.page - 1)}
+            onClick={() => props.changePage(props.page - 1, props.order)}
           >
             Previous
           </button>
@@ -46,7 +47,7 @@ export const Pagination: Function = (props:Props) => {
             type='button'
             disabled={props.page === (props.pagesCount - 1) ? true : false}
             className='page-link btn-link'
-            onClick={() => props.changePage(props.page + 1)}
+            onClick={() => props.changePage(props.page + 1, props.order)}
           >
             Next
           </button>

@@ -3,8 +3,11 @@ import { IClaim } from '../interfaces/Claim.interface'
 
 export class Claim {
   city: number
+  claimState: number
   date: string
   deleted: boolean
+  editedBy: string
+  editedAt: Date
   email: string
   fullName: string
   message: string
@@ -13,8 +16,11 @@ export class Claim {
 
   constructor(data: {
     city: number
+    claimState: number
     date: string
     deleted: boolean
+    editedBy: string
+    editedAt: Date
     email: string
     fullName: string
     message: string
@@ -22,6 +28,9 @@ export class Claim {
     image: string
   }) {
     this.city = data.city
+    this.claimState = data.claimState
+    this.editedBy = data.editedBy,
+    this.editedAt = data.editedAt,
     this.email = data.email
     this.fullName = data.fullName    
     this.message = data.message
@@ -32,6 +41,10 @@ export class Claim {
 
 const ClaimSchema = new Schema({
   city: Number,
+  claimState: {
+    type: Number,
+    default: 0
+  },
   date: {
     type: Date,
     default: Date.now()
@@ -40,6 +53,8 @@ const ClaimSchema = new Schema({
     type: Boolean,
     default: false
   },
+  editedBy: String,
+  editedAt: Date,
   email: String,
   fullName: String,
   message: String,

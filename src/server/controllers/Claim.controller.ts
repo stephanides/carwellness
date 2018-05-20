@@ -40,6 +40,27 @@ export class ClaimController {
     }    
   }
 
+  async updateClaim(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const orderToUpdate: object = await Claims.findOne({ _id: mongoose.Types.ObjectId(req.params.id) })
+
+      if(!orderToUpdate)
+        this.throwError('Not Found', 404, next)
+      else {
+        const dataToUpdate: object = new Claim(req.body as IClaim)
+        const updatedOrder: object = await Claims.update({ _id: mongoose.Types.ObjectId(req.body._id) }, dataToUpdate)
+
+        if(updatedOrder)
+          res.json({ message: 'Claim has been successfully updated', success: true })
+        else
+          this.throwError('Can\'t update claim data', 500, next)
+      }
+    }
+    catch(err) {
+      return next(err)
+    }
+  }
+
   async getClaims(req: Request, res: Response, next: NextFunction) {
     try {
       const query: object = parseInt(req.params.city) > 0 ? { $and: [{ city: parseInt(req.params.city) }, { deleted: false }] } : { deleted: false }
