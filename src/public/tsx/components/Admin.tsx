@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Availability } from './Availability'
 import { Claims } from './Claims'
 import { Filter } from './Filter'
 import { Nav } from './Nav'
@@ -50,7 +51,17 @@ export class Admin extends React.Component<Props, {}> {
         }
         <div className='container-fluid'>
           {
-            TabNav({ tabs: [{ title: 'Objednávky', param: 'orders' }, { title: 'Reklamácie', param: 'claims' }] })
+            TabNav({
+              tabs: [{
+                title: 'Objednávky', param: 'orders'
+              },
+              {
+                title: 'Reklamácie', param: 'claims'
+              },
+              {
+                title: 'Obsadenosť', param: 'availability'
+              }]
+            })
           }
           <div className='tab-content p-3' id='adminTabContent'>
             <div className='tab-pane fade show active' id='orders' role='tabpanel' aria-labelledby='orders-tab'>
@@ -90,6 +101,9 @@ export class Admin extends React.Component<Props, {}> {
                 getList={this.props.getClaimList}
                 updateItem={this.props.updateClaim}
               />
+            </div>
+            <div className='tab-pane fade' id='availability' role='tabpanel' aria-labelledby='availability-tab'>
+              <Availability />
             </div>
           </div>
         </div>
