@@ -55,6 +55,13 @@ $break-small:576px;
         color:white!important;
       }
     }
+    .navbar-collapse{
+      .navbar-nav{
+        @media screen and (max-width: $break-medium){
+          height:100vh;
+        }
+      }
+    }
   }
   .carousel-inner{
     img{
@@ -719,6 +726,7 @@ $break-small:576px;
     top:320px;
   }
   .orderwrapper{
+
     .orderContainer{
       position:relative;
       top:240px;
@@ -930,6 +938,13 @@ $break-small:576px;
         .margin-top-20{
           margin-top:20px;
         }
+      }
+    }
+    .unlisted{
+      border:solid 2px $carwellness-red !important;
+      color:$carwellness-red !important;
+      &:hover{
+        color:white !important;
       }
     }
     .gallery{

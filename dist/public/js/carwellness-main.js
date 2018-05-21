@@ -74,7 +74,8 @@ if(document.getElementById("datepicker")){
 	$( function() {
 	    $( "#datepicker" ).datepicker({
 	    	minDate: 0,
-	    	altField: "#actualDate"
+	    	altField: "#actualDate",
+	    	dateFormat: 'dd-mm-yy'
 	    });
 	});
 }
@@ -83,7 +84,8 @@ if(document.getElementById("timepicker")){
 	$( function() {
 	    $( "#timepicker" ).timepicker({
 	    	'timeFormat': 'H:i:s',
-
+	    	showTimezone: true, 
+	        timezone: "+0000" 
 	    });
 	});
 }
@@ -114,7 +116,7 @@ if(document.getElementById("fancybox")){
 //** Order part**//
 
 var orderCity = null;
-var orderCarType = 1;
+var orderCarType = null;
 var orderProgram = [false,false,false,false,false,false,false,false]
 var orderDate = new Date();
 var orderSum = 0;
@@ -130,7 +132,7 @@ var orderObjectToSend = {
 	phone:orderTel,
 	message:orderMessage,
 	carType:orderCarType,
-	date:orderDate,
+	date:orderDate.toISOString(),
 	program:orderProgram
 };
 
@@ -139,6 +141,8 @@ var orderObjectToSend = {
 function cityForOrder(e){
 	document.getElementById("cityForOrder-2").classList.remove('choosed');
 	document.getElementById("cityForOrder-1").classList.remove('choosed');
+	document.getElementById("cityForOrder-2").classList.remove('unlisted');
+	document.getElementById("cityForOrder-1").classList.remove('unlisted');
 	document.getElementById("cityForOrder-"+e).classList.add('choosed');
 
 	if(e == 1){
@@ -148,10 +152,13 @@ function cityForOrder(e){
 		document.getElementById("orderChoosedCity").innerHTML = "Autoumyváreň Žilina";
 	}
 	orderCity = e;
+	console.log(orderCity);
 }
 function carTypeOrder(e){
 	document.getElementById("carTypeOrder-2").classList.remove('choosed');
 	document.getElementById("carTypeOrder-1").classList.remove('choosed');
+	document.getElementById("carTypeOrder-2").classList.remove('unlisted');
+	document.getElementById("carTypeOrder-1").classList.remove('unlisted');
 	document.getElementById("carTypeOrder-"+e).classList.add('choosed');
 	if(e == 1){
 		document.getElementById("orderChoosedCarType").innerHTML = "Auto KLASIK";
@@ -162,6 +169,7 @@ function carTypeOrder(e){
 	orderCarType = e;
 }
 function programOrder(e){
+	document.getElementById("programOrder-"+0).classList.remove('unlisted');
 	if(document.getElementById("programOrder-"+e).classList.contains('choosed')){
 		document.getElementById("programOrder-"+e).classList.remove('choosed');
 		document.getElementById("orderChoosedProgram-"+e).classList.remove('d-flex');
@@ -290,27 +298,63 @@ function orderTimeResult(){
 	document.getElementById("orderTimeResult").innerHTML = document.getElementById("timepicker").value;
 }
 
-function sendOrder(){
-	orderDate = document.getElementById("datepicker").value +" "+ document.getElementById("timepicker").value;
-	orderDate.toString();
-	console.log(orderDate);
+function isProgram(element) {
+    return (element === true);
+}
 
-	/*$.ajax({
-	  type: "POST",
-	  url: "http://localhost:4040/order/order-create",
-	  data: JSON.stringify(orderObjectToSend),
-	  dataType: "json",
-	  success:  function (response) {
-            if(response.status === "success") {
-                console.log(response);
-            } else if(response.status === "error") {
-                console.log(response);
-            }
-        },
-	   error: function(err) {
-	   	console.log(err);
-	   }
-    });*/
+function sendOrder(){
+	var readyToSend = false;
+	var date = document.getElementById("datepicker").value;
+	var time = document.getElementById("timepicker").value;
+	orderDate = date.split('-')[2]+'-'+date.split('-')[1]+'-'+date.split('-')[0]+'T'+time+'.00Z'
+	orderMessage = document.getElementById("orderMessage").value;
+
+	orderObjectToSend.city = orderCity;
+	orderObjectToSend.fullName = orderName;
+	orderObjectToSend.email = orderEmail;
+	orderObjectToSend.phone = orderTel;
+	orderObjectToSend.message = orderMessage;
+	orderObjectToSend.carType = orderCarType;
+	orderObjectToSend.date = orderDate;
+	orderObjectToSend.program = orderProgram;
+
+
+
+	if(orderCity == null){
+		readyToSend = false;
+		document.getElementById("cityForOrder-2").classList.add('unlisted');
+	    document.getElementById("cityForOrder-1").classList.add('unlisted');
+	}
+	if(orderCarType == null){
+		readyToSend = false;
+		document.getElementById("carTypeOrder-2").classList.add('unlisted');
+	    document.getElementById("carTypeOrder-1").classList.add('unlisted');
+	}
+
+	if(!orderProgram.some(isProgram)){
+		console.log("nebol vybraty ziaden program");
+		document.getElementById("programOrder-"+0).classList.add('unlisted');
+	}
+
+	if(readyToSend){
+		$.ajax({
+		  type: "POST",
+		  url: "http://localhost:4040/order/order-create",
+		  data: orderObjectToSend, //JSON.stringify(orderObjectToSend)
+		  dataType: "json",
+		  success:  function (response) {
+		  		console.log(response);
+	            if(response.status === "success") {
+	                console.log(response);
+	            } else if(response.status === "error") {
+	                console.log(response);
+	            }
+	        },
+		   error: function(err) {
+		   	console.log(err);
+		   }
+	    });
+	}
 }
 
 //** Claim part - creating of JSon for Server**//
@@ -350,14 +394,15 @@ function sendClaim(){
 	claimObjectToSend.image = claimImage;
 	claimObjectToSend.message = claimMessage;
 
-	console.log(claimObjectToSend);
+
 
 	$.ajax({
 	  type: "POST",
 	  url: "http://localhost:4040/claim/claim-create",
-	  data: JSON.stringify(claimObjectToSend),
+	  data: claimObjectToSend,
 	  dataType: "json",
 	  success:  function (response) {
+	  		console.log(response);
             if(response.status === "success") {
                 console.log(response);
             } else if(response.status === "error") {
