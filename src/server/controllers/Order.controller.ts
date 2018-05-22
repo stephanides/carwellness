@@ -13,10 +13,21 @@ export class OrderController {
       else {
         let orderData: object = {} as IOrder
 
+        console.log('REQ BODY:')
+        console.log(req.body)
+        console.log('\n')
+
         for(let i: number = 0; i < Object.keys(req.body).length; i++)
           orderData[Object.keys(req.body)[i]] = (<any>Object).values(req.body)[i]
 
+        console.log('INTERPOLATED DATA FROM REQEST:')
+        console.log(orderData)
+
         const newOrder: object = new Order(orderData as IOrder)
+        
+        console.log('CREATED ORDER READY TO SAVE:')
+        console.log(newOrder)
+
         const saveOrder = await Orders.create(newOrder)
 
         if(saveOrder)

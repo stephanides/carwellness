@@ -22,7 +22,7 @@ block content
       .container
         a.navbar-brand(href='./#')
           img(src='./assets/images/logo.png')
-        button.navbar-toggler(type='button' data-toggle='collapse' data-target='navbarCollapse')
+        button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarCollapse')
           span.navbar-toggler-icon
         .collapse.navbar-collapse.justify-content-end#navbarCollapse
           ul.navbar-nav
@@ -72,17 +72,17 @@ block content
               input.form-control#claimName(placeholder='Vaše meno a priezvisko' required="true")
             .form-group
               label(for='email') E-mailová adresa
-              input.form-control#claimEmail(placeholder='Váš e-mail' type='email' required="true")
+              input.form-control#claimEmail(placeholder='Váš e-mail' type='email' required="true" )
             .form-group
               label(for='tel') Telefónne číslo
               input.form-control#claimTel(placeholder='Vaše telefónne číslo')
             .form-group
               label(for='image') Príloha
-              input.border-0.pl-0.form-control#claimImage(type='file' accept="image/*")
+              input.border-0.pl-0.form-control#claimImage(type='file' accept="image/*" onchange='imgtobase()')
             .form-group
               label(for='sprava') Vaša správa
               textarea.form-control#claimMessage(rows="6" placeholder='Správa pre nás')
-            button(type="submit" onclick="sendClaim()" data-toggle="modal" data-target="#claimModal") ODOSLAŤ SPRÁVU
+            button(type="submit" onclick="sendClaim()" data-toggle="modal" ) ODOSLAŤ SPRÁVU
     section.footer.footerContactSection
       .container
         .row

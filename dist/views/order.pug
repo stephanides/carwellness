@@ -15,7 +15,7 @@ block content
         .container
           a.navbar-brand(href='./#')
             img(src='./assets/images/logo.png')
-          button.navbar-toggler(type='button' data-toggle='collapse' data-target='navbarCollapse')
+          button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarCollapse')
             span.navbar-toggler-icon
           .collapse.navbar-collapse.justify-content-end#navbarCollapse
             ul.navbar-nav
@@ -49,9 +49,9 @@ block content
                 .col-md-10
                   .row
                     .col-md-6
-                      button.btn-block.choosed CARwellness Žilina (Aupark)
+                      button.btn-block#cityForOrder-2(onclick='cityForOrder(2)') CARwellness Žilina (Aupark)
                     .col-md-6
-                      button.btn-block CARwellness Nitra (Mlyny)
+                      button.btn-block#cityForOrder-1(onclick='cityForOrder(1)') CARwellness Nitra (Mlyny)
         .container.orderChooseCarType
           .row
             h4 2. Vyberte si typ auta
@@ -60,43 +60,43 @@ block content
                 .col-md-10
                   .row
                     .col-md-6
-                      button.btn-block Auto KLASIK (Kombi,Sedan...)
+                      button.btn-block#carTypeOrder-1(onclick='carTypeOrder(1)') Auto KLASIK (Kombi,Sedan...)
                     .col-md-6
-                      button.btn-block.choosed Auto SUV
+                      button.btn-block#carTypeOrder-2(onclick='carTypeOrder(2)') Auto SUV
         .container.orderChooseProgram
           .row
             h4 3. Vyberte si program
             .container
               .row.ml-0
-                .col-md-3
+                .col-md-3#programOrder-0(onclick='programOrder(0)')
                   h5 COMFORT
                   h6 Čas trvania: #[strong 1h 30m]
                   p.price 28,00 €
-                .col-md-3.choosed
+                .col-md-3#programOrder-1(onclick='programOrder(1)')
                   h5 EXCLUSIVE
                   h6 Čas trvania: #[strong 4 hodiny]
                   p.price 78,00 €
-                .col-md-3
+                .col-md-3#programOrder-2(onclick='programOrder(2)')
                   h5 EXTERIÉR
                   h6 Čas trvania: #[strong 45 minút]
                   p.price 15,00 €
-                .col-md-3
+                .col-md-3#programOrder-3(onclick='programOrder(3)')
                   h5 INTERIÉR
                   h6 Čas trvania: #[strong 45 minút]
                   p.price 18,00 €
-                .col-md-3
+                .col-md-3#programOrder-4(onclick='programOrder(4)')
                   h5 PREMIUM EXTERIÉR
                   h6 Čas trvania: #[strong 12 hodín]
                   p.price 108,00 €
-                .col-md-3
+                .col-md-3#programOrder-5(onclick='programOrder(5)')
                   h5 PREMIUM INTERIÉR
                   h6 Čas trvania: #[strong 12 hodín]
                   p.price 108,00 €
-                .col-md-3
+                .col-md-3#programOrder-6(onclick='programOrder(6)')
                   h5 AVANGARDE
                   h6 Čas trvania: #[strong 2h 15m]
                   p.price 78,00 €
-                .col-md-3
+                .col-md-3#programOrder-7(onclick='programOrder(7)')
                   h5 TOP GLANZ
                   h6 Čas trvania: #[strong 3 hodiny]
                   p.price 68,00 €
@@ -110,34 +110,34 @@ block content
                     svg(fill="#FF0000" height="36" viewBox="0 0 24 24" width="36" xmlns="http://www.w3.org/2000/svg")
                       path(d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z")
                       path(d="M0 0h24v24H0z" fill="none")
-                    input#datepicker(type='text' placeholder='DD/MM/YYYY')
+                    input#datepicker(type='text' placeholder='DD/MM/YYYY' onchange="orderDateResult()")
                   .col-lg-3.form-group
                     svg(xmlns="http://www.w3.org/2000/svg" fill="#FF0000" width="36" height="36" viewBox="0 0 24 24")
                       path(d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z")
                       path(d="M0 0h24v24H0z" fill="none")
                       path(d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z")
-                    input#timepicker(type='text' placeholder='00:00')
+                    input#timepicker(type='text' placeholder='00:00' onchange="orderTimeResult()")
                   button.col-lg-3 Pozrieť voľné termíny
         .container.orderMoreInfo
           .row
             .col-lg-6
               h4 5. Doplňujúce informácie
-              form
+              form(onsubmit='return false;')
                 .form-group
                   label(for='nameSurname') Meno a priezvisko
-                  input.form-control#orderName(placeholder='Vaše meno a priezvisko')
+                  input.form-control#orderName(placeholder='Vaše meno a priezvisko' required="true" onchange="orderNameResult()")
                 .form-group
                   label(for='email') E-mailová adresa
-                  input.form-control#orderEmail(placeholder='Váš e-mail' type='email')
+                  input.form-control#orderEmail(placeholder='Váš e-mail' type='email' required="true" onchange="orderEmailResult()")
                 .form-group
                   label(for='tel') Telefónne číslo
-                  input.form-control#orderTel(placeholder='Vaše telefónne číslo')
+                  input.form-control#orderTel(placeholder='Vaše telefónne číslo' onchange="orderTelResult()")
                 .form-group
                   label(for='carType') Typ vozidla
-                  input.form-control#carType(placeholder='Napr. Audi Q7 a pod.')
+                  input.form-control#orderCarType(placeholder='Napr. Audi Q7 a pod.' onchange="orderCarTypeResult()")
                 .form-group
                   label(for='sprava') Vaša správa
-                  textarea.form-control#orderMessage(rows="6" placeholder='Správa pre nás')
+                  textarea.form-control#orderMessage(rows="6" placeholder='Správa pre nás' )
             .col-lg-6.padding-left-30
               .row
                 h4 6. Súhrn objednávky
@@ -145,58 +145,63 @@ block content
                 h5#orderChoosedCity Nebola zvolená žiadna autoumyvárka
                 p &nbsp;
                 p Typ vozidla:
-                h5 Nebolo zvolené žiadne vozidlo
+                h5#orderChoosedCarType Nebolo zvolené žiadne vozidlo
                 p &nbsp;
-                p Vybrané programy
-                div.d-flex.justify-content-between.w-100
+                p Vybrané programy:
+                div.d-none.justify-content-between.w-100.margin-top-20#orderChoosedProgram-0
                   span Comfort
-                  span 28,00
-                    button &times;
-                div.d-flex.justify-content-between.w-100
+                  span.price 28,00 €
+                    button(onclick='removeProgram(0)') &times;
+                div.d-none.justify-content-between.w-100#orderChoosedProgram-1
                   span Exclusive
-                  span 78,00
-                    button &times;
-                div.d-flex.justify-content-between.w-100
+                  span.price 78,00 €
+                    button(onclick='removeProgram(1)') &times;
+                div.d-none.justify-content-between.w-100#orderChoosedProgram-2
                   span Exteriér
-                  span 15,00
-                    button &times;
-                div.d-flex.justify-content-between.w-100
+                  span.price 15,00 €
+                    button(onclick='removeProgram(2)') &times;
+                div.d-none.justify-content-between.w-100#orderChoosedProgram-3
                   span Interiér
-                  span 15,00
-                    button &times;
-                div.d-flex.justify-content-between.w-100
+                  span.price 15,00 €
+                    button(onclick='removeProgram(3)') &times;
+                div.d-none.justify-content-between.w-100#orderChoosedProgram-4
                   span Premium exteriér
-                  span 108,00
-                    button &times;
-                div.d-flex.justify-content-between.w-100
+                  span.price 108,00 €
+                    button(onclick='removeProgram(4)') &times;
+                div.d-none.justify-content-between.w-100#orderChoosedProgram-5
                   span Premium interiér
-                  span 108,00
-                    button &times;
-                div.d-flex.justify-content-between.w-100
+                  span.price 108,00 €
+                    button(onclick='removeProgram(5)') &times;
+                div.d-none.justify-content-between.w-100#orderChoosedProgram-6
                   span Avangarde
-                  span 78,00
-                    button &times;
-                div.d-flex.justify-content-between.w-100
+                  span.price 78,00 €
+                    button(onclick='removeProgram(6)') &times;
+                div.d-none.justify-content-between.w-100#orderChoosedProgram-7
                   span Top glanz
-                  span 68,00
-                    button &times;
+                  span.price 68,00 €
+                    button(onclick='removeProgram(7)') &times;
+              .row
+                p &nbsp;
+                p Dátum:
+                h5#orderDateResult Dátum nebol zvolený
+                p &nbsp;
+                p Čas:
+                h5#orderTimeResult Čas nebol zvolený
+                p &nbsp;
+                p Osobné údaje:
+                h5#orderNameResult Meno nebolo zvolené
+                h5#orderEmailResult Email nebol zvolený
+                h5#orderTelResult Telefonné číslo nebolo zvolené
+                h5#orderCarTypeResult Typ auta nebol zvolený
+                p &nbsp;
+                p Konečná suma:
+                h4.sum#orderSum Suma nie je zrátaná
 
           .row
         .container.p-0
-          button.btn-block.orderButton OBJEDNAŤ
+          button.btn-block.orderButton(onclick='sendOrder()') OBJEDNAŤ
       .container.orderCancelInfo
         p Minimálny čas rezervácie je 6 hodín pred príchodom do Carwellness. Rezervácia je platná až po telefonickom, resp. e-mailovom potvrdení.<br>V prípade, že si prajete zrušiť rezerváciu, je potrebné tak urobiť čímskôr, najneskôr však 1 hodinu pred príchodom. <br>Nepožadujeme predplatbu za rezerváciu.
-      section.gallery
-        .container
-          h3 Galéria
-          p Zoznámte sa s našou prácou, ktorú sme odovzdali spokojným klientom.
-          .row
-            .col-lg-6
-              img(src='./assets/images/gallerybentley.png')
-              h4 CARwellness Žilina (Aupark)
-            .col-lg-6
-              img(src='./assets/images/gallerybmw.png')
-              h4 CARwellness Nitra (Mlyny)
       section.footer
         .container
           .row

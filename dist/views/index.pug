@@ -12,7 +12,7 @@ block content
       .container
         a.navbar-brand(href='./#')
           img(src='./assets/images/logo.png')
-        button.navbar-toggler(type='button' data-toggle='collapse' data-target='navbarCollapse')
+        button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarCollapse')
           span.navbar-toggler-icon
         .collapse.navbar-collapse.justify-content-end#navbarCollapse
           ul.navbar-nav
@@ -192,12 +192,10 @@ block content
         h3 Galéria
         p Zoznámte sa s našou prácou, ktorú sme odovzdali spokojným klientom.
         .row
-          .col-lg-6
-            img(src='./assets/images/gallerybentley.png')
-            h4 CARwellness Žilina (Aupark)
-          .col-lg-6
-            img(src='./assets/images/gallerybmw.png')
-            h4 CARwellness Nitra (Mlyny)
+          .col-lg-12
+            a(href='./galeria')
+              img(src='./assets/images/gallerybentley.png')
+            h4 CARwellness Žilina & Nitra
     section.footer
       .container
         .row
