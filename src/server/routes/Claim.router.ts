@@ -12,4 +12,8 @@ router.post('/claim/claim-create', (req, res, next) => {
   claim.createClaim(req, res, next)
 })
 
+router.put('/claim/claims/:id', (req, res, next) => {
+  claim.updateClaim(req, res, next)
+})
+
 export default router

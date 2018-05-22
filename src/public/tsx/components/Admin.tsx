@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { Availability } from './Availability'
 import { Claims } from './Claims'
 import { Filter } from './Filter'
 import { Nav } from './Nav'
@@ -18,7 +19,7 @@ interface Props {
   orderedOrderList?: Array<object>
   orderState: Array<string>
 
-  changeOrders(orders: Array<object>): void
+  changeOrder(orders: object): void
   changePage(page: number): void
   changePageItemsCount(itemsCount: number): void
   getClaimList(): void
@@ -27,6 +28,7 @@ interface Props {
   orderByOrderState(orderState: number | null): void
   orderByOrderProgram(orderProgram: number | null): void
   updateOrder(order: object, callBack?: () => void): void
+  updateClaim(claim: object, callBack?: () => void): void
   //onWebSockets(): void
   signOut(): void
 }
@@ -49,7 +51,17 @@ export class Admin extends React.Component<Props, {}> {
         }
         <div className='container-fluid'>
           {
-            TabNav({ tabs: [{ title: 'Objednávky', param: 'orders' }, { title: 'Reklamácie', param: 'claims' }] })
+            TabNav({
+              tabs: [{
+                title: 'Objednávky', param: 'orders'
+              },
+              {
+                title: 'Reklamácie', param: 'claims'
+              },
+              {
+                title: 'Obsadenosť', param: 'availability'
+              }]
+            })
           }
           <div className='tab-content p-3' id='adminTabContent'>
             <div className='tab-pane fade show active' id='orders' role='tabpanel' aria-labelledby='orders-tab'>
@@ -72,7 +84,7 @@ export class Admin extends React.Component<Props, {}> {
                 orderList={this.props.orderList}
                 orderState={this.props.orderState}
 
-                changeOrders={this.props.changeOrders}
+                changeOrder={this.props.changeOrder}
                 changePage={this.props.changePage}
                 changePageItemsCount={this.props.changePageItemsCount}
                 getList={this.props.getOrderList}
@@ -82,9 +94,16 @@ export class Admin extends React.Component<Props, {}> {
             <div className='tab-pane fade' id='claims' role='tabpanel' aria-labelledby='claims-tab'>
               <Claims
                 boss={this.props.user.city}
+                claimState={this.props.orderState}
                 list={this.props.claimList}
+
+                changeClaims={this.props.changeOrder}
                 getList={this.props.getClaimList}
+                updateItem={this.props.updateClaim}
               />
+            </div>
+            <div className='tab-pane fade' id='availability' role='tabpanel' aria-labelledby='availability-tab'>
+              <Availability />
             </div>
           </div>
         </div>

@@ -11,9 +11,9 @@ interface Props {
   orderState: Array<string>
   orderList?: Array<object>
   
-  changeOrders(orders: Array<object>): void
-  changePage(page: number): void
-  changePageItemsCount(itemsCount: number): void
+  changeOrder(orders: object): void
+  changePage(page: number, order: boolean): void
+  changePageItemsCount(itemsCount: number, order: boolean): void
   getList(): void
   updateItem(item: object, callBack?: () => void): void
 }
@@ -98,7 +98,7 @@ export class Orders extends React.Component<Props, {}> {
                             const orders: Array<object> = this.props.list
 
                             orders[i]['orderState'] = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].value)
-                            this.props.changeOrders(orders)
+                            this.props.changeOrder(orders[i])
                           }}
                         >
                           {
@@ -144,7 +144,7 @@ export class Orders extends React.Component<Props, {}> {
             <select className='form-control ml-3' onChange={e => {
               const pageItemsCountVal: number = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].value)
 
-              this.props.changePageItemsCount(pageItemsCountVal)
+              this.props.changePageItemsCount(pageItemsCountVal, true)
             }}>
               <option value='10'>10</option>
               <option value='25'>25</option>
@@ -153,12 +153,16 @@ export class Orders extends React.Component<Props, {}> {
             </select>
           </div>
           {
-            this.props.orderList && this.props.orderList.length > this.props.paginationItemCount ?
-            Pagination({
-              page: this.props.page,
-              pagesCount: this.props.pagesCount,
-              changePage: this.props.changePage
-            }) : null
+            this.props.orderList ?
+            (
+              this.props.orderList.length > this.props.paginationItemCount ?
+              Pagination({
+                order: true,
+                page: this.props.page,
+                pagesCount: this.props.pagesCount,
+                changePage: this.props.changePage
+              }) : null
+            ) : null            
           }
         </div>
       </div>

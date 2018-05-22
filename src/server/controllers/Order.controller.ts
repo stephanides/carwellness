@@ -54,7 +54,7 @@ export class OrderController {
         if(updatedOrder)
           res.json({ message: 'Order has been successfully updated', success: true })
         else
-          this.throwError('Can\'t update user data', 500, next)
+          this.throwError('Can\'t update order data', 500, next)
       }
     }
     catch(err) {
