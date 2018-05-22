@@ -35,9 +35,25 @@ export class Availability extends React.Component<Props, {}> {
                   (
                     this.props.user.city > 1 ?
                     (
-                       <div></div>//TODO FINISH THIS
-                    ) : null
-                  ) : null
+                    	this.props.dayOfWeek < 6 && this.props.dayOfWeek != 0 ?
+                    	<div key={i}>{item[0]+' - '+item[1]}</div> :
+                    	(
+                    		i > 1 ?
+                    	  <div key={i}>{item[0]+' - '+item[1]}</div> : null
+                    	)
+                    ) : 
+                    (
+                      this.props.dayOfWeek < 6 && this.props.dayOfWeek != 0 ?
+                      (
+                        i > 1 ?
+                        <div key={i}>{item[0]+' - '+item[1]}</div> : null
+                      ) :
+                      (
+                        i > 2 ?
+                        <div key={i}>{item[0]+' - '+item[1]}</div> : null
+                      )
+                    )
+                  ) : <div key={i}>{item[0]+' - '+item[1]}</div>
                 )
               })
             }
