@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Availability } from './Availability'
 import { Claims } from './Claims'
 import { Filter } from './Filter'
+import { Modal } from './Modal'
 import { Nav } from './Nav'
 import { Orders } from './Orders'
 import { Redirect } from 'react-router'
@@ -9,8 +10,13 @@ import { TabNav } from './TabNav'
 import { UserPayLoad } from '../interfaces/UserPayLoad.interface'
 
 interface Props {
+  availabilityDate?: string
+  carType: Array<string>
   user: UserPayLoad
   claimList?: Array<object>
+  dayOfWeek: number
+  modalMessage?: string | JSX.Element
+  modalTitle: string
   page: number
   paginationItemCount: number
   pagesCount: number
@@ -18,18 +24,26 @@ interface Props {
   orderList?: Array<object>
   orderedOrderList?: Array<object>
   orderState: Array<string>
+  //today: string
+  //tomorrow: string
+  todayTimes: Array<boolean>
+  tomorrowTimes: Array<boolean>
+  //todayOrTomorrow: number
+  workingHours: string[][]
 
   changeOrder(orders: object): void
   changePage(page: number): void
   changePageItemsCount(itemsCount: number): void
   getClaimList(): void
   getOrderList(): void
+  handleModal(message: string, success: boolean): void
   orderByTime(): void
   orderByOrderState(orderState: number | null): void
   orderByOrderProgram(orderProgram: number | null): void
   updateOrder(order: object, callBack?: () => void): void
   updateClaim(claim: object, callBack?: () => void): void
   //onWebSockets(): void
+  setDay(e: string): void
   signOut(): void
 }
 
@@ -46,6 +60,12 @@ export class Admin extends React.Component<Props, {}> {
   render() {
     return(
       <div className='admin-content'>
+        {
+          Modal({
+            modalMessage: this.props.modalMessage,
+            modalTitle: this.props.modalTitle
+          })
+        }
         {
           Nav({ user: this.props.user, signOut: this.props.signOut })
         }
@@ -75,6 +95,7 @@ export class Admin extends React.Component<Props, {}> {
                 })
               }
               <Orders
+                carType={this.props.carType}
                 boss={this.props.user.city}
                 list={this.props.orderedOrderList}
                 page={this.props.page}
@@ -88,6 +109,7 @@ export class Admin extends React.Component<Props, {}> {
                 changePage={this.props.changePage}
                 changePageItemsCount={this.props.changePageItemsCount}
                 getList={this.props.getOrderList}
+                handleModal={this.props.handleModal}
                 updateItem={this.props.updateOrder}
               />
             </div>
@@ -103,7 +125,19 @@ export class Admin extends React.Component<Props, {}> {
               />
             </div>
             <div className='tab-pane fade' id='availability' role='tabpanel' aria-labelledby='availability-tab'>
-              <Availability />
+              <Availability
+                availabilityDate={this.props.availabilityDate}
+                dayOfWeek={this.props.dayOfWeek}
+                user={this.props.user}
+                //today={this.props.today}
+                //tomorrow={this.props.tomorrow}
+                todayTimes={this.props.todayTimes}
+                tomorrowTimes={this.props.tomorrowTimes}
+                //todayOrTomorrow={this.props.todayOrTomorrow}
+                workingHours={this.props.workingHours}
+
+                setDay={this.props.setDay}
+              />
             </div>
           </div>
         </div>

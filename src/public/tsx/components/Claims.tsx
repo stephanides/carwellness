@@ -32,7 +32,7 @@ export class Claims extends React.Component <Props, {}> {
           <caption>
             Zoznam reklamácií:
             <span className='table-warning font-weight-bold'>NOVÁ</span>
-            <span className='table-danger font-weight-bold'>VYBAVUJE SA</span>
+            <span className='table-danger font-weight-bold'>ZRUŠENÁ</span>
             <span className='table-success font-weight-bold'>VYBAVENÁ</span>
           </caption>
           <thead>

@@ -4,6 +4,7 @@ import { IOrder } from '../interfaces/Order.interface'
 export class Order {
   city: number
   carType: number
+  carTypeDetail: string
   date: Date
   deleted: boolean
   editedBy: string
@@ -18,6 +19,7 @@ export class Order {
   constructor(data: {
     city: number
     carType: number
+    carTypeDetail: string
     date: Date
     deleted: boolean
     editedBy: string
@@ -31,6 +33,7 @@ export class Order {
   }) {
     this.city = data.city
     this.carType = data.carType
+    this.carTypeDetail = data.carTypeDetail
     this.date = data.date
     this.deleted = data.deleted
     this.editedBy = data.editedBy
@@ -47,6 +50,7 @@ export class Order {
 const OrderSchema = new Schema({
   city: Number,
   carType: Number,
+  carTypeDetail: String,
   date: Date,
   deleted: {
     type: Boolean,
