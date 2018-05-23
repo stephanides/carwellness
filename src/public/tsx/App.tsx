@@ -11,8 +11,17 @@ import { UserPayLoad } from './interfaces/UserPayLoad.interface'
 //import * as WebSocket from 'ws'
 const history = createBrowserHistory()
 
+const _date: Date = new Date()
+const _today: string =_date.getDate() < 10 ? '0'+_date.getDate() : String(_date.getDate())
+const _tomorrow: string = _today.indexOf('0') > -1 ? String('0'+(parseInt(_today.replace('0', ''))+1)) : String(parseInt(_today)+1)
+const _month: string = _date.getMonth() < 10 ? '0'+(_date.getMonth()+1) : String(_date.getMonth()+1)
+const _year: number = _date.getFullYear()
+
 interface State {
   authorised: boolean
+  availabilityDate?: string
+  carType: Array<string>
+  dayOfWeek: number
   modalMessage?: string | JSX.Element
   modalTitle?: string
   login: boolean
@@ -23,21 +32,35 @@ interface State {
   page: number
   pagesCount: number
   paginationItemCount: number
+  //todayOrTomorrow: number
+  //today: string
+  //tomorrow: string
+  todayTimes: Array<boolean>
+  tomorrowTimes: Array<boolean>
   claimList?: Array<object> | null
   showHidePassword: boolean
   user?: UserPayLoad
   usersList?: Array<object> | null
+  workingHours: string[][]
 }
 
 const initialState: State = {
   authorised: false,
+  carType: ['AUTO CLASSIC', 'AUTO SUV'],
+  dayOfWeek: _date.getDay(),
   login: true,
   program: ['COMFORT', 'EXCLUSIVE', 'EXTERIÉR', 'INTERIÉR', 'PREMIUM EXTERIÉR', 'PREMIUM INTERIÉR', 'AVANGARDE', 'TOP GLANZ'],
   page: 0,
   pagesCount: 1,
   paginationItemCount: 10,
-  orderState: ['NOVÁ', 'VYBAVUJE SA', 'VYBAVENÁ'],
-  showHidePassword: false
+  orderState: ['NOVÁ', 'ZRUŠENÁ', 'VYBAVENÁ'],
+  showHidePassword: false,
+  //today: _today+'/'+_month+'/'+_year,
+  //tomorrow: _tomorrow+'/'+_month+'/'+_year,
+  //todayOrTomorrow: 0,
+  todayTimes: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+  tomorrowTimes: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+  workingHours: [['07:00', '07:30'], ['07:30', '08:00'], ['08:00', '08:30'], ['08:30', '09:00'], ['09:00', '09:30'], ['09:30', '10:00'], ['10:00','10:30'], ['10:30', '11:00'], ['11:00', '11:30'], ['11:30', '12:00'], ['12:00', '12:30'], ['12:30', '13:00'], ['13:00', '13:30'], ['13:30', '14:00'], ['14:00', '14:30'], ['14:30','15:00'], ['15:00', '15:30'], ['15:30', '16:00'], ['16:00', '16:30'], ['16:30', '17:00'], ['17:00', '17:30'], ['17:30', '18:00'], ['18:00', '18:30'], ['18:30', '19:00'], ['19:00', '19:30'], ['19:30', '20:00'], ['20:00', '20:30'], ['20:30', '21:00']]
 }
 
 export class App extends React.Component<{}, State> {
@@ -51,6 +74,7 @@ export class App extends React.Component<{}, State> {
     this.state = initialState
     //this.ws = new WebSocket('ws:/localhost:4141/order/order-create')
     this.authenticate = this.authenticate.bind(this)
+    this.changeAvailability = this.changeAvailability.bind(this)
     this.changeUserApprovedProperty = this.changeUserApprovedProperty.bind(this)
     this.changeShowHidePassword = this.changeShowHidePassword.bind(this)
     this.changeOrder = this.changeOrder.bind(this)
@@ -65,6 +89,7 @@ export class App extends React.Component<{}, State> {
     this.orderByTime = this.orderByTime.bind(this)
     this.orderByOrderState = this.orderByOrderState.bind(this)
     this.orderByOrderProgram = this.orderByOrderProgram.bind(this)
+    this.setDay = this.setDay.bind(this)
     this.signOut = this.signOut.bind(this)
     this.storeUserData = this.storeUserData.bind(this)
     this.submitForm = this.submitForm.bind(this)
@@ -78,6 +103,13 @@ export class App extends React.Component<{}, State> {
 
     if(user)
       this.setState({ authorised: true, user: user })
+  }
+
+  changeAvailability(e: React.FormEvent<HTMLSelectElement>) {
+    const el: HTMLSelectElement = e.target as HTMLSelectElement
+    const val: number = parseInt(el.value)
+
+    console.log(val)
   }
 
   changeUserApprovedProperty(updatedUsers: Array<object>, callback?:() => void) {
@@ -360,7 +392,7 @@ export class App extends React.Component<{}, State> {
   }
 
   handleModal(message: string, success: boolean) {
-    const title: string = success ? '' : 'Chyba'
+    const title: string = success ? 'Info' : 'Chyba'
 
     this.setState({ modalMessage: message, modalTitle: title }, () => { $('#modal').modal('show') })
   }
@@ -378,8 +410,23 @@ export class App extends React.Component<{}, State> {
     }
   }*/
 
+  setDay(e: string) {
+    let date, dateFormat
+
+    if(e !== '') {
+      date = new Date(e) as Date
+      dateFormat = date.getDate()+'-'+(date.getMonth() < 10 ? '0'+(date.getMonth()+1) : date.getMonth())+'-'+date.getFullYear() as string
+
+      console.log('Day of Week '+date.getDay())
+      console.log('DATE: '+dateFormat)
+    }
+
+    this.setState({ dayOfWeek: date ? date.getDay() : this.state.dayOfWeek, availabilityDate: dateFormat ? dateFormat : '' })
+  }
+
   signOut() {
     this.setState({ 
+      availabilityDate: '',
       authorised: false,
       orderList: null,
       showHidePassword: false,
@@ -462,7 +509,12 @@ export class App extends React.Component<{}, State> {
           <Route exact path='/admin' render={() => (
             this.state.authorised ?
             <Admin
+              availabilityDate={this.state.availabilityDate}
+              carType={this.state.carType}
               claimList={this.state.claimList}
+              dayOfWeek={this.state.dayOfWeek}
+              modalMessage={this.state.modalMessage}
+              modalTitle={this.state.modalTitle}
               orderList={this.state.orderList}
               orderedOrderList={this.state.orderedOrderList}
               orderState={this.state.orderState}
@@ -471,17 +523,26 @@ export class App extends React.Component<{}, State> {
               pagesCount={this.state.pagesCount}
               program={this.state.program}
               user={this.state.user}
+              //today={this.state.today}
+              //tomorrow={this.state.tomorrow}
+              todayTimes={this.state.todayTimes}
+              tomorrowTimes={this.state.tomorrowTimes}
+              //todayOrTomorrow={this.state.todayOrTomorrow}
+              workingHours={this.state.workingHours}
               
+              changeAvailability={this.changeAvailability}
               changeOrder={this.changeOrder}
               changePage={this.changePage}
               changePageItemsCount={this.changePageItemsCount}
               getOrderList={this.getOrderList}
               getClaimList={this.getClaimList}
+              handleModal={this.handleModal}
               orderByOrderState={this.orderByOrderState}
               orderByOrderProgram={this.orderByOrderProgram}
               orderByTime={this.orderByTime}
               updateClaim={this.updateClaim}
               updateOrder={this.updateOrder}
+              setDay={this.setDay}
               signOut={this.signOut}
             /> :
             <Redirect to='/admin/login' />

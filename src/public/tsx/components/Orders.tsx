@@ -3,6 +3,7 @@ import { Pagination } from './Pagination'
 
 interface Props {
   boss: number
+  carType: Array<string>
   list?: Array<object>
   page: number
   paginationItemCount: number
@@ -15,6 +16,7 @@ interface Props {
   changePage(page: number, order: boolean): void
   changePageItemsCount(itemsCount: number, order: boolean): void
   getList(): void
+  handleModal(message: string, success: boolean): void
   updateItem(item: object, callBack?: () => void): void
 }
 
@@ -34,7 +36,7 @@ export class Orders extends React.Component<Props, {}> {
           <caption>
             Zoznam objednávok:
             <span className='table-warning font-weight-bold'>NOVÁ</span>
-            <span className='table-danger font-weight-bold'>VYBAVUJE SA</span>
+            <span className='table-danger font-weight-bold'>ZRUŠENÁ</span>
             <span className='table-success font-weight-bold'>VYBAVENÁ</span>
           </caption>
           <thead>
@@ -47,9 +49,11 @@ export class Orders extends React.Component<Props, {}> {
               <th className='text-center' scope='col'>Stav Objednávky</th>
               <th className='text-center' scope='col'>Program</th>
               <th className='text-center' scope='col'>Typ auta</th>
+              <th className='text-center' scope='col'>Detailný typ auta</th>
               <th className='text-center' scope='col'>Meno</th>
               <th className='text-center' scope='col'>Telefón</th>
               <th className='text-center' scope='col'>E-mail</th>
+              <th></th>
               <th></th>
             </tr>
           </thead>
@@ -67,11 +71,12 @@ export class Orders extends React.Component<Props, {}> {
 
                   let programs: Array<JSX.Element> = []
 
-                  for(let k: number = 0; k < item['program'].length; k++)
+                  for(let k: number = 0; k < item['program'].length; k++) {
                     if(item['program'][k]) {
                       const spanElement: JSX.Element = <span className='text-nowrap' key={k}>{this.props.program[k]}</span>
                       programs.push(spanElement)
                     }
+                  }
 
                   return(
                     <tr key={i} className={
@@ -90,7 +95,7 @@ export class Orders extends React.Component<Props, {}> {
                           <td className='text-center'>Žilina</td>
                         ) : null
                       }
-                      <td className='text-center'>{day+'/'+month+'/'+year+' - '+h+':'+min}</td>
+                      <td className='text-center'>{day+'/'+month+'/'+year+' - '}<span className='badge badge-info'>{h+':'+min}</span></td>
                       <td className='text-center'>
                         <select
                           value={this.props.list[i]['orderState']}
@@ -107,10 +112,23 @@ export class Orders extends React.Component<Props, {}> {
                         </select>
                       </td>
                       <td className='d-flex flex-column text-center'>{programs}</td>
-                      <td className='text-center'>{item['carType']}</td>
+                      <td className='text-center'>{item['carType'] > 1 ? this.props.carType[1] : this.props.carType[0]}</td>
+                      <td className='text-center'>{item['carTypeDetail']}</td>
                       <td className='text-center'>{item['fullName']}</td>
                       <td className='text-center'>{item['phone']}</td>
                       <td className='text-center'>{item['email']}</td>
+                      <td className='text-center'>
+                        {
+                          item['message'] && item['message'] !== '' ?
+                          <button type='button' className='message' onClick={() => {
+                            this.props.handleModal(item['message'], true)
+                          }}>
+                            <span className='badge badge-info'>
+                              <i className='far fa-envelope'></i>
+                            </span>
+                          </button> : null
+                        }
+                      </td>
                       <td className='text-center'>
                         <button
                           type='button'
@@ -140,7 +158,7 @@ export class Orders extends React.Component<Props, {}> {
         </table>
         <div className='d-flex justify-content-end pagination-container'>
           <div className='form-group row mr-3'>
-            <label className='col-form-label'>Počet zobrazených prvkov</label>
+            <label className='col-form-label'>Počet zobrazených záznamov</label>
             <select className='form-control ml-3' onChange={e => {
               const pageItemsCountVal: number = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].value)
 

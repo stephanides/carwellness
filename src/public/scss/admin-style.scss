@@ -184,6 +184,24 @@ $black: #1d1d1d;
           select {
             background-color: rgba(255, 255, 255, 0.5);
           }
+          button.message {
+            background-color: transparent;
+            border: 0;
+            outline: none;
+
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+    .tab-content {
+      h3 {
+        button {
+          background-color: transparent;
+          border: 0;
+          color: $greyText;
         }
       }
     }
