@@ -79,16 +79,19 @@ if(document.getElementById("datepicker")){
 	    });
 	});
 }
-var inaccessibleTime;
+
+
 if(document.getElementById("timepicker")){
 	$( function() {
 	    $( "#timepicker" ).timepicker({
 	    	'timeFormat': 'H:i:s',
-	    	showTimezone: true, 
-	        timezone: "+0000" 
+	    	 
 	    });
+	    
+         
 	});
 }
+
 
 //** Gallery **//
 if(document.getElementById("fancybox")){
@@ -124,6 +127,7 @@ var orderName = "";
 var orderEmail = ""; 
 var orderTel = ""; 
 var orderMessage = "";
+var ordercarTypeDetail = "";
 
 var orderObjectToSend = {
 	city:orderCity,
@@ -132,9 +136,23 @@ var orderObjectToSend = {
 	phone:orderTel,
 	message:orderMessage,
 	carType:orderCarType,
+	carTypeDetail:ordercarTypeDetail,
 	date:orderDate.toISOString(),
 	program:orderProgram
 };
+
+var inaccessibleTimeMorningFrom = "00:00:00";
+var inaccessibleTimeMorningTo = "07:00:00";
+var inaccessibleTimeEveningFrom = "21:01:00";
+var inaccessibleTimeEveningTo = "23:59:00";
+
+timesObjectZilina = [['00:00:00', '07:00:00'],['21:01:00', '23:59:00']];
+timesObjectNitra = [['00:00:00', '08:00:00'],['21:01:00', '23:59:00']];
+
+function setTimes(object){
+	$("#timepicker").timepicker('option','disableTimeRanges',object);
+}
+
 
 
 
@@ -147,12 +165,42 @@ function cityForOrder(e){
 
 	if(e == 1){
 		document.getElementById("orderChoosedCity").innerHTML = "Autoumyváreň Nitra";
+		setTimes(timesObjectNitra);
 	}
 	if(e == 2){
 		document.getElementById("orderChoosedCity").innerHTML = "Autoumyváreň Žilina";
+		setTimes(timesObjectZilina);
 	}
 	orderCity = e;
+	document.getElementById("dateContainer").style.pointerEvents = "all";
+	document.getElementById("dateDanger").style.display = "none";
 	console.log(orderCity);
+
+
+	var date = $("#datepicker").datepicker('getDate');
+	if(date != null){
+		var day = date.getDay();
+		if(orderCity == 1){
+			if(day == 6 || day == 0){
+				timesObjectNitra[0] = ['00:00:00', '08:30:00'];
+				setTimes(timesObjectNitra);
+			}
+			else{
+				timesObjectNitra[0] = ['00:00:00', '08:00:00'];
+				setTimes(timesObjectNitra);
+			}
+		}
+		if(orderCity == 2){
+			if(day == 6 || day == 0){
+				timesObjectZilina[0] = ['00:00:00', '08:00:00'];
+				setTimes(timesObjectZilina);
+			}
+			else{
+				timesObjectZilina[0] = ['00:00:00', '07:00:00'];
+				setTimes(timesObjectZilina);
+			}
+		}
+	}
 }
 function carTypeOrder(e){
 	document.getElementById("carTypeOrder-2").classList.remove('choosed');
@@ -277,21 +325,50 @@ function removeProgram(e){
 function orderNameResult(){
 	document.getElementById("orderNameResult").innerHTML = document.getElementById("orderName").value;
 	orderName = document.getElementById("orderName").value;
+	document.getElementById("orderName").classList.remove('unlisted');
 }
 function orderEmailResult(){
 	document.getElementById("orderEmailResult").innerHTML = document.getElementById("orderEmail").value;
 	orderEmail = document.getElementById("orderEmail").value;
+	document.getElementById("orderEmail").classList.remove('unlisted');
 }
 function orderTelResult(){
 	document.getElementById("orderTelResult").innerHTML = document.getElementById("orderTel").value;
 	orderTel = document.getElementById("orderTel").value;
+	document.getElementById("orderTel").classList.remove('unlisted');
 }
 function orderCarTypeResult(){
 	document.getElementById("orderCarTypeResult").innerHTML = document.getElementById("orderCarType").value;
+	ordercarTypeDetail = document.getElementById("orderCarType").value;
+	document.getElementById("orderCarType").classList.remove('unlisted');
 }
 function orderDateResult(){
-	console.log(document.getElementById("datepicker").value)
+	console.log(orderCity);
 	document.getElementById("orderDateResult").innerHTML = document.getElementById("datepicker").value;
+	var date = $("#datepicker").datepicker('getDate');
+	var day = date.getDay();
+	if(orderCity == 1){
+		if(day == 6 || day == 0){
+			timesObjectNitra[0] = ['00:00:00', '08:30:00'];
+			setTimes(timesObjectNitra);
+		}
+		else{
+			timesObjectNitra[0] = ['00:00:00', '08:00:00'];
+			setTimes(timesObjectNitra);
+		}
+	}
+	if(orderCity == 2){
+		if(day == 6 || day == 0){
+			timesObjectZilina[0] = ['00:00:00', '08:00:00'];
+			setTimes(timesObjectZilina);
+		}
+		else{
+			timesObjectZilina[0] = ['00:00:00', '07:00:00'];
+			setTimes(timesObjectZilina);
+		}
+	}
+
+
 }
 function orderTimeResult(){
 	console.log(document.getElementById("timepicker").value)
@@ -334,6 +411,22 @@ function sendOrder(){
 	if(!orderProgram.some(isProgram)){
 		console.log("nebol vybraty ziaden program");
 		document.getElementById("programOrder-"+0).classList.add('unlisted');
+	}
+	if(orderName == ""){
+		readyToSend = false;
+		document.getElementById("orderName").classList.add('unlisted');
+	}
+	if(orderEmail == ""){
+		readyToSend = false;
+		document.getElementById("orderEmail").classList.add('unlisted');
+	}
+	if(orderTel == ""){
+		readyToSend = false;
+		document.getElementById("orderTel").classList.add('unlisted');
+	}
+	if(ordercarTypeDetail == ""){
+		readyToSend = false;
+		document.getElementById("orderCarType").classList.add('unlisted');
 	}
 
 	if(readyToSend){

@@ -103,7 +103,9 @@ block content
         .container.orderChooseDate
           .row
             h4 4. Vyberte si dátum a čas
-            .container
+            .alert.alert-danger#dateDanger(role="alert")
+              p Nezvolili ste si žiadnu #[strong autoumyváreň]
+            .container#dateContainer
               form(onsubmit='return false;')
                 .row
                   .col-lg-3.form-group

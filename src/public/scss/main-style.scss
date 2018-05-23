@@ -512,7 +512,7 @@ $break-small:576px;
           bottom:64px;
           width:100%;
         }
-        button{
+        a{
           background-color:$carwellness-red;
           font-size:16px;
           color:white;
@@ -525,6 +525,7 @@ $break-small:576px;
           outline:none;
           border:none;
           cursor:pointer;
+          text-decoration:none;
           &:hover{
             background-color:#ae0024;
           }
@@ -741,6 +742,7 @@ $break-small:576px;
         padding-left:15px;
         margin-bottom: 15px;
         margin-top: 50px;
+        width:100%;
       }
       .orderChooseCity{
         padding-left:40px;
@@ -839,6 +841,15 @@ $break-small:576px;
       .orderChooseDate{
         padding-left:40px;
         padding-right: 40px;
+        #dateContainer{
+          pointer-events:none;
+        }
+        .alert{
+          margin-left:20px;
+          p{
+            padding-top: 10px;
+          }
+        }
         .form-group{
           display:flex;
           width: 260px;
@@ -945,6 +956,13 @@ $break-small:576px;
       color:$carwellness-red !important;
       &:hover{
         color:white !important;
+      }
+    }
+    .form-group{
+      .unlisted{
+        &:hover{
+          color:grey !important;
+        }
       }
     }
     .gallery{
