@@ -1,5 +1,5 @@
 export interface IAvailability {
-  date: string
+  date: Date
   available: boolean
   arrN: number
   editedBy: string

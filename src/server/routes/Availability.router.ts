@@ -4,7 +4,7 @@ import { AvailabilityController } from '../controllers/Availability.controller'
 const router = express.Router()
 const availability = new AvailabilityController()
 
-router.get('/availability/availabilities/', (req, res, next) => {
+router.get('/availability/availability/:date', (req, res, next) => {
   availability.getAvailabilities(req, res, next)
 })
 

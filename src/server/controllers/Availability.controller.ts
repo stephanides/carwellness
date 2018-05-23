@@ -6,10 +6,14 @@ import { Availability, AvailabilityDocument, Availabilities } from '../models/Av
 export class AvailabilityController {
   async createAvailability(req: Request, res: Response, next: NextFunction) {
     try {
-      const availability = await Availabilities.findOne({ date: req.body.date })
+      const availability = await Availabilities.findOne({ arrN: req.body.arrN })
+
+      console.log(availability)
+      //TODO UPDATE ONLY TIME BASED ON CURRENT DATE
 
       if(availability)
-        this.throwError('Availability allready exist on selected time', 409, next)
+        this.updateAvailability(req, res, next)
+        //this.throwError('Availability allready exist on selected time', 409, next)
       else {
         let availabilityData: object = {} as IAvailability
 
@@ -19,8 +23,15 @@ export class AvailabilityController {
           const newAvailability: object = new Availability(availabilityData as IAvailability)
           const saveAvailability = await Availabilities.create(newAvailability)
 
-          if(saveAvailability)
-            res.json({ message: 'Order has been created', success: true })
+          if(saveAvailability) {
+            res.json({
+              message: 'Availability has been set for date: '+
+                (newAvailability['date'].split('T')[0]).split('-')[2]+
+                '/'+(newAvailability['date'].split('T')[0]).split('-')[1]+
+                '/'+(newAvailability['date'].split('T')[0]).split('-')[0],
+              success: true
+            })
+          }
           else
             res.json({ message: saveAvailability, success: false })
       }
@@ -31,15 +42,28 @@ export class AvailabilityController {
   }
 
   async getAvailabilities(req: Request, res: Response, next: NextFunction) {
-    console.log(req.body)
+    const availabilities = await Availabilities.find({ date: req.params.date })
 
-    res.json({ message: 'Request has been successfully sent', success: true })
+    if(!availabilities || availabilities.length < 1)
+      this.throwError('Nothing found', 404, next)
+    else
+      res.json({ data: availabilities, success: true })
   }
 
   async updateAvailability(req: Request, res: Response, next: NextFunction) {
-    console.log(req.body)
+    const availability = await Availabilities.findOne({ $and: [{ date: req.body.date }, { arrN: req.body.arrN }] })
+   
+    if(!availability)
+      this.throwError('Nothing found', 404, next)
+    else {
+      const dataToUpdate: object = new Availability(req.body as IAvailability)
+      const updatedAvailability: object = await Availabilities.update({ $and: [{ date: req.body.date }, { arrN: req.body.arrN }] }, dataToUpdate)
 
-    res.json({ message: 'Request has been successfully sent', success: true })
+      if(updatedAvailability)
+        res.json({ message: 'Availability has been successfully updated', success: true })
+      else
+        this.throwError('Can\'t update availability data', 500, next)
+    }
   }
 
   throwError(errMessage: string, errStatus: number, next: NextFunction): void {

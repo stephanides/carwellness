@@ -8,13 +8,15 @@ interface Props {
   user: UserPayLoad
   //today: string
   //tomorrow: string
-  todayTimes: Array<boolean>
-  tomorrowTimes: Array<boolean>
+  //todayTimes: Array<boolean>
+  //tomorrowTimes: Array<boolean>
   //todayOrTomorrow: number
   workingHours: string[][]
+  workingHoursAvailability: Array<boolean>
 
-  changeAvailability(e: React.FormEvent<HTMLElement>): void
+  changeAvailability(e: React.FormEvent<HTMLElement>, i: number): void
   setDay(e: string): void
+  submitAvailability(i: number): void
 }
 
 export class Availability extends React.Component<Props, {}> {
@@ -52,51 +54,82 @@ export class Availability extends React.Component<Props, {}> {
                         this.props.user.city > 1 ?
                         (
                         	this.props.dayOfWeek < 6 && this.props.dayOfWeek != 0 ?
-                        	<tr key={i}>
-                            <td>{item[0]}</td><td>{item[1]}</td>
-                            <td className='text-center'>
-                              <select onChange={e => this.props.changeAvailability(e)}>
-                                <option value='0'>VOĽNÉ</option>
-                                <option value='1'>OBSADENÉ</option>
-                              </select>
-                            </td>
-                            <td className='text-center'><button className='btn btn-primary'>Aktualizovať</button></td>
-                          </tr> :
-                        	(
-                        		i > 1 ?
-                        	  <tr key={i}>
+                          (
+                            i > 13  && i < this.props.workingHours.length - 5 ?
+                            <tr key={i} className={this.props.workingHoursAvailability[i] ? '' : 'table-danger'}>
                               <td>{item[0]}</td><td>{item[1]}</td>
                               <td className='text-center'>
-                                <select onChange={e => this.props.changeAvailability(e)}>
+                                <select
+                                  defaultValue={!this.props.workingHoursAvailability[i] ? '1' : '0'}
+                                  onChange={e => this.props.changeAvailability(e, i)}
+                                >
                                   <option value='0'>VOĽNÉ</option>
                                   <option value='1'>OBSADENÉ</option>
                                 </select>
                               </td>
-                              <td className='text-center'><button className='btn btn-primary'>Aktualizovať</button></td>
+                              <td className='text-center'>
+                                <button
+                                  className='btn btn-primary'
+                                  onClick={() => this.props.submitAvailability(i)}
+                                >Aktualizovať</button>
+                              </td>
+                            </tr> : null
+                          )
+                        	 :
+                        	(
+                        		i > 15 && i < this.props.workingHours.length - 5 ?
+                        	  <tr key={i} className={this.props.workingHoursAvailability[i] ? '' : 'table-danger'}>
+                              <td>{item[0]}</td><td>{item[1]}</td>
+                              <td className='text-center'>
+                                <select
+                                  defaultValue={!this.props.workingHoursAvailability[i] ? '1' : '0'}
+                                  onChange={e => this.props.changeAvailability(e, i)}
+                                >
+                                  <option value='0'>VOĽNÉ</option>
+                                  <option value='1'>OBSADENÉ</option>
+                                </select>
+                              </td>
+                              <td className='text-center'>
+                              <button
+                                className='btn btn-primary'
+                                onClick={() => this.props.submitAvailability(i)}
+                                >Aktualizovať</button>
+                              </td>
                             </tr> : null
                         	)
                         ) : 
                         (
                           this.props.dayOfWeek < 6 && this.props.dayOfWeek != 0 ?
                           (
-                            i > 1 ?
-                            <tr key={i}>
+                            i > 15 && i < this.props.workingHours.length - 5 ?
+                            <tr key={i} className={this.props.workingHoursAvailability[i] ? '' : 'table-danger'}>
                               <td>{item[0]}</td><td>{item[1]}</td>
                               <td className='text-center'>
-                                <select onChange={e => this.props.changeAvailability(e)}>
+                                <select
+                                  defaultValue={!this.props.workingHoursAvailability[i] ? '1' : '0'}
+                                  onChange={e => this.props.changeAvailability(e, i)}
+                                >
                                   <option value='0'>VOĽNÉ</option>
                                   <option value='1'>OBSADENÉ</option>
                                 </select>
                               </td>
-                              <td className='text-center'><button className='btn btn-primary'>Aktualizovať</button></td>
+                              <td className='text-center'>
+                              <button
+                                className='btn btn-primary'
+                                onClick={() => this.props.submitAvailability(i)}
+                                >Aktualizovať</button>
+                              </td>
                             </tr> : null
                           ) :
                           (
-                            i > 2 ?
-                            <tr key={i}>
+                            i > 16 && i < this.props.workingHours.length - 5 ?
+                            <tr key={i} className={this.props.workingHoursAvailability[i] ? '' : 'table-danger'}>
                               <td>{item[0]}</td><td>{item[1]}</td>
                               <td className='text-center'>
-                                <select onChange={e => this.props.changeAvailability(e)}>
+                                <select
+                                  defaultValue={!this.props.workingHoursAvailability[i] ? '1' : '0'}
+                                  onChange={e => this.props.changeAvailability(e, i)}
+                                >
                                   <option value='0'>VOĽNÉ</option>
                                   <option value='1'>OBSADENÉ</option>
                                 </select>
@@ -105,16 +138,27 @@ export class Availability extends React.Component<Props, {}> {
                             </tr> : null
                           )
                         )
-                      ) : <tr key={i}>
-                            <td>{item[0]}</td><td>{item[1]}</td>
-                            <td className='text-center'>
-                              <select onChange={e => this.props.changeAvailability(e)}>
-                                <option value='0'>VOĽNÉ</option>
-                                <option value='1'>OBSADENÉ</option>
-                              </select>
-                            </td>
-                            <td className='text-center'><button className='btn btn-primary'>Aktualizovať</button></td>
-                          </tr>
+                      )
+                      :
+                      i > 13 && i < this.props.workingHours.length - 5 ?
+                      <tr key={i} className={this.props.workingHoursAvailability[i] ? '' : 'table-danger'}>
+                        <td>{item[0]}</td><td>{item[1]}</td>
+                        <td className='text-center'>
+                          <select
+                            defaultValue={!this.props.workingHoursAvailability[i] ? '1' : '0'}
+                            onChange={e => this.props.changeAvailability(e, i)}
+                          >
+                            <option value='0'>VOĽNÉ</option>
+                            <option value='1'>OBSADENÉ</option>
+                          </select>
+                        </td>
+                        <td className='text-center'>
+                          <button
+                            className='btn btn-primary'
+                            onClick={() => this.props.submitAvailability(i)}
+                          >Aktualizovať</button>
+                        </td>
+                      </tr> : null
                     )
                   })
                 }

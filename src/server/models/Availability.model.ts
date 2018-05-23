@@ -2,14 +2,14 @@ import { Document, Schema, model } from 'mongoose'
 import { IAvailability } from '../interfaces/Availability.interface'
 
 export class Availability {
-  date: string
+  date: Date
   available: boolean
   arrN: number
   editedBy: string
   editedAt: Date
 
   constructor(data: {
-    date: string
+    date: Date
     available: boolean
     arrN: number
     editedBy: string
@@ -24,7 +24,7 @@ export class Availability {
 }
 
 const AvailabilitySchema = new Schema({
-  date: String,
+  date: Date,
   available: Boolean,
   arrN: Number,
   editedBy: String,

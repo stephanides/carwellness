@@ -35,13 +35,14 @@ interface State {
   //todayOrTomorrow: number
   //today: string
   //tomorrow: string
-  todayTimes: Array<boolean>
-  tomorrowTimes: Array<boolean>
+  //todayTimes: Array<boolean>
+  //tomorrowTimes: Array<boolean>
   claimList?: Array<object> | null
   showHidePassword: boolean
   user?: UserPayLoad
   usersList?: Array<object> | null
   workingHours: string[][]
+  workingHoursAvailability: Array<boolean>
 }
 
 const initialState: State = {
@@ -58,9 +59,10 @@ const initialState: State = {
   //today: _today+'/'+_month+'/'+_year,
   //tomorrow: _tomorrow+'/'+_month+'/'+_year,
   //todayOrTomorrow: 0,
-  todayTimes: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-  tomorrowTimes: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
-  workingHours: [['07:00', '07:30'], ['07:30', '08:00'], ['08:00', '08:30'], ['08:30', '09:00'], ['09:00', '09:30'], ['09:30', '10:00'], ['10:00','10:30'], ['10:30', '11:00'], ['11:00', '11:30'], ['11:30', '12:00'], ['12:00', '12:30'], ['12:30', '13:00'], ['13:00', '13:30'], ['13:30', '14:00'], ['14:00', '14:30'], ['14:30','15:00'], ['15:00', '15:30'], ['15:30', '16:00'], ['16:00', '16:30'], ['16:30', '17:00'], ['17:00', '17:30'], ['17:30', '18:00'], ['18:00', '18:30'], ['18:30', '19:00'], ['19:00', '19:30'], ['19:30', '20:00'], ['20:00', '20:30'], ['20:30', '21:00']]
+  //todayTimes: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+  //tomorrowTimes: [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+  workingHours: [['00:00', '00:30'], ['00:30', '01:00'], ['01:00', '01:30'], ['01:30', '02:00'], ['02:00', '02:30'], ['02:30', '03:00'], ['03:00', '03:30'], ['03:30', '04:00'], ['04:00', '04:30'], ['04:30', '05:00'], ['05:00', '05:30'], ['05:30', '06:00'], ['06:00', '06:30'], ['06:30', '07:00'], ['07:00', '07:30'], ['07:30', '08:00'], ['08:00', '08:30'], ['08:30', '09:00'], ['09:00', '09:30'], ['09:30', '10:00'], ['10:00','10:30'], ['10:30', '11:00'], ['11:00', '11:30'], ['11:30', '12:00'], ['12:00', '12:30'], ['12:30', '13:00'], ['13:00', '13:30'], ['13:30', '14:00'], ['14:00', '14:30'], ['14:30','15:00'], ['15:00', '15:30'], ['15:30', '16:00'], ['16:00', '16:30'], ['16:30', '17:00'], ['17:00', '17:30'], ['17:30', '18:00'], ['18:00', '18:30'], ['18:30', '19:00'], ['19:00', '19:30'], ['19:30', '20:00'], ['20:00', '20:30'], ['20:30', '21:00'], ['21:00', '21:30'], ['21:30', '22:00'], ['22:00', '22:30'], ['22:30', '23:00'], ['23:00', '23:30']],
+  workingHoursAvailability: [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]
 }
 
 export class App extends React.Component<{}, State> {
@@ -93,6 +95,7 @@ export class App extends React.Component<{}, State> {
     this.signOut = this.signOut.bind(this)
     this.storeUserData = this.storeUserData.bind(this)
     this.submitForm = this.submitForm.bind(this)
+    this.submitAvailability = this.submitAvailability.bind(this)
     this.updateClaim = this.updateClaim.bind(this)
     this.updateUser = this.updateUser.bind(this)
     this.updateOrder = this.updateOrder.bind(this)
@@ -105,11 +108,49 @@ export class App extends React.Component<{}, State> {
       this.setState({ authorised: true, user: user })
   }
 
-  changeAvailability(e: React.FormEvent<HTMLSelectElement>) {
+  changeAvailability(e: React.FormEvent<HTMLSelectElement>, i: number) {
     const el: HTMLSelectElement = e.target as HTMLSelectElement
     const val: number = parseInt(el.value)
+    let arr = this.state.workingHoursAvailability
 
-    console.log(val)
+    if(val === 0) arr[i] = true
+    else arr[i] = false
+
+    this.setState({ workingHoursAvailability: arr })
+  }
+
+  async submitAvailability(i: number) {
+    const url: string = '/availability/availability-create' 
+    const data = {
+      date: new Date(
+        this.state.availabilityDate.split('-')[2]+
+        '-'+this.state.availabilityDate.split('-')[1]+
+        '-'+this.state.availabilityDate.split('-')[0]
+      ).toISOString(),
+      available: this.state.workingHoursAvailability[i],
+      arrN: i
+    }
+
+    console.log(data)
+
+    const response: Response = await fetch(url, {
+      body: JSON.stringify(data),
+      headers: { 'content-type': 'application/json' },
+      method: 'POST'
+    })
+
+    if(response) {
+      if(response.status === 200) {
+        const responseJSON: object = await response.json()
+
+        if(responseJSON['success'])
+          console.log(responseJSON['message'])
+        else
+          console.log(responseJSON['message'])
+      }
+      else
+        console.log(response.statusText)
+    }    
   }
 
   changeUserApprovedProperty(updatedUsers: Array<object>, callback?:() => void) {
@@ -416,12 +457,62 @@ export class App extends React.Component<{}, State> {
     if(e !== '') {
       date = new Date(e) as Date
       dateFormat = date.getDate()+'-'+(date.getMonth() < 10 ? '0'+(date.getMonth()+1) : date.getMonth())+'-'+date.getFullYear() as string
-
-      console.log('Day of Week '+date.getDay())
-      console.log('DATE: '+dateFormat)
+    
+      const formattedDate: string = new Date(dateFormat.split('-')[2]+'-'+dateFormat.split('-')[1]+'-'+dateFormat.split('-')[0]).toISOString()
+      
+      console.log(formattedDate)
+      this.getAvailabilityByDate(formattedDate, () => {
+        this.setState({
+          dayOfWeek: date ? date.getDay() : this.state.dayOfWeek,
+          availabilityDate: dateFormat ? dateFormat : ''
+        })
+      })
     }
+    else {
+      this.setState({
+        dayOfWeek: date ? date.getDay() : this.state.dayOfWeek,
+        availabilityDate: dateFormat ? dateFormat : ''
+      })
+    }
+  }
 
-    this.setState({ dayOfWeek: date ? date.getDay() : this.state.dayOfWeek, availabilityDate: dateFormat ? dateFormat : '' })
+  async getAvailabilityByDate(date: string, callBack?: () => void) {
+    const url: string = '/availability/availability/'+date
+    const response: Response = await fetch(url)
+    let arr = this.state.workingHoursAvailability
+
+    if(response) {
+      if(response.status === 200) {
+        const responseJSON: object = await response.json()
+
+        if(responseJSON) {
+          if(responseJSON['success']) {
+            console.log(responseJSON['data'])
+            
+            for(let i: number = 0; i < responseJSON['data'].length; i++)
+              arr[responseJSON['data'][i]['arrN']] = responseJSON['data'][i]['available']
+
+            this.setState({ workingHoursAvailability: arr }, () => {
+              if(typeof callBack === 'function')
+                callBack()
+            })
+          }
+          else {
+            console.log(responseJSON['message'])
+          }
+        }
+      }
+      else {
+        console.log(response.statusText)
+        for(let i: number = 0; i < this.state.workingHoursAvailability.length; i++)
+          arr[i] = true
+
+        this.setState({ workingHoursAvailability: arr }, () => {
+          if(typeof callBack === 'function')
+            callBack()
+        })
+      }
+    }
   }
 
   signOut() {
@@ -525,10 +616,11 @@ export class App extends React.Component<{}, State> {
               user={this.state.user}
               //today={this.state.today}
               //tomorrow={this.state.tomorrow}
-              todayTimes={this.state.todayTimes}
-              tomorrowTimes={this.state.tomorrowTimes}
+              //todayTimes={this.state.todayTimes}
+              //tomorrowTimes={this.state.tomorrowTimes}
               //todayOrTomorrow={this.state.todayOrTomorrow}
               workingHours={this.state.workingHours}
+              workingHoursAvailability={this.state.workingHoursAvailability}
               
               changeAvailability={this.changeAvailability}
               changeOrder={this.changeOrder}
@@ -544,6 +636,7 @@ export class App extends React.Component<{}, State> {
               updateOrder={this.updateOrder}
               setDay={this.setDay}
               signOut={this.signOut}
+              submitAvailability={this.submitAvailability}
             /> :
             <Redirect to='/admin/login' />
           )} />

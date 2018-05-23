@@ -26,12 +26,13 @@ interface Props {
   orderState: Array<string>
   //today: string
   //tomorrow: string
-  todayTimes: Array<boolean>
-  tomorrowTimes: Array<boolean>
+  //todayTimes: Array<boolean>
+  //tomorrowTimes: Array<boolean>
   //todayOrTomorrow: number
   workingHours: string[][]
+  workingHoursAvailability: Array<boolean>
 
-  changeAvailability(e: React.FormEvent<HTMLElement>): void
+  changeAvailability(e: React.FormEvent<HTMLElement>, i: number): void
   changeOrder(orders: object): void
   changePage(page: number): void
   changePageItemsCount(itemsCount: number): void
@@ -46,6 +47,7 @@ interface Props {
   //onWebSockets(): void
   setDay(e: string): void
   signOut(): void
+  submitAvailability(i: number): void
 }
 
 export class Admin extends React.Component<Props, {}> {
@@ -132,13 +134,15 @@ export class Admin extends React.Component<Props, {}> {
                 user={this.props.user}
                 //today={this.props.today}
                 //tomorrow={this.props.tomorrow}
-                todayTimes={this.props.todayTimes}
-                tomorrowTimes={this.props.tomorrowTimes}
+                //todayTimes={this.props.todayTimes}
+                //tomorrowTimes={this.props.tomorrowTimes}
                 //todayOrTomorrow={this.props.todayOrTomorrow}
                 workingHours={this.props.workingHours}
+                workingHoursAvailability={this.props.workingHoursAvailability}
 
                 changeAvailability={this.props.changeAvailability}
                 setDay={this.props.setDay}
+                submitAvailability={this.props.submitAvailability}
               />
             </div>
           </div>
