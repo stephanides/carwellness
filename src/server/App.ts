@@ -10,6 +10,7 @@ import * as bodyParser from 'body-parser'
 import * as io from 'socket.io'
 import * as http from 'http'
 
+import AvailabilityRouter from './routes/Availability.router'
 import ClaimRouter from './routes/Claim.router'
 import OrderRouter from './routes/Order.router'
 import UserRouter from './routes/User.router'
@@ -110,6 +111,7 @@ class App {
       console.log('User connected')
     })
 
+    this.app.use(AvailabilityRouter)
     this.app.use(ClaimRouter)
     this.app.use(OrderRouter)
     this.app.use(UserRouter)

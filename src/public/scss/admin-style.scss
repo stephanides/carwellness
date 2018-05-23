@@ -196,6 +196,15 @@ $black: #1d1d1d;
         }
       }
     }
+    .tab-content {
+      h3 {
+        button {
+          background-color: transparent;
+          border: 0;
+          color: $greyText;
+        }
+      }
+    }
     .pagination-container {
       label {
         color: $greyText;

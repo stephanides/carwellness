@@ -74,6 +74,7 @@ export class App extends React.Component<{}, State> {
     this.state = initialState
     //this.ws = new WebSocket('ws:/localhost:4141/order/order-create')
     this.authenticate = this.authenticate.bind(this)
+    this.changeAvailability = this.changeAvailability.bind(this)
     this.changeUserApprovedProperty = this.changeUserApprovedProperty.bind(this)
     this.changeShowHidePassword = this.changeShowHidePassword.bind(this)
     this.changeOrder = this.changeOrder.bind(this)
@@ -102,6 +103,13 @@ export class App extends React.Component<{}, State> {
 
     if(user)
       this.setState({ authorised: true, user: user })
+  }
+
+  changeAvailability(e: React.FormEvent<HTMLSelectElement>) {
+    const el: HTMLSelectElement = e.target as HTMLSelectElement
+    const val: number = parseInt(el.value)
+
+    console.log(val)
   }
 
   changeUserApprovedProperty(updatedUsers: Array<object>, callback?:() => void) {
@@ -403,17 +411,22 @@ export class App extends React.Component<{}, State> {
   }*/
 
   setDay(e: string) {
-    const date: Date = new Date(e)
-    const dateFormat: string = date.getDate()+'-'+(date.getMonth() < 10 ? '0'+(date.getMonth()+1) : date.getMonth())+'-'+date.getFullYear()
+    let date, dateFormat
 
-    console.log('Day of Week '+date.getDay())
-    console.log('DATE: '+dateFormat)
+    if(e !== '') {
+      date = new Date(e) as Date
+      dateFormat = date.getDate()+'-'+(date.getMonth() < 10 ? '0'+(date.getMonth()+1) : date.getMonth())+'-'+date.getFullYear() as string
 
-    this.setState({ dayOfWeek: date.getDay(), availabilityDate: dateFormat })
+      console.log('Day of Week '+date.getDay())
+      console.log('DATE: '+dateFormat)
+    }
+
+    this.setState({ dayOfWeek: date ? date.getDay() : this.state.dayOfWeek, availabilityDate: dateFormat ? dateFormat : '' })
   }
 
   signOut() {
     this.setState({ 
+      availabilityDate: '',
       authorised: false,
       orderList: null,
       showHidePassword: false,
@@ -517,6 +530,7 @@ export class App extends React.Component<{}, State> {
               //todayOrTomorrow={this.state.todayOrTomorrow}
               workingHours={this.state.workingHours}
               
+              changeAvailability={this.changeAvailability}
               changeOrder={this.changeOrder}
               changePage={this.changePage}
               changePageItemsCount={this.changePageItemsCount}

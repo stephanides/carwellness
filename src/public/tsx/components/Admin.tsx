@@ -31,6 +31,7 @@ interface Props {
   //todayOrTomorrow: number
   workingHours: string[][]
 
+  changeAvailability(e: React.FormEvent<HTMLElement>): void
   changeOrder(orders: object): void
   changePage(page: number): void
   changePageItemsCount(itemsCount: number): void
@@ -136,6 +137,7 @@ export class Admin extends React.Component<Props, {}> {
                 //todayOrTomorrow={this.props.todayOrTomorrow}
                 workingHours={this.props.workingHours}
 
+                changeAvailability={this.props.changeAvailability}
                 setDay={this.props.setDay}
               />
             </div>
