@@ -207,6 +207,33 @@ $black: #1d1d1d;
           color: $greyText;
         }
       }
+      .react-calendar {
+        button {
+          background-color: transparent;
+          border: 1px solid $cwGrey;
+        }
+        .react-calendar__month-view__weekdays {
+          background-color: $cwRed;
+
+          .react-calendar__month-view__weekdays__weekday {
+            text-align: center;
+            color: $white;
+          }
+        }
+        .react-calendar__month-view__days__day, .react-calendar__year-view__months__month, .react-calendar__navigation__next-button, .react-calendar__navigation__next12-button {
+          &:hover {
+            background-color: rgba(220, 0, 46, 0.5);
+            color: $white;
+          }
+          &.react-calendar__tile--active, .react-calendar__tile--hasActive.react-calendar__tile--now.react-calendar__year-view__months__month {
+            background-color: $cwRed;
+            color: $white;
+          }
+          &[disabled] {
+            background-color: transparent;
+          }
+        }
+      }
     }
     .pagination-container {
       label {

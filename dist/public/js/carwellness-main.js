@@ -380,7 +380,7 @@ function isProgram(element) {
 }
 
 function sendOrder(){
-	var readyToSend = false;
+	var readyToSend = true;
 	var date = document.getElementById("datepicker").value;
 	var time = document.getElementById("timepicker").value;
 	orderDate = date.split('-')[2]+'-'+date.split('-')[1]+'-'+date.split('-')[0]+'T'+time+'.00Z'
@@ -429,6 +429,8 @@ function sendOrder(){
 		document.getElementById("orderCarType").classList.add('unlisted');
 	}
 
+	console.log(readyToSend);
+
 	if(readyToSend){
 		$.ajax({
 		  type: "POST",
@@ -436,17 +438,16 @@ function sendOrder(){
 		  data: orderObjectToSend, //JSON.stringify(orderObjectToSend)
 		  dataType: "json",
 		  success:  function (response) {
-		  		console.log(response);
-	            if(response.status === "success") {
-	                console.log(response);
-	            } else if(response.status === "error") {
-	                console.log(response);
-	            }
-	        },
-		   error: function(err) {
-		   	console.log(err);
-		   }
-	    });
+	  		console.log(response);
+	  		if(response.success) {
+	  			//SERVICE WORKER CALL 
+	  		}
+
+      },
+	    error: function(err) {
+	   	  console.log(err);
+	    }
+    });
 	}
 }
 
