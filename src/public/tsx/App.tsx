@@ -125,6 +125,7 @@ export class App extends React.Component<{}, State> {
   async submitAvailability(i: number) {
     const url: string = '/availability/availability-create' 
     const data = {
+      city: this.state.user.city,
       date: new Date(
         this.state.availabilityDate.split('-')[2]+
         '-'+this.state.availabilityDate.split('-')[1]+
@@ -521,7 +522,7 @@ export class App extends React.Component<{}, State> {
 
   async getAvailabilityByDate(date: string, callBack?: () => void) {
     console.log('GET AVAILABILITY BAY DATE: '+date)
-    const url: string = '/availability/availability/'+date
+    const url: string = '/availability/availability/'+date+'/'+this.state.user.city
     const response: Response = await fetch(url)
     let arr = this.state.workingHoursAvailability
 

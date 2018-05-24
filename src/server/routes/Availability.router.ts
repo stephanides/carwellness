@@ -5,7 +5,7 @@ import { checkToken } from './helpers/CheckToken.helper'
 const router = express.Router()
 const availability = new AvailabilityController()
 
-router.get('/availability/availability/:date', (req, res, next) => {
+router.get('/availability/availability/:date/:city', (req, res, next) => {
   availability.getAvailabilities(req, res, next)
 })
 
