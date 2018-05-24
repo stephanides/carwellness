@@ -43,6 +43,7 @@ interface State {
   usersList?: Array<object> | null
   workingHours: string[][]
   workingHoursAvailability: Array<boolean>
+  availableDates?: Array<object>
 }
 
 const initialState: State = {
@@ -85,6 +86,7 @@ export class App extends React.Component<{}, State> {
     this.getOrderList = this.getOrderList.bind(this)
     this.getClaimList = this.getClaimList.bind(this)
     this.getUsersList = this.getUsersList.bind(this)
+    this.getAvailabilityByDate = this.getAvailabilityByDate.bind(this)
     this.handleModal = this.handleModal.bind(this)
     this.handlePaginationData = this.handlePaginationData.bind(this)
     //this.onWebSockets = this.onWebSockets.bind(this)
@@ -96,6 +98,7 @@ export class App extends React.Component<{}, State> {
     this.storeUserData = this.storeUserData.bind(this)
     this.submitForm = this.submitForm.bind(this)
     this.submitAvailability = this.submitAvailability.bind(this)
+    this.updateAvailability = this.updateAvailability.bind(this)
     this.updateClaim = this.updateClaim.bind(this)
     this.updateUser = this.updateUser.bind(this)
     this.updateOrder = this.updateOrder.bind(this)
@@ -120,6 +123,8 @@ export class App extends React.Component<{}, State> {
   }
 
   async submitAvailability(i: number) {
+    console.log('SUBMIT AVAILABILITY')
+
     const url: string = '/availability/availability-create' 
     const data = {
       date: new Date(
@@ -151,6 +156,29 @@ export class App extends React.Component<{}, State> {
       else
         console.log(response.statusText)
     }    
+  }
+
+  async updateAvailability(item: object) {
+    console.log('UPDATE')
+    console.log(item)
+
+    const url: string = '/availability/availabilities/'+item['_id']
+    const data: object = item
+    const response: Response = await fetch(url, {
+      body: JSON.stringify(data),
+      headers: { 'content-type': 'application/json' },
+      method: 'PUT'
+    })
+
+    if(response) {
+      if(response.status === 200) {
+        const responseJSON: object = await response.json()
+
+        if(responseJSON)
+          console.log(responseJSON['message'])
+      }
+      else console.log(response.statusText)
+    }
   }
 
   changeUserApprovedProperty(updatedUsers: Array<object>, callback?:() => void) {
@@ -469,14 +497,20 @@ export class App extends React.Component<{}, State> {
       })
     }
     else {
+      let arr: Array<boolean> = []
+      for(let i: number = 0; i < this.state.workingHoursAvailability.length; i++)
+        arr[i] = true
+
       this.setState({
         dayOfWeek: date ? date.getDay() : this.state.dayOfWeek,
-        availabilityDate: dateFormat ? dateFormat : ''
+        availabilityDate: dateFormat ? dateFormat : '',
+        workingHoursAvailability: arr
       })
     }
   }
 
   async getAvailabilityByDate(date: string, callBack?: () => void) {
+    console.log('GET AVAILABILITY BAY DATE: '+date)
     const url: string = '/availability/availability/'+date
     const response: Response = await fetch(url)
     let arr = this.state.workingHoursAvailability
@@ -492,14 +526,13 @@ export class App extends React.Component<{}, State> {
             for(let i: number = 0; i < responseJSON['data'].length; i++)
               arr[responseJSON['data'][i]['arrN']] = responseJSON['data'][i]['available']
 
-            this.setState({ workingHoursAvailability: arr }, () => {
+            this.setState({ workingHoursAvailability: arr, availableDates: responseJSON['data'] }, () => {
               if(typeof callBack === 'function')
                 callBack()
             })
           }
-          else {
+          else
             console.log(responseJSON['message'])
-          }
         }
       }
       else {
@@ -600,6 +633,7 @@ export class App extends React.Component<{}, State> {
           <Route exact path='/admin' render={() => (
             this.state.authorised ?
             <Admin
+              availableDates={this.state.availableDates}
               availabilityDate={this.state.availabilityDate}
               carType={this.state.carType}
               claimList={this.state.claimList}
@@ -637,6 +671,7 @@ export class App extends React.Component<{}, State> {
               setDay={this.setDay}
               signOut={this.signOut}
               submitAvailability={this.submitAvailability}
+              updateAvailability={this.updateAvailability}
             /> :
             <Redirect to='/admin/login' />
           )} />

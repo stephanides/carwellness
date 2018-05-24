@@ -10,6 +10,7 @@ import { TabNav } from './TabNav'
 import { UserPayLoad } from '../interfaces/UserPayLoad.interface'
 
 interface Props {
+  availableDates?: Array<object>
   availabilityDate?: string
   carType: Array<string>
   user: UserPayLoad
@@ -48,6 +49,7 @@ interface Props {
   setDay(e: string): void
   signOut(): void
   submitAvailability(i: number): void
+  updateAvailability(item: object): void
 }
 
 export class Admin extends React.Component<Props, {}> {
@@ -129,6 +131,7 @@ export class Admin extends React.Component<Props, {}> {
             </div>
             <div className='tab-pane fade' id='availability' role='tabpanel' aria-labelledby='availability-tab'>
               <Availability
+                availableDates={this.props.availableDates}
                 availabilityDate={this.props.availabilityDate}
                 dayOfWeek={this.props.dayOfWeek}
                 user={this.props.user}
@@ -143,6 +146,7 @@ export class Admin extends React.Component<Props, {}> {
                 changeAvailability={this.props.changeAvailability}
                 setDay={this.props.setDay}
                 submitAvailability={this.props.submitAvailability}
+                updateAvailability={this.props.updateAvailability}
               />
             </div>
           </div>

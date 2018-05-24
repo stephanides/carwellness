@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as mongoose from 'mongoose'
 import { Request, Response, NextFunction } from 'express'
 import { IAvailability } from '../interfaces/Availability.interface'
 import { Availability, AvailabilityDocument, Availabilities } from '../models/Availability.model'
@@ -6,14 +6,10 @@ import { Availability, AvailabilityDocument, Availabilities } from '../models/Av
 export class AvailabilityController {
   async createAvailability(req: Request, res: Response, next: NextFunction) {
     try {
-      const availability = await Availabilities.findOne({ arrN: req.body.arrN })
-
-      console.log(availability)
-      //TODO UPDATE ONLY TIME BASED ON CURRENT DATE
+      const availability = await Availabilities.findOne({ $and:[{ date: req.body.date }, { arrN: req.body.arrN }] })
 
       if(availability)
-        this.updateAvailability(req, res, next)
-        //this.throwError('Availability allready exist on selected time', 409, next)
+        this.throwError('Availability allready exist on selected time', 409, next)
       else {
         let availabilityData: object = {} as IAvailability
 
@@ -51,7 +47,7 @@ export class AvailabilityController {
   }
 
   async updateAvailability(req: Request, res: Response, next: NextFunction) {
-    const availability = await Availabilities.findOne({ $and: [{ date: req.body.date }, { arrN: req.body.arrN }] })
+    const availability = await Availabilities.findOne({ _id: mongoose.Types.ObjectId(req.body._id) })
    
     if(!availability)
       this.throwError('Nothing found', 404, next)

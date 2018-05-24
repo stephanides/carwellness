@@ -3,6 +3,7 @@ import Calendar from 'react-calendar/dist/entry.nostyle'
 import { UserPayLoad } from '../interfaces/UserPayLoad.interface'
 
 interface Props {
+  availableDates?: Array<object>
   availabilityDate?: string
   dayOfWeek: number
   user: UserPayLoad
@@ -17,11 +18,41 @@ interface Props {
   changeAvailability(e: React.FormEvent<HTMLElement>, i: number): void
   setDay(e: string): void
   submitAvailability(i: number): void
+  updateAvailability(item: object): void
 }
 
 export class Availability extends React.Component<Props, {}> {
   constructor(props: Props) {
     super(props)
+
+    this.updateOrSubmitAvailability = this.updateOrSubmitAvailability.bind(this)
+  }
+
+  updateOrSubmitAvailability(i: number) {
+    if(this.props.availableDates && this.props.availableDates.length > 0) {
+      for(let j: number = 0; j < this.props.availableDates.length; j++) {
+
+        let itemDate = (this.props.availableDates[j]['date'].split('T')[0]).split('-')[2]+'-'+
+          (this.props.availableDates[j]['date'].split('T')[0]).split('-')[1]+'-'+
+          (this.props.availableDates[j]['date'].split('T')[0]).split('-')[0]
+
+          console.log(this.props.availabilityDate)
+          console.log(itemDate)
+
+        if(itemDate === this.props.availabilityDate) {
+          if(this.props.availableDates[j]['arrN'] === i) {
+            let obj = this.props.availableDates[j]
+            
+            obj['available'] = this.props.workingHoursAvailability[i]
+            this.props.updateAvailability(obj)
+          }
+          else this.props.submitAvailability(i)
+        }
+        else this.props.submitAvailability(i)
+      }
+    }
+    else
+      this.props.submitAvailability(i)
   }
 
   render() {
@@ -70,7 +101,7 @@ export class Availability extends React.Component<Props, {}> {
                               <td className='text-center'>
                                 <button
                                   className='btn btn-primary'
-                                  onClick={() => this.props.submitAvailability(i)}
+                                  onClick={() => this.updateOrSubmitAvailability(i)}
                                 >Aktualizovať</button>
                               </td>
                             </tr> : null
@@ -92,7 +123,7 @@ export class Availability extends React.Component<Props, {}> {
                               <td className='text-center'>
                               <button
                                 className='btn btn-primary'
-                                onClick={() => this.props.submitAvailability(i)}
+                                onClick={() => this.updateOrSubmitAvailability(i)}
                                 >Aktualizovať</button>
                               </td>
                             </tr> : null
@@ -114,9 +145,9 @@ export class Availability extends React.Component<Props, {}> {
                                 </select>
                               </td>
                               <td className='text-center'>
-                              <button
-                                className='btn btn-primary'
-                                onClick={() => this.props.submitAvailability(i)}
+                                <button
+                                  className='btn btn-primary'
+                                  onClick={() => this.updateOrSubmitAvailability(i)}
                                 >Aktualizovať</button>
                               </td>
                             </tr> : null
@@ -134,7 +165,12 @@ export class Availability extends React.Component<Props, {}> {
                                   <option value='1'>OBSADENÉ</option>
                                 </select>
                               </td>
-                              <td className='text-center'><button className='btn btn-primary'>Aktualizovať</button></td>
+                              <td className='text-center'>
+                                <button
+                                  className='btn btn-primary'
+                                  onClick={() => this.updateOrSubmitAvailability(i)}
+                                >Aktualizovať</button>
+                              </td>
                             </tr> : null
                           )
                         )
@@ -155,8 +191,8 @@ export class Availability extends React.Component<Props, {}> {
                         <td className='text-center'>
                           <button
                             className='btn btn-primary'
-                            onClick={() => this.props.submitAvailability(i)}
-                          >Aktualizovať</button>
+                            onClick={() => this.updateOrSubmitAvailability(i)}
+                            >Aktualizovať</button>
                         </td>
                       </tr> : null
                     )
