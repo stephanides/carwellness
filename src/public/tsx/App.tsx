@@ -136,7 +136,10 @@ export class App extends React.Component<{}, State> {
 
     const response: Response = await fetch(url, {
       body: JSON.stringify(data),
-      headers: { 'content-type': 'application/json' },
+      headers: {
+        'x-access-token': this.myStorage.getItem('token'),
+        'content-type': 'application/json'
+      },
       method: 'POST'
     })
 
@@ -159,7 +162,10 @@ export class App extends React.Component<{}, State> {
     const data: object = item
     const response: Response = await fetch(url, {
       body: JSON.stringify(data),
-      headers: { 'content-type': 'application/json' },
+      headers: {
+        'x-access-token': this.myStorage.getItem('token'),
+        'content-type': 'application/json'
+      },
       method: 'PUT'
     })
 
@@ -332,7 +338,10 @@ export class App extends React.Component<{}, State> {
 
     const response: Response = await fetch(url, {
       body: JSON.stringify(data),
-      headers: { 'content-type': 'application/json' },
+      headers: {
+        'x-access-token': this.myStorage.getItem('token'),
+        'content-type': 'application/json'
+      },
       method: 'PUT'
     })
 
@@ -349,8 +358,12 @@ export class App extends React.Component<{}, State> {
         else
           console.log(responseJSON['message'])
       }
-      else
-        console.log(response.statusText)
+      else {
+        const responseJSON: object = await response.json()
+        
+        if(responseJSON)
+          console.log(responseJSON['message'])
+      }
     }
   }
 

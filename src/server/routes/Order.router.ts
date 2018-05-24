@@ -1,5 +1,6 @@
 import * as express from 'express'
 import { OrderController } from '../controllers/Order.controller'
+import { checkToken } from './helpers/CheckToken.helper'
 
 const router = express.Router()
 const order = new OrderController()
@@ -13,7 +14,9 @@ router.post('/order/order-create', (req, res, next) => {
 })
 
 router.put('/order/orders/:id', (req, res, next) => {
-  order.updateOrder(req, res, next)
+  checkToken(req, res, next, (next) => {
+    order.updateOrder(req, res, next)
+  })
 })
 
 export default router

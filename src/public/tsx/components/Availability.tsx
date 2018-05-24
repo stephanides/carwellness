@@ -29,6 +29,8 @@ export class Availability extends React.Component<Props, {}> {
   }
 
   updateOrSubmitAvailability(i: number) {
+    //TODO ISSUE with multiople update posts. Refactor this function
+
     if(this.props.availableDates && this.props.availableDates.length > 0) {
       for(let j: number = 0; j < this.props.availableDates.length; j++) {
 

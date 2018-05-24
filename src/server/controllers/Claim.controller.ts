@@ -14,53 +14,62 @@ export class ClaimController {
         this.throwError('Allready exist', 409, next)
       else {
         let claimData: object = {} as IClaim
+        let imageData: object = {}
 
         for(let i: number = 0; i < Object.keys(req.body).length; i++) {
           if(Object.keys(req.body)[i] !== 'image')
             claimData[Object.keys(req.body)[i]] = (<any>Object).values(req.body)[i]
         }
 
-        const fileName = req.body['fullName'].replace(/\s/, '-').toLowerCase()
-        const date = new Date()
-        
-        const imageData = {
-          imagePath: path.normalize(
-            __dirname+'/../../public/images/claims/'+fileName+'-'+
-            (date.getDate() < 10 ? '0'+date.getDate() : date.getDate())+'-'+
-            (date.getMonth() < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1)+'-'+
-            date.getFullYear()
-          ),
-          imageFileName: fileName+'-'+
-            (date.getDate() < 10 ? '0'+date.getDate() : date.getDate())+'-'+
-            (date.getMonth() < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1)+'-'+
-            date.getFullYear()+'-'+
-            (date.getHours() < 10 ? '0'+date.getHours() : date.getHours())+'-'+
-            (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes())+'-'+
-            (date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds()),
-          imageType: req.body.image.split(';base64,')[0].indexOf('image/jpeg') < 0 ?
-            (req.body.image.split(';base64,')[0].indexOf('image/png') < 0 ? 'gif' : 'png') : 'jpg',
-          imageBase64Data: req.body.image.split(';base64,')[1]
-        }
+        console.log('IMAGE: \n')
+        console.log(req.body.image)
+        if(req.body.image !== '') {
+          const fileName = req.body['fullName'].replace(/\s/, '-').toLowerCase()
+          const date = new Date()
+          
+          imageData = {
+            imagePath: path.normalize(
+              __dirname+'/../../public/images/claims/'+fileName+'-'+
+              (date.getDate() < 10 ? '0'+date.getDate() : date.getDate())+'-'+
+              (date.getMonth() < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1)+'-'+
+              date.getFullYear()
+            ),
+            imageFileName: fileName+'-'+
+              (date.getDate() < 10 ? '0'+date.getDate() : date.getDate())+'-'+
+              (date.getMonth() < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1)+'-'+
+              date.getFullYear()+'-'+
+              (date.getHours() < 10 ? '0'+date.getHours() : date.getHours())+'-'+
+              (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes())+'-'+
+              (date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds()),
+            imageType: req.body.image.split(';base64,')[0].indexOf('image/jpeg') < 0 ?
+              (req.body.image.split(';base64,')[0].indexOf('image/png') < 0 ? 'gif' : 'png') : 'jpg',
+            imageBase64Data: req.body.image.split(';base64,')[1]
+          }
 
-        claimData['image'] = './assets/images/claims/'+fileName+'-'+
-          (date.getDate() < 10 ? '0'+date.getDate() : date.getDate())+'-'+
-          (date.getMonth() < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1)+'-'+
-          date.getFullYear()+'/'+imageData.imageFileName+'.'+imageData.imageType
+          claimData['image'] = './assets/images/claims/'+fileName+'-'+
+            (date.getDate() < 10 ? '0'+date.getDate() : date.getDate())+'-'+
+            (date.getMonth() < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1)+'-'+
+            date.getFullYear()+'/'+imageData['imageFileName']+'.'+imageData['imageType']
+        }
+        else claimData['image'] = 'undefined'
 
         const newClaim: object = new Claim(claimData as IClaim)
 
         Claims.create(newClaim, (err, item) => {
           if(err) return next(err)
           else {
-            if(!fs.existsSync(path.normalize(imageData.imagePath)))
-              fs.mkdirSync(path.normalize(imageData.imagePath))
+            if(Object.keys(imageData).length > 0) {
+              if(!fs.existsSync(path.normalize(imageData['imagePath'])))
+                fs.mkdirSync(path.normalize(imageData['imagePath']))
 
-            if(fs.existsSync(path.normalize(imageData.imagePath))) {
-              fs.writeFile(path.normalize(imageData.imagePath+'/'+imageData.imageFileName+'.'+imageData.imageType), imageData.imageBase64Data, { encoding: 'base64' }, err => {
-                if(err) return next(err)
-                else res.json({ message: 'Claim has been created', success: true })
-              })
-            }            
+              if(fs.existsSync(path.normalize(imageData['imagePath']))) {
+                fs.writeFile(path.normalize(imageData['imagePath']+'/'+imageData['imageFileName']+'.'+imageData['imageType']), imageData['imageBase64Data'], { encoding: 'base64' }, err => {
+                  if(err) return next(err)
+                  else res.json({ message: 'Claim has been created', success: true })
+                })
+              }
+            }
+            else res.json({ message: 'Claim has been created', success: true })         
           }
         })
       }

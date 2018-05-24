@@ -94,7 +94,7 @@ export class Claims extends React.Component <Props, {}> {
                           }
                         </select>
                       </td>
-                      <td className='text-center'>{item['image'] ? <img src={item['image']} /> : 'Obrázok nie je k dispozícii'}</td>
+                      <td className='text-center'>{item['image'] !== 'undefined' ? <img src={item['image']} /> : 'Obrázok nie je k dispozícii'}</td>
                       <td className='text-center'>{item['fullName']}</td>
                       <td className='text-center'>{item['phone']}</td>
                       <td className='text-center'>{item['email']}</td>

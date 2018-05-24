@@ -1,5 +1,6 @@
 import * as express from 'express'
 import { UserController } from '../controllers/User.controller'
+import { checkToken } from './helpers/CheckToken.helper'
 
 const router = express.Router()
 const user = new UserController()
@@ -17,7 +18,9 @@ router.post('/user/register', (req, res, next) => {
 })
 
 router.put('/user/user/:id', (req, res, next) => {
-  user.updateUser(req, res, next)
+  checkToken(req, res, next, (next) => {
+    user.updateUser(req, res, next)
+  })  
 })
 
 export default router
