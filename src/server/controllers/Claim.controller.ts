@@ -2,6 +2,8 @@ import * as mongoose from 'mongoose'
 import { Request, Response, NextFunction } from 'express'
 import { IClaim } from '../interfaces/Claim.interface'
 import { Claim, ClaimDocument, Claims } from '../models/Claim.model'
+import * as path from 'path'
+import * as fs from 'fs'
 
 export class ClaimController {
   async createClaim(req: Request, res: Response, next: NextFunction) {
@@ -18,21 +20,41 @@ export class ClaimController {
             claimData[Object.keys(req.body)[i]] = (<any>Object).values(req.body)[i]
         }
 
+        const fileName = req.body['fullName'].replace(/\s/, '-').toLowerCase()
+        const date = new Date()
         const imageData = {
+          imagePath: path.normalize(
+            __dirname+'/../../public/images/claims/'+fileName+'-'+
+            (date.getDate() < 10 ? '0'+date.getDate() : date.getDate())+'-'+
+            (date.getMonth() < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1)+'-'+
+            date.getFullYear()+'-'+
+            (date.getHours() < 10 ? '0'+date.getHours() : date.getHours())+'-'+
+            (date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes())+'-'+
+            (date.getSeconds() < 10 ? '0'+date.getSeconds() : date.getSeconds())
+          ),
           imageType: req.body.image.split(';base64,')[0].indexOf('image/jpeg') < 0 ?
             (req.body.image.split(';base64,')[0].indexOf('image/png') < 0 ? 'gif' : 'png') : 'jpg',
           imageBase64Data: req.body.image.split(';base64,')[1]
         }
 
+        console.log(imageData.imagePath)
+
         //TODO create image object with image name and image src
 
         const newClaim: object = new Claim(claimData as IClaim)
-        const saveClaim = await Claims.create(newClaim)
 
-        if(saveClaim)
+        //const saveClaim = await Claims.create(newClaim)
+        Claims.create(newClaim, (err, item) => {
+          if(err) return next(err)
+          else {
+            res.json({ message: 'Claim has been created', success: true })
+          }
+        })
+
+        /*if(saveClaim)
           res.json({ message: 'Claim has been created', success: true })
         else
-          res.json({ message: saveClaim, success: false })
+          res.json({ message: saveClaim, success: false })*/
       }
     }
     catch(err) {

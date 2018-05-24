@@ -123,8 +123,6 @@ export class App extends React.Component<{}, State> {
   }
 
   async submitAvailability(i: number) {
-    console.log('SUBMIT AVAILABILITY')
-
     const url: string = '/availability/availability-create' 
     const data = {
       date: new Date(
@@ -135,8 +133,6 @@ export class App extends React.Component<{}, State> {
       available: this.state.workingHoursAvailability[i],
       arrN: i
     }
-
-    console.log(data)
 
     const response: Response = await fetch(url, {
       body: JSON.stringify(data),
@@ -159,9 +155,6 @@ export class App extends React.Component<{}, State> {
   }
 
   async updateAvailability(item: object) {
-    console.log('UPDATE')
-    console.log(item)
-
     const url: string = '/availability/availabilities/'+item['_id']
     const data: object = item
     const response: Response = await fetch(url, {
