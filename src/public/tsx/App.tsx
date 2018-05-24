@@ -134,6 +134,8 @@ export class App extends React.Component<{}, State> {
       arrN: i
     }
 
+    console.log(data)
+
     const response: Response = await fetch(url, {
       body: JSON.stringify(data),
       headers: {
@@ -147,8 +149,10 @@ export class App extends React.Component<{}, State> {
       if(response.status === 200) {
         const responseJSON: object = await response.json()
 
-        if(responseJSON['success'])
+        if(responseJSON['success']) {
           console.log(responseJSON['message'])
+          this.getAvailabilityByDate(data.date)
+        }
         else
           console.log(responseJSON['message'])
       }

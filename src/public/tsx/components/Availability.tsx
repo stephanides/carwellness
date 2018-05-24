@@ -28,33 +28,30 @@ export class Availability extends React.Component<Props, {}> {
     this.updateOrSubmitAvailability = this.updateOrSubmitAvailability.bind(this)
   }
 
-  updateOrSubmitAvailability(i: number) {
-    //TODO ISSUE with multiople update posts. Refactor this function
-
+  updateOrSubmitAvailability(num: number) {
     if(this.props.availableDates && this.props.availableDates.length > 0) {
-      for(let j: number = 0; j < this.props.availableDates.length; j++) {
+      const dateFormattedForCheck: string = this.props.availabilityDate.split('-')[2]+'-'+this.props.availabilityDate.split('-')[1]+'-'+this.props.availabilityDate.split('-')[0]
+      let toUpdate: boolean = false
+      let objNum: number = 0
 
-        let itemDate = (this.props.availableDates[j]['date'].split('T')[0]).split('-')[2]+'-'+
-          (this.props.availableDates[j]['date'].split('T')[0]).split('-')[1]+'-'+
-          (this.props.availableDates[j]['date'].split('T')[0]).split('-')[0]
-
-          console.log(this.props.availabilityDate)
-          console.log(itemDate)
-
-        if(itemDate === this.props.availabilityDate) {
-          if(this.props.availableDates[j]['arrN'] === i) {
-            let obj = this.props.availableDates[j]
-            
-            obj['available'] = this.props.workingHoursAvailability[i]
-            this.props.updateAvailability(obj)
+      for(let i: number = 0; i < this.props.availableDates.length; i++) {
+        if(this.props.availableDates[i]['date'].split('T')[0] === dateFormattedForCheck) {
+          if(this.props.availableDates[i]['arrN'] === num) {
+            objNum = i
+            toUpdate = true
           }
-          else this.props.submitAvailability(i)
         }
-        else this.props.submitAvailability(i)
       }
+
+      if(toUpdate) {
+        let obj = this.props.availableDates[objNum]
+            
+        obj['available'] = this.props.workingHoursAvailability[num]
+        this.props.updateAvailability(obj)
+      }
+      else this.props.submitAvailability(num)
     }
-    else
-      this.props.submitAvailability(i)
+    else this.props.submitAvailability(num)
   }
 
   render() {
