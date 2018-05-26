@@ -92,7 +92,6 @@ if(document.getElementById("timepicker")){
 	});
 }
 
-
 //** Gallery **//
 if(document.getElementById("fancybox")){
 	$(function(){
@@ -117,7 +116,6 @@ if(document.getElementById("fancybox")){
 }
 
 //** Order part**//
-
 var orderCity = null;
 var orderCarType = null;
 var orderProgram = [false,false,false,false,false,false,false,false]
@@ -128,6 +126,11 @@ var orderEmail = "";
 var orderTel = ""; 
 var orderMessage = "";
 var ordercarTypeDetail = "";
+
+//Web Socket
+var socket = null
+if(typeof io === 'function')
+  socket = io();
 
 var orderObjectToSend = {
 	city:orderCity,
@@ -150,11 +153,8 @@ timesObjectZilina = [['00:00:00', '07:00:00'],['21:01:00', '23:59:00']];
 timesObjectNitra = [['00:00:00', '08:00:00'],['21:01:00', '23:59:00']];
 
 function setTimes(object){
-	$("#timepicker").timepicker('option','disableTimeRanges',object);
+  $("#timepicker").timepicker('option','disableTimeRanges',object);
 }
-
-
-
 
 function cityForOrder(e){
 	document.getElementById("cityForOrder-2").classList.remove('choosed');
@@ -202,6 +202,7 @@ function cityForOrder(e){
 		}
 	}
 }
+
 function carTypeOrder(e){
 	document.getElementById("carTypeOrder-2").classList.remove('choosed');
 	document.getElementById("carTypeOrder-1").classList.remove('choosed');
@@ -216,6 +217,7 @@ function carTypeOrder(e){
 	}
 	orderCarType = e;
 }
+
 function programOrder(e){
 	document.getElementById("programOrder-"+0).classList.remove('unlisted');
 	if(document.getElementById("programOrder-"+e).classList.contains('choosed')){
@@ -286,7 +288,6 @@ function programOrder(e){
 		document.getElementById("orderSum").innerHTML = orderSum + " €";
 	}
 	console.log(orderProgram);
-
 }
 
 function removeProgram(e){
@@ -322,26 +323,31 @@ function removeProgram(e){
 		
 		orderProgram[e] = false;
 }
+
 function orderNameResult(){
 	document.getElementById("orderNameResult").innerHTML = document.getElementById("orderName").value;
 	orderName = document.getElementById("orderName").value;
 	document.getElementById("orderName").classList.remove('unlisted');
 }
+
 function orderEmailResult(){
 	document.getElementById("orderEmailResult").innerHTML = document.getElementById("orderEmail").value;
 	orderEmail = document.getElementById("orderEmail").value;
 	document.getElementById("orderEmail").classList.remove('unlisted');
 }
+
 function orderTelResult(){
 	document.getElementById("orderTelResult").innerHTML = document.getElementById("orderTel").value;
 	orderTel = document.getElementById("orderTel").value;
 	document.getElementById("orderTel").classList.remove('unlisted');
 }
+
 function orderCarTypeResult(){
 	document.getElementById("orderCarTypeResult").innerHTML = document.getElementById("orderCarType").value;
 	ordercarTypeDetail = document.getElementById("orderCarType").value;
 	document.getElementById("orderCarType").classList.remove('unlisted');
 }
+
 function orderDateResult(){
 	console.log(orderCity);
 	document.getElementById("orderDateResult").innerHTML = document.getElementById("datepicker").value;
@@ -370,6 +376,7 @@ function orderDateResult(){
 
 
 }
+
 function orderTimeResult(){
 	console.log(document.getElementById("timepicker").value)
 	document.getElementById("orderTimeResult").innerHTML = document.getElementById("timepicker").value;
@@ -394,8 +401,6 @@ function sendOrder(){
 	orderObjectToSend.carType = orderCarType;
 	orderObjectToSend.date = orderDate;
 	orderObjectToSend.program = orderProgram;
-
-
 
 	if(orderCity == null){
 		readyToSend = false;
@@ -440,9 +445,12 @@ function sendOrder(){
 		  success:  function (response) {
 	  		console.log(response);
 	  		if(response.success) {
-	  			//SERVICE WORKER CALL 
+          //SERVICE WORKER CALL
+          if(socket) {
+            console.log('GOING EMIT SOCKET');
+            socket.emit('order created');
+          }
 	  		}
-
       },
 	    error: function(err) {
 	   	  console.log(err);
@@ -475,6 +483,7 @@ function cityForClaim(e){
 
 	claimCity = e;
 }
+
 function sendClaim(){
 	claimName = document.getElementById("claimName").value;
 	claimEmail = document.getElementById("claimEmail").value;
@@ -488,24 +497,22 @@ function sendClaim(){
 	claimObjectToSend.image = claimImage;
 	claimObjectToSend.message = claimMessage;
 
-
-
 	$.ajax({
 	  type: "POST",
 	  url: "http://localhost:4040/claim/claim-create",
 	  data: claimObjectToSend,
 	  dataType: "json",
 	  success:  function (response) {
-	  		console.log(response);
-            if(response.status === "success") {
-                console.log(response);
-            } else if(response.status === "error") {
-                console.log(response);
-            }
-        },
-	   error: function(err) {
+      console.log(response);
+      //SERVICE WORKER CALL
+      if(socket) {
+        console.log('GOING EMIT SOCKET');
+        socket.emit('claim created');
+      }
+    },
+	  error: function(err) {
 	   	console.log(err);
-	   }
+	  }
     });
 }
 

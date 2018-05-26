@@ -59,7 +59,7 @@ export class Claims extends React.Component <Props, {}> {
                   const month: string = dt.getMonth() < 10 ? '0'+(dt.getMonth()+1) : String((dt.getMonth()+1))
                   const year: number = dt.getFullYear()
                   const h: string = dt.getUTCHours() < 10 ? '0'+dt.getUTCHours() : String(dt.getUTCHours())
-                  const min: string = dt.getMinutes() < 10 ? '0'+dt.getMinutes() : String(dt.getMinutes())
+                  const min: string = dt.getUTCMinutes() < 10 ? '0'+dt.getUTCMinutes() : String(dt.getUTCMinutes())
                   
                   return(
                     <tr key={i} className={

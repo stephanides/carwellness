@@ -108,7 +108,14 @@ class App {
     this.router.get('/reklamacia', (req, res) => { res.render('claim') })
 
     this.io.on('connection', socket => {
-      console.log('User connected')
+      const admin = this.io.of('/admin')
+
+      socket.on('order created', () => {
+        admin.emit('order been created', { success: true })
+      })
+      socket.on('claim created', () => {
+        admin.emit('claim been created', { success: true })
+      })
     })
 
     this.app.use(AvailabilityRouter)

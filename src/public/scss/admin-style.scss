@@ -3,6 +3,7 @@ $cwRed: #dc002e;
 $cwGrey: #eceef2;
 $grey: #ccc;
 $greyText: #6c757d;
+$textDisabled: #808080;
 $white: #fff;
 $black: #1d1d1d;
 
@@ -211,6 +212,15 @@ $black: #1d1d1d;
         button {
           background-color: transparent;
           border: 1px solid $cwGrey;
+
+          &[disabled] {
+            background-color: transparent;
+
+            &:hover {
+              background-color: transparent;
+              color: $textDisabled;
+            }
+          }
         }
         .react-calendar__month-view__weekdays {
           background-color: $cwRed;
@@ -228,9 +238,6 @@ $black: #1d1d1d;
           &.react-calendar__tile--active, .react-calendar__tile--hasActive.react-calendar__tile--now.react-calendar__year-view__months__month {
             background-color: $cwRed;
             color: $white;
-          }
-          &[disabled] {
-            background-color: transparent;
           }
         }
       }
