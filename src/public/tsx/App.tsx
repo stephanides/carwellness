@@ -9,7 +9,6 @@ import { Settings } from './components/Settings'
 import * as io from 'socket.io-client'
 import { Users } from './components/Users'
 import { UserPayLoad } from './interfaces/UserPayLoad.interface'
-//import * as WebSocket from 'ws'
 const history = createBrowserHistory()
 
 const _date: Date = new Date()
@@ -61,18 +60,18 @@ const initialState: State = {
 }
 
 export class App extends React.Component<{}, State> {
+  private intervalCheckAuthenticate: number
   private myStorage: Storage
   private socket: any
-  //private ws: WebSocket
   
   constructor(props: State) {
     super(props)
 
+    this.intervalCheckAuthenticate = 0
     this.myStorage = localStorage
     this.state = initialState
 
     this.socket = io('/admin')
-    //this.ws = new WebSocket('ws:/localhost:4141/order/order-create')
     this.authenticate = this.authenticate.bind(this)
     this.checkOrders = this.checkOrders.bind(this)
     this.changeAvailability = this.changeAvailability.bind(this)
@@ -88,7 +87,6 @@ export class App extends React.Component<{}, State> {
     this.handleModal = this.handleModal.bind(this)
     this.handlePaginationData = this.handlePaginationData.bind(this)
     this.sendNotification = this.sendNotification.bind(this)
-    //this.onWebSockets = this.onWebSockets.bind(this)
     this.orderByTime = this.orderByTime.bind(this)
     this.orderByOrderState = this.orderByOrderState.bind(this)
     this.orderByOrderProgram = this.orderByOrderProgram.bind(this)
@@ -104,11 +102,13 @@ export class App extends React.Component<{}, State> {
     this.updateOrder = this.updateOrder.bind(this)
   }
 
-  authenticate(): void {
+  authenticate() {
     const user: UserPayLoad | null = this.getUserData() as UserPayLoad
 
     if(user)
       this.setState({ authorised: true, user: user })
+    else
+      this.signOut()
   }
 
   async checkClaims() {
@@ -534,17 +534,20 @@ export class App extends React.Component<{}, State> {
   }
 
   getUserData() {
-    let user: object | null = {} as UserPayLoad
-
-    if(this.myStorage.getItem('token') && this.myStorage.getItem('uFN')) {
-      user = {
-        token: this.myStorage.getItem('token'),
-        firstName: this.myStorage.getItem('uFN'),
-        role: parseInt(this.myStorage.getItem('uR')),
-        city: parseInt(this.myStorage.getItem('cI'))
+    let user: object | null = null
+    
+    if(this.myStorage.getItem('uLT')) {
+      const timeDiff: number = Date.now() - parseInt(this.myStorage.getItem('uLT'))
+      
+      if(timeDiff < 2.88e+7) {
+        user = {
+          token: this.myStorage.getItem('token'),
+          firstName: this.myStorage.getItem('uFN'),
+          role: parseInt(this.myStorage.getItem('uR')),
+          city: parseInt(this.myStorage.getItem('cI'))
+        } as UserPayLoad 
       }
     }
-    else user = null
 
     return user
   }
@@ -729,7 +732,7 @@ export class App extends React.Component<{}, State> {
   }
 
   signOut() {
-    this.setState({ 
+    this.setState({
       availabilityDate: '',
       authorised: false,
       orderList: null,
@@ -738,7 +741,9 @@ export class App extends React.Component<{}, State> {
       claimList: null,
       usersList: null
     })
+
     this.myStorage.clear()
+    clearInterval(this.intervalCheckAuthenticate)
   }
 
   storeUserData(data: object): void {
@@ -746,6 +751,7 @@ export class App extends React.Component<{}, State> {
     this.myStorage.setItem('uFN', data['firstName'])
     this.myStorage.setItem('uR', data['role'])
     this.myStorage.setItem('cI', data['city'])
+    this.myStorage.setItem('uLT', String(Date.now()))
 
     this.authenticate()
   }
@@ -803,16 +809,8 @@ export class App extends React.Component<{}, State> {
   }
 
   componentDidMount() {
+    this.intervalCheckAuthenticate = window.setInterval(this.authenticate, 8*60*1000)
     this.authenticate()
-
-    window.addEventListener('focus', windowState => {
-      //windowActive
-      //console.log(windowState)
-    })
-    window.addEventListener('blur', windowState => {
-      //windowActive
-      //console.log(windowState)
-    })
   }
 
   render() {
@@ -825,7 +823,6 @@ export class App extends React.Component<{}, State> {
               availableDates={this.state.availableDates}
               availabilityDate={this.state.availabilityDate}
               carType={this.state.carType}
-              //claimList={this.state.claimList}
               orderedClaimList={this.state.orderedClaimList}
               dayOfWeek={this.state.dayOfWeek}
               modalMessage={this.state.modalMessage}
@@ -841,7 +838,6 @@ export class App extends React.Component<{}, State> {
               workingHours={this.state.workingHours}
               workingHoursAvailability={this.state.workingHoursAvailability}
               
-              //checkOrders={this.checkOrders}
               changeAvailability={this.changeAvailability}
               changeOrder={this.changeOrder}
               changePage={this.changePage}
@@ -849,7 +845,6 @@ export class App extends React.Component<{}, State> {
               getOrderList={this.getOrderList}
               getClaimList={this.getClaimList}
               handleModal={this.handleModal}
-              //sendNotification={this.sendNotification}
               orderByOrderState={this.orderByOrderState}
               orderByOrderProgram={this.orderByOrderProgram}
               orderByTime={this.orderByTime}

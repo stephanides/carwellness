@@ -18,22 +18,19 @@ export class Email {
   }
   
   sendEmail(req: Request, res: Response, next: NextFunction) {
-    if(req.body.email) {
-      this.transporter.sendMail({
-        from: req.body.email,
-        to: 'info@codebrothers.sk',
-        subject: 'MESSAGE FROM CARWELLNESS CONTACT FORM',
-        text: req.body.message
-      }, err => {
-        if(err) {
-          const newErr = new Error(err['response'])
-          newErr['status'] = err['responseCode']
+    this.transporter.sendMail({
+      from: req.body.email,
+      to: 'info@codebrothers.sk',
+      subject: 'MESSAGE FROM CARWELLNESS CONTACT FORM',
+      text: req.body.message
+    }, err => {
+      if(err) {
+        const newErr = new Error(err['response'])
+        newErr['status'] = err['responseCode']
 
-          return next(newErr)
-        }
-        else res.json({ message: 'Mail has been successfully sent', success: true })
-      })
-    }
-    else res.json({ message: 'Can\'t send email' })
+        return next(newErr)
+      }
+      else res.json({ message: 'Mail has been successfully sent', success: true })
+    })
   }
 }

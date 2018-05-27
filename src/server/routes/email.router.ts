@@ -5,7 +5,6 @@ const router = express.Router()
 const email = new Email()
 
 router.post('/email/send', (req, res, next) => {
-  console.log('Attempting to send mail')
   email.sendEmail(req, res, next)
 })
 
