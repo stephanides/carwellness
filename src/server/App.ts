@@ -12,6 +12,7 @@ import * as http from 'http'
 
 import AvailabilityRouter from './routes/Availability.router'
 import ClaimRouter from './routes/Claim.router'
+import EmailRouter from './routes/Email.router'
 import OrderRouter from './routes/Order.router'
 import UserRouter from './routes/User.router'
 
@@ -120,6 +121,7 @@ class App {
 
     this.app.use(AvailabilityRouter)
     this.app.use(ClaimRouter)
+    this.app.use(EmailRouter)
     this.app.use(OrderRouter)
     this.app.use(UserRouter)
     this.app.use(this.router)
