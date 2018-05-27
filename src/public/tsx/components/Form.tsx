@@ -64,7 +64,7 @@ export const Form: Function = (props: Props) => {
         ) : null
       }
       <div className='form-group'>
-        <button type='submit' className='btn btn-primary'>{props.formType === 'register' ? 'Zaregistrovať' : 'Prihlásiť'}</button>
+        <button type='submit' className='btn btn-outline-primary'>{props.formType === 'register' ? 'Zaregistrovať' : 'Prihlásiť'}</button>
       </div>
     </form>
   )

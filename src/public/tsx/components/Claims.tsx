@@ -5,13 +5,8 @@ interface Props {
   claimState: Array<string>
   boss: number
   list?: Array<object>
-  //page: number
-  //paginationItemCount: number
-  //pagesCount: number
 
   changeClaims(claims: Array<object>): void
-  //changePage(page: number, order: boolean): void
-  //changePageItemsCount(itemsCount: number, order: boolean): void
   getList(): void
   updateItem(item: object, callBack?: () => void): void
 }
@@ -31,9 +26,9 @@ export class Claims extends React.Component <Props, {}> {
         <table className='table'>
           <caption>
             Zoznam reklamácií:
-            <span className='table-warning font-weight-bold'>NOVÁ</span>
-            <span className='table-danger font-weight-bold'>ZRUŠENÁ</span>
-            <span className='table-success font-weight-bold'>VYBAVENÁ</span>
+            <span className='bg-warning font-weight-bold'>NOVÁ</span>
+            <span className='bg-danger font-weight-bold'>ZRUŠENÁ</span>
+            <span className='bg-success font-weight-bold'>VYBAVENÁ</span>
           </caption>
           <thead>
             <tr>
@@ -66,8 +61,8 @@ export class Claims extends React.Component <Props, {}> {
                       this.props.list[i]['claimState'] > 0 ?
                       (
                         this.props.list[i]['claimState'] > 1 ?
-                        'table-success' : 'table-danger'
-                      ) : 'table-warning'
+                        'bg-success' : 'bg-danger'
+                      ) : 'bg-warning'
                     }>
                       <th className='text-center' scope='row'>{i+1}</th>
                       {
@@ -112,7 +107,7 @@ export class Claims extends React.Component <Props, {}> {
                   )
                 }) :
                 <tr>
-                  <td colSpan={7}>
+                  <td colSpan={8}>
                     <h6 className='text-center'>Neboli nájdené žiadne reklamácie</h6>
                   </td>
                 </tr> 

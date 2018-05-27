@@ -7,11 +7,6 @@ interface Props {
   availabilityDate?: string
   dayOfWeek: number
   user: UserPayLoad
-  //today: string
-  //tomorrow: string
-  //todayTimes: Array<boolean>
-  //tomorrowTimes: Array<boolean>
-  //todayOrTomorrow: number
   workingHours: string[][]
   workingHoursAvailability: Array<boolean>
 
@@ -59,7 +54,7 @@ export class Availability extends React.Component<Props, {}> {
       <div>
         {
           this.props.availabilityDate && this.props.availabilityDate !== '' ? 
-          <div className=''>
+          <div className='availability'>
             <h3>
               <button type='button' className='' onClick={() => { this.props.setDay('') }}>
                 <i className='fas fa-chevron-left'></i>
@@ -86,7 +81,7 @@ export class Availability extends React.Component<Props, {}> {
                         	this.props.dayOfWeek < 6 && this.props.dayOfWeek != 0 ?
                           (
                             i > 13  && i < this.props.workingHours.length - 5 ?
-                            <tr key={i} className={this.props.workingHoursAvailability[i] ? '' : 'table-danger'}>
+                            <tr key={i} className={this.props.workingHoursAvailability[i] ? '' : 'bg-danger'}>
                               <td>{item[0]}</td><td>{item[1]}</td>
                               <td className='text-center'>
                                 <select

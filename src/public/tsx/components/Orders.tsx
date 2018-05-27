@@ -35,9 +35,9 @@ export class Orders extends React.Component<Props, {}> {
         <table className='table'>
           <caption>
             Zoznam objednávok:
-            <span className='table-warning font-weight-bold'>NOVÁ</span>
-            <span className='table-danger font-weight-bold'>ZRUŠENÁ</span>
-            <span className='table-success font-weight-bold'>VYBAVENÁ</span>
+            <span className='bg-warning font-weight-bold'>NOVÁ</span>
+            <span className='bg-danger font-weight-bold'>ZRUŠENÁ</span>
+            <span className='bg-success font-weight-bold'>VYBAVENÁ</span>
           </caption>
           <thead>
             <tr>
@@ -83,8 +83,8 @@ export class Orders extends React.Component<Props, {}> {
                       this.props.list[i]['orderState'] > 0 ?
                       (
                         this.props.list[i]['orderState'] > 1 ?
-                        'table-success' : 'table-danger'
-                      ) : 'table-warning'
+                        'bg-success' : 'bg-danger'
+                      ) : 'bg-warning'
                     }>
                       <th className='text-center' scope='row'>{i+1}</th>
                       {
@@ -143,13 +143,13 @@ export class Orders extends React.Component<Props, {}> {
                   )
                 }) :
                 <tr>
-                  <td colSpan={7}>
+                  <td colSpan={11}>
                     <h6 className='text-center'>Neboli nájdené žiadne objednávky</h6>
                   </td>
                 </tr> 
               ) :
               <tr>
-                <td colSpan={7}>
+                <td colSpan={11}>
                   <h6 className='text-center'>Neboli nájdené žiadne objednávky</h6>
                 </td>
               </tr>

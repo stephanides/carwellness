@@ -38,7 +38,7 @@ export const Login: Function = (props: Props) => {
     )
   )
    :
-  <div className='container' key={1}>
+  <div className='container middle-content' key={1}>
     {
       Modal({
         modalMessage: props.modalMessage,
@@ -47,7 +47,7 @@ export const Login: Function = (props: Props) => {
     }
     <div className='row'>
       <div className='col-xl-6 col-lg-6 col-md-8 col-ls-12 m-auto'>
-        <h1 className='mt-3'>Prihlásenie</h1>
+        <h1>Prihlásenie</h1>
         {
           Form({
             formType: 'login',

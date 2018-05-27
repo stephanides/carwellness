@@ -695,7 +695,6 @@ export class App extends React.Component<{}, State> {
   }
 
   async getAvailabilityByDate(date: string, callBack?: () => void) {
-    console.log('GET AVAILABILITY BAY DATE: '+date)
     const url: string = '/availability/availability/'+date+'/'+this.state.user.city
     const response: Response = await fetch(url)
     let arr = this.state.workingHoursAvailability
@@ -705,9 +704,7 @@ export class App extends React.Component<{}, State> {
         const responseJSON: object = await response.json()
 
         if(responseJSON) {
-          if(responseJSON['success']) {
-            console.log(responseJSON['data'])
-            
+          if(responseJSON['success']) {            
             for(let i: number = 0; i < responseJSON['data'].length; i++)
               arr[responseJSON['data'][i]['arrN']] = responseJSON['data'][i]['available']
 

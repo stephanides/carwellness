@@ -3,14 +3,41 @@ $cwRed: #dc002e;
 $cwGrey: #eceef2;
 $grey: #ccc;
 $greyText: #6c757d;
+$lightGreyText: #cfd2da;
 $textDisabled: #808080;
 $white: #fff;
 $black: #1d1d1d;
+$bgDark: #343a40;
+$bgLightDark: #6c757d;
 
 #wrapper {
   &.admin {
+    height: 100vh;
+    background-color: $bgDark;
+
+    caption, h1, h2, h3, h4, h5, h6, p, td, th, span, label, li {
+      color: $lightGreyText;
+    }
+    a {
+      color: $cwRed;
+
+      &:hover {
+        color: $lightGreyText;
+      }
+    }
+    .availability {
+      .table {
+        
+      }
+    }
+    .modal {
+      h5, p {
+        color: $black;
+      }
+    }   
     .navbar {
-      border-bottom: 1px solid $cwGrey;
+      background-color: $bgLightDark;
+      //border-bottom: 1px solid $cwGrey;
       padding: .5rem 0;
 
       .navbar-brand {
@@ -95,6 +122,22 @@ $black: #1d1d1d;
         }
       }
     }
+    .nav-tabs {
+      border-bottom: 1px solid $cwRed;
+
+      .nav-link {
+        &.active {
+          color: $cwRed;
+          background-color: $white;
+          border-color: $cwRed;
+        }
+        &:hover {
+          color: $lightGreyText;
+          background-color: $bgLightDark;
+          border-color: transparent transparent $cwRed;
+        }
+      }
+    }
     .list-group {
       .switch {
         position: relative;
@@ -170,37 +213,11 @@ $black: #1d1d1d;
         }
       }
     }
-    .table {
-      caption {
-        span {
-          color: $black;
-          padding: .25rem;
-          margin: 0 .25rem;
-        }
-      }
-      tr {
-        td, th {
-          vertical-align: middle;
-
-          select {
-            background-color: rgba(255, 255, 255, 0.5);
-          }
-          button.message {
-            background-color: transparent;
-            border: 0;
-            outline: none;
-
-            &:hover {
-              cursor: pointer;
-            }
-          }
-          img {
-            max-width: 96px
-          }
-        }
-      }
-    }
     .tab-content {
+      height: calc(100vh - 140px);
+      border-left: 1px solid $cwRed;
+      border-right: 1px solid $cwRed;
+
       h3 {
         button {
           background-color: transparent;
@@ -208,47 +225,94 @@ $black: #1d1d1d;
           color: $greyText;
         }
       }
-      .react-calendar {
-        button {
-          background-color: transparent;
-          border: 1px solid $cwGrey;
-
-          &[disabled] {
-            background-color: transparent;
-
-            &:hover {
-              background-color: transparent;
-              color: $textDisabled;
+      .table {
+        caption {
+          span {
+            color: $black;
+            padding: .25rem;
+            margin: 0 .25rem;
+          }
+        }
+        thead {
+          background-color: $cwRed;
+        }
+        tbody {
+          tr {
+            &.bg-warning {
+              td {
+                color: $white;
+              }
             }
           }
         }
-        .react-calendar__month-view__weekdays {
-          background-color: $cwRed;
-
-          .react-calendar__month-view__weekdays__weekday {
-            text-align: center;
-            color: $white;
+        tr {
+          td, th {
+            vertical-align: middle;
+            border: 0 none!important;
+  
+            select {
+              background-color: rgba(255, 255, 255, 0.5);
+            }
+            button.message {
+              background-color: transparent;
+              border: 0;
+              outline: none;
+  
+              &:hover {
+                cursor: pointer;
+              }
+            }
+            img {
+              max-width: 96px
+            }
           }
         }
-        .react-calendar__month-view__days__day, .react-calendar__year-view__months__month, .react-calendar__navigation__next-button, .react-calendar__navigation__next12-button {
+      }
+      .react-calendar {
+        background-color: $white;
+
+        div {
+          text-align: center;
+          
+          &.react-calendar__month-view__weekdays__weekday {
+            background-color: $cwRed;
+            color: $white;
+            padding: .5rem 1rem;
+          }
+        }
+        button {
+          background-color: $white;
+          border: 0;
+          padding: .5rem;
+
+          &.react-calendar__navigation__arrow {
+            padding-left: 1rem;
+            padding-right: 1rem;
+          }
+          &[disabled] {
+            background-color: $cwGrey;
+
+            &:hover {
+              background-color: $cwGrey;
+              color: $textDisabled;
+            }
+          }
           &:hover {
             background-color: rgba(220, 0, 46, 0.5);
-            color: $white;
-          }
-          &.react-calendar__tile--active, .react-calendar__tile--hasActive.react-calendar__tile--now.react-calendar__year-view__months__month {
-            background-color: $cwRed;
             color: $white;
           }
         }
       }
     }
     .pagination-container {
-      label {
-        color: $greyText;
-      }
       select {
         width: auto;
       }
+    }
+    .middle-content {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%);
     }
   }
 }
