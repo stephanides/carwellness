@@ -1,3 +1,8 @@
+/*
+* Globals
+*/
+var _baseURI = location.protocol+'//'+location.host;
+
 //**Map functions**//
 
 function mapZilina() {
@@ -439,7 +444,7 @@ function sendOrder(){
 	if(readyToSend){
 		$.ajax({
 		  type: 'POST',
-		  url: 'http://localhost:4040/order/order-create',
+		  url: _baseURI+'/order/order-create',
 		  data: orderObjectToSend, //JSON.stringify(orderObjectToSend)
 		  dataType: 'json',
 		  success:  function (response) {
@@ -499,7 +504,7 @@ function sendClaim(){
 
 	$.ajax({
 	  type: 'POST',
-	  url: 'http://localhost:4040/claim/claim-create',
+	  url: _baseURI+'/claim/claim-create',
 	  data: claimObjectToSend,
 	  dataType: 'json',
 	  success:  function (response) {
@@ -548,7 +553,7 @@ function sendContact(form) {
     
     $.ajax({
       type: 'POST',
-      url: 'http://localhost:4040/email/send',
+      url: _baseURI+'/email/send',
       data: data,
       dataType: 'json',
       success:  function (response) {
