@@ -12,7 +12,8 @@ $bgLightDark: #6c757d;
 
 #wrapper {
   &.admin {
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     background-color: $bgDark;
 
     caption, h1, h2, h3, h4, h5, h6, p, td, th, span, label, li {
@@ -23,11 +24,6 @@ $bgLightDark: #6c757d;
 
       &:hover {
         color: $lightGreyText;
-      }
-    }
-    .availability {
-      .table {
-        
       }
     }
     .modal {
@@ -214,17 +210,10 @@ $bgLightDark: #6c757d;
       }
     }
     .tab-content {
-      height: calc(100vh - 140px);
+      height: 100%; //calc(100vh - 140px);
       border-left: 1px solid $cwRed;
       border-right: 1px solid $cwRed;
 
-      h3 {
-        button {
-          background-color: transparent;
-          border: 0;
-          color: $greyText;
-        }
-      }
       .table {
         caption {
           span {
@@ -241,6 +230,11 @@ $bgLightDark: #6c757d;
             &.bg-warning {
               td {
                 color: $white;
+              }
+            }
+            &.bg-light {
+              th, td {
+                color: $bgDark;
               }
             }
           }
@@ -313,6 +307,15 @@ $bgLightDark: #6c757d;
       position: relative;
       top: 50%;
       transform: translateY(-50%);
+    }
+    .text-18 {
+      font-size: 18px;
+    }
+    .badge-light {
+      color: $bgDark !important;
+    }
+    .btn-link {
+      color: $cwRed;
     }
   }
 }

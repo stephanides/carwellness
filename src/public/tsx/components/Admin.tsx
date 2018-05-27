@@ -16,6 +16,7 @@ interface Props {
   user: UserPayLoad
   orderedClaimList?: Array<object>
   dayOfWeek: number
+  daysOfWeek: Array<string>
   modalMessage?: string | JSX.Element
   modalTitle: string
   page: number
@@ -133,6 +134,7 @@ export class Admin extends React.Component<Props, {}> {
                 availableDates={this.props.availableDates}
                 availabilityDate={this.props.availabilityDate}
                 dayOfWeek={this.props.dayOfWeek}
+                daysOfWeek={this.props.daysOfWeek}
                 user={this.props.user}
                 workingHours={this.props.workingHours}
                 workingHoursAvailability={this.props.workingHoursAvailability}

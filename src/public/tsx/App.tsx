@@ -22,6 +22,7 @@ interface State {
   availabilityDate?: string
   carType: Array<string>
   dayOfWeek: number
+  daysOfWeek: Array<string>
   modalMessage?: string | JSX.Element
   modalTitle?: string
   login: boolean
@@ -47,6 +48,7 @@ const initialState: State = {
   authorised: false,
   carType: ['AUTO CLASSIC', 'AUTO SUV'],
   dayOfWeek: _date.getDay(),
+  daysOfWeek: ['Nedeľa', 'Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok', 'Sobota'],  
   login: true,
   program: ['COMFORT', 'EXCLUSIVE', 'EXTERIÉR', 'INTERIÉR', 'PREMIUM EXTERIÉR', 'PREMIUM INTERIÉR', 'AVANGARDE', 'TOP GLANZ'],
   page: 0,
@@ -825,6 +827,7 @@ export class App extends React.Component<{}, State> {
               carType={this.state.carType}
               orderedClaimList={this.state.orderedClaimList}
               dayOfWeek={this.state.dayOfWeek}
+              daysOfWeek={this.state.daysOfWeek}
               modalMessage={this.state.modalMessage}
               modalTitle={this.state.modalTitle}
               orderList={this.state.orderList}
