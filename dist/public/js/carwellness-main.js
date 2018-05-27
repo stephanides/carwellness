@@ -516,6 +516,9 @@ function sendClaim(){
   });
 }
 
+/*
+* Fn. executed on contact form submit
+*/
 function sendContact(form) {
   event.preventDefault();
   var data = {};
@@ -531,7 +534,7 @@ function sendContact(form) {
       err = true
     }
   }
-  
+
   //interpolate 'textarea' value to data object with key based on textarea id
   if(form.querySelector('textarea').value)
     data[form.querySelector('textarea')['id']] = form.querySelector('textarea').value;
