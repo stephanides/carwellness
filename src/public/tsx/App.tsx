@@ -6,6 +6,7 @@ import { Login } from './components/Login'
 import { Link } from 'react-router-dom'
 import { Register } from './components/Register'
 import { Settings } from './components/Settings'
+import { SuperAdminSetup } from './components/SuperAdminSetup'
 import * as io from 'socket.io-client'
 import { Users } from './components/Users'
 import { UserPayLoad } from './interfaces/UserPayLoad.interface'
@@ -895,6 +896,9 @@ export class App extends React.Component<{}, State> {
               <Redirect to='/admin/login' />
             )
           }} />
+          <Route path='/admin/setup' render={() => (
+            <SuperAdminSetup />
+          )} />
           <Route path='/admin/users' render={(props) => {
             this.fromURL = props.match.path
             

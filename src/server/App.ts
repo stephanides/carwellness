@@ -108,10 +108,6 @@ class App {
     this.router.get('/galeria', (req, res) => { res.render('gallery') })
     this.router.get('/reklamacia', (req, res) => { res.render('claim') })
 
-    this.router.get('/apidoc', (req, res) => {
-      res.sendFile(path.normalize(__dirname+'/../apidoc/index.html'))
-    })
-
     this.io.on('connection', socket => {
       const admin = this.io.of('/admin')
 
