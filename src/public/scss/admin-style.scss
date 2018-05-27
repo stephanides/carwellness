@@ -12,6 +12,7 @@ $bgLightDark: #6c757d;
 
 #wrapper {
   &.admin {
+    position: relative;
     min-height: 100vh;
     height: 100%;
     background-color: $bgDark;
@@ -27,7 +28,7 @@ $bgLightDark: #6c757d;
       }
     }
     .modal {
-      h5, p {
+      h5, p, span {
         color: $black;
       }
     }   
@@ -304,7 +305,7 @@ $bgLightDark: #6c757d;
       }
     }
     .middle-content {
-      position: relative;
+      position: absolute;
       top: 50%;
       transform: translateY(-50%);
     }

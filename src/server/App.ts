@@ -10,6 +10,8 @@ import * as bodyParser from 'body-parser'
 import * as io from 'socket.io'
 import * as http from 'http'
 
+import { User, UserDocument, Users } from './models/User.model'
+
 import AvailabilityRouter from './routes/Availability.router'
 import ClaimRouter from './routes/Claim.router'
 import EmailRouter from './routes/Email.router'
@@ -100,6 +102,13 @@ class App {
   private routes(): void {
     this.router.get('/', (req, res) => { res.render('index') })
     this.router.get('/admin', (req, res) => { res.render('admin') })
+    this.router.get('/admin/setup', async (req, res) => {
+      const user: object = await Users.findOne({ role: 2 })
+      if(!user)
+        res.render('admin')
+      else
+        res.render('error')
+    })
     this.router.get('/admin/:action', (req, res) => { res.render('admin') })
     this.router.get('/sluzby', (req, res) => { res.render('services') })
     this.router.get('/cennik', (req, res) => { res.render('price-list') })

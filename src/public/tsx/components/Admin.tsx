@@ -64,86 +64,88 @@ export class Admin extends React.Component<Props, {}> {
 
   render() {
     return(
-      <div className='admin-content'>
+      <div>
         {
           Modal({
             modalMessage: this.props.modalMessage,
             modalTitle: this.props.modalTitle
           })
         }
-        {
-          Nav({ user: this.props.user, signOut: this.props.signOut })
-        }
-        <div className='container-fluid'>
+        <div className='admin-content'>
           {
-            TabNav({
-              tabs: [{
-                title: 'Objednávky', param: 'orders'
-              },
-              {
-                title: 'Reklamácie', param: 'claims'
-              },
-              {
-                title: 'Obsadenosť', param: 'availability'
-              }]
-            })
+            Nav({ user: this.props.user, signOut: this.props.signOut })
           }
-          <div className='tab-content p-3' id='adminTabContent'>
-            <div className='tab-pane fade show active' id='orders' role='tabpanel' aria-labelledby='orders-tab'>
-              {
-                Filter({
-                  program: this.props.program,
-                  orderState: this.props.orderState,
-                  orderByTime: this.props.orderByTime,
-                  orderByOrderState: this.props.orderByOrderState,
-                  orderByOrderProgram: this.props.orderByOrderProgram
-                })
-              }
-              <Orders
-                carType={this.props.carType}
-                boss={this.props.user.city}
-                list={this.props.orderedOrderList}
-                page={this.props.page}
-                paginationItemCount={this.props.paginationItemCount}
-                pagesCount={this.props.pagesCount}
-                program={this.props.program}
-                orderList={this.props.orderList}
-                orderState={this.props.orderState}
+          <div className='container-fluid'>
+            {
+              TabNav({
+                tabs: [{
+                  title: 'Objednávky', param: 'orders'
+                },
+                {
+                  title: 'Reklamácie', param: 'claims'
+                },
+                {
+                  title: 'Obsadenosť', param: 'availability'
+                }]
+              })
+            }
+            <div className='tab-content p-3' id='adminTabContent'>
+              <div className='tab-pane fade show active' id='orders' role='tabpanel' aria-labelledby='orders-tab'>
+                {
+                  Filter({
+                    program: this.props.program,
+                    orderState: this.props.orderState,
+                    orderByTime: this.props.orderByTime,
+                    orderByOrderState: this.props.orderByOrderState,
+                    orderByOrderProgram: this.props.orderByOrderProgram
+                  })
+                }
+                <Orders
+                  carType={this.props.carType}
+                  boss={this.props.user.city}
+                  list={this.props.orderedOrderList}
+                  page={this.props.page}
+                  paginationItemCount={this.props.paginationItemCount}
+                  pagesCount={this.props.pagesCount}
+                  program={this.props.program}
+                  orderList={this.props.orderList}
+                  orderState={this.props.orderState}
 
-                changeOrder={this.props.changeOrder}
-                changePage={this.props.changePage}
-                changePageItemsCount={this.props.changePageItemsCount}
-                getList={this.props.getOrderList}
-                handleModal={this.props.handleModal}
-                updateItem={this.props.updateOrder}
-              />
-            </div>
-            <div className='tab-pane fade' id='claims' role='tabpanel' aria-labelledby='claims-tab'>
-              <Claims
-                boss={this.props.user.city}
-                claimState={this.props.orderState}
-                list={this.props.orderedClaimList}
+                  changeOrder={this.props.changeOrder}
+                  changePage={this.props.changePage}
+                  changePageItemsCount={this.props.changePageItemsCount}
+                  getList={this.props.getOrderList}
+                  handleModal={this.props.handleModal}
+                  updateItem={this.props.updateOrder}
+                />
+              </div>
+              <div className='tab-pane fade' id='claims' role='tabpanel' aria-labelledby='claims-tab'>
+                <Claims
+                  boss={this.props.user.city}
+                  claimState={this.props.orderState}
+                  list={this.props.orderedClaimList}
 
-                changeClaims={this.props.changeOrder}
-                getList={this.props.getClaimList}
-                updateItem={this.props.updateClaim}
-              />
-            </div>
-            <div className='tab-pane fade' id='availability' role='tabpanel' aria-labelledby='availability-tab'>
-              <Availability
-                availableDates={this.props.availableDates}
-                availabilityDate={this.props.availabilityDate}
-                dayOfWeek={this.props.dayOfWeek}
-                daysOfWeek={this.props.daysOfWeek}
-                user={this.props.user}
-                workingHours={this.props.workingHours}
-                workingHoursAvailability={this.props.workingHoursAvailability}
+                  changeClaims={this.props.changeOrder}
+                  getList={this.props.getClaimList}
+                  updateItem={this.props.updateClaim}
+                />
+              </div>
+              <div className='tab-pane fade' id='availability' role='tabpanel' aria-labelledby='availability-tab'>
+                <Availability
+                  availableDates={this.props.availableDates}
+                  availabilityDate={this.props.availabilityDate}
+                  dayOfWeek={this.props.dayOfWeek}
+                  daysOfWeek={this.props.daysOfWeek}
+                  user={this.props.user}
+                  workingHours={this.props.workingHours}
+                  workingHoursAvailability={this.props.workingHoursAvailability}
 
-                changeAvailability={this.props.changeAvailability}
-                setDay={this.props.setDay}
-                submitAvailability={this.props.submitAvailability}
-                updateAvailability={this.props.updateAvailability}
-              />
+                  changeAvailability={this.props.changeAvailability}
+                  setDay={this.props.setDay}
+                  submitAvailability={this.props.submitAvailability}
+                  updateAvailability={this.props.updateAvailability}
+                />
+              </div>
             </div>
           </div>
         </div>

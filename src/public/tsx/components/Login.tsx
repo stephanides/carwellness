@@ -38,25 +38,27 @@ export const Login: Function = (props: Props) => {
     )
   )
    :
-  <div className='container middle-content' key={1}>
+  <div>
     {
       Modal({
         modalMessage: props.modalMessage,
         modalTitle: props.modalTitle
       })
     }
-    <div className='row'>
-      <div className='col-xl-6 col-lg-6 col-md-8 col-ls-12 m-auto'>
-        <h1>Prihlásenie</h1>
-        {
-          Form({
-            formType: 'login',
-            showHidePassword: props.showHidePassword,
-            changeShowHidePassword: props.changeShowHidePassword,
-            submitForm: props.submitForm
-          })
-        }
-        <p>Nemáte účet? <Link to='/admin/register'>Zaregistrujte sa</Link> prosím.</p>
+    <div className='container middle-content'>
+      <div className='row'>
+        <div className='col-xl-6 col-lg-6 col-md-8 col-ls-12 m-auto'>
+          <h1>Prihlásenie</h1>
+          {
+            Form({
+              formType: 'login',
+              showHidePassword: props.showHidePassword,
+              changeShowHidePassword: props.changeShowHidePassword,
+              submitForm: props.submitForm
+            })
+          }
+          <p>Nemáte účet? <Link to='/admin/register'>Zaregistrujte sa</Link> prosím.</p>
+        </div>
       </div>
     </div>
   </div>

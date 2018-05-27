@@ -775,6 +775,15 @@ export class App extends React.Component<{}, State> {
     if(select)
       data['city'] = parseInt(select.options[select.selectedIndex].value)
 
+    if(action === 'setup') {
+      data['approved'] = true
+      data['city'] = 0
+      data['role'] = 2
+    }
+
+    console.log(action)
+    console.log(data)
+
     const xhttp = new XMLHttpRequest()
 
     xhttp.open('POST', _url, true)    
@@ -801,6 +810,10 @@ export class App extends React.Component<{}, State> {
             if(resp['success']) {
               self.handleModal(<span>Registrácia prebehla úspešne. <Link to='/admin/login' onClick={() => {$('#modal').modal('hide')}}>Prihláste sa</Link> prosím.</span>, resp['success'])
             }
+          }
+          else if(action === 'setup') {
+            if(resp['success'])
+              self.handleModal(<span>Registrácia prebehla úspešne. <Link to='/admin/login' onClick={() => {$('#modal').modal('hide')}}>Prihláste sa</Link> prosím.</span>, resp['success'])
           }
           else self.handleModal(resp['message'], resp['success'])
         }
@@ -897,7 +910,13 @@ export class App extends React.Component<{}, State> {
             )
           }} />
           <Route path='/admin/setup' render={() => (
-            <SuperAdminSetup />
+            SuperAdminSetup({
+              modalMessage: this.state.modalMessage,
+              modalTitle: this.state.modalTitle,
+              changeShowHidePassword: this.changeShowHidePassword,
+              showHidePassword: this.state.showHidePassword,
+              submitForm: this.submitForm
+            })
           )} />
           <Route path='/admin/users' render={(props) => {
             this.fromURL = props.match.path
