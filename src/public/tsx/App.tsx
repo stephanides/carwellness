@@ -60,6 +60,7 @@ const initialState: State = {
 }
 
 export class App extends React.Component<{}, State> {
+  private fromURL: string
   private intervalCheckAuthenticate: number
   private myStorage: Storage
   private socket: any
@@ -67,6 +68,7 @@ export class App extends React.Component<{}, State> {
   constructor(props: State) {
     super(props)
 
+    this.fromURL = '/'
     this.intervalCheckAuthenticate = 0
     this.myStorage = localStorage
     this.state = initialState
@@ -740,10 +742,11 @@ export class App extends React.Component<{}, State> {
       user: {} as UserPayLoad,
       claimList: null,
       usersList: null
+    }, () => {
+      this.myStorage.clear()
+      clearInterval(this.intervalCheckAuthenticate)
+      this.fromURL = '/'
     })
-
-    this.myStorage.clear()
-    clearInterval(this.intervalCheckAuthenticate)
   }
 
   storeUserData(data: object): void {
@@ -817,7 +820,7 @@ export class App extends React.Component<{}, State> {
     return(
       <Router history={history}>
         <Switch>
-          <Route exact path='/admin' render={() => (
+          <Route exact path='/admin' render={(props) => (
             this.state.authorised ?
             <Admin
               availableDates={this.state.availableDates}
@@ -861,6 +864,7 @@ export class App extends React.Component<{}, State> {
           <Route path='/admin/login' render={() => (
             Login({
               authorised: this.state.authorised,
+              fromURL: this.fromURL,
               modalMessage: this.state.modalMessage,
               modalTitle: this.state.modalTitle,
               showHidePassword: this.state.showHidePassword,
@@ -877,28 +881,36 @@ export class App extends React.Component<{}, State> {
               submitForm: this.submitForm
             })
           )} />
-          <Route path='/admin/settings' render={() => (
-            this.state.authorised ?
-            Settings({
-              showHidePassword: this.state.showHidePassword,
-              user: this.state.user,
-              changeShowHidePassword: this.changeShowHidePassword,
-              signOut: this.signOut
-            }) :
-            <Redirect to='/admin/login' />
-          )} />
-          <Route path='/admin/users' render={() => (
-            this.state.authorised ?
-            Users({
-              user: this.state.user,
-              usersList: this.state.usersList,
-              signOut: this.signOut,
-              changeUserApprovedProperty: this.changeUserApprovedProperty,
-              getUsersList: this.getUsersList,
-              updateUser: this.updateUser
-            }) :
-            <Redirect to='/admin/login' />
-          )} />
+          <Route path='/admin/settings' render={(props) => {
+            this.fromURL = props.match.path
+
+            return(
+              this.state.authorised ?
+              Settings({
+                showHidePassword: this.state.showHidePassword,
+                user: this.state.user,
+                changeShowHidePassword: this.changeShowHidePassword,
+                signOut: this.signOut
+              }) :
+              <Redirect to='/admin/login' />
+            )
+          }} />
+          <Route path='/admin/users' render={(props) => {
+            this.fromURL = props.match.path
+            
+            return(
+              this.state.authorised ?
+              Users({
+                user: this.state.user,
+                usersList: this.state.usersList,
+                signOut: this.signOut,
+                changeUserApprovedProperty: this.changeUserApprovedProperty,
+                getUsersList: this.getUsersList,
+                updateUser: this.updateUser
+              }) :
+              <Redirect to='/admin/login' />
+            )
+          }} />
         </Switch>
       </Router>
     )

@@ -6,6 +6,9 @@ import { Form } from './Form'
 
 interface Props {
   authorised: boolean
+  fromURL?: string
+  locationMatch: object
+  history: object
   modalMessage?: string
   modalTitle: string
   showHidePassword: boolean
@@ -15,8 +18,26 @@ interface Props {
 }
 
 export const Login: Function = (props: Props) => {
+  console.log('LOGIN COMPONENT')
+  console.log('HISTORY FROM URL')
+  if(props.fromURL)
+    console.log(props.fromURL)
+
   return props.authorised ?
-  <Redirect to='/admin' /> :
+  (
+    props.fromURL === '/' ?
+    <Redirect to='/admin' /> :
+    (
+      props.fromURL === '/admin/settings' ?
+      <Redirect to='/admin/settings' /> :
+      (
+        props.fromURL === '/admin/users' ?
+        <Redirect to='/admin/users' /> :
+        <Redirect to='/admin' />
+      )
+    )
+  )
+   :
   <div className='container' key={1}>
     {
       Modal({

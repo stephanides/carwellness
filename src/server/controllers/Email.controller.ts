@@ -19,9 +19,9 @@ export class Email {
   
   sendEmail(req: Request, res: Response, next: NextFunction) {
     this.transporter.sendMail({
-      from: req.body.email,
-      to: 'info@codebrothers.sk',
-      subject: 'MESSAGE FROM CARWELLNESS CONTACT FORM',
+      from: 'info@codebrothers.sk',
+      to: 'info@codebrothers.sk', //TODO change for carwellness e-mail address in production
+      subject: 'Carwellness | Správa od: '+req.body.email,
       text: req.body.message
     }, err => {
       if(err) {

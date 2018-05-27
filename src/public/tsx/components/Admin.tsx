@@ -14,7 +14,6 @@ interface Props {
   availabilityDate?: string
   carType: Array<string>
   user: UserPayLoad
-  //claimList?: Array<object>
   orderedClaimList?: Array<object>
   dayOfWeek: number
   modalMessage?: string | JSX.Element
@@ -26,29 +25,21 @@ interface Props {
   orderList?: Array<object>
   orderedOrderList?: Array<object>
   orderState: Array<string>
-  //today: string
-  //tomorrow: string
-  //todayTimes: Array<boolean>
-  //tomorrowTimes: Array<boolean>
-  //todayOrTomorrow: number
   workingHours: string[][]
   workingHoursAvailability: Array<boolean>
 
   changeAvailability(e: React.FormEvent<HTMLElement>, i: number): void
-  //checkOrders(): void
   changeOrder(orders: object): void
   changePage(page: number): void
   changePageItemsCount(itemsCount: number): void
   getClaimList(): void
   getOrderList(): void
   handleModal(message: string, success: boolean): void
-  //sendNotification(data: object): void
   orderByTime(): void
   orderByOrderState(orderState: number | null): void
   orderByOrderProgram(orderProgram: number | null): void
   updateOrder(order: object, callBack?: () => void): void
   updateClaim(claim: object, callBack?: () => void): void
-  //onWebSockets(): void
   setDay(e: string): void
   signOut(): void
   socketListener(): void 
@@ -66,16 +57,9 @@ export class Admin extends React.Component<Props, {}> {
   }
 
   componentDidMount() {
-    //this.props.onWebSockets()
     this.props.getOrderList()
-    //this.checkInterval = window.setInterval(this.props.checkOrders, 2*60*1000)
-    //this.props.checkOrders()
     this.props.socketListener()
   }
-
-  /*componentWillUnmount() {
-    clearInterval(this.checkInterval)
-  }*/
 
   render() {
     return(
@@ -150,11 +134,6 @@ export class Admin extends React.Component<Props, {}> {
                 availabilityDate={this.props.availabilityDate}
                 dayOfWeek={this.props.dayOfWeek}
                 user={this.props.user}
-                //today={this.props.today}
-                //tomorrow={this.props.tomorrow}
-                //todayTimes={this.props.todayTimes}
-                //tomorrowTimes={this.props.tomorrowTimes}
-                //todayOrTomorrow={this.props.todayOrTomorrow}
                 workingHours={this.props.workingHours}
                 workingHoursAvailability={this.props.workingHoursAvailability}
 
