@@ -110,11 +110,12 @@ class App {
         res.render('error')
     })
     this.router.get('/admin/:action', (req, res) => { res.render('admin') })
-    this.router.get('/sluzby', (req, res) => { res.render('services') })
     this.router.get('/cennik', (req, res) => { res.render('price-list') })
-    this.router.get('/kontakt', (req, res) => { res.render('contact') })
-    this.router.get('/online-objednavka', (req, res) => { res.render('order') })
     this.router.get('/galeria', (req, res) => { res.render('gallery') })
+    this.router.get('/kontakt', (req, res) => { res.render('contact') })
+    this.router.get('/obchodne-podmienky', (req, res) => { res.render('business-conditions') })
+    this.router.get('/online-objednavka', (req, res) => { res.render('order') })
+    this.router.get('/sluzby', (req, res) => { res.render('services') })
     this.router.get('/reklamacia', (req, res) => { res.render('claim') })
 
     this.io.on('connection', socket => {
