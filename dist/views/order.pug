@@ -103,8 +103,6 @@ block content
         .container.orderChooseDate
           .row
             h4 4. Vyberte si dátum a čas
-            .alert.alert-danger#dateDanger(role="alert")
-              p Nezvolili ste si žiadnu #[strong autoumyváreň]
             .container#dateContainer
               form(onsubmit='return false;')
                 .row
@@ -119,7 +117,8 @@ block content
                       path(d="M0 0h24v24H0z" fill="none")
                       path(d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z")
                     input#timepicker(type='text' placeholder='00:00' onchange="orderTimeResult()")
-                  button.col-lg-3 Pozrieť voľné termíny
+                  .col-lg-4.alert.alert-danger#dateDanger(role="alert")
+                    p Nezvolili ste si žiadnu #[strong autoumyváreň!]
         .container.orderMoreInfo
           .row
             .col-lg-6

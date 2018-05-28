@@ -463,6 +463,7 @@ function sendOrder(){
 	console.log(readyToSend);
 
 	if(readyToSend){
+		console.log(orderObjectToSend);
 		$.ajax({
 		  type: 'POST',
 		  url: _baseURI+'/order/order-create',
@@ -501,14 +502,19 @@ var claimObjectToSend = {
 	image:claimImage,
 	message:claimMessage
 };
+var claimReady = false;
 
 function cityForClaim(e){
 	document.getElementById('city-1').classList.remove('choosed');
 	document.getElementById('city-2').classList.remove('choosed');
+	document.getElementById('city-1').classList.remove('unlisted');
+	document.getElementById('city-2').classList.remove('unlisted');
 	document.getElementById('city-'+e).classList.add('choosed');
 
 	claimCity = e;
+	claimReady = true;
 }
+
 
 function sendClaim(){
 	claimName = document.getElementById('claimName').value;
@@ -523,6 +529,19 @@ function sendClaim(){
 	claimObjectToSend.image = claimImage;
 	claimObjectToSend.message = claimMessage;
 
+	if(claimCity == null){
+		claimReady = false;
+		document.getElementById('city-1').classList.add('unlisted');
+	    document.getElementById('city-2').classList.add('unlisted');
+	}
+	if(!document.getElementById('claimName').checkValidity()){
+		claimReady = false;
+	}
+	if(!document.getElementById('claimEmail').checkValidity()){
+		claimReady = false;
+	}
+
+	if(claimReady)
 	$.ajax({
 	  type: 'POST',
 	  url: _baseURI+'/claim/claim-create',
