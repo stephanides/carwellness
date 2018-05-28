@@ -6,7 +6,9 @@ const router = express.Router()
 const order = new OrderController()
 
 router.get('/order/orders/:city', (req, res, next) => {
-  order.getOrders(req, res, next)
+  checkToken(req, res, next, (next) => {
+    order.getOrders(req, res, next)
+  })
 })
 
 router.post('/order/order-create', (req, res, next) => {

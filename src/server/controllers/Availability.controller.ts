@@ -38,7 +38,7 @@ export class AvailabilityController {
   }
 
   async getAvailabilities(req: Request, res: Response, next: NextFunction) {
-    const availabilities = await Availabilities.find({ date: req.params.date })
+    const availabilities = await Availabilities.find({ $and: [{ date: req.params.date}, {city: req.params.city}] })
 
     if(!availabilities || availabilities.length < 1)
       this.throwError('Nothing found', 404, next)

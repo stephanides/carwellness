@@ -69,7 +69,7 @@ block content
               p.highlight smartcoat@carwellness.sk
         .col-lg-6.padding-left-100
           h4 Kontaktný formulár
-          form(onsubmit='return false;')
+          form(onsubmit='sendContact(this)')
             .form-group
               label(for='nameSurname') Meno a priezvisko
               input.form-control#name(placeholder='Vaše meno a priezvisko' required = "true")
@@ -81,8 +81,8 @@ block content
               input.form-control#tel(placeholder='Vaše telefónne číslo')
             .form-group
               label(for='sprava') Vaša správa
-              textarea.form-control#message(rows="6" placeholder='Správa pre nás')
-            button(type="submit") ODOSLAŤ SPRÁVU
+              textarea.form-control#message(rows='6' placeholder='Správa pre nás')
+            button(type='submit') ODOSLAŤ SPRÁVU
     .container-fluid.mapcontainer     
       .row
         .col-lg-6
@@ -140,14 +140,9 @@ block content
                 p Sobota - Nedeľa
                 p.strongblack od 8.30 do 21.00
                 button.linkmap Pozrieť na mape
-
-
-
-
-
         
 block script
-  script(src='./assets/js/carwellness-main.js' deffer)
+  script(src='./assets/js/carwellness-main.js')
   script(src='https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyD-OdlYGW1IfuJOVxqDXlhLCUJnLRucgPk')
   script.
     mapZilina();

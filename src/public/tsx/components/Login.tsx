@@ -6,6 +6,9 @@ import { Form } from './Form'
 
 interface Props {
   authorised: boolean
+  fromURL?: string
+  locationMatch: object
+  history: object
   modalMessage?: string
   modalTitle: string
   showHidePassword: boolean
@@ -15,24 +18,48 @@ interface Props {
 }
 
 export const Login: Function = (props: Props) => {
+  console.log('LOGIN COMPONENT')
+  console.log('HISTORY FROM URL')
+  if(props.fromURL)
+    console.log(props.fromURL)
+
   return props.authorised ?
-  <Redirect to='/admin' /> :
-  <div className='container' key={1}>
+  (
+    props.fromURL === '/' ?
+    <Redirect to='/admin' /> :
+    (
+      props.fromURL === '/admin/settings' ?
+      <Redirect to='/admin/settings' /> :
+      (
+        props.fromURL === '/admin/users' ?
+        <Redirect to='/admin/users' /> :
+        <Redirect to='/admin' />
+      )
+    )
+  )
+   :
+  <div>
     {
       Modal({
         modalMessage: props.modalMessage,
         modalTitle: props.modalTitle
       })
     }
-    <h1>Prihlásenie</h1>
-    {
-      Form({
-        formType: 'login',
-        showHidePassword: props.showHidePassword,
-        changeShowHidePassword: props.changeShowHidePassword,
-        submitForm: props.submitForm
-      })
-    }
-    <p>Nemáte účet? <Link to='/admin/register'>Zaregistrujte sa</Link> prosím.</p>
+    <div className='container middle-content'>
+      <div className='row'>
+        <div className='col-xl-6 col-lg-6 col-md-8 col-ls-12 m-auto'>
+          <h1>Prihlásenie</h1>
+          {
+            Form({
+              formType: 'login',
+              showHidePassword: props.showHidePassword,
+              changeShowHidePassword: props.changeShowHidePassword,
+              submitForm: props.submitForm
+            })
+          }
+          <p>Nemáte účet? <Link to='/admin/register'>Zaregistrujte sa</Link> prosím.</p>
+        </div>
+      </div>
+    </div>
   </div>
 }

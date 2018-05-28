@@ -10,9 +10,9 @@ interface Props {
 
 export const Form: Function = (props: Props) => {
   return(
-    <form onSubmit={e => { props.submitForm(e, 'user/'+props.formType, props.formType) }}>
+    <form onSubmit={e => { props.submitForm(e, 'user/'+(props.formType === 'login' ? 'login' : 'register'), props.formType) }}>
       {
-        props.formType === 'register' ?
+        props.formType === 'register' || props.formType === 'setup' ?
         [
           <div className='form-group' key={0}>
             <label htmlFor='firstName'>Krstné meno</label>
@@ -55,7 +55,7 @@ export const Form: Function = (props: Props) => {
         </div>
       </div>
       {
-        props.formType === 'register' ?
+        props.formType === 'register' || props.formType === 'setup' ?
         (
           <div className='form-group'>
             <label htmlFor='retypePassword'>Znovu zadajte svoje heslo</label>
@@ -64,7 +64,7 @@ export const Form: Function = (props: Props) => {
         ) : null
       }
       <div className='form-group'>
-        <button type='submit' className='btn btn-primary'>{props.formType === 'register' ? 'Zaregistrovať' : 'Prihlásiť'}</button>
+        <button type='submit' className='btn btn-outline-primary'>{props.formType === 'register' || props.formType === 'setup' ? 'Zaregistrovať' : 'Prihlásiť'}</button>
       </div>
     </form>
   )
