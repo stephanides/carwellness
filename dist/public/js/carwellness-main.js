@@ -1,7 +1,6 @@
 //**Map functions**//
 
 function mapZilina() {
-	console.log("mapa");
     var mapOptions = {
     	zoom: 14,
         center: new google.maps.LatLng(49.220597, 18.740918),
@@ -36,7 +35,6 @@ function mapZilina() {
 	});
 }
 function mapNitra() {
-	console.log("mapa");
     var mapOptions = {
         center: new google.maps.LatLng(48.306872, 18.087049),
         zoom: 14,
@@ -343,6 +341,27 @@ function orderCarTypeResult(){
 	document.getElementById("orderCarType").classList.remove('unlisted');
 }
 function orderDateResult(){
+	avDate = document.getElementById("datepicker").value;
+	avDateISO = avDate.split('-')[2]+'-'+avDate.split('-')[1]+'-'+avDate.split('-')[0]+'T00:00:00.00Z'
+
+	$.ajax({
+		  type: "GET",
+		  url: "http://localhost:4040/availability/availability/" + avDateISO,
+		  success:  function (response) {
+		  		console.log(response);
+	            if(response.status === "success") {
+	                console.log(response);
+	            } else if(response.status === 404) {
+	                console.log("nenaslo sa nic");
+	            }
+	        },
+		   error: function(err) {
+		   	if(err.status === 404) {
+	            return;
+	        }
+		   }
+	    });
+
 	console.log(orderCity);
 	document.getElementById("orderDateResult").innerHTML = document.getElementById("datepicker").value;
 	var date = $("#datepicker").datepicker('getDate');
@@ -383,7 +402,7 @@ function sendOrder(){
 	var readyToSend = false;
 	var date = document.getElementById("datepicker").value;
 	var time = document.getElementById("timepicker").value;
-	orderDate = date.split('-')[2]+'-'+date.split('-')[1]+'-'+date.split('-')[0]+'T'+time+'.00Z'
+	orderDate = date.split('-')[2]+'-'+date.split('-')[1]+'-'+date.split('-')[0]+'T'+time+'.00Z';
 	orderMessage = document.getElementById("orderMessage").value;
 
 	orderObjectToSend.city = orderCity;
@@ -471,10 +490,13 @@ function cityForClaim(e){
 	document.getElementById("city-1").classList.remove('choosed');
 	document.getElementById("city-2").classList.remove('choosed');
 	document.getElementById("city-"+e).classList.add('choosed');
+	document.getElementById("city-1").classList.remove('unlisted');
+	    document.getElementById("city-2").classList.remove('unlisted');
 
 	claimCity = e;
 }
 function sendClaim(){
+	claimReady = true;
 	claimName = document.getElementById("claimName").value;
 	claimEmail = document.getElementById("claimEmail").value;
 	claimTel = document.getElementById("claimTel").value;
@@ -488,24 +510,37 @@ function sendClaim(){
 	claimObjectToSend.message = claimMessage;
 
 
-
-	$.ajax({
-	  type: "POST",
-	  url: "http://localhost:4040/claim/claim-create",
-	  data: claimObjectToSend,
-	  dataType: "json",
-	  success:  function (response) {
-	  		console.log(response);
-            if(response.status === "success") {
-                console.log(response);
-            } else if(response.status === "error") {
-                console.log(response);
-            }
-        },
-	   error: function(err) {
-	   	console.log(err);
-	   }
-    });
+	if(claimCity == null){
+		console.log("" + claimCity);
+		claimReady = false;
+		document.getElementById("city-1").classList.add('unlisted');
+	    document.getElementById("city-2").classList.add('unlisted');
+	}
+	if(claimEmail == ""){
+		claimReady = false;
+	}
+	if(claimEmail == ""){
+		claimName = false;
+	}
+	if(claimReady){
+		$.ajax({
+		  type: "POST",
+		  url: "http://localhost:4040/claim/claim-create",
+		  data: claimObjectToSend,
+		  dataType: "json",
+		  success:  function (response) {
+		  		console.log(response);
+	            if(response.success === true) {
+	               $('#claimModal').modal('show');
+	            } else if(response.status === "error") {
+	                console.log(response);
+	            }
+	        },
+		   error: function(err) {
+		   	console.log(err);
+		   }
+	    });
+ 	}
 }
 
 function imgtobase(){

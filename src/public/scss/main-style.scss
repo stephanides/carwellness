@@ -975,6 +975,13 @@ $break-small:576px;
   .claimContainer{
     position:relative;
     top:260px;
+    .unlisted{
+      border:solid 2px $carwellness-red !important;
+      color:$carwellness-red !important;
+      &:hover{
+        color:white !important;
+      }
+    }
     @media screen and (max-width: $break-medium){
       top:200px;
     }

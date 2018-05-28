@@ -69,13 +69,13 @@ block content
               p.highlight smartcoat@carwellness.sk
         .col-lg-6.padding-left-100
           h4 Kontaktný formulár
-          form
+          form(onsubmit='return false;')
             .form-group
               label(for='nameSurname') Meno a priezvisko
-              input.form-control#name(placeholder='Vaše meno a priezvisko')
+              input.form-control#name(placeholder='Vaše meno a priezvisko' required = "true")
             .form-group
               label(for='email') E-mailová adresa
-              input.form-control#email(placeholder='Váš e-mail' type='email')
+              input.form-control#email(placeholder='Váš e-mail' type='email' required = "true")
             .form-group
               label(for='tel') Telefónne číslo
               input.form-control#tel(placeholder='Vaše telefónne číslo')
