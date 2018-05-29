@@ -1,5 +1,6 @@
 dist/server/**/**
 dist/public/**/**
+!dist/public/audio
 !dist/public/images
 !dist/public/js/carwellness-main.js
 !dist/public/js/react.development.js
