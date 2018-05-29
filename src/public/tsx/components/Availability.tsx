@@ -96,7 +96,7 @@ export class Availability extends React.Component<Props, {}> {
                               <tr key={i} className={this.props.workingHoursAvailability[i] ? 'bg-light' : 'bg-danger'}>
                                 <td>{item[0]}</td><td>{item[1]}</td>
                                 <td className='text-center'>
-                                  <select
+                                  <select disabled={this.props.user.city > 0 ? false : true}
                                     defaultValue={!this.props.workingHoursAvailability[i] ? '1' : '0'}
                                     onChange={e => {
                                       this.props.changeAvailability(e, i)
@@ -115,7 +115,7 @@ export class Availability extends React.Component<Props, {}> {
                               <tr key={i} className={this.props.workingHoursAvailability[i] ? 'bg-light' : 'bg-danger'}>
                                 <td>{item[0]}</td><td>{item[1]}</td>
                                 <td className='text-center'>
-                                  <select
+                                  <select disabled={this.props.user.city > 0 ? false : true}
                                     defaultValue={!this.props.workingHoursAvailability[i] ? '1' : '0'}
                                     onChange={e => {
                                       this.props.changeAvailability(e, i)
@@ -136,7 +136,7 @@ export class Availability extends React.Component<Props, {}> {
                               <tr key={i} className={this.props.workingHoursAvailability[i] ? 'bg-light' : 'bg-danger'}>
                                 <td>{item[0]}</td><td>{item[1]}</td>
                                 <td className='text-center'>
-                                  <select
+                                  <select disabled={this.props.user.city > 0 ? false : true}
                                     defaultValue={!this.props.workingHoursAvailability[i] ? '1' : '0'}
                                     onChange={e => {
                                       this.props.changeAvailability(e, i)
@@ -154,7 +154,7 @@ export class Availability extends React.Component<Props, {}> {
                               <tr key={i} className={this.props.workingHoursAvailability[i] ? 'bg-light' : 'bg-danger'}>
                                 <td>{item[0]}</td><td>{item[1]}</td>
                                 <td className='text-center'>
-                                  <select
+                                  <select disabled={this.props.user.city > 0 ? false : true}
                                     defaultValue={!this.props.workingHoursAvailability[i] ? '1' : '0'}
                                     onChange={e => {
                                       this.props.changeAvailability(e, i)
@@ -174,7 +174,7 @@ export class Availability extends React.Component<Props, {}> {
                         <tr key={i} className={this.props.workingHoursAvailability[i] ? 'bg-light' : 'bg-danger'}>
                           <td>{item[0]}</td><td>{item[1]}</td>
                           <td className='text-center'>
-                            <select
+                            <select disabled={this.props.user.city > 0 ? false : true}
                               defaultValue={!this.props.workingHoursAvailability[i] ? '1' : '0'}
                               onChange={e => {
                                 this.props.changeAvailability(e, i)
