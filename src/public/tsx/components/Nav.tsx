@@ -16,7 +16,7 @@ export const Nav: Function = (props: Props) => {
           <img src='../assets/images/logo.png' />
           <span>
             {
-              props.user.city > 0 ? (props.user.city > 1 ? 'Žilina' : 'Nitra') : 'BOSS - Admin'
+              props.user.city > 0 ? (props.user.city > 1 ? 'Žilina' : 'Nitra') : 'BOSS'
             }
           </span>
         </Link>

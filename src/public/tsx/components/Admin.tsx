@@ -98,15 +98,13 @@ export class Admin extends React.Component<Props, {}> {
             }
             <div className='tab-content p-3' id='adminTabContent'>
               <div className='tab-pane fade show active' id='orders' role='tabpanel' aria-labelledby='orders-tab'>
-                {
-                  Filter({
-                    program: this.props.program,
-                    orderState: this.props.orderState,
-                    orderByTime: this.props.orderByTime,
-                    orderByOrderState: this.props.orderByOrderState,
-                    orderByOrderProgram: this.props.orderByOrderProgram
-                  })
-                }
+                <Filter
+                  program={this.props.program}
+                  orderState={this.props.orderState}
+                  orderByTime={this.props.orderByTime}
+                  orderByOrderState={this.props.orderByOrderState}
+                  orderByOrderProgram={this.props.orderByOrderProgram}
+                />
                 <Orders
                   carType={this.props.carType}
                   boss={this.props.user.city}

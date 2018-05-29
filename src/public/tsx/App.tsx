@@ -503,6 +503,9 @@ export class App extends React.Component<{}, State> {
   }
 
   orderByOrderState(orderState: number | null) {
+    console.log('ORDER BY ORDER STATE')
+    console.log('ORDERSTATE: ', orderState)
+
     let arr: Array<object> = []
 
     if(orderState === null)
@@ -512,12 +515,15 @@ export class App extends React.Component<{}, State> {
         if(this.state.orderList[i]['orderState'] === orderState)
           arr.push(this.state.orderList[i])
       }
-
+      //TODO Paginaiton
       this.setState({ orderedOrderList: arr })
     }
   }
 
   orderByOrderProgram(orderProgram: number | null) {
+    console.log('ORDER BY ORDER PROGRAM')
+    console.log('ORDERPROGRAM: ', orderProgram)
+
     let arr: Array<object> | null = []
 
     if(orderProgram === null)
@@ -531,7 +537,7 @@ export class App extends React.Component<{}, State> {
 
       if(arr.length < 1)
         arr = null
-
+      //TODO Paginaiton
       this.setState({ orderedOrderList: arr })
     }
   }
