@@ -7,7 +7,7 @@ export class OrderController {
   async createOrder(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       //From one user only one order chould be created on specific date
-      const order = await Orders.findOne({ $and: [{ date: req.body.date }, { fullName: req.body.fullName}] })
+      const order = await Orders.findOne({ $and: [{ date: req.body.date }, { email: req.body.email}] })
       
       if(order)
         this.throwError('Order allready exist on selected time', 409, next)

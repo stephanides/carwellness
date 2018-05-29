@@ -54,7 +54,6 @@ export class Orders extends React.Component<Props, {}> {
               <th className='text-center' scope='col'>Telefón</th>
               <th className='text-center' scope='col'>E-mail</th>
               <th></th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -103,7 +102,9 @@ export class Orders extends React.Component<Props, {}> {
                             const orders: Array<object> = this.props.list
 
                             orders[i]['orderState'] = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].value)
-                            this.props.changeOrder(orders[i])
+
+                            this.props.changeOrder(orders[i])                            
+                            this.props.updateItem(orders[i])
                           }}
                         >
                           {
@@ -128,16 +129,6 @@ export class Orders extends React.Component<Props, {}> {
                             </span>
                           </button> : null
                         }
-                      </td>
-                      <td className='text-center'>
-                        <button
-                          type='button'
-                          className='btn btn-primary'
-                          onClick={e => {
-                            const itemToUpdate = this.props.list[i]
-                            this.props.updateItem(itemToUpdate)
-                          }}
-                        >Aktualizovať</button>
                       </td>
                     </tr>
                   )

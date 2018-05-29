@@ -34,6 +34,7 @@ interface Props {
   workingHoursAvailability: Array<boolean>
 
   changeAvailability(e: React.FormEvent<HTMLElement>, i: number): void
+  changeClaim(claim: object): void
   changeOrder(orders: object): void
   changePage(page: number, order: boolean): void
   changePageItemsCount(itemsCount: number, order: boolean): void
@@ -133,7 +134,7 @@ export class Admin extends React.Component<Props, {}> {
                   paginationItemCount={this.props.claimPagainationCount}
                   pagesCount={this.props.claimPagesCount}
 
-                  changeClaims={this.props.changeOrder}
+                  changeClaims={this.props.changeClaim}
                   changePage={this.props.changePage}
                   changePageItemsCount={this.props.changePageItemsCount}
                   getList={this.props.getClaimList}
