@@ -10,7 +10,7 @@ interface Props {
   paginationItemCount: number
   pagesCount: number  
 
-  changeClaims(claims: Array<object>): void
+  changeClaims(claim: object): void
   changePage(page: number, order: boolean): void
   changePageItemsCount(itemsCount: number, order: boolean): void
   getList(): void
@@ -49,7 +49,6 @@ export class Claims extends React.Component <Props, {}> {
               <th className='text-center' scope='col'>Meno</th>
               <th className='text-center' scope='col'>Telefón</th>
               <th className='text-center' scope='col'>E-mail</th>
-              <th></th>
             </tr>
            </thead>
            <tbody>
@@ -87,7 +86,9 @@ export class Claims extends React.Component <Props, {}> {
                             const claims: Array<object> = this.props.list
 
                             claims[i]['claimState'] = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].value)
-                            this.props.changeClaims(claims)
+                            
+                            this.props.changeClaims(claims[i])
+                            this.props.updateItem(claims[i])
                           }}
                         >
                           {
@@ -99,16 +100,6 @@ export class Claims extends React.Component <Props, {}> {
                       <td className='text-center'>{item['fullName']}</td>
                       <td className='text-center'>{item['phone']}</td>
                       <td className='text-center'>{item['email']}</td>
-                      <td className='text-center'>
-                        <button
-                          type='button'
-                          className='btn btn-primary'
-                          onClick={e => {
-                            const itemToUpdate = this.props.list[i]
-                            this.props.updateItem(itemToUpdate)
-                          }}
-                        >Aktualizovať</button>
-                      </td>
                     </tr>
                   )
                 }) :

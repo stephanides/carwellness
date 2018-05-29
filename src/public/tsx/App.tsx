@@ -90,6 +90,7 @@ export class App extends React.Component<{}, State> {
     this.changeAvailability = this.changeAvailability.bind(this)
     this.changeUserApprovedProperty = this.changeUserApprovedProperty.bind(this)
     this.changeShowHidePassword = this.changeShowHidePassword.bind(this)
+    this.changeClaim = this.changeClaim.bind(this)
     this.changeOrder = this.changeOrder.bind(this)
     this.changePage = this.changePage.bind(this)
     this.changePageItemsCount = this.changePageItemsCount.bind(this)
@@ -413,6 +414,17 @@ export class App extends React.Component<{}, State> {
     this.setState({ orderedOrderList: newOrderList })
   }
 
+  changeClaim(claim: object) {
+    let newClaimList: Array<object> = this.state.orderedClaimList
+
+    for(let i: number = 0; i < newClaimList.length; i++) {
+      if(newClaimList[i]['_id'] === claim['_id'])
+        newClaimList[i] = claim
+    }
+
+    this.setState({ orderedClaimList: newClaimList })
+  }
+
   orderByTime(order: boolean) {
     if(order) {
       this.handlePaginationData(this.state.page, true, () => {
@@ -556,7 +568,10 @@ export class App extends React.Component<{}, State> {
 
     const response: Response = await fetch(url, {
       body: JSON.stringify(data),
-      headers: { 'content-type': 'application/json' },
+      headers: {
+        'x-access-token': this.state.user.token,
+        'content-type': 'application/json'
+      },
       method: 'PUT'
     })
 
@@ -927,6 +942,7 @@ export class App extends React.Component<{}, State> {
               workingHoursAvailability={this.state.workingHoursAvailability}
               
               changeAvailability={this.changeAvailability}
+              changeClaim={this.changeClaim}
               changeOrder={this.changeOrder}
               changePage={this.changePage}
               changePageItemsCount={this.changePageItemsCount}
