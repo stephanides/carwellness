@@ -9,6 +9,7 @@
     "adminsass": "sass ./src/public/scss/admin-style.scss ./dist/public/css/admin-style.css --style compressed",
     "tsc": "tsc -w",
     "webpack": "webpack --watch --mode development",
+    "webpack-production": "webpack --watch --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
