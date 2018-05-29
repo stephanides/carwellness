@@ -80,7 +80,6 @@ export class Availability extends React.Component<Props, {}> {
                     <th scope='col'>Čas od</th>
                     <th scope='col'>Čas do</th>
                     <th scope='col' className='text-center'>Dostupnosť</th>
-                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -99,17 +98,14 @@ export class Availability extends React.Component<Props, {}> {
                                 <td className='text-center'>
                                   <select
                                     defaultValue={!this.props.workingHoursAvailability[i] ? '1' : '0'}
-                                    onChange={e => this.props.changeAvailability(e, i)}
+                                    onChange={e => {
+                                      this.props.changeAvailability(e, i)
+                                      setTimeout(this.updateOrSubmitAvailability(i), 10)
+                                    }}
                                   >
                                     <option value='0'>VOĽNÉ</option>
                                     <option value='1'>OBSADENÉ</option>
                                   </select>
-                                </td>
-                                <td className='text-center'>
-                                  <button
-                                    className='btn btn-primary'
-                                    onClick={() => this.updateOrSubmitAvailability(i)}
-                                  >Aktualizovať</button>
                                 </td>
                               </tr> : null
                             )
@@ -121,17 +117,14 @@ export class Availability extends React.Component<Props, {}> {
                                 <td className='text-center'>
                                   <select
                                     defaultValue={!this.props.workingHoursAvailability[i] ? '1' : '0'}
-                                    onChange={e => this.props.changeAvailability(e, i)}
+                                    onChange={e => {
+                                      this.props.changeAvailability(e, i)
+                                      setTimeout(this.updateOrSubmitAvailability(i), 10)
+                                    }}
                                   >
                                     <option value='0'>VOĽNÉ</option>
                                     <option value='1'>OBSADENÉ</option>
                                   </select>
-                                </td>
-                                <td className='text-center'>
-                                <button
-                                  className='btn btn-primary'
-                                  onClick={() => this.updateOrSubmitAvailability(i)}
-                                  >Aktualizovať</button>
                                 </td>
                               </tr> : null
                             )
@@ -145,17 +138,14 @@ export class Availability extends React.Component<Props, {}> {
                                 <td className='text-center'>
                                   <select
                                     defaultValue={!this.props.workingHoursAvailability[i] ? '1' : '0'}
-                                    onChange={e => this.props.changeAvailability(e, i)}
+                                    onChange={e => {
+                                      this.props.changeAvailability(e, i)
+                                      setTimeout(this.updateOrSubmitAvailability(i), 10)
+                                    }}
                                   >
                                     <option value='0'>VOĽNÉ</option>
                                     <option value='1'>OBSADENÉ</option>
                                   </select>
-                                </td>
-                                <td className='text-center'>
-                                  <button
-                                    className='btn btn-primary'
-                                    onClick={() => this.updateOrSubmitAvailability(i)}
-                                  >Aktualizovať</button>
                                 </td>
                               </tr> : null
                             ) :
@@ -166,17 +156,14 @@ export class Availability extends React.Component<Props, {}> {
                                 <td className='text-center'>
                                   <select
                                     defaultValue={!this.props.workingHoursAvailability[i] ? '1' : '0'}
-                                    onChange={e => this.props.changeAvailability(e, i)}
+                                    onChange={e => {
+                                      this.props.changeAvailability(e, i)
+                                      setTimeout(this.updateOrSubmitAvailability(i), 10)
+                                    }}
                                   >
                                     <option value='0'>VOĽNÉ</option>
                                     <option value='1'>OBSADENÉ</option>
                                   </select>
-                                </td>
-                                <td className='text-center'>
-                                  <button
-                                    className='btn btn-primary'
-                                    onClick={() => this.updateOrSubmitAvailability(i)}
-                                  >Aktualizovať</button>
                                 </td>
                               </tr> : null
                             )
@@ -189,17 +176,14 @@ export class Availability extends React.Component<Props, {}> {
                           <td className='text-center'>
                             <select
                               defaultValue={!this.props.workingHoursAvailability[i] ? '1' : '0'}
-                              onChange={e => this.props.changeAvailability(e, i)}
+                              onChange={e => {
+                                this.props.changeAvailability(e, i)
+                                setTimeout(this.updateOrSubmitAvailability(i), 10)
+                              }}
                             >
                               <option value='0'>VOĽNÉ</option>
                               <option value='1'>OBSADENÉ</option>
                             </select>
-                          </td>
-                          <td className='text-center'>
-                            <button
-                              className='btn btn-primary'
-                              onClick={() => this.updateOrSubmitAvailability(i)}
-                              >Aktualizovať</button>
                           </td>
                         </tr> : null
                       )
