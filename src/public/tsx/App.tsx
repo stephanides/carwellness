@@ -63,6 +63,7 @@ const initialState: State = {
 }
 
 export class App extends React.Component<{}, State> {
+  private audio: HTMLAudioElement
   private fromURL: string
   private intervalCheckAuthenticate: number
   private myStorage: Storage
@@ -71,6 +72,7 @@ export class App extends React.Component<{}, State> {
   constructor(props: State) {
     super(props)
 
+    this.audio = new Audio('./assets/audio/plucky.mp3')
     this.fromURL = '/'
     this.intervalCheckAuthenticate = 0
     this.myStorage = localStorage
@@ -612,12 +614,11 @@ export class App extends React.Component<{}, State> {
     const message = (data.message === undefined) ? 'null' : data.message
     const icon = (data.icon === undefined) ? 'https://png.icons8.com/ios/150/3584fc/alarm-filled.png' : data.icon
     const sendNotification = () => {
-      console.log('SEND NOTIFICATION')
+      this.audio.play()
 
       const notification = new Notification(title, {
         icon: icon,
-        body: message,
-        //vibrate: [200, 100, 200]
+        body: message
       })
 
       if (clickCallback !== undefined) {
@@ -631,13 +632,8 @@ export class App extends React.Component<{}, State> {
     if (!window['Notification'])
       return false
     else {
-      console.log('BROWSER SUPPORT NOTIFICATION')
-
       if (Notification['permission'] === 'default') {
-        console.log('PERMISSION: DEFAULT')
         Notification.requestPermission().then(permission => {
-          console.log(permission)
-            
           if (permission !== 'denied') sendNotification()
         })
       }
@@ -679,21 +675,18 @@ export class App extends React.Component<{}, State> {
   }
 
   socketListener() {
-    this.socket.on('connect', () => {
-      console.log('CONNECTED')
-      this.socket.on('order been created', data => {
-        if(data.success) {
-          this.checkOrders()
-          return
-        }
-      })
-      this.socket.on('claim been created', data => {
-        if(data.success) {
-          console.log('NEW CLAIM HAS BEEN CREATED SHOULD RERENDER')
-          this.checkClaims()
-          return
-        }
-      })
+    this.socket.on('connect', () => { console.log('CONNECTED') })
+    this.socket.on('order been created', data => {
+      if(data.success) {
+        this.checkOrders()
+        return
+      }
+    })
+    this.socket.on('claim been created', data => {
+      if(data.success) {
+        this.checkClaims()
+        return
+      }
     })
   }
 
