@@ -14,11 +14,15 @@ interface Props {
   availabilityDate?: string
   carType: Array<string>
   user: UserPayLoad
+  claimList?: Array<object>
   orderedClaimList?: Array<object>
   dayOfWeek: number
   daysOfWeek: Array<string>
   modalMessage?: string | JSX.Element
   modalTitle: string
+  claimPage: number
+  claimPagesCount: number
+  claimPagainationCount: number
   page: number
   paginationItemCount: number
   pagesCount: number
@@ -31,12 +35,12 @@ interface Props {
 
   changeAvailability(e: React.FormEvent<HTMLElement>, i: number): void
   changeOrder(orders: object): void
-  changePage(page: number): void
-  changePageItemsCount(itemsCount: number): void
+  changePage(page: number, order: boolean): void
+  changePageItemsCount(itemsCount: number, order: boolean): void
   getClaimList(): void
   getOrderList(): void
   handleModal(message: string, success: boolean): void
-  orderByTime(): void
+  orderByTime(order: boolean): void
   orderByOrderState(orderState: number | null): void
   orderByOrderProgram(orderProgram: number | null): void
   updateOrder(order: object, callBack?: () => void): void
@@ -123,9 +127,15 @@ export class Admin extends React.Component<Props, {}> {
                 <Claims
                   boss={this.props.user.city}
                   claimState={this.props.orderState}
+                  claimList={this.props.claimList}
                   list={this.props.orderedClaimList}
+                  page={this.props.claimPage}
+                  paginationItemCount={this.props.claimPagainationCount}
+                  pagesCount={this.props.claimPagesCount}
 
                   changeClaims={this.props.changeOrder}
+                  changePage={this.props.changePage}
+                  changePageItemsCount={this.props.changePageItemsCount}
                   getList={this.props.getClaimList}
                   updateItem={this.props.updateClaim}
                 />

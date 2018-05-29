@@ -31,6 +31,9 @@ interface State {
   orderedOrderList?: Array<object> | null
   orderState: Array<string>
   program: Array<string>
+  claimPage: number
+  claimPagesCount: number
+  claimPagainationCount: number
   page: number
   pagesCount: number
   paginationItemCount: number
@@ -52,6 +55,9 @@ const initialState: State = {
   daysOfWeek: ['Nedeľa', 'Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok', 'Sobota'],  
   login: true,
   program: ['COMFORT', 'EXCLUSIVE', 'EXTERIÉR', 'INTERIÉR', 'PREMIUM EXTERIÉR', 'PREMIUM INTERIÉR', 'AVANGARDE', 'TOP GLANZ'],
+  claimPage: 0,
+  claimPagesCount: 1,
+  claimPagainationCount: 10,
   page: 0,
   pagesCount: 1,
   paginationItemCount: 10,
@@ -165,10 +171,9 @@ export class App extends React.Component<{}, State> {
             //clickCallback: () => { alert('do something when clicked on notification') }
           }, this.getClaimList)
         }
-        else console.log('Ziadna nova reklamácia')
+        //else console.log('Ziadna nova reklamácia')
       }
-      else
-        console.log(responseJSON['message'])
+      else console.log(responseJSON['message'])
     }
   }
 
@@ -219,10 +224,9 @@ export class App extends React.Component<{}, State> {
             //clickCallback: () => { alert('do something when clicked on notification') }
           }, this.getOrderList)
         }
-        else console.log('Ziadna nova objednavka')
+        //else console.log('Ziadna nova objednavka')
       }
-      else
-        console.log(responseJSON['message'])
+      else console.log(responseJSON['message'])
     }
   }
 
@@ -314,30 +318,56 @@ export class App extends React.Component<{}, State> {
       this.setState({ showHidePassword: true })
   }
 
-  changePage(page: number) {
-    this.setState({ page: page }, () => this.handlePaginationData(this.state.page))
+  changePage(page: number, order: boolean) {
+    if(order)
+      this.setState({ page: page }, () => this.handlePaginationData(this.state.page, true))
+    else
+      this.setState({ claimPage: page }, () => this.handlePaginationData(this.state.claimPage, false))
   }
 
-  changePageItemsCount(itemsCount: number) {
-    if(this.state.paginationItemCount !== itemsCount) {
+  changePageItemsCount(itemsCount: number, order: boolean) {
+    if(order) {
+      if(this.state.paginationItemCount !== itemsCount) {
 
-      this.setState({
-        paginationItemCount: itemsCount,
-        page: 0
-      }, () => {
         this.setState({
-          pagesCount: this.state.paginationItemCount === 100 ?
-            1 : 
-            (
-              this.state.orderList.length > this.state.paginationItemCount ?
+          paginationItemCount: itemsCount,
+          page: 0
+        }, () => {
+          this.setState({
+            pagesCount: this.state.paginationItemCount === 100 ?
+              1 : 
               (
-                this.state.orderList.length % this.state.paginationItemCount > 0 ?
-                parseInt(String(this.state.orderList.length / this.state.paginationItemCount).split('.')[0]) + 1 :
-                this.state.orderList.length / this.state.paginationItemCount
+                this.state.orderList.length > this.state.paginationItemCount ?
+                (
+                  this.state.orderList.length % this.state.paginationItemCount > 0 ?
+                  parseInt(String(this.state.orderList.length / this.state.paginationItemCount).split('.')[0]) + 1 :
+                  this.state.orderList.length / this.state.paginationItemCount
+                ) : 1
+              )
+          }, () => this.handlePaginationData(this.state.page, true))
+        })
+      }
+    }
+    else {
+      if(this.state.claimPagainationCount !== itemsCount) {
+        this.setState({
+          claimPagainationCount: itemsCount,
+          claimPage: 0
+        }, () => {
+          this.setState({
+            claimPagesCount: this.state.claimPagainationCount === 100 ?
+            1 :
+            (
+              this.state.claimList.length > this.state.claimPagainationCount ?
+              (
+                this.state.claimList.length % this.state.claimPagainationCount > 0 ?
+                parseInt(String(this.state.claimList.length / this.state.claimPagainationCount).split('.')[0]) + 1 :
+                this.state.claimList.length / this.state.claimPagainationCount
               ) : 1
             )
-        }, () => this.handlePaginationData(this.state.page))
-      })
+          }, () => this.handlePaginationData(this.state.claimPage, false))
+        })
+      }
     }
   }
 
@@ -364,7 +394,7 @@ export class App extends React.Component<{}, State> {
                     this.state.orderList.length / this.state.paginationItemCount
                   ) : 1
                 )
-            }, this.orderByTime)
+            }, () => this.orderByTime(true))
           })
         }
       }
@@ -383,40 +413,71 @@ export class App extends React.Component<{}, State> {
     this.setState({ orderedOrderList: newOrderList })
   }
 
-  orderByTime() {
-    this.handlePaginationData(this.state.page, () => {
-      const arr: Array<object> = this.state.orderedOrderList
-
-      arr.sort((a: object, b: object) => ( b['date'].toLowerCase().localeCompare(a['date'].toLowerCase()) ))
-      this.setState({ orderedOrderList: arr })
-    })
-  }
-
-  handlePaginationData(page: number, callBack?: () => void) {
-    let arr: Array<object> = []
-    
-    if(this.state.pagesCount > 1) {
-      const fromItem: number = page > 0 ? page * this.state.paginationItemCount : 0
-      const toItem: number = (page * this.state.paginationItemCount) + this.state.paginationItemCount
-
-      for(let i: number = fromItem; i < toItem; i++) {
-        if(this.state.orderList[i])
-          arr.push(this.state.orderList[i])
-      }
-
-      this.setState({ orderedOrderList: arr }, () => {
-        if(typeof callBack === 'function')
-          callBack()
+  orderByTime(order: boolean) {
+    if(order) {
+      this.handlePaginationData(this.state.page, true, () => {
+        const arr: Array<object> = this.state.orderedOrderList
+  
+        arr.sort((a: object, b: object) => ( b['date'].toLowerCase().localeCompare(a['date'].toLowerCase()) ))
+        this.setState({ orderedOrderList: arr })
       })
     }
     else {
-      for(let i: number = 0; i < this.state.orderList.length; i++)
-          arr.push(this.state.orderList[i])
-
-      this.setState({ orderedOrderList: arr }, () => {
-        if(typeof callBack === 'function')
-          callBack()
+      this.handlePaginationData(this.state.claimPage, false, () => {
+        const arr: Array<object> = this.state.orderedClaimList
+  
+        arr.sort((a: object, b: object) => ( b['date'].toLowerCase().localeCompare(a['date'].toLowerCase()) ))
+        this.setState({ orderedClaimList: arr })
       })
+    }
+  }
+
+  handlePaginationData(page: number, order: boolean, callBack?: () => void) {
+    let arr: Array<object> = []
+
+    if(order) {
+      if(this.state.pagesCount > 1) {
+        const fromItem: number = page > 0 ? page * this.state.paginationItemCount : 0
+        const toItem: number = (page * this.state.paginationItemCount) + this.state.paginationItemCount
+  
+        for(let i: number = fromItem; i < toItem; i++) {
+          if(this.state.orderList[i]) arr.push(this.state.orderList[i])
+        }
+  
+        this.setState({ orderedOrderList: arr }, () => {
+          if(typeof callBack === 'function') callBack()
+        })
+      }
+      else {
+        for(let i: number = 0; i < this.state.orderList.length; i++)
+            arr.push(this.state.orderList[i])
+  
+        this.setState({ orderedOrderList: arr }, () => {
+          if(typeof callBack === 'function') callBack()
+        })
+      }
+    }
+    else {
+      if(this.state.claimPagesCount > 1) {
+        const fromItem: number = page > 0 ? page * this.state.claimPagainationCount : 0
+        const toItem: number = (page * this.state.claimPagainationCount) + this.state.claimPagainationCount
+
+        for(let i: number = fromItem; i < toItem; i++) {
+          if(this.state.claimList[i]) arr.push(this.state.claimList[i])
+        }
+
+        this.setState({ orderedClaimList: arr }, () => {
+          if(typeof callBack === 'function') callBack()
+        })
+      }
+      else {
+        for(let i: number = 0; i < this.state.claimList.length; i++)
+            arr.push(this.state.claimList[i])
+  
+        this.setState({ orderedClaimList: arr }, () => {
+          if(typeof callBack === 'function') callBack()
+        })
+      }
     }
   }
 
@@ -529,10 +590,18 @@ export class App extends React.Component<{}, State> {
 
         if(respJSON)
           this.setState({ claimList: respJSON['data'] }, () => {
-            const arr: Array<object> = this.state.claimList
-
-            arr.sort((a: object, b: object) => ( b['date'].toLowerCase().localeCompare(a['date'].toLowerCase()) ))
-            this.setState({ orderedClaimList: arr })
+            this.setState({
+              claimPagesCount: this.state.claimPagainationCount === 100 ?
+                1 : 
+                (
+                  this.state.claimList.length > this.state.claimPagainationCount ?
+                  (
+                    this.state.claimList.length % this.state.claimPagainationCount > 0 ?
+                    parseInt(String(this.state.claimList.length / this.state.claimPagainationCount).split('.')[0]) + 1 :
+                    this.state.claimList.length / this.state.claimPagainationCount
+                  ) : 1
+                )
+            }, () => this.orderByTime(false))
           })
       }
       else
@@ -605,8 +674,6 @@ export class App extends React.Component<{}, State> {
   }
 
   async sendNotification(data, callBack?: () => void) {
-    console.log('NOTIFICATION')
-    
     if (data === undefined || !data) return false
 
     const title = (data.title === undefined) ? 'Notification' : data.title
@@ -834,6 +901,7 @@ export class App extends React.Component<{}, State> {
               availableDates={this.state.availableDates}
               availabilityDate={this.state.availabilityDate}
               carType={this.state.carType}
+              claimList={this.state.claimList}
               orderedClaimList={this.state.orderedClaimList}
               dayOfWeek={this.state.dayOfWeek}
               daysOfWeek={this.state.daysOfWeek}
@@ -842,6 +910,9 @@ export class App extends React.Component<{}, State> {
               orderList={this.state.orderList}
               orderedOrderList={this.state.orderedOrderList}
               orderState={this.state.orderState}
+              claimPage={this.state.claimPage}
+              claimPagesCount={this.state.claimPagesCount}
+              claimPagainationCount={this.state.claimPagainationCount}
               page={this.state.page}
               paginationItemCount={this.state.paginationItemCount}
               pagesCount={this.state.pagesCount}

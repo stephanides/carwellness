@@ -4,7 +4,7 @@ interface Props {
   program: Array<string>
   orderState: Array<string>
 
-  orderByTime(): void
+  orderByTime(order: boolean): void
   orderByOrderState(orderState: number | null): void
   orderByOrderProgram(orderProgram: number | null): void
 }

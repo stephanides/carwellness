@@ -4,9 +4,15 @@ import { Pagination } from './Pagination'
 interface Props {
   claimState: Array<string>
   boss: number
+  claimList?: Array<object>
   list?: Array<object>
+  page: number
+  paginationItemCount: number
+  pagesCount: number  
 
   changeClaims(claims: Array<object>): void
+  changePage(page: number, order: boolean): void
+  changePageItemsCount(itemsCount: number, order: boolean): void
   getList(): void
   updateItem(item: object, callBack?: () => void): void
 }
@@ -114,6 +120,34 @@ export class Claims extends React.Component <Props, {}> {
              }
            </tbody>
         </table>
+
+        <div className='d-flex justify-content-end pagination-container'>
+          <div className='form-group row mr-3'>
+            <label className='col-form-label'>Počet zobrazených záznamov</label>
+            <select className='form-control ml-3' onChange={e => {
+              const pageItemsCountVal: number = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].value)
+
+              this.props.changePageItemsCount(pageItemsCountVal, false)
+            }}>
+              <option value='10'>10</option>
+              <option value='25'>25</option>
+              <option value='50'>50</option>
+              <option value='100'>∞</option>
+            </select>
+          </div>
+          {
+            this.props.claimList ?
+            (
+              this.props.claimList.length > this.props.paginationItemCount ?
+              Pagination({
+                order: false,
+                page: this.props.page,
+                pagesCount: this.props.pagesCount,
+                changePage: this.props.changePage
+              }) : null
+            ) : null            
+          }
+        </div>
       </div>
     )
   }
