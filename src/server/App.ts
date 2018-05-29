@@ -112,6 +112,7 @@ class App {
     this.router.get('/admin/:action', (req, res) => { res.render('admin') })
     this.router.get('/cennik', (req, res) => { res.render('price-list') })
     this.router.get('/galeria', (req, res) => { res.render('gallery') })
+    this.router.get('/gdpr', (req, res) => { res.render('gdpr') })
     this.router.get('/kontakt', (req, res) => { res.render('contact') })
     this.router.get('/obchodne-podmienky', (req, res) => { res.render('business-conditions') })
     this.router.get('/online-objednavka', (req, res) => { res.render('order') })
