@@ -14,16 +14,26 @@ export class OrderController {
       else {
         let orderData: object = {} as IOrder
 
-        for(let i: number = 0; i < Object.keys(req.body).length; i++)
-          orderData[Object.keys(req.body)[i]] = (<any>Object).values(req.body)[i]
+        for(let i: number = 0; i < Object.keys(req.body).length; i++) {
+          if(Object.keys(req.body)[i].indexOf('program') > -1) {
+            let tmpArr: Array<boolean> = []
+            const arrToInterate: Array<string> = (<any>Object).values(req.body)[i]
+            
+            for(let j: number = 0; j < arrToInterate.length; j++) {
+              if(arrToInterate[j] === 'true') tmpArr.push(true)
+              else tmpArr.push(false)
+            }
+
+            orderData['program'] = tmpArr
+          }
+          else orderData[Object.keys(req.body)[i]] = (<any>Object).values(req.body)[i]
+        }
 
         const newOrder: object = new Order(orderData as IOrder)
         const saveOrder = await Orders.create(newOrder)
 
-        if(saveOrder)
-          res.json({ message: 'Order has been created', success: true })
-        else
-          res.json({ message: saveOrder, success: false })
+        if(saveOrder) res.json({ message: 'Order has been created', success: true })
+        else res.json({ message: saveOrder, success: false })
       }
     }
     catch(err) {

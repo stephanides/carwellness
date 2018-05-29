@@ -11,7 +11,7 @@ function mapZilina() {
     	zoom: 14,
         center: new google.maps.LatLng(49.220597, 18.740918),
         mapTypeId: google.maps.MapTypeId.HYBRID
-    }
+    };
     loadJSON(function(response) {
       loaded_json = JSON.parse(response);
       styledMapType = new google.maps.StyledMapType(loaded_json, {name: 'Map'});
@@ -46,7 +46,7 @@ function mapNitra() {
         center: new google.maps.LatLng(48.306872, 18.087049),
         zoom: 14,
         mapTypeId: google.maps.MapTypeId.HYBRID
-    }
+    };
     loadJSON(function(response) {
       loaded_json = JSON.parse(response);
       styledMapType = new google.maps.StyledMapType(loaded_json, {name: 'Map'});
@@ -123,7 +123,7 @@ if(document.getElementById('fancybox')){
 //** Order part**//
 var orderCity = null;
 var orderCarType = null;
-var orderProgram = [false,false,false,false,false,false,false,false]
+var orderProgram = [false,false,false,false,false,false,false,false];
 var orderDate = new Date();
 var orderSum = 0;
 var orderName = '';
@@ -133,7 +133,7 @@ var orderMessage = '';
 var ordercarTypeDetail = '';
 
 //Web Socket
-var socket = null
+var socket = null;
 if(typeof io === 'function')
   socket = io();
 
@@ -355,7 +355,7 @@ function orderCarTypeResult(){
 
 function orderDateResult(){
 	avDate = document.getElementById("datepicker").value;
-	avDateISO = avDate.split('-')[2]+'-'+avDate.split('-')[1]+'-'+avDate.split('-')[0]+'T00:00:00.00Z'
+	avDateISO = avDate.split('-')[2]+'-'+avDate.split('-')[1]+'-'+avDate.split('-')[0]+'T00:00:00.00Z';
 
 	$.ajax({
 		  type: "GET",
@@ -404,7 +404,7 @@ function orderDateResult(){
 }
 
 function orderTimeResult(){
-	console.log(document.getElementById('timepicker').value)
+	console.log(document.getElementById('timepicker').value);
 	document.getElementById('orderTimeResult').innerHTML = document.getElementById('timepicker').value;
 }
 
@@ -416,7 +416,7 @@ function sendOrder(){
 	var readyToSend = true;
 	var date = document.getElementById('datepicker').value;
 	var time = document.getElementById('timepicker').value;
-	orderDate = date.split('-')[2]+'-'+date.split('-')[1]+'-'+date.split('-')[0]+'T'+time+'.00Z'
+	orderDate = date.split('-')[2]+'-'+date.split('-')[1]+'-'+date.split('-')[0]+'T'+time+'.00Z';
 	orderMessage = document.getElementById('orderMessage').value;
 
 	orderObjectToSend.city = orderCity;
@@ -572,20 +572,20 @@ function sendContact(form) {
   //Iterate over all input elements in form and interpolate it's values to data object based on input id
   for(var i = 0; i < form.querySelectorAll('input').length; i++) {
     if(form.querySelectorAll('input')[i].value)
-      data[form.querySelectorAll('input')[i]['id']] = form.querySelectorAll('input')[i].value;
+      data[form.querySelectorAll('input')[i].id] = form.querySelectorAll('input')[i].value;
     else {
       //TODO: Stefan handle warnings/errors at empty input values on front-end
-      console.log(form.querySelectorAll('input')[i]['id']+' is empty')
-      err = true
+      console.log(form.querySelectorAll('input')[i].id+' is empty');
+      err = true;
     }
   }
 
   //interpolate 'textarea' value to data object with key based on textarea id
   if(form.querySelector('textarea').value)
-    data[form.querySelector('textarea')['id']] = form.querySelector('textarea').value;
+    data[form.querySelector('textarea').id] = form.querySelector('textarea').value;
   else {
     //TODO: Stefan handle warning/error at empty textarea value on front-end
-    console.log(form.querySelector('textarea')['id']+' is empty')
+    console.log(form.querySelector('textarea').id+' is empty');
   }
 
   if(!err) {
@@ -604,7 +604,7 @@ function sendContact(form) {
       }
     });
   }
-  else console.log('Can\'t send e-mail')
+  else console.log('Can\'t send e-mail');
 }
 
 function imgtobase(){
