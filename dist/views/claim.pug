@@ -82,6 +82,10 @@ block content
             .form-group
               label(for='sprava') Vaša správa
               textarea.form-control#claimMessage(rows="6" placeholder='Správa pre nás')
+            .form-check
+              label.form-check-label 
+                input.form-check-input#claimCheckBox(type='checkbox' required='true')
+                p.gdpr Súhlasím so spracovaním údajov podľa nariadenia GDPR pre spracovanie údajov 
             button(type="submit" onclick="sendClaim()" data-toggle="modal" ) ODOSLAŤ SPRÁVU
     section.footer.footerContactSection
       .container

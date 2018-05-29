@@ -7,6 +7,16 @@ block css
   link(rel='stylesheet' href='./assets/css/main-style.css')
 
 block content  
+  .modal#contactModal
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h4 Vaša správa bola odoslaná
+          button.close(type='button' data-dismiss='modal') &times;
+        .modal-body
+          p Náš tím sa Vám bude snažiť čo najskôr odpovedať.
+        .modal-footer
+          button.btn.btn-danger(type='button' data-dismiss='modal') Zavrieť
   #wrapper
     nav.navbar.navbar-expand-lg.navbar-light.fixed-top
       .container
@@ -82,6 +92,10 @@ block content
             .form-group
               label(for='sprava') Vaša správa
               textarea.form-control#message(rows='6' placeholder='Správa pre nás' required = "true")
+            .form-check
+              label.form-check-label 
+                input.form-check-input(type='checkbox' required='true')
+                p.gdpr Súhlasím so spracovaním údajov podľa nariadenia GDPR pre spracovanie údajov 
             button(type='submit') ODOSLAŤ SPRÁVU
     .container-fluid.mapcontainer     
       .row

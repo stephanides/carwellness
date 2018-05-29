@@ -30,6 +30,11 @@ $break-small:576px;
 
 
 #wrapper {
+  .gdpr{
+    color:$carwellness-red !important;
+    font-size: 14px !important;
+    margin-bottom: 10px !important;
+  }
   .navbar{
     padding-top:0;
     padding-bottom:0;

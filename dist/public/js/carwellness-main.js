@@ -141,7 +141,7 @@ if(typeof io === 'function')
 var orderObjectToSend = {
 	city:orderCity,
 	fullName:orderName,
-	email:claimEmail,
+	email:orderEmail,
 	phone:orderTel,
 	message:orderMessage,
 	carType:orderCarType,
@@ -354,19 +354,37 @@ function orderCarTypeResult(){
 	document.getElementById('orderCarType').classList.remove('unlisted');
 }
 
-function orderDateResult(){
-	avDate = document.getElementById('datepicker').value;
-	avDateISO = avDate.split('-')[2]+'-'+avDate.split('-')[1]+'-'+avDate.split('-')[0]+'T00:00:00.00Z';
+var timeObject = [['00:00:00', '00:30:00'], ['00:30:00', '01:00:00'], ['01:00:00', '01:30:00'], ['01:30:00', '02:00:00'], ['02:00:00', '02:30:00'], ['02:30:00', '03:00:00'], ['03:00:00', '03:30:00'], ['03:30:00', '04:00:00'], ['04:00:00', '04:30:00'], ['04:30:00', '05:00:00'], ['05:00:00', '05:30:00'], ['05:30:00', '06:00:00'], ['06:00:00', '06:30:00'], ['06:30:00', '07:00:00'], ['07:00:00', '07:30:00'], ['07:30:00', '08:00:00'], ['08:00:00', '08:30:00'], ['08:30:00', '09:00:00'], ['09:00:00', '09:30:00'], ['09:30:00', '10:00:00'], ['10:00:00','10:30:00'], ['10:30:00', '11:00:00'], ['11:00:00', '11:30:00'], ['11:30:00', '12:00:00'], ['12:00:00', '12:30:00'], ['12:30:00', '13:00:00'], ['13:00:00', '13:30:00'], ['13:30:00', '14:00:00'], ['14:00:00', '14:30:00'], ['14:30:00','15:00:00'], ['15:00:00', '15:30:00'], ['15:30:00', '16:00:00'], ['16:00:00', '16:30:00'], ['16:30:00', '17:00:00'], ['17:00:00', '17:30:00'], ['17:30:00', '18:00:00'], ['18:00:00', '18:30:00'], ['18:30:00', '19:00:00'], ['19:00:00', '19:30:00'], ['19:30:00', '20:00:00'], ['20:00:00', '20:30:00'], ['20:30:00', '21:00:00'], ['21:00:00', '21:30:00'], ['21:30:00', '22:00:00'], ['22:00:00', '22:30:00'], ['22:30:00', '23:00:00'], ['23:00:00', '23:30:00']]
 
-	console.log(orderCity);
+function fillObjectsOfTimes(){
+
+}
+
+function orderDateResult(){
+
+  
+
+	var avDate = document.getElementById('datepicker').value;
+	var avDateISO = avDate.split('-')[2]+'-'+avDate.split('-')[1]+'-'+avDate.split('-')[0]+'T00:00:00.00Z';
+
+	
 
 	$.ajax({
 		  type: 'GET',
 		  url: _baseURI+'/availability/availability/' + avDateISO + '/' + orderCity,
 		  success:  function (response) {
-		  		console.log(response);
+				 for(var i = 0; i<response.data.length;i++){
+					 if(orderCity == 1){
+						timesObjectNitra.push(timeObject[response.data[i].arrN]);
+						setTimes(timesObjectNitra);
+					 }
+					 else if(orderCity == 2){
+						timesObjectZilina.push(timeObject[response.data[i].arrN]);
+						setTimes(timesObjectZilina);
+					 }
+				 }
 	            if(response.status === 'success') {
-	                console.log(response);
+	                
 	            } else if(response.status === 404) {
 	                console.log('nenaslo sa nic');
 	            }
@@ -434,17 +452,20 @@ function sendOrder(){
 	if(orderCity == null){
 		readyToSend = false;
 		document.getElementById('cityForOrder-2').classList.add('unlisted');
-	    document.getElementById('cityForOrder-1').classList.add('unlisted');
+			document.getElementById('cityForOrder-1').classList.add('unlisted');
+			$('html, body').animate({scrollTop:$('#cityForOrder-1').offset().top - 140 + "px"}, 'slow');
 	}
 	if(orderCarType == null){
 		readyToSend = false;
 		document.getElementById('carTypeOrder-2').classList.add('unlisted');
-	    document.getElementById('carTypeOrder-1').classList.add('unlisted');
+			document.getElementById('carTypeOrder-1').classList.add('unlisted');
+			$('html, body').animate({scrollTop:$('#cityForOrder-1').offset().top - 140 + "px"}, 'slow');
 	}
 
 	if(!orderProgram.some(isProgram)){
 		console.log('nebol vybraty ziaden program');
 		document.getElementById('programOrder-'+0).classList.add('unlisted');
+		$('html, body').animate({scrollTop:$('#cityForOrder-1').offset().top - 140 + "px"}, 'slow');
 	}
 	if(orderName == ''){
 		readyToSend = false;
@@ -478,7 +499,8 @@ function sendOrder(){
           //SERVICE WORKER CALL
           if(socket) {
             console.log('GOING EMIT SOCKET');
-            socket.emit('order created');
+						socket.emit('order created');
+						$('#orderModal').modal('show');
           }
 	  		}
       },
@@ -543,6 +565,13 @@ function sendClaim(){
 	if(!document.getElementById('claimEmail').checkValidity()){
 		claimReady = false;
 	}
+	if(!($('#claimCheckBox').is(':checked'))){
+    claimReady = false;
+	}
+	else if(($('#claimCheckBox').is(':checked'))){
+	
+    claimReady = true;
+	}
 
 	if(claimReady) {
     $.ajax({
@@ -556,6 +585,8 @@ function sendClaim(){
 				if(socket) {
 					console.log('GOING EMIT SOCKET');
 					socket.emit('claim created');
+					
+					$('#claimModal').modal('show');
 				}
 			},
 			error: function(err) {
@@ -601,7 +632,8 @@ function sendContact(form) {
       data: data,
       dataType: 'json',
       success:  function (response) {
-        console.log(response);
+				console.log(response);
+				$('#contactModal').modal('show');
       },
       error: function(err) {
         console.log(err);
