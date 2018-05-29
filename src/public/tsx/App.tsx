@@ -745,12 +745,14 @@ export class App extends React.Component<{}, State> {
 
   socketListener() {
     this.socket.on('connect', () => { console.log('CONNECTED') })
+
     this.socket.on('order been created', data => {
       if(data.success) {
         this.checkOrders()
         return
       }
     })
+    
     this.socket.on('claim been created', data => {
       if(data.success) {
         this.checkClaims()

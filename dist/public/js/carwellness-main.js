@@ -354,20 +354,20 @@ function orderCarTypeResult(){
 }
 
 function orderDateResult(){
-	avDate = document.getElementById("datepicker").value;
+	avDate = document.getElementById('datepicker').value;
 	avDateISO = avDate.split('-')[2]+'-'+avDate.split('-')[1]+'-'+avDate.split('-')[0]+'T00:00:00.00Z';
 
 	console.log(orderCity);
 
 	$.ajax({
-		  type: "GET",
-		  url: "http://localhost:4040/availability/availability/" + avDateISO + '/' + orderCity,
+		  type: 'GET',
+		  url: _baseURI+'/availability/availability/' + avDateISO + '/' + orderCity,
 		  success:  function (response) {
 		  		console.log(response);
-	            if(response.status === "success") {
+	            if(response.status === 'success') {
 	                console.log(response);
 	            } else if(response.status === 404) {
-	                console.log("nenaslo sa nic");
+	                console.log('nenaslo sa nic');
 	            }
 	        },
 		   error: function(err) {
@@ -543,24 +543,25 @@ function sendClaim(){
 		claimReady = false;
 	}
 
-	if(claimReady)
-	$.ajax({
-	  type: 'POST',
-	  url: _baseURI+'/claim/claim-create',
-	  data: claimObjectToSend,
-	  dataType: 'json',
-	  success:  function (response) {
-      console.log(response);
-      //SERVICE WORKER CALL
-      if(socket) {
-        console.log('GOING EMIT SOCKET');
-        socket.emit('claim created');
-      }
-    },
-	  error: function(err) {
-	   	console.log(err);
-	  }
-  });
+	if(claimReady) {
+    $.ajax({
+			type: 'POST',
+			url: _baseURI+'/claim/claim-create',
+			data: claimObjectToSend,
+			dataType: 'json',
+			success:  function (response) {
+				console.log(response);
+				//SERVICE WORKER CALL
+				if(socket) {
+					console.log('GOING EMIT SOCKET');
+					socket.emit('claim created');
+				}
+			},
+			error: function(err) {
+				 console.log(err);
+			}
+		});
+	}
 }
 
 /*
@@ -613,10 +614,11 @@ function imgtobase(){
 	var file  = document.querySelector('input[type=file]').files[0];
 	var reader = new FileReader();
 	var base64 = '';
+
 	reader.addEventListener('load', function () {
-    	claimImage = reader.result;
-  	}, false);
-	if(file){
-		reader.readAsDataURL(file);
-	}
+    claimImage = reader.result;
+  }, false);
+	
+	if(file)
+	  reader.readAsDataURL(file);
 }
