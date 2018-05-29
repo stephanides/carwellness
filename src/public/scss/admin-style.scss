@@ -283,7 +283,7 @@ $bgLightDark: #6c757d;
           &.react-calendar__navigation__arrow {
             padding-left: 1rem;
             padding-right: 1rem;
-          }
+          }          
           &[disabled] {
             background-color: $cwGrey;
 
@@ -292,8 +292,8 @@ $bgLightDark: #6c757d;
               color: $textDisabled;
             }
           }
-          &:hover {
-            background-color: rgba(220, 0, 46, 0.5);
+          &:hover, &.react-calendar__tile--active {
+            background-color: rgba(220, 0, 46, 0.75);
             color: $white;
           }
         }
