@@ -357,9 +357,11 @@ function orderDateResult(){
 	avDate = document.getElementById("datepicker").value;
 	avDateISO = avDate.split('-')[2]+'-'+avDate.split('-')[1]+'-'+avDate.split('-')[0]+'T00:00:00.00Z';
 
+	console.log(orderCity);
+
 	$.ajax({
 		  type: "GET",
-		  url: "http://localhost:4040/availability/availability/" + avDateISO,
+		  url: "http://localhost:4040/availability/availability/" + avDateISO + '/' + orderCity,
 		  success:  function (response) {
 		  		console.log(response);
 	            if(response.status === "success") {
