@@ -14,8 +14,8 @@ function mapZilina() {
         mapTypeId: google.maps.MapTypeId.HYBRID
     };
     loadJSON(function(response) {
-      loaded_json = JSON.parse(response);
-      styledMapType = new google.maps.StyledMapType(loaded_json, {name: 'Map'});
+       var loaded_json = JSON.parse(response);
+       var styledMapType = new google.maps.StyledMapType(loaded_json, {name: 'Map'});
 
       map.mapTypes.set('styled_map', styledMapType);
       map.setMapTypeId('styled_map');
@@ -49,8 +49,8 @@ function mapNitra() {
         mapTypeId: google.maps.MapTypeId.HYBRID
     };
     loadJSON(function(response) {
-      loaded_json = JSON.parse(response);
-      styledMapType = new google.maps.StyledMapType(loaded_json, {name: 'Map'});
+      var loaded_json = JSON.parse(response);
+      var styledMapType = new google.maps.StyledMapType(loaded_json, {name: 'Map'});
 
       map.mapTypes.set('styled_map', styledMapType);
       map.setMapTypeId('styled_map');
@@ -155,8 +155,8 @@ var inaccessibleTimeMorningTo = '07:00:00';
 var inaccessibleTimeEveningFrom = '21:01:00';
 var inaccessibleTimeEveningTo = '23:59:00';
 
-timesObjectZilina = [['00:00:00', '07:00:00'],['21:01:00', '23:59:00']];
-timesObjectNitra = [['00:00:00', '08:00:00'],['21:01:00', '23:59:00']];
+var timesObjectZilina = [['00:00:00', '07:00:00'],['21:01:00', '23:59:00']];
+var timesObjectNitra = [['00:00:00', '08:00:00'],['21:01:00', '23:59:00']];
 
 function setTimes(object){
   $('#timepicker').timepicker('option','disableTimeRanges',object);
