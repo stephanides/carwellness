@@ -230,7 +230,9 @@ $bgLightDark: #6c757d;
           tr {
             &.bg-warning {
               td {
-                color: $white;
+                &, span {
+                  color: $black;
+                }
               }
             }
             &.bg-light {
@@ -316,8 +318,10 @@ $bgLightDark: #6c757d;
     .badge-light {
       color: $bgDark !important;
     }
-    .btn-link {
-      color: $cwRed;
-    }
+    .availability {
+      .btn-link {
+        color: $cwRed;
+      }
+    }    
   }
 }
