@@ -13,6 +13,7 @@ interface Props {
   availableDates?: Array<object>
   availabilityDate?: string
   carType: Array<string>
+  city?: number
   user: UserPayLoad
   claimList?: Array<object>
   orderedClaimList?: Array<object>
@@ -34,6 +35,7 @@ interface Props {
   workingHoursAvailability: Array<boolean>
 
   changeAvailability(e: React.FormEvent<HTMLElement>, i: number): void
+  changeCity(e: React.FormEvent<HTMLDivElement>): void
   changeClaim(claim: object): void
   changeOrder(orders: object): void
   changePage(page: number, order: boolean): void
@@ -145,6 +147,7 @@ export class Admin extends React.Component<Props, {}> {
                 <Availability
                   availableDates={this.props.availableDates}
                   availabilityDate={this.props.availabilityDate}
+                  city={this.props.city}
                   dayOfWeek={this.props.dayOfWeek}
                   daysOfWeek={this.props.daysOfWeek}
                   user={this.props.user}
@@ -152,6 +155,7 @@ export class Admin extends React.Component<Props, {}> {
                   workingHoursAvailability={this.props.workingHoursAvailability}
 
                   changeAvailability={this.props.changeAvailability}
+                  changeCity={this.props.changeCity}
                   setDay={this.props.setDay}
                   submitAvailability={this.props.submitAvailability}
                   updateAvailability={this.props.updateAvailability}

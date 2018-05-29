@@ -22,6 +22,7 @@ interface State {
   authorised: boolean
   availabilityDate?: string
   carType: Array<string>
+  city?: number
   dayOfWeek: number
   daysOfWeek: Array<string>
   modalMessage?: string | JSX.Element
@@ -51,6 +52,7 @@ interface State {
 const initialState: State = {
   authorised: false,
   carType: ['AUTO CLASSIC', 'AUTO SUV'],
+  city: 1,
   dayOfWeek: _date.getDay(),
   daysOfWeek: ['Nedeľa', 'Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok', 'Sobota'],  
   login: true,
@@ -86,6 +88,7 @@ export class App extends React.Component<{}, State> {
 
     this.socket = io('/admin')
     this.authenticate = this.authenticate.bind(this)
+    this.changeCity = this.changeCity.bind(this)
     this.checkOrders = this.checkOrders.bind(this)
     this.changeAvailability = this.changeAvailability.bind(this)
     this.changeUserApprovedProperty = this.changeUserApprovedProperty.bind(this)
@@ -229,6 +232,12 @@ export class App extends React.Component<{}, State> {
       }
       else console.log(responseJSON['message'])
     }
+  }
+
+  changeCity(e: React.FormEvent<HTMLDivElement>) {
+    const el: HTMLInputElement = e.target as HTMLInputElement
+
+    this.setState({ city: parseInt(el.value) })
   }
 
   changeAvailability(e: React.FormEvent<HTMLSelectElement>, i: number) {
@@ -921,6 +930,7 @@ export class App extends React.Component<{}, State> {
               availableDates={this.state.availableDates}
               availabilityDate={this.state.availabilityDate}
               carType={this.state.carType}
+              city={this.state.city}
               claimList={this.state.claimList}
               orderedClaimList={this.state.orderedClaimList}
               dayOfWeek={this.state.dayOfWeek}
@@ -942,6 +952,7 @@ export class App extends React.Component<{}, State> {
               workingHoursAvailability={this.state.workingHoursAvailability}
               
               changeAvailability={this.changeAvailability}
+              changeCity={this.changeCity}
               changeClaim={this.changeClaim}
               changeOrder={this.changeOrder}
               changePage={this.changePage}
