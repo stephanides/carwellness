@@ -634,7 +634,10 @@ export class App extends React.Component<{}, State> {
 
     const response: Response = await fetch(url, {
       body: JSON.stringify(data),
-      headers: { 'content-type': 'application/json' },
+      headers: {
+        'x-access-token': this.state.user.token,
+        'content-type': 'application/json'
+      },
       method: 'PUT'
     })
 

@@ -576,7 +576,7 @@ function sendContact(form) {
   for(var i = 0; i < form.querySelectorAll('input').length; i++) {
     if(form.querySelectorAll('input')[i].value)
       data[form.querySelectorAll('input')[i].id] = form.querySelectorAll('input')[i].value;
-    else {
+    else if(form.querySelectorAll('input')[i].id != "tel"){
       //TODO: Stefan handle warnings/errors at empty input values on front-end
       console.log(form.querySelectorAll('input')[i].id+' is empty');
       err = true;
