@@ -7,7 +7,7 @@ import { User, UserDocument, Users } from './models/User.model'
 export class Init {
   async run() {
     try{
-      const user: object = await Users.findOne({ email: 'viktor1vojtek@gmail.com' })
+      const user: object = await Users.findOne({ email: 'info@codebrothers.sk' })
 
       if(!user) {
         console.log('SUPER ADMIN NOT EXIST')
