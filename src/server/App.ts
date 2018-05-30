@@ -1,6 +1,6 @@
 import * as express from 'express'
 //Compression should be managed by nginx server in production
-import * as compression from 'compression'
+//import * as compression from 'compression'
 import * as mongoose from 'mongoose'
 import * as path from 'path'
 import config from './config'
@@ -60,7 +60,7 @@ class App {
     this.app.use(morgan('dev'))
     
     //Compression should be managed by nginx server in production
-    this.app.use(compression())
+    //this.app.use(compression())
     this.app.use(bodyParser.json({ limit: '5mb' }))
     this.app.use(bodyParser.urlencoded({ parameterLimit: 10000, limit: '5mb', extended: false }))
     
@@ -75,7 +75,7 @@ class App {
 
     //Serve static files from imaginary /assets directory
     //Should be managed by nginx server in production
-    this.app.use('/assets', express.static(__dirname + '/../public/'))
+    //this.app.use('/assets', express.static(__dirname + '/../public/'))
 
     // Set pug as default template engine
     this.app.set('view engine', 'pug')
