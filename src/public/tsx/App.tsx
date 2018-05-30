@@ -847,7 +847,7 @@ export class App extends React.Component<{}, IState> {
         }
       }
 
-      setTimeout(notification.close, 10*1000)
+      setTimeout(() => notification.close(), 10*1000)
     }
 
     if (!window['Notification'])

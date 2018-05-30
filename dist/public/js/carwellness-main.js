@@ -446,6 +446,7 @@ function sendOrder(){
 	orderObjectToSend.phone = orderTel;
 	orderObjectToSend.message = orderMessage;
 	orderObjectToSend.carType = orderCarType;
+	orderObjectToSend.carTypeDetail = ordercarTypeDetail;
 	orderObjectToSend.date = orderDate;
 	orderObjectToSend.program = orderProgram;
 
