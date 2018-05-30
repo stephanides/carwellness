@@ -28,6 +28,7 @@ interface Props {
   paginationItemCount: number
   pagesCount: number
   program: string[]
+  timeAscend: boolean
   orderList?: object[]
   orderedOrderList?: object[]
   orderState: string[]
@@ -38,6 +39,7 @@ interface Props {
   changeCity(e: React.FormEvent<HTMLDivElement>): void
   changeClaim(claim: object): void
   changeOrder(orders: object): void
+  changeOrderByTime(): void
   changePage(page: number, order: boolean): void
   changePageItemsCount(itemsCount: number, order: boolean): void
   getClaimList(): void
@@ -101,6 +103,9 @@ export class Admin extends React.Component<Props, {}> {
                 <Filter
                   program={this.props.program}
                   orderState={this.props.orderState}
+                  timeAscend={this.props.timeAscend}
+
+                  changeOrderByTime={this.props.changeOrderByTime}
                   orderByTime={this.props.orderByTime}
                   orderByOrderState={this.props.orderByOrderState}
                   orderByOrderProgram={this.props.orderByOrderProgram}
