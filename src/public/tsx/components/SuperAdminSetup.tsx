@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Form } from './Form'
 import { Modal } from './Modal'
 
-interface Props {
+interface IProps {
   modalMessage?: string
   modalTitle?: string
   showHidePassword: boolean
@@ -11,7 +11,7 @@ interface Props {
   submitForm(event: React.FormEvent<HTMLElement>, url: string, action: string): void
 }
 
-export const SuperAdminSetup: Function = (props) => {
+export const SuperAdminSetup: Function = (props: IProps) => {
   return(
     <div>
       {

@@ -211,7 +211,7 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
-  async checkOrders() {
+  private async checkOrders() {
     const url: string = '/order/orders/'+this.state.user.city
     const response: Response = await fetch(url, {
       headers: { 'x-access-token': this.state.user.token }
@@ -264,13 +264,13 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
-  changeCity(e: React.FormEvent<HTMLDivElement>) {
+  private changeCity(e: React.FormEvent<HTMLDivElement>) {
     const el: HTMLInputElement = e.target as HTMLInputElement
 
     this.setState({ city: parseInt(el.value) })
   }
 
-  changeAvailability(e: React.FormEvent<HTMLSelectElement>, i: number) {
+  private changeAvailability(e: React.FormEvent<HTMLSelectElement>, i: number) {
     const el: HTMLSelectElement = e.target as HTMLSelectElement
     const val: number = parseInt(el.value)
     let arr = this.state.workingHoursAvailability
@@ -281,7 +281,7 @@ export class App extends React.Component<{}, IState> {
     this.setState({ workingHoursAvailability: arr })
   }
 
-  async submitAvailability(i: number) {
+  private async submitAvailability(i: number) {
     const url: string = '/availability/availability-create' 
     const data = {
       city: this.state.user.city,
@@ -321,7 +321,7 @@ export class App extends React.Component<{}, IState> {
     }    
   }
 
-  async updateAvailability(item: object) {
+  private async updateAvailability(item: object) {
     const url: string = '/availability/availabilities/'+item['_id']
     const data: object = item
     const response: Response = await fetch(url, {
@@ -344,28 +344,28 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
-  changeUserApprovedProperty(updatedUsers: object[], callback?:() => void) {
+  private changeUserApprovedProperty(updatedUsers: object[], callback?:() => void) {
     this.setState({ usersList: updatedUsers }, () => {
       if(typeof callback === 'function')
         callback()
     })
   }
 
-  changeShowHidePassword() {
+  private changeShowHidePassword() {
     if(this.state.showHidePassword)
       this.setState({ showHidePassword: false })
     else
       this.setState({ showHidePassword: true })
   }
 
-  changePage(page: number, order: boolean) {
+  private changePage(page: number, order: boolean) {
     if(order)
       this.setState({ page: page }, () => this.handlePaginationData(this.state.page, true))
     else
       this.setState({ claimPage: page }, () => this.handlePaginationData(this.state.claimPage, false))
   }
 
-  changePageItemsCount(itemsCount: number, order: boolean) {
+  private changePageItemsCount(itemsCount: number, order: boolean) {
     if(order) {
       if(this.state.paginationItemCount !== itemsCount) {
         this.setState({
@@ -410,7 +410,7 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
-  async getOrderList() {
+  private async getOrderList() {
     const url = '/order/orders/'+this.state.user.city
     const resp: Response = await fetch(url, {
       headers: { 'x-access-token': this.state.user.token }
@@ -441,7 +441,7 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
-  changeOrder(order: object) {
+  private changeOrder(order: object) {
     let newOrderList: object[] = this.state.orderedOrderList
 
     for(let i: number = 0; i < newOrderList.length; i++) {
@@ -452,7 +452,7 @@ export class App extends React.Component<{}, IState> {
     this.setState({ orderedOrderList: newOrderList })
   }
 
-  changeClaim(claim: object) {
+  private changeClaim(claim: object) {
     let newClaimList: object[] = this.state.orderedClaimList
 
     for(let i: number = 0; i < newClaimList.length; i++) {
@@ -463,7 +463,7 @@ export class App extends React.Component<{}, IState> {
     this.setState({ orderedClaimList: newClaimList })
   }
 
-  orderByTime(order: boolean) {
+  private orderByTime(order: boolean) {
     if(order) {
       this.handlePaginationData(this.state.page, true, () => {
         const arr: object[] = this.state.orderedOrderList
@@ -482,7 +482,7 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
-  handlePaginationData(page: number, order: boolean, callBack?: () => void) {
+  private handlePaginationData(page: number, order: boolean, callBack?: () => void) {
     let arr: object[] = []
 
     if(order) {
@@ -558,7 +558,7 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
-  orderByOrderState(orderState: number | null) {
+  private orderByOrderState(orderState: number | null) {
     let arr: object[] = []
 
     if(orderState === null) {
@@ -610,7 +610,7 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
-  orderByOrderProgram(orderProgram: number | null) {
+  private orderByOrderProgram(orderProgram: number | null) {
     let arr: object[] | null = []
 
     if(orderProgram === null) {
@@ -661,7 +661,7 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
-  async updateOrder(order: object, callBack?: () => void) {
+  private async updateOrder(order: object, callBack?: () => void) {
     const url: string = '/order/orders/'+order['_id']
     const data: object = order
 
@@ -696,7 +696,7 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
-  async updateClaim(claim: object, callBack?: () => void) {
+  private async updateClaim(claim: object, callBack?: () => void) {
     const url: string = '/claim/claims/'+claim['_id']
     const data: object = claim
 
@@ -727,7 +727,7 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
-  async getClaimList() {
+  private async getClaimList() {
     const url = '/claim/claims/'+this.state.user.city
     const resp: Response = await fetch(url, { 
       headers: { 'x-access-token': this.myStorage.getItem('token') }
@@ -758,7 +758,7 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
-  getUserData() {
+  private getUserData() {
     let user: object | null = null
     
     if(this.myStorage.getItem('uLT')) {
@@ -777,7 +777,7 @@ export class App extends React.Component<{}, IState> {
     return user
   }
 
-  async updateUser(user: object) {
+  private async updateUser(user: object) {
     const url: string = '/user/user/'+user['_id']
     const data: object = user
 
@@ -804,7 +804,7 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
-  async getUsersList() {
+  private async getUsersList() {
     const url = '/user/users'
     const resp: Response = await fetch(url)
 
@@ -819,7 +819,7 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
-  handleModal(message: string, success: boolean) {
+  private handleModal(message: string, success: boolean) {
     const title: string = success ? 'Info' : 'Chyba'
 
     this.setState({ modalMessage: message, modalTitle: title }, () => { $('#modal').modal('show') })
@@ -865,7 +865,7 @@ export class App extends React.Component<{}, IState> {
       callBack()
 }
 
-  setDay(e: string) {
+  private setDay(e: string) {
     let date, dateFormat
 
     if(e !== '') {
@@ -895,7 +895,7 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
-  socketListener() {
+  private socketListener() {
     this.socket.on('connect', () => { console.log('CONNECTED') })
 
     this.socket.on('order been created', data => {
@@ -913,7 +913,7 @@ export class App extends React.Component<{}, IState> {
     })
   }
 
-  async getAvailabilityByDate(date: string, callBack?: () => void) {
+  private async getAvailabilityByDate(date: string, callBack?: () => void) {
     const url: string = '/availability/availability/'+date+'/'+this.state.user.city
     const response: Response = await fetch(url)
     let arr = this.state.workingHoursAvailability
@@ -949,7 +949,7 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
-  signOut() {
+  private signOut() {
     this.setState({
       availabilityDate: '',
       authorised: false,
@@ -965,7 +965,7 @@ export class App extends React.Component<{}, IState> {
     })
   }
 
-  storeUserData(data: object): void {
+  private storeUserData(data: object): void {
     this.myStorage.setItem('token', data['token'])
     this.myStorage.setItem('uFN', data['firstName'])
     this.myStorage.setItem('uR', data['role'])
@@ -975,7 +975,7 @@ export class App extends React.Component<{}, IState> {
     this.authenticate()
   }
 
-  submitForm(event: React.FormEvent<HTMLElement>, url: string, action: string): void {
+  private submitForm(event: React.FormEvent<HTMLElement>, url: string, action: string): void {
     event.preventDefault()
 
     let data: object = {}
@@ -1040,12 +1040,12 @@ export class App extends React.Component<{}, IState> {
     xhttp.send(JSON.stringify(data))
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     this.intervalCheckAuthenticate = window.setInterval(this.authenticate, 8*60*1000)
     this.authenticate()
   }
 
-  render() {
+  public render(): JSX.Element {
     return(
       <Router history={history}>
         <Switch>

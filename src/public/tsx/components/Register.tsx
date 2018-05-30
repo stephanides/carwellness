@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Modal } from './Modal'
 import { Form } from './Form'
 
-interface Props {
+interface IProps {
   modalMessage?: string
   modalTitle?: string
   showHidePassword: boolean
@@ -12,7 +12,7 @@ interface Props {
   submitForm(event: React.FormEvent<HTMLElement>, url: string, action: string): void
 }
 
-export const Register: Function = (props: Props) => {
+export const Register: Function = (props: IProps) => {
   return(
     <div>
       {

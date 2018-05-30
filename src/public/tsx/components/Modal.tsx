@@ -1,11 +1,11 @@
 import * as React from 'react'
 
-interface Props {
+interface IProps {
   modalMessage?: string | JSX.Element
   modalTitle?: string
 }
 
-export const Modal: Function = (props: Props) => {
+export const Modal: Function = (props: IProps) => {
   return(
     <div className='modal' id='modal' role='dialog'>
       <div className='modal-dialog' role='document'>

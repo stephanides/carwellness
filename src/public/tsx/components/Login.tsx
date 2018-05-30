@@ -4,7 +4,7 @@ import { Modal } from './Modal'
 import { Link } from 'react-router-dom'
 import { Form } from './Form'
 
-interface Props {
+interface IProps {
   authorised: boolean
   fromURL?: string
   locationMatch: object
@@ -17,9 +17,7 @@ interface Props {
   submitForm(event: React.FormEvent<HTMLElement>, url: string, action: string): void
 }
 
-export const Login: Function = (props: Props) => {
-  console.log('LOGIN COMPONENT')
-  console.log('HISTORY FROM URL')
+export const Login: Function = (props: IProps) => {
   if(props.fromURL)
     console.log(props.fromURL)
 

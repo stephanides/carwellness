@@ -10,15 +10,15 @@ import { TabNav } from './TabNav'
 import { IUserPayLoad } from '../interfaces/UserPayLoad.interface'
 
 interface Props {
-  availableDates?: Array<object>
+  availableDates?: object[]
   availabilityDate?: string
-  carType: Array<string>
+  carType: string[]
   city?: number
   user: IUserPayLoad
-  claimList?: Array<object>
-  orderedClaimList?: Array<object>
+  claimList?: object[]
+  orderedClaimList?: object[]
   dayOfWeek: number
-  daysOfWeek: Array<string>
+  daysOfWeek: string[]
   modalMessage?: string | JSX.Element
   modalTitle: string
   claimPage: number
@@ -27,12 +27,12 @@ interface Props {
   page: number
   paginationItemCount: number
   pagesCount: number
-  program: Array<string>
-  orderList?: Array<object>
-  orderedOrderList?: Array<object>
-  orderState: Array<string>
+  program: string[]
+  orderList?: object[]
+  orderedOrderList?: object[]
+  orderState: string[]
   workingHours: string[][]
-  workingHoursAvailability: Array<boolean>
+  workingHoursAvailability: boolean[]
 
   changeAvailability(e: React.FormEvent<HTMLElement>, i: number): void
   changeCity(e: React.FormEvent<HTMLDivElement>): void
@@ -64,12 +64,12 @@ export class Admin extends React.Component<Props, {}> {
     this.checkInterval = 0
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     this.props.getOrderList()
     this.props.socketListener()
   }
 
-  render() {
+  public render(): JSX.Element {
     return(
       <div>
         {

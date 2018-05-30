@@ -2,13 +2,13 @@ import * as React from 'react'
 import { Link } from 'react-router-dom'
 import { IUserPayLoad } from '../interfaces/UserPayLoad.interface'
 
-interface Props {
+interface IProps {
   user: IUserPayLoad
   
   signOut(): void
 }
 
-export const Nav: Function = (props: Props) => {
+export const Nav: Function = (props: IProps) => {
   return(
     <nav className='navbar navbar-expand-lg navbar-light mb-3'>
       <div className='container'>

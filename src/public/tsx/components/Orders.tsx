@@ -1,16 +1,16 @@
 import * as React from 'react'
 import { Pagination } from './Pagination'
 
-interface Props {
+interface IProps {
   boss: number
-  carType: Array<string>
-  list?: Array<object>
+  carType: string[]
+  list?: object[]
   page: number
   paginationItemCount: number
   pagesCount: number
-  program: Array<string>
-  orderState: Array<string>
-  orderList?: Array<object>
+  program: string[]
+  orderState: string[]
+  orderList?: object[]
   
   changeOrder(orders: object): void
   changePage(page: number, order: boolean): void
@@ -20,16 +20,16 @@ interface Props {
   updateItem(item: object, callBack?: () => void): void
 }
 
-export class Orders extends React.Component<Props, {}> {
-  constructor(props: Props) {
+export class Orders extends React.Component<IProps, {}> {
+  constructor(props: IProps) {
     super(props)
   }
 
-  componentDidMount() {
+  public componentDidMount(): void {
     this.props.getList()
   }
 
-  render() {
+  public render(): JSX.Element {
     return(
       <div className='table-responsive'>
         <table className='table'>

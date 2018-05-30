@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Nav } from './Nav'
 import { IUserPayLoad } from '../interfaces/UserPayLoad.interface'
 
-interface Props {
+interface IProps {
   showHidePassword: boolean
   user: IUserPayLoad
   
@@ -11,7 +11,7 @@ interface Props {
   signOut(): void
 }
 
-export const Settings: Function = (props: Props) => {
+export const Settings: Function = (props: IProps) => {
   return(
     <div className='admin-content'>
       {
@@ -27,9 +27,7 @@ export const Settings: Function = (props: Props) => {
                   <input type={ props.showHidePassword ? 'text' : 'password' } className='form-control' id='password' placeholder='Zmeniť heslo' />
                   <div className='input-group-append'>
                     <div className='input-group-text'>
-                      <button type='button' onClick={e => {
-                        props.changeShowHidePassword()
-                      }}>
+                      <button type='button' onClick={props.changeShowHidePassword}>
                         {
                           props.showHidePassword ?
                           'Skryť heslo' : 'Zobraziť heslo'

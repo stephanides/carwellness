@@ -8,7 +8,17 @@ block css
   link(rel='stylesheet' href='./assets/css/jquery-ui.min.css')
   link(rel='stylesheet' href='./assets/css/jquery.timepicker.min.css')
 
-block content  
+block content
+  .modal#orderConflictModal
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h4 Vaša objednávka bola zamietnutá
+          button.close(type='button' data-dismiss='modal') &times;
+        .modal-body
+          p Vaša objednávka už bola vytvorená. V prípade, že ste sa rozhodli objednávku, zrušiť, alebo preobjednať. Je potrebné tak urobiť telefonicky najmenej 6 hodín pred vybavením objednávky.
+        .modal-footer
+          button.btn.btn-danger(type='button' data-dismiss='modal') Zavrieť
   .modal#orderModal
     .modal-dialog
       .modal-content

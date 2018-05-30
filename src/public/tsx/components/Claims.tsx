@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { Pagination } from './Pagination'
 
-interface Props {
-  claimState: Array<string>
+interface IProps {
+  claimState: string[]
   boss: number
-  claimList?: Array<object>
-  list?: Array<object>
+  claimList?: object[]
+  list?: object[]
   page: number
   paginationItemCount: number
   pagesCount: number  
@@ -17,16 +17,16 @@ interface Props {
   updateItem(item: object, callBack?: () => void): void
 }
 
-export class Claims extends React.Component <Props, {}> {
-  constructor(props: Props) {
+export class Claims extends React.Component <IProps, {}> {
+  constructor(props: IProps) {
     super(props)
   }
 
-  componentDidMount() {
+  public componentDidMount(): void {
     this.props.getList()
   }
 
-  render() {
+  public render(): JSX.Element {
     return(
       <div className='table-responsive'>
         <table className='table'>

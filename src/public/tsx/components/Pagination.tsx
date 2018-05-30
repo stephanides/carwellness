@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-interface Props {
+interface IProps {
   order: boolean
   page: number
   pagesCount: number
@@ -8,7 +8,7 @@ interface Props {
   changePage(page: number, order: boolean): void
 }
 
-export const Pagination: Function = (props:Props) => {
+export const Pagination: Function = (props: IProps) => {
   let pageItemBtn: Array<JSX.Element> = []
 
   for(let i: number = 0; i < props.pagesCount; i++)

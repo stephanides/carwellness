@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-interface Props {
+interface IProps {
   formType: string
   showHidePassword: boolean
 
@@ -8,7 +8,7 @@ interface Props {
   submitForm(event: React.FormEvent<HTMLElement>, url: string, action: string): void
 }
 
-export const Form: Function = (props: Props) => {
+export const Form: Function = (props: IProps) => {
   return(
     <form onSubmit={e => { props.submitForm(e, 'user/'+(props.formType === 'login' ? 'login' : 'register'), props.formType) }}>
       {

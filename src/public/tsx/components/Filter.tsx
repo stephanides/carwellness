@@ -1,19 +1,19 @@
 import * as React from 'react'
 
-interface Props {
-  program: Array<string>
-  orderState: Array<string>
+interface IProps {
+  program: string[]
+  orderState: string[]
 
   orderByTime(order: boolean): void
   orderByOrderState(orderState: number | null): void
   orderByOrderProgram(orderProgram: number | null): void
 }
 
-export class Filter extends React.Component<Props, {}> {
-  constructor(props: Props) {
+export class Filter extends React.Component<IProps, {}> {
+  constructor(props: IProps) {
     super(props)
   }
-  render() {
+  public render(): JSX.Element {
     return(
       <table className='w-50 mb-3'>
         <tbody>

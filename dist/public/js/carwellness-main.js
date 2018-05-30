@@ -506,7 +506,8 @@ function sendOrder(){
 	  		}
       },
 	    error: function(err) {
-	   	  console.log(err);
+				console.log(err);
+				$('#orderConflictModal').modal('show');
 	    }
     });
 	}

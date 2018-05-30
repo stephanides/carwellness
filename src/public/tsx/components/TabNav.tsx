@@ -1,10 +1,10 @@
 import * as React from 'react'
 
-interface Props {
+interface IProps {
   tabs: Array<object>
 }
 
-export const TabNav: Function = (props: Props) => {
+export const TabNav: Function = (props: IProps) => {
   return(
     <ul className='nav nav-tabs nav-fill' role='tablist'>
       {

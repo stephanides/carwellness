@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom'
 import { Nav } from './Nav'
 import { IUserPayLoad } from '../interfaces/UserPayLoad.interface'
 
-interface Props {
+interface IProps {
   user: IUserPayLoad
-  usersList?: Array<object>
+  usersList?: object[]
   
   signOut(): void
-  changeUserApprovedProperty(updatedUsers: Array<object>, callback?:() => void): void
+  changeUserApprovedProperty(updatedUsers: object[], callback?:() => void): void
   getUsersList(): void
   updateUser(user: object): void
 }
 
-export const Users: Function = (props: Props) => {
+export const Users: Function = (props: IProps) => {
   if(!props.usersList || props.usersList.length === 0)
     props.getUsersList()
 

@@ -2,7 +2,7 @@ import * as React from 'react'
 import Calendar from 'react-calendar/dist/entry.nostyle'
 import { IUserPayLoad } from '../interfaces/UserPayLoad.interface'
 
-interface Props {
+interface IProps {
   availableDates?: Array<object>
   availabilityDate?: string
   city?: number
@@ -19,14 +19,14 @@ interface Props {
   updateAvailability(item: object): void
 }
 
-export class Availability extends React.Component<Props, {}> {
-  constructor(props: Props) {
+export class Availability extends React.Component<IProps, {}> {
+  constructor(props: IProps) {
     super(props)
 
     this.updateOrSubmitAvailability = this.updateOrSubmitAvailability.bind(this)
   }
 
-  updateOrSubmitAvailability(num: number) {
+  private updateOrSubmitAvailability(num: number): void {
     if(this.props.availableDates && this.props.availableDates.length > 0) {
       const dateFormattedForCheck: string = this.props.availabilityDate.split('-')[2]+'-'+this.props.availabilityDate.split('-')[1]+'-'+this.props.availabilityDate.split('-')[0]
       let toUpdate: boolean = false
@@ -52,7 +52,7 @@ export class Availability extends React.Component<Props, {}> {
     else this.props.submitAvailability(num)
   }
 
-  render() {
+  public render() {
     return(
       this.props.availabilityDate && this.props.availabilityDate !== '' ? 
       (
