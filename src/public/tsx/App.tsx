@@ -52,6 +52,7 @@ interface IState {
   showHidePassword: boolean
   user?: IUserPayLoad
   usersList?: object[] | null
+  timeAscend: boolean
   workingHours: string[][]
   workingHoursAvailability: boolean[]
   availableDates?: object[]
@@ -78,6 +79,7 @@ const initialState: IState = {
   orderStateNum: null,
   orderProgramNum: null,
   showHidePassword: false,
+  timeAscend: false,
   workingHours: [
     ['00:00', '00:30'], ['00:30', '01:00'], ['01:00', '01:30'], ['01:30', '02:00'],
     ['02:00', '02:30'], ['02:30', '03:00'], ['03:00', '03:30'], ['03:30', '04:00'],
@@ -117,6 +119,7 @@ export class App extends React.Component<{}, IState> {
     this.socket = io('/admin')
     this.authenticate = this.authenticate.bind(this)
     this.changeCity = this.changeCity.bind(this)
+    this.changeOrderByTime = this.changeOrderByTime.bind(this)
     this.checkOrders = this.checkOrders.bind(this)
     this.changeAvailability = this.changeAvailability.bind(this)
     this.changeUserApprovedProperty = this.changeUserApprovedProperty.bind(this)
@@ -209,6 +212,13 @@ export class App extends React.Component<{}, IState> {
       }
       else console.log(responseJSON['message'])
     }
+  }
+
+  private changeOrderByTime() {
+    if(this.state.timeAscend)
+      this.setState({ timeAscend: false }, () => this.orderByTime(true))
+    else
+      this.setState({ timeAscend: true }, () => this.orderByTime(true))
   }
 
   private async checkOrders() {
@@ -468,15 +478,23 @@ export class App extends React.Component<{}, IState> {
       this.handlePaginationData(this.state.page, true, () => {
         const arr: object[] = this.state.orderedOrderList
   
-        arr.sort((a: object, b: object) => ( b['date'].toLowerCase().localeCompare(a['date'].toLowerCase()) ))
-        this.setState({ orderedOrderList: arr })
+        if(this.state.timeAscend)
+          arr.sort((a: object, b: object) => ( b['date'].toLowerCase().localeCompare(a['date'].toLowerCase()) ))
+        else
+          arr.sort((a: object, b: object) => ( a['date'].toLowerCase().localeCompare(b['date'].toLowerCase()) ))
+        
+          this.setState({ orderedOrderList: arr })
       })
     }
     else {
       this.handlePaginationData(this.state.claimPage, false, () => {
         const arr: object[] = this.state.orderedClaimList
   
-        arr.sort((a: object, b: object) => ( b['date'].toLowerCase().localeCompare(a['date'].toLowerCase()) ))
+        if(this.state.timeAscend)
+          arr.sort((a: object, b: object) => ( b['date'].toLowerCase().localeCompare(a['date'].toLowerCase()) ))
+        else
+          arr.sort((a: object, b: object) => ( a['date'].toLowerCase().localeCompare(b['date'].toLowerCase()) ))
+        
         this.setState({ orderedClaimList: arr })
       })
     }
@@ -486,26 +504,44 @@ export class App extends React.Component<{}, IState> {
     let arr: object[] = []
 
     if(order) {
-      console.log('PAGESCOUNT:', this.state.pagesCount)
-
       if(this.state.pagesCount > 1) {
         const fromItem: number = page > 0 ? page * this.state.paginationItemCount : 0
         const toItem: number = (page * this.state.paginationItemCount) + this.state.paginationItemCount
-  
-        for(let i: number = fromItem; i < toItem; i++) {
-          if(this.state.orderList[i]) {
-            if(this.state.orderStateNum !== null) {
-              if(this.state.orderList[i]['orderState'] === this.state.orderStateNum)
-                arr.push(this.state.orderList[i])
+
+        if(this.state.orderStateNum !== null) {
+          let orderStateArr: object[] = []
+          
+          for(let i: number = 0; i < this.state.orderList.length; i++) {
+            if(this.state.orderList[i] && this.state.orderList[i]['orderState'] === this.state.orderStateNum)
+              orderStateArr.push(this.state.orderList[i])             
+          }
+
+          for(let i: number = fromItem; i < toItem; i++) {
+            if(orderStateArr[i]) {
+              arr.push(orderStateArr[i])
             }
-            else if(this.state.orderProgramNum !== null) {
-              if(this.state.orderList[i]['program'][this.state.orderProgramNum])
-                arr.push(this.state.orderList[i])
+          }
+        }
+        else if(this.state.orderProgramNum !== null) {
+          let programStateArr: object[] = []
+          
+          for(let i: number = 0; i < this.state.orderList.length; i++) {
+            if(this.state.orderList[i] && this.state.orderList[i]['program'][this.state.orderProgramNum])
+              programStateArr.push(this.state.orderList[i])             
+          }
+
+          for(let i: number = fromItem; i < toItem; i++) {
+            if(programStateArr[i]) {
+              arr.push(programStateArr[i])
             }
-            else {
+          }
+        }
+        else {
+          for(let i: number = fromItem; i < toItem; i++) {
+            if(this.state.orderList[i]) {
               arr.push(this.state.orderList[i])
             }
-          }          
+          }
         }
   
         this.setState({ orderedOrderList: arr }, () => {
@@ -513,17 +549,21 @@ export class App extends React.Component<{}, IState> {
         })
       }
       else {
-        for(let i: number = 0; i < this.state.orderList.length; i++) {
-          if(this.state.orderList[i]) {
-            if(this.state.orderStateNum !== null) {
-              if(this.state.orderList[i]['orderState'] === this.state.orderStateNum)
-                arr.push(this.state.orderList[i])
-            }
-            else if(this.state.orderProgramNum !== null) {
-              if(this.state.orderList[i]['program'][this.state.orderProgramNum])
-                arr.push(this.state.orderList[i])
-            }
-            else {
+        if(this.state.orderStateNum !== null) {          
+          for(let i: number = 0; i < this.state.orderList.length; i++) {
+            if(this.state.orderList[i] && this.state.orderList[i]['orderState'] === this.state.orderStateNum)
+              arr.push(this.state.orderList[i])             
+          }
+        }
+        else if(this.state.orderProgramNum !== null) {          
+          for(let i: number = 0; i < this.state.orderList.length; i++) {
+            if(this.state.orderList[i] && this.state.orderList[i]['program'][this.state.orderProgramNum])
+              arr.push(this.state.orderList[i])             
+          }
+        }
+        else {
+          for(let i: number = 0; i < this.state.orderList.length; i++) {
+            if(this.state.orderList[i]) {
               arr.push(this.state.orderList[i])
             }
           }
@@ -586,8 +626,7 @@ export class App extends React.Component<{}, IState> {
         }
 
         this.setState({ orderedOrderList: arr }, () => {
-
-          if(this.state.paginationItemCount < this.state.orderedOrderList.length) {
+          if(this.state.paginationItemCount <= this.state.orderedOrderList.length) {
             this.setState({
                 page: 0,
                 pagesCount: this.state.orderList.length < this.state.paginationItemCount ?
@@ -600,7 +639,9 @@ export class App extends React.Component<{}, IState> {
                       this.state.orderList.length / this.state.paginationItemCount
                     ) : 1
                   )
-              }, () => this.handlePaginationData(this.state.page, true))
+              }, () => {
+                this.handlePaginationData(this.state.page, true)
+              })
           }
           else {
             this.setState({ page: 0, pagesCount: 1 }, () => this.handlePaginationData(this.state.page, true))
@@ -896,8 +937,7 @@ export class App extends React.Component<{}, IState> {
   }
 
   private socketListener() {
-    this.socket.on('connect', () => { console.log('CONNECTED') })
-
+    //this.socket.on('connect', () => { console.log('CONNECTED') })
     this.socket.on('order been created', data => {
       if(data.success) {
         this.checkOrders()
@@ -997,9 +1037,6 @@ export class App extends React.Component<{}, IState> {
       data['role'] = 2
     }
 
-    console.log(action)
-    console.log(data)
-
     const xhttp = new XMLHttpRequest()
 
     xhttp.open('POST', _url, true)    
@@ -1041,7 +1078,7 @@ export class App extends React.Component<{}, IState> {
   }
 
   public componentDidMount() {
-    this.intervalCheckAuthenticate = window.setInterval(this.authenticate, 8*60*1000)
+    this.intervalCheckAuthenticate = window.setInterval(this.authenticate, 12*60*1000)
     this.authenticate()
   }
 
@@ -1072,6 +1109,7 @@ export class App extends React.Component<{}, IState> {
               paginationItemCount={this.state.paginationItemCount}
               pagesCount={this.state.pagesCount}
               program={this.state.program}
+              timeAscend={this.state.timeAscend}
               user={this.state.user}
               workingHours={this.state.workingHours}
               workingHoursAvailability={this.state.workingHoursAvailability}
@@ -1080,6 +1118,7 @@ export class App extends React.Component<{}, IState> {
               changeCity={this.changeCity}
               changeClaim={this.changeClaim}
               changeOrder={this.changeOrder}
+              changeOrderByTime={this.changeOrderByTime}
               changePage={this.changePage}
               changePageItemsCount={this.changePageItemsCount}
               getOrderList={this.getOrderList}

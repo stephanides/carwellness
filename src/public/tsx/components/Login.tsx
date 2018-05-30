@@ -18,9 +18,6 @@ interface IProps {
 }
 
 export const Login: Function = (props: IProps) => {
-  if(props.fromURL)
-    console.log(props.fromURL)
-
   return props.authorised ?
   (
     props.fromURL === '/' ?

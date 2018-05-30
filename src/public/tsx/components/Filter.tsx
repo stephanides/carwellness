@@ -3,7 +3,9 @@ import * as React from 'react'
 interface IProps {
   program: string[]
   orderState: string[]
+  timeAscend: boolean
 
+  changeOrderByTime(): void
   orderByTime(order: boolean): void
   orderByOrderState(orderState: number | null): void
   orderByOrderProgram(orderProgram: number | null): void
@@ -21,6 +23,7 @@ export class Filter extends React.Component<IProps, {}> {
             <td>Filtrovať podľa:</td>
             <td>Stav objednávky</td>
             <td>Program</td>
+            <td>Dátum</td>
           </tr>
           <tr>
             <td></td>
@@ -61,6 +64,13 @@ export class Filter extends React.Component<IProps, {}> {
                   this.props.program.map((item, i) => <option value={i} key={i}>{item}</option>)
                 }
               </select>
+            </td>
+            <td>
+              <button
+                type='button'
+                className='btn btn-primary'
+                onClick={this.props.changeOrderByTime}
+              >{this.props.timeAscend ? 'Najnovšie' : 'Najstaršie'}</button>
             </td>
           </tr>
         </tbody>
