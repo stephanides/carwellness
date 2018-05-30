@@ -25,7 +25,15 @@ $break-small:576px;
     display:none;
   }
 }
-
+.socNetworks{
+  display: flex;
+  a{
+    color: #dc002e;
+    &:hover{
+    color: #dc002e;
+    }
+  }
+}
 
 
 
