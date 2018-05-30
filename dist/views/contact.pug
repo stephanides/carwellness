@@ -41,10 +41,10 @@ block content
             li.nav-item
               a.nav-link.online-order(href='./online-objednavka') Online objednávka
             li.nav-item
-              a.nav-link(href='https://www.instagram.com/carwellness.sk/')
+              a.nav-link(href='https://www.instagram.com/carwellness.sk/' target = '_blank')
                 i.fab.fa-instagram(style='font-size:21px;')
             li.nav-item
-              a.nav-link(href='https://www.facebook.com/carwellnessaupark/')
+              a.nav-link(href='https://www.facebook.com/carwellnessaupark/' target = '_blank')
                 i.fab.fa-facebook(style='font-size:21px;')
     .container.price-listContent
       h4 Kontaktuje nás, ochotne pomôžeme.
@@ -136,9 +136,9 @@ block content
                 p &nbsp;
                 h6 Stante sa fanušíkmi:
                 .socNetworks 
-                  a.nav-link(href='https://www.instagram.com/carwellness.sk/')
+                  a.nav-link(href='https://www.instagram.com/carwellness.sk/' target = '_blank')
                     i.fab.fa-instagram(style='font-size:21px;')
-                  a.nav-link(href='https://www.facebook.com/carwellnessaupark/')
+                  a.nav-link(href='https://www.facebook.com/carwellnessaupark/' target = '_blank')
                     i.fab.fa-facebook(style='font-size:21px;')
           .col-md-6
             .row
@@ -157,7 +157,7 @@ block content
                 p &nbsp;
                 p Sobota - Nedeľa
                 p.strongblack od 8.00 do 21.00
-                button.linkmap Pozrieť na mape
+                a.goMap.linkmap(href='./kontakt') Pozrieť na mape
               .col-md-6.padding-left-30
                 h4.hide-desktop #[strong Car]wellness Nitra
                 .divider.hide-desktop
@@ -166,7 +166,18 @@ block content
                 p &nbsp;
                 p Sobota - Nedeľa
                 p.strongblack od 8.30 do 21.00
-                button.linkmap Pozrieť na mape
+                a.goMap.linkmap(href='./kontakt') Pozrieť na mape
+      .container-fluid.bg-white
+        .container.bg-white.copyrights
+          .row
+            .col-6
+              p CARwellness s.r.o. &copy; 2018 | Všetky práva vyhradené.
+            .col-6.text-right
+              p
+                a GDPR
+                a(href='./obchodne-podmienky') Obchodné podmienky
+                a Reklamácia
+                a Kontakt
         
 block script
   script(src='https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyD-OdlYGW1IfuJOVxqDXlhLCUJnLRucgPk')

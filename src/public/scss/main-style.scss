@@ -38,6 +38,7 @@ $break-small:576px;
 
 
 #wrapper {
+  
   .gdpr{
     color:$carwellness-red !important;
     font-size: 14px !important;
@@ -357,7 +358,7 @@ $break-small:576px;
       font-weight:bold;
       color:black !important;
     }
-    button{
+    .goMap{
       padding: 15px 30px;
       background-color:$carwellness-red;
       border:none;
@@ -365,6 +366,9 @@ $break-small:576px;
       outline:none;
       cursor:pointer;
       margin-top: 15px;
+      display: block;
+      text-align: center;
+      text-decoration: none;
       &:hover{
         background-color:#ae0024;
       }
@@ -1186,6 +1190,21 @@ $break-small:576px;
   }
   .m-t-60{
     margin-top:60px;
+  }
+  .copyrights{
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+    p{
+      font-size: 14px;
+      color: rgb(153, 153, 153);
+      a{
+        margin-right: 10px;
+        cursor: pointer;
+        &:hover{
+          color:$carwellness-red;
+        }
+      }
+    }
   }
 }
 .ui-timepicker-list{
