@@ -5,7 +5,7 @@ import * as mongoose from 'mongoose'
 import * as path from 'path'
 import config from './config'
 import * as helmet from 'helmet'
-import * as morgan from 'morgan'
+//import * as morgan from 'morgan'
 import * as bodyParser from 'body-parser'
 import * as io from 'socket.io'
 import * as http from 'http'
@@ -57,7 +57,7 @@ class App {
     this.app.use(helmet())
     
     //Morgan should be off in production
-    this.app.use(morgan('dev'))
+    //this.app.use(morgan('dev'))
     
     //Compression should be managed by nginx server in production
     //this.app.use(compression())
