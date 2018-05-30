@@ -1,10 +1,10 @@
 const config = {
   secret: 'carWellnessAppSuperSecretEqualsToThisStringTwoPointsshhhhhssss',
   sadm: {
-    firstName: 'Viktor',
-    lastName: 'Vojtek',
-    email: 'viktor1vojtek@gmail.com',
-    password: 'thepiratebayXP8978'
+    firstName: 'Code',
+    lastName: 'Brothers',
+    email: 'info@codebrothers.sk',
+    password: 'codeBrothers741'
   },
   saltRounds: 10,
   mongo: 'mongodb://localhost:27017/carwellness'
