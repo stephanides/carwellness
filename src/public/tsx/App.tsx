@@ -516,7 +516,7 @@ export class App extends React.Component<{}, State> {
           arr.push(this.state.orderList[i])
       }
       //TODO Paginaiton
-      this.setState({ orderedOrderList: arr })
+      this.setState({ orderedOrderList: arr }, () => this.handlePaginationData(this.state.page, true))
     }
   }
 
@@ -527,7 +527,7 @@ export class App extends React.Component<{}, State> {
     let arr: Array<object> | null = []
 
     if(orderProgram === null)
-      this.setState({ orderedOrderList: this.state.orderList })
+      this.setState({ orderedOrderList: this.state.orderList }) //this.state.orderList
     else {
       for(let i: number = 0; i < this.state.orderList.length; i++) {
         if(this.state.orderList[i]['program'][orderProgram]) {
@@ -538,7 +538,7 @@ export class App extends React.Component<{}, State> {
       if(arr.length < 1)
         arr = null
       //TODO Paginaiton
-      this.setState({ orderedOrderList: arr })
+      this.setState({ orderedOrderList: arr }, () => this.handlePaginationData(this.state.page, true))
     }
   }
 
