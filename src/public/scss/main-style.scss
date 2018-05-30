@@ -81,6 +81,26 @@ $break-small:576px;
       width:100%;
       height:100%;
     }
+    .carousel-item.active{
+      display: flex !important;
+      .container{
+        position: absolute;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        padding-left: 50px;
+        h3{
+          color:white;
+          margin-bottom: 30px;
+        }
+        a{
+          color:white;
+          text-decoration: none;
+          border:2px solid white;
+          padding: 12px 20px;
+        }
+      }
+    }
   }
   .main-carousel{
     top:84px;
