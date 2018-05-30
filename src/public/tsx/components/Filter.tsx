@@ -23,7 +23,7 @@ export class Filter extends React.Component<IProps, {}> {
             <td>Filtrovať podľa:</td>
             <td>Stav objednávky</td>
             <td>Program</td>
-            <td>Dátum</td>
+            <td>Termín</td>
           </tr>
           <tr>
             <td></td>

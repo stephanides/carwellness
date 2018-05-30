@@ -2,18 +2,29 @@ import * as mongoose from 'mongoose'
 import { Request, Response, NextFunction } from 'express'
 import * as bcrypt from 'bcryptjs'
 import config from '../config'
+import * as nodemailer from 'nodemailer'
 import * as jwt from 'jsonwebtoken'
 
 import { IUser } from '../interfaces/User.interface'
 import { User, UserDocument, Users } from '../models/User.model'
 
 export class UserController {
+  private transporter: nodemailer.Transporter
   private token: string
-  private salt: void
+  private salt: string
 
   constructor() {
     this.token = ''
     this.salt = bcrypt.genSaltSync(config['saltRounds'])
+    this.transporter = nodemailer.createTransport({
+      host: 'smtp.zoho.eu',
+      port: 465,
+      secure: true, //ssl
+      auth: {
+        user:'info@codebrothers.sk',
+        pass:'codebrothers963'
+      }
+    })
 
     this.setToken = this.setToken.bind(this)
   }
@@ -82,8 +93,10 @@ export class UserController {
         const newUser: object = new User(userData as IUser)
         const userCreate: object = await Users.create(newUser)
 
-        if(userCreate)
+        if(userCreate) {
           res.json({ message: 'User has been sucessfully registered', success: true })
+          this.sendEmail(req, res, next)
+        }          
         else
           this.throwError('Can\'t register user', 500, next)
       }
@@ -91,6 +104,24 @@ export class UserController {
     catch(err) {
       return next(err)
     }
+  }
+
+  sendEmail(req: Request, res: Response, next: NextFunction) {
+    this.transporter.sendMail({
+      from: 'info@codebrothers.sk',
+      to: 'info@codebrothers.sk', //TODO change for carwellness e-mail address in production
+      subject: 'Carwellness | Nová registrácia od: '+req.body.email,
+      text: 'Bol zaregistrovaný používaťeľ '+req.body.firstName+' '+req.body.lastName+' s e-mailovou adresou:\n'+
+        req.body.email
+    }, err => {
+      if(err) {
+        const newErr = new Error(err['response'])
+        newErr['status'] = err['responseCode']
+
+        return next(newErr)
+      }
+      else res.json({ message: 'Mail has been successfully sent', success: true })
+    })
   }
 
   setToken(item: object): void {
