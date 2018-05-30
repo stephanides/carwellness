@@ -2,8 +2,6 @@ import config from '../../config'
 import * as jwt from 'jsonwebtoken'
 
 export const checkToken: Function = (req, res, next, callBack?: (next) => void) => {
-  console.log('CHECK TOKEN CALLED')
-  
   const token = req.body.token || req.query.token || req.headers['x-access-token']
 
   if(!token) {

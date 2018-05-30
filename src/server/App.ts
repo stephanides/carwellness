@@ -23,7 +23,7 @@ class App {
   private db: mongoose.Connection
   private mongoose
   private router: express.Router
-  private io: io
+  private io: SocketIO.Server
   public http
   
   constructor() {
@@ -75,7 +75,7 @@ class App {
 
     //Serve static files from imaginary /assets directory
     //Should be managed by nginx server in production
-    //this.app.use('/assets', express.static(__dirname + '/../public/'))
+    this.app.use('/assets', express.static(__dirname + '/../public/'))
 
     // Set pug as default template engine
     this.app.set('view engine', 'pug')

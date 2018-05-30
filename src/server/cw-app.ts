@@ -1,7 +1,7 @@
 import Http from './App'
 import { Init } from './init'
 
-const port = 4040
+const port = 3434
 const http = Http
 const initApp = new Init()
 
