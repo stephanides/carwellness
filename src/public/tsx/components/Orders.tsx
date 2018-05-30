@@ -164,7 +164,7 @@ export class Orders extends React.Component<Props, {}> {
           {
             this.props.orderList ?
             (
-              this.props.orderList.length > this.props.paginationItemCount ?
+              this.props.pagesCount > 1 ?
               Pagination({
                 order: true,
                 page: this.props.page,

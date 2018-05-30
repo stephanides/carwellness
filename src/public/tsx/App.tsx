@@ -9,54 +9,65 @@ import { Settings } from './components/Settings'
 import { SuperAdminSetup } from './components/SuperAdminSetup'
 import * as io from 'socket.io-client'
 import { Users } from './components/Users'
-import { UserPayLoad } from './interfaces/UserPayLoad.interface'
+import { IUserPayLoad } from './interfaces/UserPayLoad.interface'
 const history = createBrowserHistory()
 
 const _date: Date = new Date()
 const _today: string =_date.getDate() < 10 ? '0'+_date.getDate() : String(_date.getDate())
-const _tomorrow: string = _today.indexOf('0') > -1 ? String('0'+(parseInt(_today.replace('0', ''))+1)) : String(parseInt(_today)+1)
+const _tomorrow: string = _today.indexOf('0') > -1 ?
+  String('0'+(parseInt(_today.replace('0', ''))+1)) : String(parseInt(_today)+1)
 const _month: string = _date.getMonth() < 10 ? '0'+(_date.getMonth()+1) : String(_date.getMonth()+1)
 const _year: number = _date.getFullYear()
 
-interface State {
+interface IResponse {
+  data: object[]
+  message: string
+  success: boolean
+}
+
+interface IState {
   authorised: boolean
   availabilityDate?: string
-  carType: Array<string>
+  carType: string[]
   city?: number
   dayOfWeek: number
-  daysOfWeek: Array<string>
+  daysOfWeek: string[]
   modalMessage?: string | JSX.Element
   modalTitle?: string
   login: boolean
-  orderList?: Array<object> | null
-  orderedOrderList?: Array<object> | null
-  orderState: Array<string>
-  program: Array<string>
+  orderList?: object[] | null
+  orderedOrderList?: object[] | null
+  orderState: string[]
+  orderStateNum: number | null
+  orderProgramNum: number | null
+  program: string[]
   claimPage: number
   claimPagesCount: number
   claimPagainationCount: number
   page: number
   pagesCount: number
   paginationItemCount: number
-  claimList?: Array<object> | null
-  orderedClaimList?: Array<object>
+  claimList?: object[] | null
+  orderedClaimList?: object[]
   showHidePassword: boolean
-  user?: UserPayLoad
-  usersList?: Array<object> | null
+  user?: IUserPayLoad
+  usersList?: object[] | null
   workingHours: string[][]
-  workingHoursAvailability: Array<boolean>
-  availableDates?: Array<object>
+  workingHoursAvailability: boolean[]
+  availableDates?: object[]
   windowActive: boolean
 }
 
-const initialState: State = {
+const initialState: IState = {
   authorised: false,
   carType: ['AUTO CLASSIC', 'AUTO SUV'],
   city: 1,
   dayOfWeek: _date.getDay(),
   daysOfWeek: ['Nedeľa', 'Pondelok', 'Utorok', 'Streda', 'Štvrtok', 'Piatok', 'Sobota'],  
   login: true,
-  program: ['COMFORT', 'EXCLUSIVE', 'EXTERIÉR', 'INTERIÉR', 'PREMIUM EXTERIÉR', 'PREMIUM INTERIÉR', 'AVANGARDE', 'TOP GLANZ'],
+  program: [
+    'COMFORT', 'EXCLUSIVE', 'EXTERIÉR', 'INTERIÉR', 'PREMIUM EXTERIÉR', 'PREMIUM INTERIÉR', 'AVANGARDE', 'TOP GLANZ'
+  ],
   claimPage: 0,
   claimPagesCount: 1,
   claimPagainationCount: 10,
@@ -64,20 +75,37 @@ const initialState: State = {
   pagesCount: 1,
   paginationItemCount: 10,
   orderState: ['NOVÁ', 'ZRUŠENÁ', 'VYBAVENÁ'],
+  orderStateNum: null,
+  orderProgramNum: null,
   showHidePassword: false,
-  workingHours: [['00:00', '00:30'], ['00:30', '01:00'], ['01:00', '01:30'], ['01:30', '02:00'], ['02:00', '02:30'], ['02:30', '03:00'], ['03:00', '03:30'], ['03:30', '04:00'], ['04:00', '04:30'], ['04:30', '05:00'], ['05:00', '05:30'], ['05:30', '06:00'], ['06:00', '06:30'], ['06:30', '07:00'], ['07:00', '07:30'], ['07:30', '08:00'], ['08:00', '08:30'], ['08:30', '09:00'], ['09:00', '09:30'], ['09:30', '10:00'], ['10:00','10:30'], ['10:30', '11:00'], ['11:00', '11:30'], ['11:30', '12:00'], ['12:00', '12:30'], ['12:30', '13:00'], ['13:00', '13:30'], ['13:30', '14:00'], ['14:00', '14:30'], ['14:30','15:00'], ['15:00', '15:30'], ['15:30', '16:00'], ['16:00', '16:30'], ['16:30', '17:00'], ['17:00', '17:30'], ['17:30', '18:00'], ['18:00', '18:30'], ['18:30', '19:00'], ['19:00', '19:30'], ['19:30', '20:00'], ['20:00', '20:30'], ['20:30', '21:00'], ['21:00', '21:30'], ['21:30', '22:00'], ['22:00', '22:30'], ['22:30', '23:00'], ['23:00', '23:30']],
-  workingHoursAvailability: [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true],
+  workingHours: [
+    ['00:00', '00:30'], ['00:30', '01:00'], ['01:00', '01:30'], ['01:30', '02:00'],
+    ['02:00', '02:30'], ['02:30', '03:00'], ['03:00', '03:30'], ['03:30', '04:00'],
+    ['04:00', '04:30'], ['04:30', '05:00'], ['05:00', '05:30'], ['05:30', '06:00'],
+    ['06:00', '06:30'], ['06:30', '07:00'], ['07:00', '07:30'], ['07:30', '08:00'],
+    ['08:00', '08:30'], ['08:30', '09:00'], ['09:00', '09:30'], ['09:30', '10:00'],
+    ['10:00','10:30'], ['10:30', '11:00'], ['11:00', '11:30'], ['11:30', '12:00'],
+    ['12:00', '12:30'], ['12:30', '13:00'], ['13:00', '13:30'], ['13:30', '14:00'],
+    ['14:00', '14:30'], ['14:30','15:00'], ['15:00', '15:30'], ['15:30', '16:00'],
+    ['16:00', '16:30'], ['16:30', '17:00'], ['17:00', '17:30'], ['17:30', '18:00'],
+    ['18:00', '18:30'], ['18:30', '19:00'], ['19:00', '19:30'], ['19:30', '20:00'],
+    ['20:00', '20:30'], ['20:30', '21:00'], ['21:00', '21:30'], ['21:30', '22:00'],
+    ['22:00', '22:30'], ['22:30', '23:00'], ['23:00', '23:30']],
+  workingHoursAvailability: [true, true, true, true, true, true, true, true, true,
+    true, true, true, true, true, true, true, true, true, true, true, true, true, true,
+    true, true, true, true, true, true, true, true, true, true, true, true, true, true,
+    true, true, true, true, true, true, true, true, true, true],
   windowActive: false
 }
 
-export class App extends React.Component<{}, State> {
+export class App extends React.Component<{}, IState> {
   private audio: HTMLAudioElement
   private fromURL: string
   private intervalCheckAuthenticate: number
   private myStorage: Storage
   private socket: any
   
-  constructor(props: State) {
+  constructor(props: IState) {
     super(props)
 
     this.audio = new Audio('./assets/audio/plucky.mp3')
@@ -119,8 +147,8 @@ export class App extends React.Component<{}, State> {
     this.updateOrder = this.updateOrder.bind(this)
   }
 
-  authenticate() {
-    const user: UserPayLoad | null = this.getUserData() as UserPayLoad
+  private authenticate() {
+    const user: IUserPayLoad | null = this.getUserData() as IUserPayLoad
 
     if(user)
       this.setState({ authorised: true, user: user })
@@ -128,39 +156,41 @@ export class App extends React.Component<{}, State> {
       this.signOut()
   }
 
-  async checkClaims() {
+  private async checkClaims() {
     const url: string = '/claim/claims/'+this.state.user.city
     const response: Response = await fetch(url, {
       headers: { 'x-access-token': this.state.user.token }
     })
 
     if(response) {
-      const responseJSON: object = await response.json()
+      const responseJSON: IResponse = await response.json()
       
       if(response.status === 200) {
-        if(!this.state.claimList || (responseJSON['data'].length > this.state.claimList.length)) {
+        if(!this.state.claimList || responseJSON.data.length > this.state.claimList.length) {
           const date = new Date()
           let newClaim: object
-          let onlyInA: Array<object>
-          let onlyInB: Array<object>
+          let onlyInA: object[]
+          let onlyInB: object[]
 
           if(this.state.claimList && this.state.claimList.length > 0) {
             function comparer(otherArray) {
               return (current) => {
-                return otherArray.filter(other => {
-                  return other['_id'] == current['_id']
+                return otherArray.filter((other) => {
+                  return other._id == current._id
                 }).length == 0
               }
             }
 
-            onlyInA = responseJSON['data'].filter(comparer(this.state.claimList))
-            onlyInB = this.state.claimList.filter(comparer(responseJSON['data']))
+            onlyInA = responseJSON.data.filter(comparer(this.state.claimList))
+            onlyInB = this.state.claimList.filter(comparer(responseJSON.data))
 
             let tempArr = onlyInA.concat(onlyInB)
             
             newClaim = tempArr[0]
           }
-          else newClaim = responseJSON['data'][0]
+          else {
+            newClaim = responseJSON.data[0]
+          }
 
           this.sendNotification({
             title: 'Nová reklamácia',
@@ -194,8 +224,8 @@ export class App extends React.Component<{}, State> {
         if(!this.state.orderList || (responseJSON['data'].length > this.state.orderList.length)) {
           const date = new Date()
           let newOrder: object
-          let onlyInA: Array<object>
-          let onlyInB: Array<object>
+          let onlyInA: object[]
+          let onlyInB: object[]
 
           if(this.state.orderList && this.state.orderList.length > 0) {
             function comparer(otherArray) {
@@ -314,7 +344,7 @@ export class App extends React.Component<{}, State> {
     }
   }
 
-  changeUserApprovedProperty(updatedUsers: Array<object>, callback?:() => void) {
+  changeUserApprovedProperty(updatedUsers: object[], callback?:() => void) {
     this.setState({ usersList: updatedUsers }, () => {
       if(typeof callback === 'function')
         callback()
@@ -338,7 +368,6 @@ export class App extends React.Component<{}, State> {
   changePageItemsCount(itemsCount: number, order: boolean) {
     if(order) {
       if(this.state.paginationItemCount !== itemsCount) {
-
         this.setState({
           paginationItemCount: itemsCount,
           page: 0
@@ -389,7 +418,7 @@ export class App extends React.Component<{}, State> {
 
     if(resp) {
       if(resp.status === 200) {
-        const respJSON: Array<object> = await resp.json()
+        const respJSON: object[] = await resp.json()
 
         if(respJSON) {
           this.setState({ orderList: respJSON['data'] }, () => {
@@ -413,7 +442,7 @@ export class App extends React.Component<{}, State> {
   }
 
   changeOrder(order: object) {
-    let newOrderList: Array<object> = this.state.orderedOrderList
+    let newOrderList: object[] = this.state.orderedOrderList
 
     for(let i: number = 0; i < newOrderList.length; i++) {
       if(newOrderList[i]['_id'] === order['_id'])
@@ -424,7 +453,7 @@ export class App extends React.Component<{}, State> {
   }
 
   changeClaim(claim: object) {
-    let newClaimList: Array<object> = this.state.orderedClaimList
+    let newClaimList: object[] = this.state.orderedClaimList
 
     for(let i: number = 0; i < newClaimList.length; i++) {
       if(newClaimList[i]['_id'] === claim['_id'])
@@ -437,7 +466,7 @@ export class App extends React.Component<{}, State> {
   orderByTime(order: boolean) {
     if(order) {
       this.handlePaginationData(this.state.page, true, () => {
-        const arr: Array<object> = this.state.orderedOrderList
+        const arr: object[] = this.state.orderedOrderList
   
         arr.sort((a: object, b: object) => ( b['date'].toLowerCase().localeCompare(a['date'].toLowerCase()) ))
         this.setState({ orderedOrderList: arr })
@@ -445,7 +474,7 @@ export class App extends React.Component<{}, State> {
     }
     else {
       this.handlePaginationData(this.state.claimPage, false, () => {
-        const arr: Array<object> = this.state.orderedClaimList
+        const arr: object[] = this.state.orderedClaimList
   
         arr.sort((a: object, b: object) => ( b['date'].toLowerCase().localeCompare(a['date'].toLowerCase()) ))
         this.setState({ orderedClaimList: arr })
@@ -454,15 +483,29 @@ export class App extends React.Component<{}, State> {
   }
 
   handlePaginationData(page: number, order: boolean, callBack?: () => void) {
-    let arr: Array<object> = []
+    let arr: object[] = []
 
     if(order) {
+      console.log('PAGESCOUNT:', this.state.pagesCount)
+
       if(this.state.pagesCount > 1) {
         const fromItem: number = page > 0 ? page * this.state.paginationItemCount : 0
         const toItem: number = (page * this.state.paginationItemCount) + this.state.paginationItemCount
   
         for(let i: number = fromItem; i < toItem; i++) {
-          if(this.state.orderList[i]) arr.push(this.state.orderList[i])
+          if(this.state.orderList[i]) {
+            if(this.state.orderStateNum !== null) {
+              if(this.state.orderList[i]['orderState'] === this.state.orderStateNum)
+                arr.push(this.state.orderList[i])
+            }
+            else if(this.state.orderProgramNum !== null) {
+              if(this.state.orderList[i]['program'][this.state.orderProgramNum])
+                arr.push(this.state.orderList[i])
+            }
+            else {
+              arr.push(this.state.orderList[i])
+            }
+          }          
         }
   
         this.setState({ orderedOrderList: arr }, () => {
@@ -470,8 +513,21 @@ export class App extends React.Component<{}, State> {
         })
       }
       else {
-        for(let i: number = 0; i < this.state.orderList.length; i++)
-            arr.push(this.state.orderList[i])
+        for(let i: number = 0; i < this.state.orderList.length; i++) {
+          if(this.state.orderList[i]) {
+            if(this.state.orderStateNum !== null) {
+              if(this.state.orderList[i]['orderState'] === this.state.orderStateNum)
+                arr.push(this.state.orderList[i])
+            }
+            else if(this.state.orderProgramNum !== null) {
+              if(this.state.orderList[i]['program'][this.state.orderProgramNum])
+                arr.push(this.state.orderList[i])
+            }
+            else {
+              arr.push(this.state.orderList[i])
+            }
+          }
+        }
   
         this.setState({ orderedOrderList: arr }, () => {
           if(typeof callBack === 'function') callBack()
@@ -503,42 +559,105 @@ export class App extends React.Component<{}, State> {
   }
 
   orderByOrderState(orderState: number | null) {
-    console.log('ORDER BY ORDER STATE')
-    console.log('ORDERSTATE: ', orderState)
+    let arr: object[] = []
 
-    let arr: Array<object> = []
-
-    if(orderState === null)
-      this.setState({ orderedOrderList: this.state.orderList })
+    if(orderState === null) {
+      this.setState({
+        orderedOrderList: this.state.orderList,
+        orderStateNum: null,
+        page: 0,
+        pagesCount: this.state.orderList.length < this.state.paginationItemCount ?
+          1 : 
+          (
+            this.state.orderList.length > this.state.paginationItemCount ?
+            (
+              this.state.orderList.length % this.state.paginationItemCount > 0 ?
+              parseInt(String(this.state.orderList.length / this.state.paginationItemCount).split('.')[0]) + 1 :
+              this.state.orderList.length / this.state.paginationItemCount
+            ) : 1
+          )
+      }, () => this.handlePaginationData(this.state.page, true))
+    }
     else {
-      for(let i: number = 0; i < this.state.orderList.length; i++) {
-        if(this.state.orderList[i]['orderState'] === orderState)
-          arr.push(this.state.orderList[i])
-      }
-      //TODO Paginaiton
-      this.setState({ orderedOrderList: arr }, () => this.handlePaginationData(this.state.page, true))
+      this.setState({ orderStateNum: orderState }, () => {
+        for(let i: number = 0; i < this.state.orderList.length; i++) {
+          if(this.state.orderList[i]['orderState'] === orderState)
+            arr.push(this.state.orderList[i])
+        }
+
+        this.setState({ orderedOrderList: arr }, () => {
+
+          if(this.state.paginationItemCount < this.state.orderedOrderList.length) {
+            this.setState({
+                page: 0,
+                pagesCount: this.state.orderList.length < this.state.paginationItemCount ?
+                  1 : 
+                  (
+                    this.state.orderList.length > this.state.paginationItemCount ?
+                    (
+                      this.state.orderList.length % this.state.paginationItemCount > 0 ?
+                      parseInt(String(this.state.orderList.length / this.state.paginationItemCount).split('.')[0]) + 1 :
+                      this.state.orderList.length / this.state.paginationItemCount
+                    ) : 1
+                  )
+              }, () => this.handlePaginationData(this.state.page, true))
+          }
+          else {
+            this.setState({ page: 0, pagesCount: 1 }, () => this.handlePaginationData(this.state.page, true))
+          }
+        })
+      })
     }
   }
 
   orderByOrderProgram(orderProgram: number | null) {
-    console.log('ORDER BY ORDER PROGRAM')
-    console.log('ORDERPROGRAM: ', orderProgram)
+    let arr: object[] | null = []
 
-    let arr: Array<object> | null = []
-
-    if(orderProgram === null)
-      this.setState({ orderedOrderList: this.state.orderList }) //this.state.orderList
+    if(orderProgram === null) {
+      this.setState({
+        orderedOrderList: this.state.orderList,
+        orderProgramNum: null,
+        page: 0,
+        pagesCount: this.state.orderList.length < this.state.paginationItemCount ?
+          1 : 
+          (
+            this.state.orderList.length > this.state.paginationItemCount ?
+            (
+              this.state.orderList.length % this.state.paginationItemCount > 0 ?
+              parseInt(String(this.state.orderList.length / this.state.paginationItemCount).split('.')[0]) + 1 :
+              this.state.orderList.length / this.state.paginationItemCount
+            ) : 1
+          )
+      }, () => this.handlePaginationData(this.state.page, true))
+    }
     else {
-      for(let i: number = 0; i < this.state.orderList.length; i++) {
-        if(this.state.orderList[i]['program'][orderProgram]) {
-          arr.push(this.state.orderList[i])
+      this.setState({ orderProgramNum: orderProgram }, () => {
+        for(let i: number = 0; i < this.state.orderList.length; i++) {
+          if(this.state.orderList[i]['program'][orderProgram])
+            arr.push(this.state.orderList[i])
         }
-      }
 
-      if(arr.length < 1)
-        arr = null
-      //TODO Paginaiton
-      this.setState({ orderedOrderList: arr }, () => this.handlePaginationData(this.state.page, true))
+        this.setState({ orderedOrderList: arr }, () => {
+          if(this.state.paginationItemCount < this.state.orderedOrderList.length) {
+            this.setState({
+              page: 0,
+              pagesCount: this.state.orderList.length < this.state.paginationItemCount ?
+                1 : 
+                (
+                  this.state.orderList.length > this.state.paginationItemCount ?
+                  (
+                    this.state.orderList.length % this.state.paginationItemCount > 0 ?
+                    parseInt(String(this.state.orderList.length / this.state.paginationItemCount).split('.')[0]) + 1 :
+                    this.state.orderList.length / this.state.paginationItemCount
+                  ) : 1
+                )
+            }, () => this.handlePaginationData(this.state.page, true))
+          }
+          else {
+            this.setState({ page: 0, pagesCount: 1 }, () => this.handlePaginationData(this.state.page, true))
+          }
+        })
+      })
     }
   }
 
@@ -616,7 +735,7 @@ export class App extends React.Component<{}, State> {
 
     if(resp) {
       if(resp.status === 200) {
-        const respJSON: Array<object> = await resp.json()
+        const respJSON: object[] = await resp.json()
 
         if(respJSON)
           this.setState({ claimList: respJSON['data'] }, () => {
@@ -651,7 +770,7 @@ export class App extends React.Component<{}, State> {
           firstName: this.myStorage.getItem('uFN'),
           role: parseInt(this.myStorage.getItem('uR')),
           city: parseInt(this.myStorage.getItem('cI'))
-        } as UserPayLoad 
+        } as IUserPayLoad 
       }
     }
 
@@ -691,7 +810,7 @@ export class App extends React.Component<{}, State> {
 
     if(resp) {
       if(resp.status === 200) {
-        const respJSON: Array<object> = await resp.json()
+        const respJSON: object[] = await resp.json()
 
         if(respJSON)
           this.setState({ usersList: respJSON['data'] })
@@ -764,7 +883,7 @@ export class App extends React.Component<{}, State> {
       })
     }
     else {
-      let arr: Array<boolean> = []
+      let arr: boolean[] = []
       for(let i: number = 0; i < this.state.workingHoursAvailability.length; i++)
         arr[i] = true
 
@@ -836,7 +955,7 @@ export class App extends React.Component<{}, State> {
       authorised: false,
       orderList: null,
       showHidePassword: false,
-      user: {} as UserPayLoad,
+      user: {} as IUserPayLoad,
       claimList: null,
       usersList: null
     }, () => {
@@ -892,7 +1011,7 @@ export class App extends React.Component<{}, State> {
         if(xhttp.status === 200) {
           if(action === 'login') {
             if(resp['user']['approved']) {
-              const data: UserPayLoad = {
+              const data: IUserPayLoad = {
                 token: resp.token,
                 firstName: resp.user.firstName,
                 role: resp.user.role,

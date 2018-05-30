@@ -51,7 +51,7 @@ export class Filter extends React.Component<Props, {}> {
 
                 if(orderFilter.options.selectedIndex > 0) {
                   orderFilter.options.selectedIndex = 0
-                  this.props.orderByOrderProgram(null)
+                  this.props.orderByOrderState(null)
                 }
   
                 this.props.orderByOrderProgram(stateNum)

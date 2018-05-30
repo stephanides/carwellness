@@ -7,14 +7,14 @@ import { Nav } from './Nav'
 import { Orders } from './Orders'
 import { Redirect } from 'react-router'
 import { TabNav } from './TabNav'
-import { UserPayLoad } from '../interfaces/UserPayLoad.interface'
+import { IUserPayLoad } from '../interfaces/UserPayLoad.interface'
 
 interface Props {
   availableDates?: Array<object>
   availabilityDate?: string
   carType: Array<string>
   city?: number
-  user: UserPayLoad
+  user: IUserPayLoad
   claimList?: Array<object>
   orderedClaimList?: Array<object>
   dayOfWeek: number

@@ -1,6 +1,6 @@
-export interface UserPayLoad {
-  token: string
-  firstName: string
-  role: number
-  city: number
+export interface IUserPayLoad {
+  token: string;
+  firstName: string;
+  role: number;
+  city: number;
 }

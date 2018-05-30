@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-import { UserPayLoad } from '../interfaces/UserPayLoad.interface'
+import { IUserPayLoad } from '../interfaces/UserPayLoad.interface'
 
 interface Props {
-  user: UserPayLoad
+  user: IUserPayLoad
   
   signOut(): void
 }

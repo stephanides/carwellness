@@ -3,7 +3,7 @@ import { Init } from './init'
 
 const port = 4040
 const http = Http
-const initApp = new Init
+const initApp = new Init()
 
 Http.listen(port, (err) => {
   if (err) return console.log(err)

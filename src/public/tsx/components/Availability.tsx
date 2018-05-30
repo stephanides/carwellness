@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Calendar from 'react-calendar/dist/entry.nostyle'
-import { UserPayLoad } from '../interfaces/UserPayLoad.interface'
+import { IUserPayLoad } from '../interfaces/UserPayLoad.interface'
 
 interface Props {
   availableDates?: Array<object>
@@ -8,7 +8,7 @@ interface Props {
   city?: number
   dayOfWeek: number
   daysOfWeek: Array<string>
-  user: UserPayLoad
+  user: IUserPayLoad
   workingHours: string[][]
   workingHoursAvailability: Array<boolean>
 

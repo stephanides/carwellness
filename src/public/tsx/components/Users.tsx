@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import { Nav } from './Nav'
-import { UserPayLoad } from '../interfaces/UserPayLoad.interface'
+import { IUserPayLoad } from '../interfaces/UserPayLoad.interface'
 
 interface Props {
-  user: UserPayLoad
+  user: IUserPayLoad
   usersList?: Array<object>
   
   signOut(): void
