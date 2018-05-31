@@ -80,6 +80,7 @@ $break-small:576px;
   .carousel-inner{
     img{
       width:100%;
+      min-height: 220px;
       height:100%;
     }
     .carousel-item.active{
