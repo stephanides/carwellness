@@ -4,7 +4,7 @@ block vars
   - var pageTitle= 'CarWellness | Obchodné Podmienky'
 
 block css
-  link(rel='stylesheet' href='./assets/css/main-style.css')
+  include main-styles.pug
 
 block content
   #wrapper
@@ -137,5 +137,7 @@ block content
       h5 ZÁVEREČNÉ USTANOVENIA:
       p Všetky právne vzťahy vznikajúce medzi Prevádzkovateľom a Zákazníkmi sa riadia právnymi predpismi SR. Vo veciach neupravovaných týmito Obchodnými podmienkami sa uplatnia príslušné ustanovenia Občianskeho zákonníka.
       p Tieto Obchodné podmienky nadobúdajú platnosť dňa 1. Mája 2016
+
 block script
+  include main-scripts.pug
   script(src='./assets/js/carwellness-main.min.js')

@@ -77,11 +77,11 @@ class App {
     //Should be managed by nginx server in production
     this.app.use('/assets', express.static(__dirname + '/../public/'))
 
+    this.app.set('views', path.join(__dirname, '../views'))
     // Set pug as default template engine
     this.app.set('view engine', 'pug')
-    this.app.locals.pretty = false; //False in production
-    this.app.set('views', path.join(__dirname, '../views'))
-    
+    //this.app.locals.pretty = false; //False in production
+        
     // Connect to DB
     this.dbConnect()
   }
@@ -100,7 +100,7 @@ class App {
   * Methode listing all routes of the application
   */
   private routes(): void {
-    this.router.get('/', (req, res) => { res.render('index') })
+    this.router.get('/', (req, res) => { res.render('index', { page: 'index' }) })
     this.router.get('/admin', (req, res) => { res.render('admin') })
     this.router.get('/admin/setup', async (req, res) => {
       const user: object = await Users.findOne({ role: 2 })
@@ -110,14 +110,14 @@ class App {
         res.render('error')
     })
     this.router.get('/admin/:action', (req, res) => { res.render('admin') })
-    this.router.get('/cennik', (req, res) => { res.render('price-list') })
-    this.router.get('/galeria', (req, res) => { res.render('gallery') })
-    this.router.get('/gdpr', (req, res) => { res.render('gdpr') })
-    this.router.get('/kontakt', (req, res) => { res.render('contact') })
-    this.router.get('/obchodne-podmienky', (req, res) => { res.render('business-conditions') })
-    this.router.get('/online-objednavka', (req, res) => { res.render('order') })
-    this.router.get('/sluzby', (req, res) => { res.render('services') })
-    this.router.get('/reklamacia', (req, res) => { res.render('claim') })
+    this.router.get('/cennik', (req, res) => { res.render('price-list', { page: 'price-list' }) })
+    this.router.get('/galeria', (req, res) => { res.render('gallery', { page: 'gallery' }) })
+    this.router.get('/gdpr', (req, res) => { res.render('gdpr', { page: 'gdpr' }) })
+    this.router.get('/kontakt', (req, res) => { res.render('contact', { page: 'contact' }) })
+    this.router.get('/obchodne-podmienky', (req, res) => { res.render('business-conditions', { page: 'business-conditions' }) })
+    this.router.get('/online-objednavka', (req, res) => { res.render('order', { page: 'order' }) })
+    this.router.get('/sluzby', (req, res) => { res.render('services', { page: 'services' }) })
+    this.router.get('/reklamacia', (req, res) => { res.render('claim', { page: 'claim' }) })
 
     this.io.on('connection', socket => {
       const admin = this.io.of('/admin')

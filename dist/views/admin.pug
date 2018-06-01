@@ -4,15 +4,17 @@ block vars
   - var pageTitle= 'CarWellness | Admin'
 
 block css
-  link(rel='stylesheet' href='../assets/css/main-style.css')
+  include admin-styles.pug
 
 block content 
   #wrapper.admin
 
 block script
+  // jQuery first, then Popper.js, then Bootstrap JS
+  script(src='../assets/js/jquery-3.3.1.min.js' deffer)
+  script(src='../assets/js/popper.min.js' deffer)
+  script(src='../assets/js/bootstrap.min.js' deffer)
   script(src='../assets/js/react.development.js' deffer)
   script(src='../assets/js/react-dom.development.js' deffer)
   script(src='../assets/js/socket.io.slim.js' deffer)
-  //-script.
-    var socket = io()
   script(src='../assets/js/admin-bundle.js')

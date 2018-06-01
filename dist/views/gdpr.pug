@@ -4,10 +4,11 @@ block vars
   - var pageTitle= 'CarWellness'
 
 block css
-  link(rel='stylesheet' href='./assets/css/main-style.css')
+  include main-styles.pug
 
 block content  
   #wrapper
     
 block script
+  include main-scripts.pug
   script(src='./assets/js/carwellness-main.min.js')

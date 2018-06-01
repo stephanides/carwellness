@@ -1,0 +1,30 @@
+//- navbar pug
+nav.navbar.navbar-expand-lg.navbar-light.fixed-top
+  .container
+    a.navbar-brand(href='./')
+      img(src='./assets/images/logo.png')
+    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarCollapse')
+      span.navbar-toggler-icon
+    .collapse.navbar-collapse.justify-content-end#navbarCollapse
+      ul.navbar-nav
+        li.nav-item
+          a(class=(page !== 'index' ? 'nav-link' : 'nav-link active') href='./') Domov
+        li.nav-item
+          a(class=(page !== 'services' ? 'nav-link' : 'nav-link active') href='./sluzby') Služby
+        li.nav-item
+          a(class=(page !== 'price-list' ? 'nav-link' : 'nav-link active') href='./cennik') Cenník
+        li.nav-item
+          a(class=(page !== 'gallery' ? 'nav-link' : 'nav-link active') href='./galeria') Galéria
+        li.nav-item
+          a(class=(page !== 'contact' ? 'nav-link' : 'nav-link active') href='./kontakt') Kontakt
+        li.nav-item
+          a(class=(page !== 'claim' ? 'nav-link' : 'nav-link active') href='./reklamacia') Reklamácia
+        li.nav-item
+          a.nav-link.online-order(href='./online-objednavka') Online objednávka
+        li.nav-item
+          a.nav-link(href='https://www.instagram.com/carwellness.sk/' target='_blank' rel='noopener')
+            i.fab.fa-instagram.social-icon
+        li.nav-item
+          a.nav-link(href='https://www.facebook.com/carwellnessaupark/' target='_blank' rel='noopener')
+            i.fab.fa-facebook.social-icon
+        

@@ -4,11 +4,19 @@ block vars
   - var pageTitle= 'CarWellness | Objednávka'
 
 block css
-  link(rel='stylesheet' href='./assets/css/main-style.css')
-  link(rel='stylesheet' href='./assets/css/jquery-ui.min.css')
-  link(rel='stylesheet' href='./assets/css/jquery.timepicker.min.css')
+  include main-styles.pug
+  link(rel='preload' href='./assets/css/jquery-ui.min.css' as='style' onload='this.rel="stylesheet"')
+  link(rel='preload' href='./assets/css/jquery.timepicker.min.css' as='style' onload='this.rel="stylesheet"')
+  noscript
+    link(rel="stylesheet" href='./assets/css/jquery-ui.min.css')
+    link(rel='stylesheet' href='./assets/css/jquery.timepicker.min.css')
 
 block content
+  style.
+    .social-icon {
+      font-size: 21px;
+    }
+
   .modal#orderConflictModal
     .modal-dialog
       .modal-content
@@ -31,41 +39,17 @@ block content
           button.btn.btn-danger(type='button' data-dismiss='modal') Zavrieť
   #wrapper
     .orderwrapper
-      nav.navbar.navbar-expand-lg.navbar-light.fixed-top
-        .container
-          a.navbar-brand(href='./#')
-            img(src='./assets/images/logo.png')
-          button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarCollapse')
-            span.navbar-toggler-icon
-          .collapse.navbar-collapse.justify-content-end#navbarCollapse
-            ul.navbar-nav
-              li.nav-item
-                a.nav-link(href='./#') Domov
-              li.nav-item
-                a.nav-link(href='./sluzby') Služby
-              li.nav-item
-                a.nav-link(href='./cennik') Cenník
-              li.nav-item
-                a.nav-link(href='./galeria') Galéria
-              li.nav-item
-                a.nav-link(href='./kontakt') Kontakt
-              li.nav-item
-                a.nav-link(href='./reklamacia') Reklamácia
-              li.nav-item
-                a.nav-link.online-order(href='./online-objednavka') Online objednávka
-              li.nav-item
-                a.nav-link(href='https://www.instagram.com/carwellness.sk/' target='_blank' rel='noopener')
-                  i.fab.fa-instagram(style='font-size:21px;')
-              li.nav-item
-                a.nav-link(href='https://www.facebook.com/carwellnessaupark/' target='_blank' rel='noopener')
-                  i.fab.fa-facebook(style='font-size:21px;')
+      include navbar.pug
+
       .container-fluid.serviceshead
         img.headpicture(src='./assets/images/order.jpg')
         .container.headContainer
           h3 Online objednávka
+
       .container.price-listContent
         h4 Vyberte si #[strong CAR]wellness vo vašom meste.
         p O vaše auto sa postará profesionálny tím, ktorý spraví maximum pre Vašu spokojnosť.
+
       .container.orderContainer
         .container.orderChooseCity
           .row
@@ -78,6 +62,7 @@ block content
                       button.btn-block#cityForOrder-2(onclick='cityForOrder(2)') CARwellness Žilina (Aupark)
                     .col-md-6
                       button.btn-block#cityForOrder-1(onclick='cityForOrder(1)') CARwellness Nitra (Mlyny)
+
         .container.orderChooseCarType
           .row
             h4 2. Vyberte si typ auta
@@ -89,6 +74,7 @@ block content
                       button.btn-block#carTypeOrder-1(onclick='carTypeOrder(1)') Auto KLASIK (Kombi,Sedan...)
                     .col-md-6
                       button.btn-block#carTypeOrder-2(onclick='carTypeOrder(2)') Auto SUV
+
         .container.orderChooseProgram
           .row
             h4 3. Vyberte si program
@@ -126,6 +112,7 @@ block content
                   h5 TOP GLANZ
                   h6 Čas trvania: #[strong 3 hodiny]
                   p.price 68,00 €
+
         .container.orderChooseDate
           .row
             h4 4. Vyberte si dátum a čas
@@ -145,6 +132,7 @@ block content
                     input#timepicker(type='text' placeholder='00:00' onchange="orderTimeResult()")
                   .col-lg-4.alert.alert-danger#dateDanger(role="alert")
                     p Nezvolili ste si žiadnu #[strong autoumyváreň!]
+
         .container.orderMoreInfo
           .row
             .col-lg-6
@@ -227,78 +215,14 @@ block content
           .row
         .container.p-0
           button.btn-block.orderButton(onclick='sendOrder()') OBJEDNAŤ
+
       .container.orderCancelInfo
         p Minimálny čas rezervácie je 6 hodín pred príchodom do Carwellness. Rezervácia je platná až po telefonickom, resp. e-mailovom potvrdení.<br>V prípade, že si prajete zrušiť rezerváciu, je potrebné tak urobiť čímskôr, najneskôr však 1 hodinu pred príchodom. <br>Nepožadujeme predplatbu za rezerváciu.
-      section.footer
-        .container
-          .row
-            .col-md-6
-              .row
-                .col
-                  h4 Kontakt
-                  .divider
-              .row
-                .col-md-6
-                  h6 #[strong Car ]wellness s.r.o
-                  p J.Grešáka 2877/22
-                  p 085 01, Bardejov
-                  p Slovenská republika
-                  p &nbsp;
-                  p IČO: 46 471 308
-                  p DIČ: 2023405230
-                .col-md-6
-                  h6 Zodpovedný vedúci / Manager
-                  p Jiří Laník
-                  p +421 903 716 656
-                  p.highlight j.lanik@carwellness.sk 
-                  p &nbsp;
-                  h6 Stante sa fanušíkmi:
-                  .socNetworks 
-                    a.nav-link(href='https://www.instagram.com/carwellness.sk/' target='_blank' rel='noopener')
-                      i.fab.fa-instagram(style='font-size:21px;')
-                    a.nav-link(href='https://www.facebook.com/carwellnessaupark/' target='_blank' rel='noopener')
-                      i.fab.fa-facebook(style='font-size:21px;')
-            .col-md-6
-              .row
-                .col-md-6.padding-left-30.hide-mobile
-                  h4 #[strong Car]wellness Žilina
-                  .divider
-                .col-md-6.padding-left-30.hide-mobile
-                  h4 #[strong Car]wellness Nitra
-                  .divider
-              .row
-                .col-md-6.padding-left-30
-                  h4.hide-desktop #[strong Car]wellness Žilina
-                  .divider.hide-desktop
-                  p Pondelok - Piatok
-                  p.strongblack od 7.00 do 21.00
-                  p &nbsp;
-                  p Sobota - Nedeľa
-                  p.strongblack od 8.00 do 21.00
-                  a.goMap.linkmap(href='./kontakt') Pozrieť na mape
-                .col-md-6.padding-left-30
-                  h4.hide-desktop #[strong Car]wellness Nitra
-                  .divider.hide-desktop
-                  p Pondelok - Piatok
-                  p.strongblack od 8.00 do 21.00
-                  p &nbsp;
-                  p Sobota - Nedeľa
-                  p.strongblack od 8.30 do 21.00
-                  a.goMap.linkmap(href='./kontakt') Pozrieť na mape
-        .container-fluid.bg-white
-          .container.bg-white.copyrights
-            .row
-              .col-md-6.col-sm-12
-                p CARwellness s.r.o. &copy; 2018 | Všetky práva vyhradené.
-              .col-md-6.col-sm-12.text-right
-                p
-                  a GDPR
-                  a(href='./obchodne-podmienky') Obchodné podmienky
-                  a Reklamácia
-                  a Kontakt
-
+      
+      include footer.pug
         
 block script
+  include main-scripts.pug
   script(src='./assets/js/jquery-ui.min.js' deffer)
   script(src='./assets/js/jquery.timepicker.min.js' deffer)
   script(src='./assets/js/socket.io.slim.js' deffer)
