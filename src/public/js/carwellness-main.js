@@ -669,9 +669,14 @@ function imgtobase(){
 
 // Lazy load img files
 
-[].forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
-	img.setAttribute('src', img.getAttribute('data-src'));
-	img.onload = function() {
-		img.removeAttribute('data-src');
-	};
-});
+document.addEventListener("DOMContentLoaded", function() {
+	console.log('DOC READY');
+	
+	[].forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
+		img.setAttribute('src', img.getAttribute('data-src'));
+		img.onload = function() {
+			console.log('loaded:', img);
+			img.removeAttribute('data-src');
+		};
+	});
+}, false);
