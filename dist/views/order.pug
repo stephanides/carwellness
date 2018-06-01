@@ -5,11 +5,11 @@ block vars
 
 block css
   include main-styles.pug
-  link(rel='preload' href='./assets/css/jquery-ui.min.css' as='style' onload='this.rel="stylesheet"')
-  link(rel='preload' href='./assets/css/jquery.timepicker.min.css' as='style' onload='this.rel="stylesheet"')
+  link(rel='preload' href='./assets/css/jquery-ui.min.css' as='style' onload='this.rel="stylesheet"' media='screen')
+  link(rel='preload' href='./assets/css/jquery.timepicker.min.css' as='style' onload='this.rel="stylesheet"' media='screen')
   noscript
-    link(rel="stylesheet" href='./assets/css/jquery-ui.min.css')
-    link(rel='stylesheet' href='./assets/css/jquery.timepicker.min.css')
+    link(rel="stylesheet" href='./assets/css/jquery-ui.min.css' media='screen')
+    link(rel='stylesheet' href='./assets/css/jquery.timepicker.min.css' media='screen')
 
 block content
   style.
@@ -42,7 +42,7 @@ block content
       include navbar.pug
 
       .container-fluid.serviceshead
-        img.headpicture(src='./assets/images/order.jpg')
+        img.headpicture(data-src='./assets/images/order.jpg' alt='')
         .container.headContainer
           h3 Online objednávka
 
