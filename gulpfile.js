@@ -19,4 +19,4 @@ gulp.task('uncss:css', function() {
   })).pipe(gulp.dest('./dist/public/css'));
 });
 
-gulp.task('default', ['minify-js', 'watch:js', 'uncss:css']);
+gulp.task('default', ['minify-js', 'watch:js']); // 'uncss:css'

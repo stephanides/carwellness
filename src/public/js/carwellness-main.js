@@ -668,8 +668,9 @@ function imgtobase(){
 }
 
 // Lazy load img files
+$('.lazy').lazy();
 
-document.addEventListener("DOMContentLoaded", function() {
+/*document.addEventListener("DOMContentLoaded", function() {
 	console.log('DOC READY');
 	
 	[].forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
@@ -679,4 +680,4 @@ document.addEventListener("DOMContentLoaded", function() {
 			img.removeAttribute('data-src');
 		};
 	});
-}, false);
+}, false);*/

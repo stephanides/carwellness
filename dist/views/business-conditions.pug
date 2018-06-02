@@ -8,34 +8,8 @@ block css
 
 block content
   #wrapper
-    nav.navbar.navbar-expand-lg.navbar-light.fixed-top
-      .container
-        a.navbar-brand(href='./#')
-          img(src='./assets/images/logo.png')
-        button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarCollapse')
-          span.navbar-toggler-icon
-        .collapse.navbar-collapse.justify-content-end#navbarCollapse
-          ul.navbar-nav
-            li.nav-item
-              a.nav-link(href='./#') Domov
-            li.nav-item
-              a.nav-link(href='./sluzby') Služby
-            li.nav-item
-              a.nav-link(href='./cennik') Cenník
-            li.nav-item
-              a.nav-link(href='./galeria') Galéria
-            li.nav-item
-              a.nav-link(href='./kontakt') Kontakt
-            li.nav-item
-              a.nav-link(href='./reklamacia') Reklamácia
-            li.nav-item
-              a.nav-link.online-order(href='./online-objednavka') Online objednávka
-            li.nav-item
-              a.nav-link(href='https://www.instagram.com/carwellness.sk/' target = '_blank')
-                i.fab.fa-instagram(style='font-size:21px;')
-            li.nav-item
-              a.nav-link(href='https://www.facebook.com/carwellnessaupark/' target = '_blank')
-                i.fab.fa-facebook(style='font-size:21px;')
+    include navbar.pug
+
     .container-fluid.serviceshead
       img.headpicture(src='./assets/images/claim.jpg')
       .container.headContainer

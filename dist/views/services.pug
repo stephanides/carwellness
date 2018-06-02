@@ -16,7 +16,7 @@ block content
     include navbar.pug
     
     .container-fluid.serviceshead
-      img.headpicture(data-src='./assets/images/serviceshead.jpg' alt='')
+      img.headpicture(src='./assets/images/serviceshead.jpg' alt='')
       .container.headContainer
         h3 Naše služby
     
@@ -27,7 +27,7 @@ block content
     .container.serviceInfo
       .row.rowservice
         .col-lg-6
-          img(data-src='./assets/images/cistenie_diskov.jpg' alt='')
+          img.lazy(data-src='./assets/images/cistenie_diskov.jpg' alt='')
         .col-lg-6
           h4 Čistenie diskov <br> a ošetrenie pneumatík
           p To, aby zostali pneumatiky krásne čierne a prípadne i lesklé, zaistíme dôkladným čistením, ktorým sa nečistoty narušia a odstránia. Na disky kolies používame k tomu určené špeciálne štetce a kefy, ktoré preniknú do všetkých škár a výsledok je stopercentný. Teraz máme kolesá čisté a na rade je impregnácia!
@@ -35,7 +35,7 @@ block content
           a(href='./online-objednavka') Objednať online
       .row.rowservice
         .col-lg-6.order-lg-2
-          img(data-src='./assets/images/klima.jpg' alt='')
+          img.lazy(data-src='./assets/images/klima.jpg' alt='')
         .col-lg-6.order-lg-1
           h4 Dezinfekcia <br> klimatizácie a interiéru
           p Dezinfekcia klimatizácie a interiéru vozidla generátorom Ozónu (O3).Ozón má smrtiaci účinok na baktérie, vírusy, plesne, riasy, parazity, huby a všetky alergénne látky prítomné v potrubí cirkulácie vzduchu Vášho vozidla. Ozón má navyše tzv. dezodoračný efekt, čoho výsledkom je rozklad zapachajúcich látok a tým odstránenie zápachu.
@@ -43,7 +43,7 @@ block content
           a(href='./online-objednavka') Objednať online
       .row.rowservice
         .col-lg-6
-          img(data-src='./assets/images/lak.jpg' alt='')
+          img.lazy(data-src='./assets/images/lak.jpg' alt='')
         .col-lg-6
           h4 Renovácia laku
           p Renovácia a leštenie je proces opracovania povrchov, pri ktorom dochádza k veľmi jemnému odberu materiálu, rádovo v mikrónoch. Pri leštení lakov automobilov, ale aj iných produktov, dochádza pôsobením abrazív k veľmi jemnému brúseniu povrchu a to až tak, že stopy po tomto mechanickom pôsobení nie sú viditeľné voľným okom.
@@ -51,7 +51,7 @@ block content
           a(href='./online-objednavka') Objednať online
       .row.rowservice
         .col-lg-6.order-lg-2
-          img(data-src='./assets/images/leather.jpg' alt='')
+          img.lazy(data-src='./assets/images/leather.jpg' alt='')
         .col-lg-6.order-lg-1
           h4 Čistenie <br> a impregnácia kože
           p Kože je jedným z najstarších prírodných materiálov a pre svoje jedinečné vlastnosti je koža veľmi obľúbený materiál. Kožená sedacia súprava si zachová dlhodobo svoj exkluzívny vzhľad a pôvodné vlastnosti iba v prípade správnej starostlivosti a údržby. Čistenie koženej sedačky sa odporúča dvakrát za rok a po čistení je potrebné urobiť aj ošetrenie čo sa odporúča tiež dvakrát ročne. 
@@ -59,7 +59,7 @@ block content
           a(href='./online-objednavka') Objednať online
       .row.rowservice
         .col-lg-6
-          img(data-src='./assets/images/cleaning.jpg' alt='')
+          img.lazy(data-src='./assets/images/cleaning.jpg' alt='')
         .col-lg-6
           h4 Vysávanie a tepovanie
           p Automobil sa starostlivo a detailne vysaje, následne špeciálnym zariadením na tlakový vzduch, ktoré vytvára vzušný vír, odstráni všetok prach aj z miest veľmi ťažko dostupných. Ďalej je na rade starostlivosť o plastové časti interiéru vozidla. Plasty obsahujú okrem iného zmäkčovadlá pre svoju pružnosť a plnidlá, ktoré určujú vlastnosti povrchu.
@@ -73,7 +73,7 @@ block content
         .row
           .col-lg-12
             a(href='./galeria')
-              img(data-src='./assets/images/gallerybentley.jpg' alt='')
+              img.lazy(data-src='./assets/images/gallerybentley.jpg' alt='')
             h4 CARwellness Žilina & Nitra
     
     include footer.pug
