@@ -9,16 +9,17 @@ $white: #fff;
 $black: #1d1d1d;
 $bgDark: #343a40;
 $bgLightDark: #6c757d;
+$blueButtons: #007bff;
 
 #wrapper {
   &.admin {
     position: relative;
     min-height: 100vh;
     height: 100%;
-    background-color: $bgDark;
+    background-color: $white;
 
     caption, h1, h2, h3, h4, h5, h6, p, td, th, span, label, li {
-      color: $lightGreyText;
+      color: $black;
     }
     a {
       color: $cwRed;
@@ -33,7 +34,7 @@ $bgLightDark: #6c757d;
       }
     }   
     .navbar {
-      background-color: $bgLightDark;
+      background-color: $cwGrey;
       //border-bottom: 1px solid $cwGrey;
       padding: .5rem 0;
 
@@ -123,15 +124,18 @@ $bgLightDark: #6c757d;
       border-bottom: 1px solid $cwRed;
 
       .nav-link {
+        color: $blueButtons;
+        background-color: $cwGrey;
+        border-color: $cwGrey;
         &.active {
-          color: $cwRed;
-          background-color: $white;
-          border-color: $cwRed;
+          color: $white;
+          background-color: $blueButtons;
+          border-color: $blueButtons;
         }
         &:hover {
-          color: $lightGreyText;
-          background-color: $bgLightDark;
-          border-color: transparent transparent $cwRed;
+          color: $white;
+          background-color: $blueButtons;
+          border-color: transparent transparent $blueButtons;
         }
       }
     }
@@ -212,8 +216,8 @@ $bgLightDark: #6c757d;
     }
     .tab-content {
       height: 100%; //calc(100vh - 140px);
-      border-left: 1px solid $cwRed;
-      border-right: 1px solid $cwRed;
+      border-left: 1px solid $blueButtons;
+      border-right: 1px solid $blueButtons;
 
       .table {
         caption {
@@ -224,7 +228,7 @@ $bgLightDark: #6c757d;
           }
         }
         thead {
-          background-color: $cwRed;
+          background-color: $grey;
         }
         tbody {
           tr {
@@ -323,5 +327,9 @@ $bgLightDark: #6c757d;
         color: $cwRed;
       }
     }    
+  }
+  .bg-new{
+    background-color: $white;
+    border: solid 1px $grey;
   }
 }

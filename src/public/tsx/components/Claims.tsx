@@ -32,7 +32,7 @@ export class Claims extends React.Component <IProps, {}> {
         <table className='table'>
           <caption>
             Zoznam reklamácií:
-            <span className='bg-warning font-weight-bold'>NOVÁ</span>
+            <span className='bg-new font-weight-bold'>NOVÁ</span>
             <span className='bg-danger font-weight-bold'>ZRUŠENÁ</span>
             <span className='bg-success font-weight-bold'>VYBAVENÁ</span>
           </caption>
@@ -67,7 +67,7 @@ export class Claims extends React.Component <IProps, {}> {
                       (
                         this.props.list[i]['claimState'] > 1 ?
                         'bg-success' : 'bg-danger'
-                      ) : 'bg-warning'
+                      ) : 'bg-new'
                     }>
                       <th className='text-center' scope='row'>{i+1}</th>
                       {
