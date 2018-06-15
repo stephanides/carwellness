@@ -216,8 +216,6 @@ $blueButtons: #007bff;
     }
     .tab-content {
       height: 100%; //calc(100vh - 140px);
-      border-left: 1px solid $blueButtons;
-      border-right: 1px solid $blueButtons;
 
       .table {
         caption {
