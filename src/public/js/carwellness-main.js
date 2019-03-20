@@ -368,6 +368,7 @@ var timeObject = [["00:00:00", "00:30:00"], ["00:30:00", "01:00:00"], ["01:00:00
 function fillObjectsOfTimes() { }
 
 function orderDateResult(){
+	console.log(document.getElementById("datepicker").SelectedDate);
 	var avDate = document.getElementById("datepicker").value;
 	var avDateISO = avDate.split("-")[2] + "-" + avDate.split("-")[1] + "-"+avDate.split("-")[0] + "T00:00:00.00Z";		
 
@@ -492,10 +493,20 @@ function sendOrder() {
 		document.getElementById("orderCarType").classList.add("unlisted");
 	}
 
+	if(date == ""){
+		readyToSend = false;
+		document.getElementById("datepicker").classList.add("unlisted");
+		$("html, body").animate({scrollTop:$("#datepicker").offset().top - 140 + "px"}, "slow");
+	}
+	if(time == ""){
+		readyToSend = false;
+		document.getElementById("timepicker").classList.add("unlisted");
+		$("html, body").animate({scrollTop:$("#timepicker").offset().top - 140 + "px"}, "slow");
+	}
+
 	console.log(readyToSend);
 
 	if (readyToSend) {
-		console.log(orderObjectToSend);
 
 		$.ajax({
 			type: "POST",
@@ -503,7 +514,6 @@ function sendOrder() {
 			data: orderObjectToSend, //JSON.stringify(orderObjectToSend)
 			dataType: "json",
 			success:  function (response) {
-				console.log(response);
 				
 				if(response.success) {
 					//SERVICE WORKER CALL
