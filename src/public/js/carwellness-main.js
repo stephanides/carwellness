@@ -226,6 +226,7 @@ function carTypeOrder(e) {
 }
 
 function programOrder(e) {
+	if(event.target.type != "button"){
 	document.getElementById("programOrder-"+0).classList.remove("unlisted");
 
 	if (document.getElementById("programOrder-"+e).classList.contains("choosed")) {
@@ -298,6 +299,8 @@ function programOrder(e) {
 	}
 
 	console.log(orderProgram);
+	
+  }
 }
 
 function removeProgram(e){

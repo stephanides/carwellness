@@ -891,7 +891,20 @@ $break-small:576px;
           p{
             color:white;
           }
-        }   
+        }
+        button{
+          background-color: $carwellness-red;
+          border:none;
+          color:white;
+          cursor:pointer;
+          padding: 10px 15px;
+          outline:none;
+          transition: all 0.3s ease-in-out;
+          &:hover{
+            transform: scale(1.1);
+          }
+        }
+         
       }
       .orderChooseDate{
         padding-left:40px;
@@ -1285,3 +1298,5 @@ img[data-src] {
     color:rgb(120,124,135);
   }
 }
+
+
