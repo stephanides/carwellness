@@ -21,6 +21,9 @@ $break-small:576px;
 }
 .socNetworks{
   display: flex;
+  @media screen and (max-width: $break-mediumsmall){
+    justify-content: center;
+  }
   a{
     color: #dc002e;
     &:hover{
@@ -48,6 +51,9 @@ $break-small:576px;
       color:rgb(120, 124, 135);
       cursor:pointer;
       padding: 30px 10px;
+      @media screen and (max-width: $break-medium){
+        padding: 10px 10px;
+      }
       &:hover{
         color:$carwellness-red;
       }
@@ -69,6 +75,9 @@ $break-small:576px;
           height:100vh;
         }
       }
+    }
+    .navbar-brand{
+      padding: 1rem;
     }
   }
   .carousel-inner{
@@ -1259,4 +1268,20 @@ img {
 
 img[data-src] {
 	opacity: 0;
+}
+.atention{
+  position: relative;
+  margin-top: 320px;
+  h4{
+    font-size:38px;
+    font-weight:bold;
+    text-align: center;
+    strong{
+      color:$carwellness-red;
+    }
+  }
+  p{
+    font-size:16px;
+    color:rgb(120,124,135);
+  }
 }

@@ -36,7 +36,7 @@ block content
               h5 Čas trvania: #[strong 1h 30m]
             .card-body-body
               p.light-grey Služba obsahuje kombináciu programov #[strong EXTERIÉR a INTERIÉR]
-              p.price 28,00 €
+              p.price 30,00 €
               a(href='./online-objednavka') Objednať online
         .card
           .card-body
@@ -46,9 +46,8 @@ block content
             .card-body-body
               p.light-grey Služba obsahuje program #[strong COMFORT]
               p Vyčistenie a vyleštenie okien
-              p.light-grey Ošetrenie všetkých plastov interiéru
-              p Tepovanie / čistenie interiéru (záleží od materiálov použitých v interiéri) vrátane batožinového priestoru, všetkých kobercov, sedadiel a operadiel
-              p.light-grey Vyčistenie a leštenie čelného skla
+              p.light-grey Tepovanie / čistenie (záleží od interiéru, či je koža, alebo látka) interiéru vrátane batožinového priestoru, všetkých kobercov, všetkých sedadiel a operadiel
+              p Hĺbkové vyčistenie a ošetrenie kožených sedadiel, nanesenie vyživujúcej emulzie
               p.price 78,00 €
               a(href='./online-objednavka') Objednať online
         .card
@@ -64,7 +63,7 @@ block content
               p.light-grey Samosušiaci vosk
               p Sušenie karosérie a všetkých vnútroných hrán vrátane použitia kompresora
               p.light-grey Ošetrenie podbehov a pneu
-              p.price 15,00 €
+              p.price 16,00 €
               a(href='./online-objednavka') Objednať online
         .card
           .card-body
@@ -77,7 +76,7 @@ block content
               p.light-grey Ošetrenie všetkých plastov interiéru
               p Prevoňanie interiéru
               p.light-grey Vyčistenie a leštenie čelného skla
-              p.price 18,00 €
+              p.price 21,00 €
               a(href='./online-objednavka') Objednať online
     
     .container.price-list-price.top-240
@@ -95,7 +94,7 @@ block content
               p.light-grey Ošetrenie vonkajších plastových, chromovaných a humových dielov, podbehov a pneu
               p Ručné leštenie čistiacou a leštiacou pastou s voskom, nanesenie tvrdého karnaubského vosku(produkt ponúka ochranu trvajúcu až 6 mesiacov)
               p.light-grey Tekuté stierače
-              p.price 108,00 €
+              p.price 98,00 €
               a(href='./online-objednavka') Objednať online
         .card
           .card-body
@@ -119,6 +118,7 @@ block content
               p.light-grey Služba obsahuje program #[strong COMFORT]
               p Vyčistenie a vyleštenie okien
               p.light-grey Vyčistenie a leštenie čelného skla
+              p Hĺbkové vyčistenie a ošetrenie kožených sedadiel, nanesenie vyživujúcej emulzie 
               p.price 58,00 €
               a(href='./online-objednavka') Objednať online
         .card
@@ -182,17 +182,19 @@ block content
               p #[strong 20€]
               p #[strong 88€]
     
-    section.gallery.top-260
+    section.atention
       .container
-        h3 Galéria
-        p Zoznámte sa s našou prácou, ktorú sme odovzdali spokojným klientom.
-        .row
-          .col-lg-12
-            a(href='./galeria')
-              img.lazy(data-src='./assets/images/gallerybentley.jpg' alt='')
-            h4 CARwellness Žilina & Nitra
-    
-    .position-relative.top-150
+        h4 Upozornenie!
+        p.mt-4 #[strong - prosíme zákazníkov, aby pred odovzdaním svojho vozidla do CARWELLNESS starostlivo skontrolovali stav svojho automobilu a nahlásili obsluhe prípadne poškodenie]
+        p.text-center #[strong - detské autosedačky musia byť uvoľnené, aby boli vyčistené, ich spätné upevnenie nevykonávame]
+        p.text-center #[strong - pri umávaní motora nenesieme zodpovednosť za poškodenie (umývanie motora na vlastnú zodpovednosť)]
+        p.text-center #[strong - mini a malé auto -10%, limuzína, MPV, SUV + 10 %, veľké SUV +15%, Dodávka 20%, motorka 8 - 15 €]
+        p.text-center #[strong - extra znečistenie exteriéru či interiéru - príplatok 10 €]
+        p.text-center #[strong - časy programov sú uvedené orientačne, záleží na znečistení vozidla. Ceny sú uvedené vrátane DPH]
+        p.text-center #[strong - pred odchodom si automobil dôkladne skontrolujte]
+        p.text-center #[strong - neskoršie reklamácie nepríjmame]
+        p.text-center #[strong - za cennosti, hotovosť a parkovaciu kartu neručíme]
+    .position-relative
       include footer.pug
 block script
   include main-scripts.pug
