@@ -875,13 +875,21 @@ $break-small:576px;
         .col-md-3{
           text-align:center;
           background-color:#e1e3e8;
-          border:solid 2px #c6cad2;
+          border:solid 2px #eceef2;
           margin-bottom:2%;
           cursor:pointer;
+          &:hover{
+            background-color: #c6cad2;
+            border: 2px solid #c6cad2;
+          }
         }
         .choosed{
           background-color:#dc002e;
           border:solid 2px #dc002e;
+          &:hover{
+            background-color:#dc002e;
+            border:solid 2px #dc002e;
+          }
           h5{
               color:white;
           }
@@ -917,7 +925,7 @@ $break-small:576px;
           padding: 0;
           text-align: center;
           p{
-            padding-top: 10px;
+            padding-top: 13px;
           }
         }
         .form-group{
@@ -1297,6 +1305,10 @@ img[data-src] {
     font-size:16px;
     color:rgb(120,124,135);
   }
+}
+
+.bg-light{
+  background-color: #f2f3f6;
 }
 
 
