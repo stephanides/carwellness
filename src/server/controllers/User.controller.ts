@@ -31,7 +31,7 @@ export class UserController {
 
   async getUsers(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const users: Array<object> = await Users.find({ role: { $nin: [1, 2] } })
+      const users: Array<object> = await Users.find({}); // await Users.find({ role: { $nin: [1, 2] } })
 
       if(!users || users.length === 0)
         this.throwError('No user found', 404, next)

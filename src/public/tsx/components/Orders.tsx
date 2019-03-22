@@ -11,11 +11,13 @@ interface IProps {
   program: string[]
   orderState: string[]
   orderList?: object[]
+  usersList?: object[]
   
   changeOrder(orders: object): void
   changePage(page: number, order: boolean): void
   changePageItemsCount(itemsCount: number, order: boolean): void
   getList(): void
+  getUsersList(): void
   handleModal(message: string, success: boolean): void
   updateItem(item: object, callBack?: () => void): void
 }
@@ -26,7 +28,8 @@ export class Orders extends React.Component<IProps, {}> {
   }
 
   public componentDidMount(): void {
-    this.props.getList()
+    this.props.getList();
+    this.props.getUsersList();
   }
 
   public render(): JSX.Element {
@@ -49,10 +52,12 @@ export class Orders extends React.Component<IProps, {}> {
               <th className='text-center' scope='col'>Stav Objednávky</th>
               <th className='text-center' scope='col'>Program</th>
               <th className='text-center' scope='col'>Typ auta</th>
-              <th className='text-center' scope='col'>Detailný typ auta</th>
+              <th className='text-center' scope='col'>ŠPZ</th>
               <th className='text-center' scope='col'>Meno</th>
               <th className='text-center' scope='col'>Telefón</th>
-              <th className='text-center' scope='col'>E-mail</th>
+              {/* <th className='text-center' scope='col'>E-mail</th> */}
+              <th className='text-center' scope='col'>Príchod</th>
+              <th className='text-center' scope='col'>Vybavuje</th>
               <th></th>
             </tr>
           </thead>
@@ -117,7 +122,19 @@ export class Orders extends React.Component<IProps, {}> {
                       <td className='text-center'>{item['carTypeDetail']}</td>
                       <td className='text-center'>{item['fullName']}</td>
                       <td className='text-center'>{item['phone']}</td>
-                      <td className='text-center'>{item['email']}</td>
+                      <td className='text-center'>
+                        <input type='time' id="time" name="time" />
+                        {/* TODO prepojit s databazou */}
+                      </td>
+                      <td>
+                        <select>
+                          {this.props.usersList.map((item: any, i: Number) => {
+                            const { firstName, lastName } = item;
+                            return <option>{`${firstName} ${lastName}`}</option>
+                          })}
+                        </select>
+                      </td>
+                      {/* <td className='text-center'>{item['email']}</td> */}
                       <td className='text-center'>
                         {
                           item['message'] && item['message'] !== '' ?

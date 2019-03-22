@@ -15,6 +15,7 @@ interface Props {
   carType: string[]
   city?: number
   user: IUserPayLoad
+  usersList?: object[]
   claimList?: object[]
   orderedClaimList?: object[]
   dayOfWeek: number
@@ -44,6 +45,7 @@ interface Props {
   changePageItemsCount(itemsCount: number, order: boolean): void
   getClaimList(): void
   getOrderList(): void
+  getUsersList(): void
   handleModal(message: string, success: boolean): void
   orderByTime(order: boolean): void
   orderByOrderState(orderState: number | null): void
@@ -120,11 +122,13 @@ export class Admin extends React.Component<Props, {}> {
                   program={this.props.program}
                   orderList={this.props.orderList}
                   orderState={this.props.orderState}
+                  usersList={this.props.usersList}
 
                   changeOrder={this.props.changeOrder}
                   changePage={this.props.changePage}
                   changePageItemsCount={this.props.changePageItemsCount}
                   getList={this.props.getOrderList}
+                  getUsersList={this.props.getUsersList}
                   handleModal={this.props.handleModal}
                   updateItem={this.props.updateOrder}
                 />

@@ -1111,6 +1111,7 @@ export class App extends React.Component<{}, IState> {
               program={this.state.program}
               timeAscend={this.state.timeAscend}
               user={this.state.user}
+              usersList={this.state.usersList}
               workingHours={this.state.workingHours}
               workingHoursAvailability={this.state.workingHoursAvailability}
               
@@ -1123,6 +1124,7 @@ export class App extends React.Component<{}, IState> {
               changePageItemsCount={this.changePageItemsCount}
               getOrderList={this.getOrderList}
               getClaimList={this.getClaimList}
+              getUsersList={this.getUsersList}
               handleModal={this.handleModal}
               orderByOrderState={this.orderByOrderState}
               orderByOrderProgram={this.orderByOrderProgram}
