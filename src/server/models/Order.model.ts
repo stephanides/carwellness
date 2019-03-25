@@ -11,6 +11,8 @@ export class Order {
   editedAt: Date
   email: string
   fullName: string
+  managed: string
+  managedTime: string
   message: string
   phone: string
   program: Array<boolean>
@@ -26,6 +28,8 @@ export class Order {
     editedAt: Date
     email: string
     fullName: string
+    managed: string
+    managedTime: string
     message: string
     phone: string
     program: Array<boolean>
@@ -40,6 +44,8 @@ export class Order {
     this.editedAt = data.editedAt
     this.email = data.email
     this.fullName = data.fullName
+    this.managed = data.managed
+    this.managedTime = data.managedTime
     this.message = data.message
     this.phone = data.phone
     this.program = data.program
@@ -60,6 +66,8 @@ const OrderSchema = new Schema({
   editedAt: Date,
   email: String,
   fullName: String,
+  managed: String,
+  managedTime: String,
   message: String,
   phone: String,
   program: Array,

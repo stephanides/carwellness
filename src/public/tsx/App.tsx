@@ -703,8 +703,8 @@ export class App extends React.Component<{}, IState> {
   }
 
   private async updateOrder(order: object, callBack?: () => void) {
-    const url: string = '/order/orders/'+order['_id']
-    const data: object = order
+    const url: string = '/order/orders/'+order['_id'];
+    const data: object = order;
 
     const response: Response = await fetch(url, {
       body: JSON.stringify(data),

@@ -8,6 +8,8 @@ export interface IOrder {
   editedAt: Date
   email: string
   fullName: string
+  managed: string
+  managedTime: string
   message: string
   phone: string
   program: Array<boolean>

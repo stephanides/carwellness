@@ -123,16 +123,56 @@ export class Orders extends React.Component<IProps, {}> {
                       <td className='text-center'>{item['fullName']}</td>
                       <td className='text-center'>{item['phone']}</td>
                       <td className='text-center'>
-                        <input type='time' id="time" name="time" />
-                        {/* TODO prepojit s databazou */}
+                        <input
+                          type='time'
+                          id="time"
+                          name="time"
+                          onChange={(e) => {
+                            const managedTime = e.currentTarget.value;
+                            const orders: Array<object> = this.props.list;
+
+                            orders[i]['managedTime'] = managedTime;
+                            
+                            this.props.updateItem(orders[i]);
+                          }}
+                          value={this.props.list[i]['managedTime'] ? this.props.list[i]['managedTime'] : ""}
+                        />
+                        {/* TODO update s databazou */}
                       </td>
                       <td>
-                        <select>
-                          {this.props.usersList.map((item: any, i: Number) => {
-                            const { firstName, lastName } = item;
-                            return <option>{`${firstName} ${lastName}`}</option>
-                          })}
-                        </select>
+                        {
+                          this.props.usersList ? (
+                          <select
+                            onChange={(e) => {
+                              const selectEl = e.currentTarget;
+                              const uId = selectEl.options[selectEl.options.selectedIndex].value;
+                              const orders: Array<object> = this.props.list;
+
+                              orders[i]['managed'] = uId;
+                          
+                              this.props.updateItem(orders[i])
+                            }}
+                          >
+                            <option value={0}>Vybrať</option>
+                            {
+                              this.props.usersList.map((item: any, j: number) => {
+                                const { firstName, lastName, _id } = item;
+  
+                                return (
+                                  <option
+                                    key={j}
+                                    value={_id}
+                                    selected={
+                                      this.props.list[i]['managed'] ? (
+                                        this.props.list[i]['managed'] === item._id ? true : false
+                                      ) : false
+                                    }
+                                  >{`${firstName} ${lastName}`}</option>
+                                );
+                              })
+                            }
+                          </select>) : ""
+                        }
                       </td>
                       {/* <td className='text-center'>{item['email']}</td> */}
                       <td className='text-center'>
