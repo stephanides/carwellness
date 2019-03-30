@@ -9,7 +9,13 @@ export default ({ createEmployee }) => {
     const city = parseInt(form.city.value);
     const newEmployee = { name, city };
 
-    createEmployee(newEmployee);
+    if (city > 0) {
+      form.city.setCustomValidity('');
+      createEmployee(newEmployee);
+    } else {
+      form.city.setCustomValidity('Vyberte prevádzku!');
+      form.city.reportValidity();
+    }
   };
 
   return (
@@ -17,7 +23,7 @@ export default ({ createEmployee }) => {
       <h3 className="mb-2">Zamestnanci</h3>
       <form className="form-inline" onSubmit={submitForm}>
         <div className="form-group mr-2">
-          <input type="text" className="form-control" id="name" name="name" placeholder="Meno a priezvisko zamestnanca" />
+          <input type="text" className="form-control" id="name" name="name" placeholder="Meno a priezvisko zamestnanca" required />
         </div>
         <div className="form-group mr-2">
           <select className="form-control" id="city" name="city">
