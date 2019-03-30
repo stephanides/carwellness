@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { PDFDownloadLink, Document, Page, Text } from '@react-pdf/renderer';
+import PDFGenerator from '../../Modal/components/PDFGenerator';
 
 export default ({
   i, item, boss, list, changeOrder, updateItem, orderState, carType, program, usersList, employeeList, updateOrderArriveTime, handleModal
@@ -139,8 +141,8 @@ export default ({
       <td>
         <button
           type='button'
-          disabled
           className="btn btn-link"
+          disabled
           onClick={() => {
             // handleModal("Objednavkovy formular", true, true)
           }}
@@ -153,3 +155,9 @@ export default ({
     </tr>
   );
 };
+
+/*
+<PDFDownloadLink document={PDFGenerator} fileName="somename.pdf">
+  {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
+</PDFDownloadLink>
+*/

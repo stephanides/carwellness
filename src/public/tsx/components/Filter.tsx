@@ -48,26 +48,38 @@ export class Filter extends React.Component<IProps, {}> {
             <td>
               <div className="row">
                 <div className="col">
-                  <DatePicker
-                    selected={new Date(this.props.dateFrom)}
-                    dateFormat="dd/MM/yyyy"
-                    onChange={(e) => {
-                      const newDate = Date.parse(e);
+                  <div className="input-group">
+                    <div className="input-group-prepend">
+                      <span className="input-group-text" id="basic-addon1">od</span>
+                    </div>
+                      <DatePicker
+                        className="form-control"
+                        selected={new Date(this.props.dateFrom)}
+                        dateFormat="dd/MM/yyyy"
+                        onChange={(e) => {
+                          const newDate = Date.parse(e);
 
-                      this.props.changeDateFrom(newDate);
-                    }}
-                  />
+                          this.props.changeDateFrom(newDate);
+                        }}
+                      />
+                  </div>
                 </div>
                 <div className="col">
-                  <DatePicker
-                    selected={new Date(this.props.dateTo)}
-                    dateFormat="dd/MM/yyyy"
-                    onChange={(e) => {
-                      const newDate = Date.parse(e);
-                      
-                      this.props.changeDateTo(newDate);
-                    }}
-                  />
+                  <div className="input-group">
+                    <div className="input-group-prepend">
+                      <span className="input-group-text" id="basic-addon1">do</span>
+                    </div>
+                    <DatePicker
+                      className="form-control"
+                      selected={new Date(this.props.dateTo)}
+                      dateFormat="dd/MM/yyyy"
+                      onChange={(e) => {
+                        const newDate = Date.parse(e);
+                        
+                        this.props.changeDateTo(newDate);
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
             </td>

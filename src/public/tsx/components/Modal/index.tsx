@@ -1,4 +1,6 @@
-import * as React from 'react'
+import * as React from 'react';
+import { PDFViewer } from '@react-pdf/renderer';
+import PDFGenerator from './components/PDFGenerator';
 
 interface IProps {
   modalMessage?: string | JSX.Element
@@ -7,8 +9,6 @@ interface IProps {
 }
 
 export const Modal: Function = (props: IProps) => {
-  // console.log(props);
-
   return (
     props.modalOrder ? (
       <div className='modal' id='modal' role='dialog'>
@@ -21,7 +21,9 @@ export const Modal: Function = (props: IProps) => {
               </button>
             </div>
             <div className='modal-body'>
-              <p>{props.modalMessage}</p>
+              <PDFViewer>
+                <PDFGenerator />
+              </PDFViewer>
             </div>
             <div className='modal-footer'>
               <button type='button' className='btn btn-secondary' data-dismiss='modal'>Close</button>
