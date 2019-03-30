@@ -13,7 +13,7 @@ export default ({ createEmployee }) => {
   };
 
   return (
-    <div className="mb-3">
+    <div className="mb-4">
       <h3>Zamestnanci</h3>
       <form className="form-inline" onSubmit={submitForm}>
         <div className="form-group mr-2">

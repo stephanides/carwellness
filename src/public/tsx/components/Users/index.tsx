@@ -97,8 +97,9 @@ export const Users: Function = (props: IProps) => {
         <div className='list-group mb-2'>
           <div className='list-group-item'>
             <div className="row">
-              <div className="col-6 d-flex align-items-center">Meno zamestnanca</div>
-              <div className="col-6 d-flex justify-content-center align-items-center">Prevádzka</div>
+              <div className="col-4 d-flex align-items-center">Meno zamestnanca</div>
+              <div className="col-4 d-flex justify-content-center align-items-center">Prevádzka</div>
+              <div className="col-4"></div>
             </div>
           </div>
           {
@@ -107,8 +108,9 @@ export const Users: Function = (props: IProps) => {
               return (
                 <div className="list-group-item" key={i}>
                   <div className="row">
-                    <div className="col-6 d-flex align-items-center">{name}</div>
-                    <div className="col-6 d-flex justify-content-center align-items-center">{city < 2 ? 'Nitra' : 'Žilina'}</div>
+                    <div className="col-4 d-flex align-items-center">{name}</div>
+                    <div className="col-4 d-flex justify-content-center align-items-center">{city < 2 ? 'Nitra' : 'Žilina'}</div>
+                    <div className="col-4"></div>
                   </div>
                 </div>
               );

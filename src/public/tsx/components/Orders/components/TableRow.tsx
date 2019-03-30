@@ -142,7 +142,7 @@ export default ({
         <button
           type='button'
           disabled
-          className='message disabled'
+          className="btn btn-link"
           onClick={() => {
             // handleModal("Objednavkovy formular", true, true)
           }}
