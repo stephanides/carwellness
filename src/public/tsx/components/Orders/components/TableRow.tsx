@@ -141,12 +141,13 @@ export default ({
       <td>
         <button
           type='button'
-          className='message'
+          disabled
+          className='message disabled'
           onClick={() => {
-            handleModal("Objednavkovy formular", true, true)
+            // handleModal("Objednavkovy formular", true, true)
           }}
         >
-          <span className='badge badge-info'>
+          <span className='badge badge-secondary'>
             <i className='fas fa-print' />
           </span>
         </button>
