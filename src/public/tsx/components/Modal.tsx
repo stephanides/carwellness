@@ -3,9 +3,11 @@ import * as React from 'react'
 interface IProps {
   modalMessage?: string | JSX.Element
   modalTitle?: string
+  modalOrder?: boolean
 }
 
 export const Modal: Function = (props: IProps) => {
+  console.log(props);
   return(
     <div className='modal' id='modal' role='dialog'>
       <div className='modal-dialog' role='document'>

@@ -26,14 +26,18 @@ interface IResponse {
 }
 
 interface IState {
+  dateFrom?: number
+  dateTo?: number
   authorised: boolean
   availabilityDate?: string
   carType: string[]
   city?: number
   dayOfWeek: number
   daysOfWeek: string[]
+  employeeList?: object[] | null
   modalMessage?: string | JSX.Element
   modalTitle?: string
+  modalOrder?: boolean
   login: boolean
   orderList?: object[] | null
   orderedOrderList?: object[] | null
@@ -60,7 +64,10 @@ interface IState {
 }
 
 const initialState: IState = {
+  dateFrom: Date.now(),
+  dateTo: Date.now(),
   authorised: false,
+  modalOrder: false,
   carType: ['AUTO CLASSIC', 'AUTO SUV'],
   city: 1,
   dayOfWeek: _date.getDay(),
@@ -118,6 +125,10 @@ export class App extends React.Component<{}, IState> {
 
     this.socket = io('/admin')
     this.authenticate = this.authenticate.bind(this)
+
+    this.changeDateFrom = this.changeDateFrom.bind(this);
+    this.changeDateTo = this.changeDateTo.bind(this);
+
     this.changeCity = this.changeCity.bind(this)
     this.changeOrderByTime = this.changeOrderByTime.bind(this)
     this.checkOrders = this.checkOrders.bind(this)
@@ -128,6 +139,10 @@ export class App extends React.Component<{}, IState> {
     this.changeOrder = this.changeOrder.bind(this)
     this.changePage = this.changePage.bind(this)
     this.changePageItemsCount = this.changePageItemsCount.bind(this)
+
+    this.createEmployee = this.createEmployee.bind(this);
+    this.getEmployees = this.getEmployees.bind(this);
+
     this.getOrderList = this.getOrderList.bind(this)
     this.getClaimList = this.getClaimList.bind(this)
     this.getUsersList = this.getUsersList.bind(this)
@@ -136,6 +151,7 @@ export class App extends React.Component<{}, IState> {
     this.handlePaginationData = this.handlePaginationData.bind(this)
     this.sendNotification = this.sendNotification.bind(this)
     this.orderByTime = this.orderByTime.bind(this)
+
     this.orderByOrderState = this.orderByOrderState.bind(this)
     this.orderByOrderProgram = this.orderByOrderProgram.bind(this)
     this.setDay = this.setDay.bind(this)
@@ -148,6 +164,7 @@ export class App extends React.Component<{}, IState> {
     this.updateClaim = this.updateClaim.bind(this)
     this.updateUser = this.updateUser.bind(this)
     this.updateOrder = this.updateOrder.bind(this)
+    this.updateOrderArriveTime = this.updateOrderArriveTime.bind(this);
   }
 
   private authenticate() {
@@ -157,6 +174,14 @@ export class App extends React.Component<{}, IState> {
       this.setState({ authorised: true, user: user })
     else
       this.signOut()
+  }
+
+  private changeDateFrom(dateFrom: number) {
+    this.setState({ dateFrom }, this.getOrderList);
+  }
+
+  private changeDateTo(dateTo: number) {
+    this.setState({ dateTo }, this.getOrderList);
   }
 
   private async checkClaims() {
@@ -291,6 +316,47 @@ export class App extends React.Component<{}, IState> {
     this.setState({ workingHoursAvailability: arr })
   }
 
+  private async createEmployee(employee: object) {
+    const url: string = '/employee/employee-create';
+    const data: object = employee;
+
+    try {
+      const response = await fetch(url, {
+        body: JSON.stringify(data),
+        headers: {
+          'x-access-token': this.myStorage.getItem('token'),
+          'content-type': 'application/json'
+        },
+        method: 'POST',
+      });
+
+      // console.log(response);
+      this.getEmployees(0);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  private async getEmployees(city?: number) {
+    try {
+      const url: string = `/employee/employees/${city}`;
+      const resp: Response = await fetch(url, {
+        headers: { 'x-access-token': this.state.user.token }
+      });
+
+      if (resp.status === 200) {
+        const employees = await resp.json();
+        const { data } = employees;
+        // console.log(data);
+        this.setState({ employeeList: data });
+      } else {
+        console.log(resp.statusText);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   private async submitAvailability(i: number) {
     const url: string = '/availability/availability-create' 
     const data = {
@@ -303,8 +369,6 @@ export class App extends React.Component<{}, IState> {
       available: this.state.workingHoursAvailability[i],
       arrN: i
     }
-
-    console.log(data)
 
     const response: Response = await fetch(url, {
       body: JSON.stringify(data),
@@ -421,7 +485,7 @@ export class App extends React.Component<{}, IState> {
   }
 
   private async getOrderList() {
-    const url = '/order/orders/'+this.state.user.city
+    const url = '/order/orders/'+this.state.user.city;
     const resp: Response = await fetch(url, {
       headers: { 'x-access-token': this.state.user.token }
     })
@@ -431,7 +495,14 @@ export class App extends React.Component<{}, IState> {
         const respJSON: object[] = await resp.json()
 
         if(respJSON) {
-          this.setState({ orderList: respJSON['data'] }, () => {
+          const rawListData = respJSON['data'];
+          const listData = rawListData.filter((item) => {
+            const itemDate = Date.parse(item.date.split('T'));
+            
+            return (itemDate >= this.state.dateFrom && itemDate <= this.state.dateTo);
+          });
+
+          this.setState({ orderList: listData }, () => {
             this.setState({
               pagesCount: this.state.paginationItemCount === 100 ?
                 1 : 
@@ -476,14 +547,15 @@ export class App extends React.Component<{}, IState> {
   private orderByTime(order: boolean) {
     if(order) {
       this.handlePaginationData(this.state.page, true, () => {
-        const arr: object[] = this.state.orderedOrderList
-  
-        if(this.state.timeAscend)
+        const arr: object[] = this.state.orderedOrderList;
+
+        if(this.state.timeAscend) {
           arr.sort((a: object, b: object) => ( b['date'].toLowerCase().localeCompare(a['date'].toLowerCase()) ))
-        else
+        }
+        else {
           arr.sort((a: object, b: object) => ( a['date'].toLowerCase().localeCompare(b['date'].toLowerCase()) ))
-        
-          this.setState({ orderedOrderList: arr })
+        }
+        this.setState({ orderedOrderList: arr })
       })
     }
     else {
@@ -702,38 +774,46 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
+  private updateOrderArriveTime(orderedOrderList: Array<Object>) {
+    this.setState({orderedOrderList});
+  }
+
   private async updateOrder(order: object, callBack?: () => void) {
     const url: string = '/order/orders/'+order['_id'];
     const data: object = order;
 
-    const response: Response = await fetch(url, {
-      body: JSON.stringify(data),
-      headers: {
-        'x-access-token': this.myStorage.getItem('token'),
-        'content-type': 'application/json'
-      },
-      method: 'PUT'
-    })
-
-    if(response) {
-      if(response.status === 200) {
-        const responseJSON: object = await response.json()
-
-        if(responseJSON['success']) {
-          console.log(responseJSON['message'])
-
-          if(typeof callBack === 'function')
-            callBack()
+    try {
+      const response: Response = await fetch(url, {
+        body: JSON.stringify(data),
+        headers: {
+          'x-access-token': this.myStorage.getItem('token'),
+          'content-type': 'application/json'
+        },
+        method: 'PUT'
+      });
+  
+      if(response) {
+        if(response.status === 200) {
+          const responseJSON: object = await response.json();
+  
+          if(responseJSON['success']) {
+            console.log(responseJSON['message'])
+  
+            if(typeof callBack === 'function')
+              callBack()
+          }
+          else
+            console.log(responseJSON['message'])
         }
-        else
-          console.log(responseJSON['message'])
+        else {
+          const responseJSON: object = await response.json()
+          
+          if(responseJSON)
+            console.log(responseJSON['message'])
+        }
       }
-      else {
-        const responseJSON: object = await response.json()
-        
-        if(responseJSON)
-          console.log(responseJSON['message'])
-      }
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -755,16 +835,16 @@ export class App extends React.Component<{}, IState> {
         const responseJSON: object = await response.json()
 
         if(responseJSON['success']) {
-          console.log(responseJSON['message'])
-
-          if(typeof callBack === 'function')
-            callBack()
+          if(typeof callBack === 'function') {
+            callBack();
+          }
         }
-        else
-          console.log(responseJSON['message'])
+        else {
+          console.log(responseJSON['message']);
+        }
+      } else {
+        console.log(response.statusText);
       }
-      else
-        console.log(response.statusText)
     }
   }
 
@@ -860,10 +940,10 @@ export class App extends React.Component<{}, IState> {
     }
   }
 
-  private handleModal(message: string, success: boolean) {
+  private handleModal(message: string, success: boolean, order?: boolean) {
     const title: string = success ? 'Info' : 'Chyba'
 
-    this.setState({ modalMessage: message, modalTitle: title }, () => { $('#modal').modal('show') })
+    this.setState({ modalMessage: message, modalTitle: title, modalOrder: order || false }, () => { $('#modal').modal('show') })
   }
 
   async sendNotification(data, callBack?: () => void) {
@@ -907,7 +987,7 @@ export class App extends React.Component<{}, IState> {
 }
 
   private setDay(e: string) {
-    let date, dateFormat
+    let date, dateFormat;
 
     if(e !== '') {
       date = new Date(e) as Date
@@ -994,6 +1074,8 @@ export class App extends React.Component<{}, IState> {
       availabilityDate: '',
       authorised: false,
       orderList: null,
+      orderedOrderList: [],
+      orderedClaimList: [],
       showHidePassword: false,
       user: {} as IUserPayLoad,
       claimList: null,
@@ -1089,11 +1171,14 @@ export class App extends React.Component<{}, IState> {
           <Route exact path='/admin' render={(props) => (
             this.state.authorised ?
             <Admin
+              dateFrom={this.state.dateFrom}
+              dateTo={this.state.dateTo}
               availableDates={this.state.availableDates}
               availabilityDate={this.state.availabilityDate}
               carType={this.state.carType}
               city={this.state.city}
               claimList={this.state.claimList}
+              employeeList={this.state.employeeList}
               orderedClaimList={this.state.orderedClaimList}
               dayOfWeek={this.state.dayOfWeek}
               daysOfWeek={this.state.daysOfWeek}
@@ -1114,7 +1199,10 @@ export class App extends React.Component<{}, IState> {
               usersList={this.state.usersList}
               workingHours={this.state.workingHours}
               workingHoursAvailability={this.state.workingHoursAvailability}
+              modalOrder={this.state.modalOrder}
               
+              changeDateFrom={this.changeDateFrom}
+              changeDateTo={this.changeDateTo}
               changeAvailability={this.changeAvailability}
               changeCity={this.changeCity}
               changeClaim={this.changeClaim}
@@ -1122,6 +1210,7 @@ export class App extends React.Component<{}, IState> {
               changeOrderByTime={this.changeOrderByTime}
               changePage={this.changePage}
               changePageItemsCount={this.changePageItemsCount}
+              getEmployees={this.getEmployees}
               getOrderList={this.getOrderList}
               getClaimList={this.getClaimList}
               getUsersList={this.getUsersList}
@@ -1131,6 +1220,7 @@ export class App extends React.Component<{}, IState> {
               orderByTime={this.orderByTime}
               updateClaim={this.updateClaim}
               updateOrder={this.updateOrder}
+              updateOrderArriveTime={this.updateOrderArriveTime}
               setDay={this.setDay}
               signOut={this.signOut}
               socketListener={this.socketListener}
@@ -1188,12 +1278,15 @@ export class App extends React.Component<{}, IState> {
             return(
               this.state.authorised ?
               Users({
+                employeeList: this.state.employeeList,
                 user: this.state.user,
                 usersList: this.state.usersList,
                 signOut: this.signOut,
                 changeUserApprovedProperty: this.changeUserApprovedProperty,
                 getUsersList: this.getUsersList,
-                updateUser: this.updateUser
+                updateUser: this.updateUser,
+                createEmployee: this.createEmployee,
+                getEmployees: this.getEmployees,
               }) :
               <Redirect to='/admin/login' />
             )

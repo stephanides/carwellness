@@ -10,10 +10,13 @@ import { TabNav } from './TabNav'
 import { IUserPayLoad } from '../interfaces/UserPayLoad.interface'
 
 interface Props {
+  dateFrom?: number
+  dateTo?: number
   availableDates?: object[]
   availabilityDate?: string
   carType: string[]
   city?: number
+  employeeList?: object[] | null
   user: IUserPayLoad
   usersList?: object[]
   claimList?: object[]
@@ -22,6 +25,7 @@ interface Props {
   daysOfWeek: string[]
   modalMessage?: string | JSX.Element
   modalTitle: string
+  modalOrder?: boolean
   claimPage: number
   claimPagesCount: number
   claimPagainationCount: number
@@ -36,6 +40,8 @@ interface Props {
   workingHours: string[][]
   workingHoursAvailability: boolean[]
 
+  changeDateFrom(dateFrom: number): void
+  changeDateTo(dateTo: number): void
   changeAvailability(e: React.FormEvent<HTMLElement>, i: number): void
   changeCity(e: React.FormEvent<HTMLDivElement>): void
   changeClaim(claim: object): void
@@ -43,14 +49,16 @@ interface Props {
   changeOrderByTime(): void
   changePage(page: number, order: boolean): void
   changePageItemsCount(itemsCount: number, order: boolean): void
+  getEmployees(city?: number): Promise<void>
   getClaimList(): void
   getOrderList(): void
   getUsersList(): void
-  handleModal(message: string, success: boolean): void
+  handleModal(message: string, success: boolean, order?: boolean): void
   orderByTime(order: boolean): void
   orderByOrderState(orderState: number | null): void
   orderByOrderProgram(orderProgram: number | null): void
   updateOrder(order: object, callBack?: () => void): void
+  updateOrderArriveTime(orderedOrderList: Array<Object>): void
   updateClaim(claim: object, callBack?: () => void): void
   setDay(e: string): void
   signOut(): void
@@ -79,7 +87,8 @@ export class Admin extends React.Component<Props, {}> {
         {
           Modal({
             modalMessage: this.props.modalMessage,
-            modalTitle: this.props.modalTitle
+            modalTitle: this.props.modalTitle,
+            modalOrder: this.props.modalOrder,
           })
         }
         <div className='admin-content'>
@@ -103,10 +112,14 @@ export class Admin extends React.Component<Props, {}> {
             <div className='tab-content p-3' id='adminTabContent'>
               <div className='tab-pane fade show active' id='orders' role='tabpanel' aria-labelledby='orders-tab'>
                 <Filter
+                  dateFrom={this.props.dateFrom}
+                  dateTo={this.props.dateTo}
                   program={this.props.program}
                   orderState={this.props.orderState}
                   timeAscend={this.props.timeAscend}
 
+                  changeDateFrom={this.props.changeDateFrom}
+                  changeDateTo={this.props.changeDateTo}
                   changeOrderByTime={this.props.changeOrderByTime}
                   orderByTime={this.props.orderByTime}
                   orderByOrderState={this.props.orderByOrderState}
@@ -115,6 +128,7 @@ export class Admin extends React.Component<Props, {}> {
                 <Orders
                   carType={this.props.carType}
                   boss={this.props.user.city}
+                  employeeList={this.props.employeeList}
                   list={this.props.orderedOrderList}
                   page={this.props.page}
                   paginationItemCount={this.props.paginationItemCount}
@@ -129,8 +143,10 @@ export class Admin extends React.Component<Props, {}> {
                   changePageItemsCount={this.props.changePageItemsCount}
                   getList={this.props.getOrderList}
                   getUsersList={this.props.getUsersList}
+                  getEmployees={this.props.getEmployees}
                   handleModal={this.props.handleModal}
                   updateItem={this.props.updateOrder}
+                  updateOrderArriveTime={this.props.updateOrderArriveTime}
                 />
               </div>
               <div className='tab-pane fade' id='claims' role='tabpanel' aria-labelledby='claims-tab'>

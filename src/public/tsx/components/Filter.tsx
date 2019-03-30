@@ -1,10 +1,16 @@
-import * as React from 'react'
+import * as React from 'react';
+import DatePicker from 'react-datepicker';
+// import "react-datepicker/dist/react-datepicker.css";
 
 interface IProps {
+  dateFrom?: number
+  dateTo?: number
   program: string[]
   orderState: string[]
   timeAscend: boolean
 
+  changeDateFrom(dateFrom: number): void
+  changeDateTo(dateTo: number): void
   changeOrderByTime(): void
   orderByTime(order: boolean): void
   orderByOrderState(orderState: number | null): void
@@ -15,18 +21,56 @@ export class Filter extends React.Component<IProps, {}> {
   constructor(props: IProps) {
     super(props)
   }
+  private formatDate(date) {
+    let d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+ }
   public render(): JSX.Element {
     return(
-      <table className='w-50 mb-3'>
+      <table className='w-75 mb-3'>
         <tbody>
           <tr>
             <td>Filtrovať podľa:</td>
+            <td>Dátum</td>
             <td>Stav objednávky</td>
             <td>Program</td>
             <td>Termín</td>
           </tr>
           <tr>
             <td></td>
+            <td>
+              <div className="row">
+                <div className="col">
+                  <DatePicker
+                    selected={new Date(this.props.dateFrom)}
+                    dateFormat="dd/MM/yyyy"
+                    onChange={(e) => {
+                      const newDate = Date.parse(e);
+
+                      this.props.changeDateFrom(newDate);
+                    }}
+                  />
+                </div>
+                <div className="col">
+                  <DatePicker
+                    selected={new Date(this.props.dateTo)}
+                    dateFormat="dd/MM/yyyy"
+                    onChange={(e) => {
+                      const newDate = Date.parse(e);
+                      
+                      this.props.changeDateTo(newDate);
+                    }}
+                  />
+                </div>
+              </div>
+            </td>
             <td>
               <select className='form-control' ref='orderFilter' onChange={e => {
                 const stateNum: number = e.currentTarget.options[e.currentTarget.selectedIndex].value !== 'x' ?
