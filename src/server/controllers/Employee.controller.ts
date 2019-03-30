@@ -48,6 +48,22 @@ export class EmployeeController {
     }
   }
 
+  async removeEmployee(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const employeeToRemove = Employees.findOne({ _id: mongoose.Types.ObjectId(req.params.id) });
+
+      if (!employeeToRemove) {
+        this.throwError('Employee not found', 404, next);
+      } else {
+        await Employees.deleteOne({ _id: mongoose.Types.ObjectId(req.params.id) });
+
+        res.json({ data: "Employee has been removed" });
+      }
+    } catch (err) {
+      return next(err);
+    }
+  }
+
   throwError(errMessage: string, errStatus: number, next: NextFunction): void {
     const err: Error = new Error(errMessage);
 

@@ -14,14 +14,14 @@ export default ({ createEmployee }) => {
 
   return (
     <div className="mb-4">
-      <h3>Zamestnanci</h3>
+      <h3 className="mb-2">Zamestnanci</h3>
       <form className="form-inline" onSubmit={submitForm}>
         <div className="form-group mr-2">
-          <input type="text" className="form-control" id="name" name="name" placeholder="Meno zamestnanca" />
+          <input type="text" className="form-control" id="name" name="name" placeholder="Meno a priezvisko zamestnanca" />
         </div>
         <div className="form-group mr-2">
           <select className="form-control" id="city" name="city">
-            <option value="0">Vybrať</option>
+            <option value="0">Vybrať prevádzku</option>
             <option value="1">Nitra</option>
             <option value="2">Žilina</option>
           </select>

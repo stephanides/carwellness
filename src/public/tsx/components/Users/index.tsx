@@ -1,10 +1,11 @@
-import * as React from 'react'
-import { Link } from 'react-router-dom'
+import * as React from 'react';
 import { Nav } from '../Nav'
 import { IUserPayLoad } from '../../interfaces/UserPayLoad.interface'
 import CreateEmployeeForm from './CreateEmployeeForm';
+import EmployeeList from './EmployeeList';
 
 interface IProps {
+  cityType?: number
   employeeList?: object[]
   user: IUserPayLoad
   usersList?: object[]
@@ -15,32 +16,43 @@ interface IProps {
   getUsersList(): void
   getEmployees(city?: number): Promise<void>
   updateUser(user: object): void
+  handleRemoveEmployee(id: string): Promise<void>
+  handleChangeCityType(cityType: number): void
 }
 
-export const Users: Function = (props: IProps) => {
+export const Users = (props: IProps) => {
   const {
+    cityType,
     employeeList,
     user,
     usersList,
+    createEmployee,
+    getUsersList,
+    getEmployees,
+    changeUserApprovedProperty,
+    updateUser,
+    signOut,
+    handleRemoveEmployee,
+    handleChangeCityType,
   } = props;
 
   if(!usersList || usersList.length === 0) {
-    props.getUsersList();
+    getUsersList();
   }
 
   if (!employeeList || employeeList.length < 1) {
-    props.getEmployees(0);
+    getEmployees(0);
   }
 
   return(
     <div className='admin-content'>
       {
-        Nav({ user, signOut: props.signOut })
+        Nav({ user, signOut })
       }
       <div className='container-fluid'>
         <h3>Zoznam užívateľov</h3>
-        <div className='list-group mb-2'>
-          <div className='list-group-item'>
+        <div className='list-group mb-3'>
+          <div className='list-group-item list-group-item-primary'>
             <div className='row'>
               <div className='col d-flex justify-content-center align-items-center'>Dátum registrácie</div>
               <div className='col d-flex justify-content-center align-items-center'>Krstné meno</div>
@@ -68,12 +80,12 @@ export const Users: Function = (props: IProps) => {
                     <div className='col d-flex justify-content-center align-items-center'>
                       <label className='switch'>
                         <input type='checkbox' checked={item['approved']} onChange={e => {
-                          const users: Array<object> = props.usersList
+                          const users: Array<object> = usersList;
 
                           users[i]['approved'] = item['approved'] ? false : true
                           
-                          props.changeUserApprovedProperty(users, () => {
-                            props.updateUser(item)
+                          changeUserApprovedProperty(users, () => {
+                            updateUser(item);
                           })
                         }} />
                         <span className='slider round'></span>
@@ -92,38 +104,15 @@ export const Users: Function = (props: IProps) => {
           }
         </div>
         <CreateEmployeeForm
-          createEmployee={props.createEmployee}
+          createEmployee={createEmployee}
         />
-        <div className='list-group mb-2'>
-          <div className='list-group-item'>
-            <div className="row">
-              <div className="col-4 d-flex align-items-center">Meno zamestnanca</div>
-              <div className="col-4 d-flex justify-content-center align-items-center">Prevádzka</div>
-              <div className="col-4"></div>
-            </div>
-          </div>
-          {
-            employeeList && employeeList.length > 0 ?
-            employeeList.map(({ city, name }: any, i: number) => {
-              return (
-                <div className="list-group-item" key={i}>
-                  <div className="row">
-                    <div className="col-4 d-flex align-items-center">{name}</div>
-                    <div className="col-4 d-flex justify-content-center align-items-center">{city < 2 ? 'Nitra' : 'Žilina'}</div>
-                    <div className="col-4"></div>
-                  </div>
-                </div>
-              );
-            }) : (
-              <div className="row">
-                <div className="col">
-                  <h6 className='text-center'>Neboli nájdení žiadni užívatelia</h6>
-                </div>
-              </div>
-            )
-          }
-        </div>
+        <EmployeeList
+          cityType={cityType}
+          employeeList={employeeList}
+          handleChangeCityType={handleChangeCityType}
+          handleRemoveEmployee={handleRemoveEmployee}
+        />
       </div>
     </div>
-  )
-}
+  );
+};

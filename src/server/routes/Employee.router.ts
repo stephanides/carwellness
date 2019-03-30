@@ -17,6 +17,12 @@ router.post('/employee/employee-create', (req, res, next) => {
   });
 });
 
+router.delete('/employee/employee-remove/:id', (req, res, next) => {
+  checkToken(req, res, next, (next) => {
+    employee.removeEmployee(req, res, next);
+  });
+});
+
 /* router.put('/order/orders/:id', (req, res, next) => {
   checkToken(req, res, next, (next) => {
     order.updateOrder(req, res, next)

@@ -26,6 +26,7 @@ interface IResponse {
 }
 
 interface IState {
+  cityType?: number
   dateFrom?: number
   dateTo?: number
   authorised: boolean
@@ -64,6 +65,7 @@ interface IState {
 }
 
 const initialState: IState = {
+  cityType: 0,
   dateFrom: Date.now(),
   dateTo: Date.now(),
   authorised: false,
@@ -151,6 +153,9 @@ export class App extends React.Component<{}, IState> {
     this.handlePaginationData = this.handlePaginationData.bind(this)
     this.sendNotification = this.sendNotification.bind(this)
     this.orderByTime = this.orderByTime.bind(this)
+
+    this.handleRemoveEmployee = this.handleRemoveEmployee.bind(this);
+    this.handleChangeCityType = this.handleChangeCityType.bind(this);
 
     this.orderByOrderState = this.orderByOrderState.bind(this)
     this.orderByOrderProgram = this.orderByOrderProgram.bind(this)
@@ -899,8 +904,8 @@ export class App extends React.Component<{}, IState> {
   }
 
   private async updateUser(user: object) {
-    const url: string = '/user/user/'+user['_id']
-    const data: object = user
+    const url: string = '/user/user/'+user['_id'];
+    const data: object = user;
 
     const response: Response = await fetch(url, {
       body: JSON.stringify(data),
@@ -944,6 +949,33 @@ export class App extends React.Component<{}, IState> {
     const title: string = success ? 'Info' : 'Chyba'
 
     this.setState({ modalMessage: message, modalTitle: title, modalOrder: order || false }, () => { $('#modal').modal('show') })
+  }
+
+  private handleChangeCityType(cityType: number) {
+    this.setState({ cityType });
+  };
+
+  private async handleRemoveEmployee(id: string): Promise<void> {
+    try {
+      const url: string = `/employee/employee-remove/${id}`;
+      const response = await fetch(url, {
+        headers: {
+          'x-access-token': this.state.user.token,
+        },
+        method: 'DELETE',
+      });
+
+      if (response.status === 200) {
+        const responseJSON = await response.json();
+        
+        this.getEmployees(0);
+      } else {
+        console.log(response.statusText);
+      }
+    
+    } catch(err) {
+      console.log(err);
+    }
   }
 
   async sendNotification(data, callBack?: () => void) {
@@ -1277,17 +1309,20 @@ export class App extends React.Component<{}, IState> {
             
             return(
               this.state.authorised ?
-              Users({
-                employeeList: this.state.employeeList,
-                user: this.state.user,
-                usersList: this.state.usersList,
-                signOut: this.signOut,
-                changeUserApprovedProperty: this.changeUserApprovedProperty,
-                getUsersList: this.getUsersList,
-                updateUser: this.updateUser,
-                createEmployee: this.createEmployee,
-                getEmployees: this.getEmployees,
-              }) :
+              <Users
+                cityType={this.state.cityType}
+                employeeList={this.state.employeeList}
+                user={this.state.user}
+                usersList={this.state.usersList}
+                signOut={this.signOut}
+                changeUserApprovedProperty={this.changeUserApprovedProperty}
+                getUsersList={this.getUsersList}
+                updateUser={this.updateUser}
+                createEmployee={this.createEmployee}
+                getEmployees={this.getEmployees}
+                handleRemoveEmployee={this.handleRemoveEmployee}
+                handleChangeCityType={this.handleChangeCityType}
+              /> :
               <Redirect to='/admin/login' />
             )
           }} />

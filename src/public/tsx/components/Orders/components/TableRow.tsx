@@ -109,9 +109,7 @@ export default ({
                     key={j}
                     value={_id}
                     selected={
-                      list[i]['managed'] ? (
-                        list[i]['managed'] === item._id ? true : false
-                      ) : false
+                      list[i]['managed'] ? (list[i]['managed'] === item._id ? true : false) : false
                     }
                   >{`${name}`}</option>
                 );
