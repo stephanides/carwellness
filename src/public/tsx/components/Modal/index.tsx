@@ -12,15 +12,11 @@ interface IProps {
 }
 interface IState {
   noteValue: string
-  // sumProgramPrize: number
 }
 
 const initialState: IState = {
   noteValue: '',
-  // sumProgramPrize: 0,
 };
-
-// const programPrize = [30, 78, 16, 21, 98, 108, 58, 68];
 
 export class Modal extends React.Component<IProps, IState> {
   constructor(props: IProps) {
@@ -31,28 +27,6 @@ export class Modal extends React.Component<IProps, IState> {
     this.handleNoteChange = this.handleNoteChange.bind(this);
     this.submitForm = this.submitForm.bind(this);
   }
-
-  /* componentDidMount() {
-    if (this.props.pdfData) {
-      this.calculatePrice();
-    }
-  }
-
-  private calculatePrice() {
-    let computedPrice = 0;
-    const programArr = (this.props.pdfData as any).program;
-    
-    for (let i = 0; i < programArr.length; i + 1) {
-      console.log(programArr[i]);
-      if (programArr[i]) {
-        computedPrice += programPrize[i];
-      }
-    }
-  
-    console.log(computedPrice);
-  
-    return computedPrice;
-  }; */
 
   private handleNoteChange(note: string) {
     this.setState({ noteValue: note });
