@@ -15,6 +15,7 @@ interface IProps {
   orderList?: object[]
   usersList?: object[]
   
+  handlePDFData(pdf: object, callBack?: () => void): void
   changeOrder(orders: object): void
   changePage(page: number, order: boolean): void
   changePageItemsCount(itemsCount: number, order: boolean): void
@@ -52,6 +53,7 @@ export class Orders extends React.Component<IProps, {}> {
           usersList={this.props.usersList}
           handleModal={this.props.handleModal}
           updateOrderArriveTime={this.props.updateOrderArriveTime}
+          handlePDFData={this.props.handlePDFData}
         />
         <div className='d-flex justify-content-end pagination-container'>
           <div className='form-group row mr-3'>

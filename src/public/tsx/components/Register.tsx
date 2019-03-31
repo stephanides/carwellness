@@ -10,17 +10,23 @@ interface IProps {
   
   changeShowHidePassword(): void
   submitForm(event: React.FormEvent<HTMLElement>, url: string, action: string): void
+  handlePDFData(pdf: object, callBack?: () => void): void
 }
 
 export const Register: Function = (props: IProps) => {
   return(
     <div>
       {
-        Modal({
+        /* Modal({
           modalMessage: props.modalMessage,
           modalTitle: props.modalTitle
-        })
+        }) */
       }
+      <Modal
+        modalMessage={props.modalMessage}
+        modalTitle={props.modalTitle}
+        handlePDFData={props.handlePDFData}
+      />
       <div className='container middle-content'>
         <div className='row'>
           <div className='col-xl-6 col-lg-6 col-md-8 col-ls-12 m-auto'>

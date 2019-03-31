@@ -3,7 +3,9 @@ import { PDFDownloadLink, Document, Page, Text } from '@react-pdf/renderer';
 import PDFGenerator from '../../Modal/components/PDFGenerator';
 
 export default ({
-  i, item, boss, list, changeOrder, updateItem, orderState, carType, program, usersList, employeeList, updateOrderArriveTime, handleModal
+  i, item, boss, list, changeOrder, updateItem, orderState,
+  carType, program, usersList, employeeList, updateOrderArriveTime, handleModal,
+  handlePDFData,
 }) => {
   const dt: Date = new Date(item['date']);
   const day: number = dt.getDate();
@@ -60,33 +62,41 @@ export default ({
       <td className='text-center'>{item['fullName']}</td>
       <td className='text-center'>{item['phone']}</td>
       <td className='text-center'>
-        <input
-          type='time'
-          id={`time-${i}`}
-          name="time"
-          value={item.managedTime}
-          onChange={(e) => {
-            const orders: Array<object> = list;
-            const managedTime = e.currentTarget.value;
+        <div className="row">
+          <div className="col-6">
+            <input
+              className="form-control"
+              type='time'
+              id={`time-${i}`}
+              name="time"
+              value={item.managedTime || ''}
+              onChange={(e) => {
+                const orders: Array<object> = list;
+                const managedTime = e.currentTarget.value;
 
-            if (managedTime && managedTime.length > 0) {
-              orders[i]['managedTime'] = managedTime;
-              updateOrderArriveTime(orders);
-            }
-          }}
-        />
-        <button
-          type="button"
-          className="btn btn-danger"
-          onClick={(e) => {
-            const orders: Array<object> = list;
-            const managedTime = (e.currentTarget.previousElementSibling as HTMLInputElement).value;
-            
-            if (managedTime && managedTime.length > 0) {
-              orders[i]['managedTime'] = managedTime;
-              updateItem(orders[i]);
-            }
-        }}>Nastaviť</button>
+                if (managedTime && managedTime.length > 0) {
+                  orders[i]['managedTime'] = managedTime;
+                  updateOrderArriveTime(orders);
+                }
+              }}
+            />
+          </div>
+          <div className="col-6">
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={(e) => {
+                const orders: Array<object> = list;
+                const managedTime = (e.currentTarget.closest('.row').querySelector(`#time-${i}`) as HTMLInputElement).value;
+                console.log(managedTime);
+                if (managedTime && managedTime.length > 0) {
+                  orders[i]['managedTime'] = managedTime;
+                  updateItem(orders[i]);
+                }
+            }}
+          >Nastaviť</button>
+          </div>
+        </div>
       </td>
       <td>
         {
@@ -142,9 +152,31 @@ export default ({
         <button
           type='button'
           className="btn btn-link"
-          disabled
+          disabled={false}
           onClick={() => {
-            // handleModal("Objednavkovy formular", true, true)
+            const date = new Date().toISOString();
+            const dateCreated = `${date.split('T')[0]} ${date.split('T')[1].split('.')[0]}`;
+            const programPrize = [30, 78, 16, 21, 98, 108, 58, 68];
+            const newPDF = {
+              date: dateCreated,
+              program: list[i].program,
+              spz: list[i].carTypeDetail,
+              tel: list[i].phone,
+            };
+            let k = 0, sum = 0;
+            
+            while (k < list[i].program.length) {
+              if (list[i].program[k]) {
+                sum = sum + programPrize[k];
+              }
+              k = k + 1;
+            }
+
+            (newPDF as any).prizeSum = sum;
+
+             handlePDFData(newPDF, () => {
+              handleModal("Objednavkovy formular", true, true);
+            });
           }}
         >
           <span className='badge badge-secondary'>

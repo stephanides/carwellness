@@ -14,6 +14,7 @@ interface IProps {
   orderList?: object[]
   usersList?: object[]
   
+  handlePDFData(pdf: object, callBack?: () => void): void
   changeOrder(orders: object): void
   handleModal(message: string, success: boolean, order?: boolean): void
   updateItem(item: object, callBack?: () => void): void
@@ -25,7 +26,8 @@ const initialState = {
 };
 
 export default ({
-  boss, carType, list, program, changeOrder, updateItem, orderState, usersList, employeeList, updateOrderArriveTime, handleModal
+  boss, carType, list, program, changeOrder, updateItem, orderState,
+  usersList, employeeList, updateOrderArriveTime, handleModal, handlePDFData,
 }: IProps) => {  
   // const [managedOrderStartTime, timeChange] = useState(initialState.managedOrderStartTime);
 
@@ -51,16 +53,7 @@ export default ({
           <th className='text-center' scope='col'>Meno</th>
           <th className='text-center' scope='col'>Telefón</th>
           {/* <th className='text-center' scope='col'>E-mail</th> */}
-          <th className='text-center' scope='col'>
-            <div className="row">
-              <div className="col-12">Príchod</div>
-            </div>
-            <div className="row">
-              <div className="col-5">hod.</div>
-              <div className="col-2">:</div>
-              <div className="col-5">min.</div>
-            </div>
-          </th>
+          <th className='text-center' scope='col'>Príchod</th>
           <th className='text-center' scope='col'>Vybavuje</th>
           <th>Info</th>
           <th>Objednávka</th>
@@ -86,6 +79,7 @@ export default ({
                 key={i}
                 updateOrderArriveTime={updateOrderArriveTime}
                 handleModal={handleModal}
+                handlePDFData={handlePDFData}
               />
             )) : (
             <tr>

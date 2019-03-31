@@ -26,6 +26,7 @@ interface IResponse {
 }
 
 interface IState {
+  pdf?: object
   cityType?: number
   dateFrom?: number
   dateTo?: number
@@ -156,6 +157,7 @@ export class App extends React.Component<{}, IState> {
 
     this.handleRemoveEmployee = this.handleRemoveEmployee.bind(this);
     this.handleChangeCityType = this.handleChangeCityType.bind(this);
+    this.handlePDFData = this.handlePDFData.bind(this);
 
     this.orderByOrderState = this.orderByOrderState.bind(this)
     this.orderByOrderProgram = this.orderByOrderProgram.bind(this)
@@ -179,6 +181,14 @@ export class App extends React.Component<{}, IState> {
       this.setState({ authorised: true, user: user })
     else
       this.signOut()
+  }
+
+  private handlePDFData(pdf: object, callBack?: () => void) {
+    this.setState({ pdf }, () => {
+      if (typeof callBack === "function") {
+        callBack();
+      }
+    });
   }
 
   private changeDateFrom(dateFrom: number) {
@@ -1205,6 +1215,7 @@ export class App extends React.Component<{}, IState> {
           <Route exact path='/admin' render={(props) => (
             this.state.authorised ?
             <Admin
+              pdfData={this.state.pdf}
               dateFrom={this.state.dateFrom}
               dateTo={this.state.dateTo}
               availableDates={this.state.availableDates}
@@ -1234,6 +1245,8 @@ export class App extends React.Component<{}, IState> {
               workingHours={this.state.workingHours}
               workingHoursAvailability={this.state.workingHoursAvailability}
               modalOrder={this.state.modalOrder}
+
+              handlePDFData={this.handlePDFData}
               
               changeDateFrom={this.changeDateFrom}
               changeDateTo={this.changeDateTo}
@@ -1271,7 +1284,8 @@ export class App extends React.Component<{}, IState> {
               modalTitle: this.state.modalTitle,
               showHidePassword: this.state.showHidePassword,
               changeShowHidePassword: this.changeShowHidePassword,
-              submitForm: this.submitForm
+              submitForm: this.submitForm,
+              handlePDFData: this.handlePDFData
             })
           )} />
           <Route path='/admin/register' render={() => (
@@ -1280,7 +1294,8 @@ export class App extends React.Component<{}, IState> {
               modalTitle: this.state.modalTitle,
               changeShowHidePassword: this.changeShowHidePassword,
               showHidePassword: this.state.showHidePassword,
-              submitForm: this.submitForm
+              submitForm: this.submitForm,
+              handlePDFData: this.handlePDFData
             })
           )} />
           <Route path='/admin/settings' render={(props) => {
@@ -1303,7 +1318,8 @@ export class App extends React.Component<{}, IState> {
               modalTitle: this.state.modalTitle,
               changeShowHidePassword: this.changeShowHidePassword,
               showHidePassword: this.state.showHidePassword,
-              submitForm: this.submitForm
+              submitForm: this.submitForm,
+              handlePDFData: this.handlePDFData
             })
           )} />
           <Route path='/admin/users' render={(props) => {

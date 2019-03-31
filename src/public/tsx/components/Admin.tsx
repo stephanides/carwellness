@@ -10,6 +10,7 @@ import { TabNav } from './TabNav'
 import { IUserPayLoad } from '../interfaces/UserPayLoad.interface'
 
 interface Props {
+  pdfData?: object
   dateFrom?: number
   dateTo?: number
   availableDates?: object[]
@@ -40,6 +41,7 @@ interface Props {
   workingHours: string[][]
   workingHoursAvailability: boolean[]
 
+  handlePDFData(pdf: object, callBack?: () => void): void
   changeDateFrom(dateFrom: number): void
   changeDateTo(dateTo: number): void
   changeAvailability(e: React.FormEvent<HTMLElement>, i: number): void
@@ -84,13 +86,13 @@ export class Admin extends React.Component<Props, {}> {
   public render(): JSX.Element {
     return(
       <div>
-        {
-          Modal({
-            modalMessage: this.props.modalMessage,
-            modalTitle: this.props.modalTitle,
-            modalOrder: this.props.modalOrder,
-          })
-        }
+        <Modal
+          modalMessage={this.props.modalMessage}
+          modalTitle={this.props.modalTitle}
+          modalOrder={this.props.modalOrder}
+          pdfData={this.props.pdfData}
+          handlePDFData={this.props.handlePDFData}
+        />
         <div className='admin-content'>
           {
             Nav({ user: this.props.user, signOut: this.props.signOut })
@@ -138,6 +140,7 @@ export class Admin extends React.Component<Props, {}> {
                   orderState={this.props.orderState}
                   usersList={this.props.usersList}
 
+                  handlePDFData={this.props.handlePDFData}
                   changeOrder={this.props.changeOrder}
                   changePage={this.props.changePage}
                   changePageItemsCount={this.props.changePageItemsCount}
