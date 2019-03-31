@@ -21,9 +21,11 @@ export const Modal: Function = (props: IProps) => {
               </button>
             </div>
             <div className='modal-body'>
-              <PDFViewer>
-                <PDFGenerator />
-              </PDFViewer>
+              {
+                /* <PDFViewer>
+                  <PDFGenerator />
+                </PDFViewer> */
+              }
             </div>
             <div className='modal-footer'>
               <button type='button' className='btn btn-secondary' data-dismiss='modal'>Close</button>

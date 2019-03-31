@@ -502,9 +502,11 @@ export class App extends React.Component<{}, IState> {
         if(respJSON) {
           const rawListData = respJSON['data'];
           const listData = rawListData.filter((item) => {
-            const itemDate = Date.parse(item.date.split('T'));
+            const itemDate = Date.parse(item.date.split('T')[0] + 'T00:00:00.000Z');
+            const parsedDateFrom = Date.parse(new Date(this.state.dateFrom).toISOString().split('T')[0] + 'T00:00:00.000Z');
+            const parsedDateTo = Date.parse(new Date(this.state.dateTo).toISOString().split('T')[0] + 'T00:00:00.000Z');
             
-            return (itemDate >= this.state.dateFrom && itemDate <= this.state.dateTo);
+            return (itemDate >= parsedDateFrom && itemDate <= parsedDateTo);
           });
 
           this.setState({ orderList: listData }, () => {
