@@ -7,11 +7,11 @@ export class OrderController {
   async createOrder(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       //From one user only one order chould be created on specific date
-      const order = await Orders.findOne({ $and: [{ date: req.body.date }, { email: req.body.email}] })
+      // const order = await Orders.findOne({}); // { $and: [{ date: req.body.date }, { email: req.body.email}] 
       
-      if(order)
-        this.throwError('Order allready exist on selected time', 409, next)
-      else {
+      // if(order)
+        // this.throwError('Order allready exist on selected time', 409, next)
+      // else {
         let orderData: object = {} as IOrder
 
         for(let i: number = 0; i < Object.keys(req.body).length; i++) {
@@ -34,7 +34,7 @@ export class OrderController {
 
         if(saveOrder) res.json({ message: 'Order has been created', success: true })
         else res.json({ message: saveOrder, success: false })
-      }
+      // }
     }
     catch(err) {
       return next(err)

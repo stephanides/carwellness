@@ -26,6 +26,7 @@ interface IResponse {
 }
 
 interface IState {
+  addOrder: boolean
   pdf?: object
   cityType?: number
   dateFrom?: number
@@ -66,6 +67,7 @@ interface IState {
 }
 
 const initialState: IState = {
+  addOrder: false,
   cityType: 0,
   dateFrom: Date.now(),
   dateTo: Date.now(),
@@ -172,6 +174,8 @@ export class App extends React.Component<{}, IState> {
     this.updateUser = this.updateUser.bind(this)
     this.updateOrder = this.updateOrder.bind(this)
     this.updateOrderArriveTime = this.updateOrderArriveTime.bind(this);
+    this.handleAddOrder = this.handleAddOrder.bind(this);
+    this.handleSubmitOrder = this.handleSubmitOrder.bind(this);
   }
 
   private authenticate() {
@@ -498,6 +502,63 @@ export class App extends React.Component<{}, IState> {
       }
     }
   }
+  
+  private async handleSubmitOrder(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const form: HTMLFormElement = e.currentTarget;
+    const name = (form.name as any).value;
+    const carType = parseInt((form.typVozidla as any).value);
+    const spz = (form.spz as any).value;
+    const message = (form.message as any).value;
+    const telefon = (form.telefon as any).value;
+    const time = new Date().toISOString();
+    const city = form.city ? parseInt((form.city as any).value) : undefined;
+    const programs = form.querySelector('#program').querySelectorAll('input[type=checkbox]');
+    let programArr = [];
+
+    let k = 0;
+
+    while (k < programs.length) {
+      if ((programs[k] as any).checked) {
+        programArr.push("true");
+      } else {
+        programArr.push("false");
+      }
+      k++;
+    }
+    const newOrderData = {
+      carType: carType,
+      carTypeDetail: spz, 
+      city: city || this.state.user.city, 
+      fullName: name,
+      message: message,
+      orderState: 0,
+      phone: telefon,
+      program: programArr,
+      date: time,
+    };
+    const url = '/order/order-create';
+
+    try {
+      const resp: Response = await fetch(url, {
+        body: JSON.stringify(newOrderData),
+        headers: { 
+          'x-access-token': this.state.user.token,
+          'content-type': 'application/json'
+      },
+        method: 'POST',
+      });
+
+      const respJSON = await resp.json();
+      this.getOrderList();
+      $('#modal').modal('toggle');
+    } catch (err) {
+      console.log(err);
+    }
+
+    console.log('SUBMIT NEW ORDER');
+  };
 
   private async getOrderList() {
     const url = '/order/orders/'+this.state.user.city;
@@ -1141,6 +1202,14 @@ export class App extends React.Component<{}, IState> {
     this.authenticate()
   }
 
+  private handleAddOrder(addOrder: boolean, callBack?: () => void){
+    this.setState({addOrder}, () => {
+      if (typeof callBack === 'function') {
+        callBack();
+      }
+    });
+  }
+
   private submitForm(event: React.FormEvent<HTMLElement>, url: string, action: string): void {
     event.preventDefault()
 
@@ -1215,6 +1284,7 @@ export class App extends React.Component<{}, IState> {
           <Route exact path='/admin' render={(props) => (
             this.state.authorised ?
             <Admin
+              addOrder={this.state.addOrder}
               pdfData={this.state.pdf}
               dateFrom={this.state.dateFrom}
               dateTo={this.state.dateTo}
@@ -1247,6 +1317,7 @@ export class App extends React.Component<{}, IState> {
               modalOrder={this.state.modalOrder}
 
               handlePDFData={this.handlePDFData}
+              handleSubmitOrder={this.handleSubmitOrder}
               
               changeDateFrom={this.changeDateFrom}
               changeDateTo={this.changeDateTo}
@@ -1273,6 +1344,7 @@ export class App extends React.Component<{}, IState> {
               socketListener={this.socketListener}
               submitAvailability={this.submitAvailability}
               updateAvailability={this.updateAvailability}
+              handleAddOrder={this.handleAddOrder}
             /> :
             <Redirect to='/admin/login' />
           )} />

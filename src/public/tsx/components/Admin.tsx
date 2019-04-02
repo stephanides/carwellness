@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Availability } from './Availability'
 import { Claims } from './Claims'
 import { Filter } from './Filter'
+import  AddOrder  from './Orders/components/AddOrder'
 import { Modal } from './Modal'
 import { Nav } from './Nav'
 import { Orders } from './Orders'
@@ -10,6 +11,7 @@ import { TabNav } from './TabNav'
 import { IUserPayLoad } from '../interfaces/UserPayLoad.interface'
 
 interface Props {
+  addOrder?: boolean
   pdfData?: object
   dateFrom?: number
   dateTo?: number
@@ -67,6 +69,8 @@ interface Props {
   socketListener(): void 
   submitAvailability(i: number): void
   updateAvailability(item: object): void
+  handleAddOrder(addOrder: boolean, callBack?: () => void): void
+  handleSubmitOrder(e: React.FormEvent<HTMLElement>): Promise<void>
 }
 
 export class Admin extends React.Component<Props, {}> {
@@ -87,11 +91,15 @@ export class Admin extends React.Component<Props, {}> {
     return(
       <div>
         <Modal
+          user={this.props.user}
+          addOrder={this.props.addOrder}
           modalMessage={this.props.modalMessage}
           modalTitle={this.props.modalTitle}
           modalOrder={this.props.modalOrder}
           pdfData={this.props.pdfData}
           handlePDFData={this.props.handlePDFData}
+          handleAddOrder={this.props.handleAddOrder}
+          handleSubmitOrder={this.props.handleSubmitOrder}
         />
         <div className='admin-content'>
           {
@@ -126,6 +134,10 @@ export class Admin extends React.Component<Props, {}> {
                   orderByTime={this.props.orderByTime}
                   orderByOrderState={this.props.orderByOrderState}
                   orderByOrderProgram={this.props.orderByOrderProgram}
+                />
+                <AddOrder
+                  handleAddOrder={this.props.handleAddOrder}
+                  handleModal={this.props.handleModal}
                 />
                 <Orders
                   carType={this.props.carType}

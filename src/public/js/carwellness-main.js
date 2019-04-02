@@ -237,25 +237,25 @@ function programOrder(e) {
 
 		switch(e) {
 			case 0:
-				orderSum = orderSum - 28;
+				orderSum = orderSum - 30;
 				break;
 			case 1:
 				orderSum = orderSum - 78;
 				break;
 			case 2:
-				orderSum = orderSum - 15;
+				orderSum = orderSum - 16;
 				break;
 			case 3:
-				orderSum = orderSum - 18;
+				orderSum = orderSum - 21;
 				break;
 			case 4:
-				orderSum = orderSum - 108;
+				orderSum = orderSum - 98;
 				break;
 			case 5:
 				orderSum = orderSum - 108;
 				break;
 			case 6:
-				orderSum = orderSum - 78;
+				orderSum = orderSum - 58;
 				break;
 			case 7:
 				orderSum = orderSum - 68;
@@ -270,25 +270,25 @@ function programOrder(e) {
 
 		switch(e) {
 			case 0:
-				orderSum = orderSum + 28;
+				orderSum = orderSum + 30;
 				break;
 			case 1:
 				orderSum = orderSum + 78;
 				break;
 			case 2:
-				orderSum = orderSum + 15;
+				orderSum = orderSum + 16;
 				break;
 			case 3:
-				orderSum = orderSum + 18;
+				orderSum = orderSum + 21;
 				break;
 			case 4:
-				orderSum = orderSum + 108;
+				orderSum = orderSum + 98;
 				break;
 			case 5:
 				orderSum = orderSum + 108;
 				break;
 			case 6:
-				orderSum = orderSum + 78;
+				orderSum = orderSum + 58;
 				break;
 			case 7:
 				orderSum = orderSum + 68;
@@ -309,25 +309,25 @@ function removeProgram(e){
 
 	switch(e) {
 			case 0:
-				orderSum = orderSum - 28;
+				orderSum = orderSum - 30;
 				break;
 			case 1:
 				orderSum = orderSum - 78;
 				break;
 			case 2:
-				orderSum = orderSum - 15;
+				orderSum = orderSum - 16;
 				break;
 			case 3:
-				orderSum = orderSum - 18;
+				orderSum = orderSum - 21;
 				break;
 			case 4:
-				orderSum = orderSum - 108;
+				orderSum = orderSum - 98;
 				break;
 			case 5:
 				orderSum = orderSum - 108;
 				break;
 			case 6:
-				orderSum = orderSum - 78;
+				orderSum = orderSum - 58;
 				break;
 			case 7:
 				orderSum = orderSum - 68;
