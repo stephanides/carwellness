@@ -125,6 +125,7 @@ var orderEmail = "";
 var orderTel = ""; 
 var orderMessage = "";
 var ordercarTypeDetail = "";
+var isSuv = false;
 
 //Web Socket
 var socket = null;
@@ -213,13 +214,26 @@ function carTypeOrder(e) {
 	document.getElementById("carTypeOrder-2").classList.remove("unlisted");
 	document.getElementById("carTypeOrder-1").classList.remove("unlisted");
 	document.getElementById("carTypeOrder-"+e).classList.add("choosed");
-
 	if (e == 1) {
 		document.getElementById("orderChoosedCarType").innerHTML = "Auto KLASIK";
+		if(isSuv){
+			orderSum = (orderSum / 1.1);
+		}
+		else{
+			orderSum = orderSum;
+		}
+		isSuv = false;
+		document.getElementById("suvChecked").style.display = "none";
+		
+		document.getElementById("orderSum").innerHTML = (orderSum) + " €";
 	}
 
 	if(e == 2){
 		document.getElementById("orderChoosedCarType").innerHTML = "Auto SUV";
+		document.getElementById("suvChecked").style.display = "flex";
+		isSuv = true;
+		orderSum = (orderSum * 1.1);
+		document.getElementById("orderSum").innerHTML = (orderSum) + " €";
 	}
 
 	orderCarType = e;
@@ -261,7 +275,6 @@ function programOrder(e) {
 				orderSum = orderSum - 68;
 				break;
 		}
-
 		document.getElementById("orderSum").innerHTML = orderSum + " €";
 	} else {
 		document.getElementById("programOrder-"+e).classList.add("choosed");
@@ -294,7 +307,6 @@ function programOrder(e) {
 				orderSum = orderSum + 68;
 				break;
 		}
-
 		document.getElementById("orderSum").innerHTML = orderSum + " €";
 	}
 
@@ -333,7 +345,7 @@ function removeProgram(e){
 				orderSum = orderSum - 68;
 				break;
 		}
-
+  
 		document.getElementById("orderSum").innerHTML = orderSum + " €";
 		
 		orderProgram[e] = false;
@@ -477,8 +489,8 @@ function sendOrder() {
 		readyToSend = false;
 		document.getElementById("orderName").classList.add("unlisted");
 	}
-
-	if(orderEmail == ""){
+    var regex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	if(orderEmail == "" || !regex.test(orderEmail)){
 		readyToSend = false;
 		document.getElementById("orderEmail").classList.add("unlisted");
 	}
@@ -503,8 +515,6 @@ function sendOrder() {
 		document.getElementById("timepicker").classList.add("unlisted");
 		$("html, body").animate({scrollTop:$("#timepicker").offset().top - 140 + "px"}, "slow");
 	}
-
-	console.log(readyToSend);
 
 	if (readyToSend) {
 

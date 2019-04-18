@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose'
 import { Request, Response, NextFunction } from 'express'
 import { IOrder } from '../interfaces/Order.interface'
 import { Order, OrderDocument, Orders } from '../models/Order.model'
+import * as nodemailer from 'nodemailer';
 
 export class OrderController {
   async createOrder(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -30,14 +31,59 @@ export class OrderController {
         }
 
         const newOrder: object = new Order(orderData as IOrder)
-        const saveOrder = await Orders.create(newOrder)
+        const saveOrder = await Orders.create(newOrder);
 
-        if(saveOrder) res.json({ message: 'Order has been created', success: true })
-        else res.json({ message: saveOrder, success: false })
+        const transporter = nodemailer.createTransport({
+          host: 'mail.carwellness.sk',
+          port: 25,
+          secure: false,
+          ignoreTLS: true,
+          auth: {
+            user: 'info@carwellness.sk',
+            pass: 'car2019',
+          },
+        });
+        const sMPort = 'http'; // https
+        const sMDomain = 'localhost:3434'; // carwellness.sk
+
+        const _date = req.body.date.split('T')[0];
+        const newDate = `${_date.split('-')[2]}/${_date.split('-')[1]}/${_date.split('-')[0]}`;
+        const newTime = req.body.date.split('T')[1].split('.')[0];
+
+        await transporter.sendMail({
+          from: 'info@carwellness.sk',
+          to: `${req.body.email}`,
+          subject: 'CARwellness | Potvrdenie objednávky',
+          html: `<h2>Vaša objednávka bola prijatá. Ďakujeme za rezerváciu a tešíme sa na Vás <span style="color:#dc002e;">${newDate}</span> o <span style="color:#dc002e;">${newTime}</span>.</h2>
+          <p><strong>S pozdravom / With Kind Regards</strong></p>
+          <img src='https://carwellness.sk/assets/images/logo.png' />
+          <p style="color:#dc002e;"><strong>CAR wellness s.r.o.</strong></p>
+          <p><strong>J. Grešáka 2877/22</strong></p>
+          <p><strong>Bardejov 085 01</strong></p>
+          <p>&nbsp;</p>
+          <p><strong>Prevádzky:</strong></p>
+          <p>&nbsp;</p>
+          <p style="color:#dc002e;"><strong>CARwellness I</strong></p>
+          <p><strong>Veľká okružná 59A, Aupark -1.podlažie</strong></p>
+          <p><strong>Žilina 010 01</strong></p>
+          <p>&nbsp;</p>
+          <p style="color:#dc002e;"><strong>CARwellness II</strong></p>
+          <p><strong>Štefánikova trieda 61, Galéria Mlyny 0. podlažie</strong></p>
+          <p>&nbsp;</p>
+          <p><strong>IČO: 46 471 308</strong></p>
+          <p><strong>DIČ: 2023405230</strong></p>
+          <p>&nbsp;</p>
+          <p><strong>Mobil: +421 903 716 656</strong></p>
+          <p>&nbsp;</p>
+          <p style="color:#dc002e;"><strong>www.carwellness.sk</strong></p>
+           `,
+        });
+
+        res.json({ message: 'Order has been created', success: true });
       // }
-    }
-    catch(err) {
-      return next(err)
+    } catch(err) {
+      console.log(err);
+      return next(err);
     }
   }
 

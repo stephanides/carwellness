@@ -309,7 +309,7 @@ block content
               form(onsubmit='return false;')
                 .form-group
                   label(for='nameSurname') Meno a priezvisko
-                  input.form-control#orderName(placeholder='Vaše meno a priezvisko' required="true" onchange="orderNameResult()")
+                  input.form-control#orderName(placeholder='Vaše meno a priezvisko' type="text" required="true" onchange="orderNameResult()")
                 .form-group
                   label(for='email') E-mailová adresa
                   input.form-control#orderEmail(placeholder='Váš e-mail' type='email' required="true" onchange="orderEmailResult()")
@@ -364,6 +364,9 @@ block content
                   span Top glanz
                   span.price 68,00 €
                     button(onclick='removeProgram(7)') &times;
+                div.justify-content-between.w-100#suvChecked
+                  span Auto SUV
+                  span.price + 10 %
               .row
                 p &nbsp;
                 p Dátum:
