@@ -2,11 +2,11 @@ import * as React from 'react'
 import { Availability } from './Availability'
 import { Claims } from './Claims'
 import { Filter } from './Filter'
-import  AddOrder  from './Orders/components/AddOrder'
 import { Modal } from './Modal'
-import { Nav } from './Nav'
+import Nav from './Nav';
 import { Orders } from './Orders'
-import { Redirect } from 'react-router'
+import Products from './Products';
+// import { Redirect } from 'react-router';
 import { TabNav } from './TabNav'
 import { IUserPayLoad } from '../interfaces/UserPayLoad.interface'
 
@@ -58,6 +58,8 @@ interface Props {
   getOrderList(): void
   getUsersList(): void
   handleModal(message: string, success: boolean, order?: boolean): void
+  handleSubmitOrder(e: React.FormEvent<HTMLFormElement>): Promise<void>
+  handleAddOrder(addOrder: boolean, callBack?: () => void): void
   orderByTime(order: boolean): void
   orderByOrderState(orderState: number | null): void
   orderByOrderProgram(orderProgram: number | null): void
@@ -69,8 +71,6 @@ interface Props {
   socketListener(): void 
   submitAvailability(i: number): void
   updateAvailability(item: object): void
-  handleAddOrder(addOrder: boolean, callBack?: () => void): void
-  handleSubmitOrder(e: React.FormEvent<HTMLElement>): Promise<void>
 }
 
 export class Admin extends React.Component<Props, {}> {
@@ -91,19 +91,19 @@ export class Admin extends React.Component<Props, {}> {
     return(
       <div>
         <Modal
-          user={this.props.user}
-          addOrder={this.props.addOrder}
           modalMessage={this.props.modalMessage}
           modalTitle={this.props.modalTitle}
           modalOrder={this.props.modalOrder}
           pdfData={this.props.pdfData}
           handlePDFData={this.props.handlePDFData}
-          handleAddOrder={this.props.handleAddOrder}
-          handleSubmitOrder={this.props.handleSubmitOrder}
         />
         <div className='admin-content'>
+          <Nav
+            signOut={this.props.signOut}
+            user={this.props.user}
+          />
           {
-            Nav({ user: this.props.user, signOut: this.props.signOut })
+            // Nav({ user: this.props.user, signOut: this.props.signOut })
           }
           <div className='container-fluid'>
             {
@@ -116,7 +116,10 @@ export class Admin extends React.Component<Props, {}> {
                 },
                 {
                   title: 'Obsadenosť', param: 'availability'
-                }]
+                },
+                /* {
+                  title: 'Produkty/Služby', param: 'products'
+                } */]
               })
             }
             <div className='tab-content p-3' id='adminTabContent'>
@@ -134,10 +137,6 @@ export class Admin extends React.Component<Props, {}> {
                   orderByTime={this.props.orderByTime}
                   orderByOrderState={this.props.orderByOrderState}
                   orderByOrderProgram={this.props.orderByOrderProgram}
-                />
-                <AddOrder
-                  handleAddOrder={this.props.handleAddOrder}
-                  handleModal={this.props.handleModal}
                 />
                 <Orders
                   carType={this.props.carType}
@@ -199,6 +198,11 @@ export class Admin extends React.Component<Props, {}> {
                   updateAvailability={this.props.updateAvailability}
                 />
               </div>
+              { /*
+              <div className='tab-pane fade' id='products' role='tabpanel' aria-labelledby='products-tab'>
+                <Products user={this.props.user} />
+              </div> */
+              }
             </div>
           </div>
         </div>

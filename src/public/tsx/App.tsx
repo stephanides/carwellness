@@ -8,8 +8,10 @@ import { Register } from './components/Register'
 import { Settings } from './components/Settings'
 import { SuperAdminSetup } from './components/SuperAdminSetup'
 import * as io from 'socket.io-client'
-import { Users } from './components/Users'
+import { Users } from './components/Users';
+import Products from './components/Products';
 import { IUserPayLoad } from './interfaces/UserPayLoad.interface'
+import { ObjectID } from 'bson';
 const history = createBrowserHistory()
 
 const _date: Date = new Date()
@@ -54,6 +56,7 @@ interface IState {
   page: number
   pagesCount: number
   paginationItemCount: number
+  products?: object[]
   claimList?: object[] | null
   orderedClaimList?: object[]
   showHidePassword: boolean
@@ -87,6 +90,7 @@ const initialState: IState = {
   page: 0,
   pagesCount: 1,
   paginationItemCount: 10,
+  products: [],
   orderState: ['NOVÁ', 'ZRUŠENÁ', 'VYBAVENÁ'],
   orderStateNum: null,
   orderProgramNum: null,
@@ -147,6 +151,7 @@ export class App extends React.Component<{}, IState> {
 
     this.createEmployee = this.createEmployee.bind(this);
     this.getEmployees = this.getEmployees.bind(this);
+    this.getProducts = this.getProducts.bind(this);
 
     this.getOrderList = this.getOrderList.bind(this)
     this.getClaimList = this.getClaimList.bind(this)
@@ -371,6 +376,21 @@ export class App extends React.Component<{}, IState> {
       } else {
         console.log(resp.statusText);
       }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  private async getProducts(): Promise<void> {
+    try {
+      const url: string = '/products';
+      const resp: Response = await fetch(url, {
+        headers: { 'x-access-token': this.state.user.token }
+      });
+      const products = await resp.json();
+      const { data } = products;
+
+      this.setState({ products: data });
     } catch (err) {
       console.log(err);
     }
@@ -1202,7 +1222,7 @@ export class App extends React.Component<{}, IState> {
     this.authenticate()
   }
 
-  private handleAddOrder(addOrder: boolean, callBack?: () => void){
+  private handleAddOrder(addOrder: boolean, callBack?: () => void) {
     this.setState({addOrder}, () => {
       if (typeof callBack === 'function') {
         callBack();
@@ -1394,6 +1414,24 @@ export class App extends React.Component<{}, IState> {
               handlePDFData: this.handlePDFData
             })
           )} />
+          <Route path="/admin/products" render={(props) => {
+            this.fromURL = props.match.path;
+
+            return (
+              this.state.authorised ?
+              <Products
+                handleModal={this.handleModal}
+                handlePDFData={this.handlePDFData}
+                getProducts={this.getProducts}
+                modalMessage={this.state.modalMessage}
+                modalTitle={this.state.modalTitle}
+                products={this.state.products}
+                signOut={this.signOut}
+                user={this.state.user}
+              /> :
+              <Redirect to="/admin/login" />
+            );
+          }} />
           <Route path='/admin/users' render={(props) => {
             this.fromURL = props.match.path
             

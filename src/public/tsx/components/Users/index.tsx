@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Nav } from '../Nav'
+import Nav from '../Nav';
 import { IUserPayLoad } from '../../interfaces/UserPayLoad.interface'
 import CreateEmployeeForm from './CreateEmployeeForm';
 import EmployeeList from './EmployeeList';
@@ -46,9 +46,10 @@ export const Users = (props: IProps) => {
 
   return(
     <div className='admin-content'>
-      {
-        Nav({ user, signOut })
-      }
+      <Nav
+        signOut={signOut}
+        user={user}
+      />
       <div className='container-fluid'>
         <h3>Zoznam užívateľov</h3>
         <div className='list-group mb-3'>

@@ -29,18 +29,16 @@ export const Login: Function = (props: IProps) => {
       (
         props.fromURL === '/admin/users' ?
         <Redirect to='/admin/users' /> :
-        <Redirect to='/admin' />
+        (
+          props.fromURL === '/admin/products' ?
+          <Redirect to="/admin/products" /> :
+          <Redirect to='/admin' />
+        )
       )
     )
   )
    :
   <div>
-    {
-      /* Modal({
-        modalMessage: props.modalMessage,
-        modalTitle: props.modalTitle
-      }) */
-    }
     <Modal
       modalMessage={props.modalMessage}
       modalTitle={props.modalTitle}

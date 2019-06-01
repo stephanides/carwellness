@@ -1,9 +1,9 @@
 import * as mongoose from 'mongoose'
 import { Request, Response, NextFunction } from 'express'
-import * as bcrypt from 'bcryptjs'
-import config from '../config'
-import * as nodemailer from 'nodemailer'
-import * as jwt from 'jsonwebtoken'
+// import * as bcrypt from 'bcryptjs'
+// import config from '../config'
+// import * as nodemailer from 'nodemailer'
+// import * as jwt from 'jsonwebtoken'
 import { IEmployee } from '../interfaces/Employee.interface';
 
 import { Employee, EmployeeDocument, Employees } from '../models/Employee.model'

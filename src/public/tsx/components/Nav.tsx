@@ -1,6 +1,6 @@
-import * as React from 'react'
-import { Link } from 'react-router-dom'
-import { IUserPayLoad } from '../interfaces/UserPayLoad.interface'
+import * as React from 'react';
+import { Link } from 'react-router-dom';
+import { IUserPayLoad } from '../interfaces/UserPayLoad.interface';
 
 interface IProps {
   user: IUserPayLoad
@@ -8,7 +8,7 @@ interface IProps {
   signOut(): void
 }
 
-export const Nav: Function = (props: IProps) => {
+const Nav = (props: IProps) => {
   return(
     <nav className='navbar navbar-expand-lg navbar-light mb-3'>
       <div className='container'>
@@ -30,9 +30,14 @@ export const Nav: Function = (props: IProps) => {
               <ul className='hover-nav'>
                 {
                   props.user.role < 3 ?
-                  <li>
-                    <Link to='/admin/users'><i className='fas fa-address-book'></i>Užívateľské účty</Link>
-                  </li> : null
+                  [
+                    <li key={0}>
+                      <Link to='/admin/products'><i className='fas fa-tshirt'></i>Produkty a služby</Link>
+                    </li>,
+                    <li key={1}>
+                      <Link to='/admin/users'><i className='fas fa-address-book'></i>Užívateľské účty</Link>
+                    </li>
+                  ] : null
                 }
                 <li>
                   <Link to='/admin/settings'><i className='fas fa-user-cog'></i>Nastavenie účtu</Link>
@@ -47,4 +52,6 @@ export const Nav: Function = (props: IProps) => {
       </div>
     </nav>
   )
-}
+};
+
+export default Nav;

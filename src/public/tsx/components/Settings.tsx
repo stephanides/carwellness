@@ -1,6 +1,6 @@
 import * as React from 'react'
-import { Link } from 'react-router-dom'
-import { Nav } from './Nav'
+// import { Link } from 'react-router-dom'
+import Nav from './Nav';
 import { IUserPayLoad } from '../interfaces/UserPayLoad.interface'
 
 interface IProps {
@@ -14,8 +14,12 @@ interface IProps {
 export const Settings: Function = (props: IProps) => {
   return(
     <div className='admin-content'>
+      <Nav
+        signOut={props.signOut}
+        user={props.user}
+      />
       {
-        Nav({ user: props.user, signOut: props.signOut })
+        // Nav({ user: props.user, signOut: props.signOut })
       }
       <div className='container-fluid'>
         <div className='row'>

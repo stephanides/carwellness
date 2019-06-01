@@ -17,6 +17,7 @@ import ClaimRouter from './routes/Claim.router';
 import EmailRouter from './routes/Email.router';
 import EmployeeRouter from './routes/Employee.router';
 import OrderRouter from './routes/Order.router';
+import ProductRouter from './routes/Product.router';
 import UserRouter from './routes/User.router';
 
 class App {
@@ -136,6 +137,7 @@ class App {
     this.app.use(EmailRouter);
     this.app.use(EmployeeRouter);
     this.app.use(OrderRouter);
+    this.app.use(ProductRouter);
     this.app.use(UserRouter);
     this.app.use(this.router);
   }
