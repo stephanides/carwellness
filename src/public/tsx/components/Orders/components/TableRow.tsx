@@ -184,6 +184,7 @@ export default ({
           </span>
         </button>
       </td>
+      <td>&nbsp;</td>
     </tr>
   );
 };

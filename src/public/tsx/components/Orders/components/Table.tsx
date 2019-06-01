@@ -57,6 +57,7 @@ export default ({
           <th className='text-center' scope='col'>Vybavuje</th>
           <th>Info</th>
           <th>Objednávka</th>
+          <th className="text-center" scope="col">Doplnkové produkty/služby</th>
         </tr>
       </thead>
       <tbody>
