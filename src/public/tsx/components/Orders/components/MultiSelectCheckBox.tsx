@@ -59,14 +59,7 @@ class MultiSelectCheckBox extends React.Component<IProps, IState> {
         <ul className={`multi-select-checkbox ${selectOpened ? 'open' : ''}`}>
           {
             (products && products.length > 0) && products.map(({ _id, code, price, title }, k: number) => {
-              /*let checked = false;
-
-              for (let i = 0; i < (order as any).products.length; i++) {
-                if ((order as any).products[i]._id === _id) {
-                  checked = true;
-                }
-              } */
-              // console.log((order as any).products[k]._id === _id);
+              (orders[itemNum] as any)
               
               return (
                 <li key={_id} className="multi-select-checkbox-item">

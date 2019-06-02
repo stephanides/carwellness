@@ -133,7 +133,6 @@ export default ({
           ) : ""
         }
       </td>
-      {/* <td className='text-center'>{item['email']}</td> */}
       <td className='text-center'>
         {
           item['message'] && item['message'] !== '' ?
