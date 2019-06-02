@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { PDFDownloadLink, Document, Page, Text } from '@react-pdf/renderer';
 import PDFGenerator from '../../Modal/components/PDFGenerator';
+import MultiSelectCheckBox from './MultiSelectCheckBox';
 
 export default ({
   i, item, boss, list, changeOrder, updateItem, orderState,
@@ -186,14 +187,12 @@ export default ({
         </button>
       </td>
       <td>
-        <select defaultValue="0">
-          <option value="0">Vybrať</option>
-          {
-            (products && products.length > 0) && products.map(({ _id, code, price, title }) => (
-              <option key={_id} value={price}>{title}</option>
-            ))
-          }
-        </select>
+        <MultiSelectCheckBox
+          products={products}
+          updateItem={updateItem}
+          orders={list}
+          itemNum={i}
+        />
       </td>
     </tr>
   );
