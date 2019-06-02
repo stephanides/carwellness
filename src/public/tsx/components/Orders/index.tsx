@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Pagination } from '../Pagination';
 import Table from './components/Table';
+import Products from '../Products';
 
 interface IProps {
   boss: number
@@ -14,6 +15,7 @@ interface IProps {
   orderState: string[]
   orderList?: object[]
   usersList?: object[]
+  products?: object[]
   
   handlePDFData(pdf: object, callBack?: () => void): void
   changeOrder(orders: object): void
@@ -25,6 +27,7 @@ interface IProps {
   handleModal(message: string, success: boolean, order?: boolean): void
   updateItem(item: object, callBack?: () => void): void
   updateOrderArriveTime(orderedOrderList: Array<Object>): void
+  getProducts(): Promise<void>
 }
 
 export class Orders extends React.Component<IProps, {}> {
@@ -39,6 +42,10 @@ export class Orders extends React.Component<IProps, {}> {
   }
 
   public render(): JSX.Element {
+    if (this.props.products && this.props.products.length < 1) {
+      this.props.getProducts();
+    }
+
     return(
       <div className='table-responsive'>
         <Table
@@ -54,6 +61,7 @@ export class Orders extends React.Component<IProps, {}> {
           handleModal={this.props.handleModal}
           updateOrderArriveTime={this.props.updateOrderArriveTime}
           handlePDFData={this.props.handlePDFData}
+          products={this.props.products}
         />
         <div className='d-flex justify-content-end pagination-container'>
           <div className='form-group row mr-3'>

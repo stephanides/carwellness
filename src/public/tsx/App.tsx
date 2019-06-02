@@ -387,10 +387,16 @@ export class App extends React.Component<{}, IState> {
       const resp: Response = await fetch(url, {
         headers: { 'x-access-token': this.state.user.token }
       });
-      const products = await resp.json();
-      const { data } = products;
+      
+      if (resp.status === 200) {
+        const products = await resp.json();
+        const { data } = products;
 
-      this.setState({ products: data });
+        this.setState({ products: data });
+      } else {
+        const { message } = await resp.json();
+        throw message;
+      }
     } catch (err) {
       console.log(err);
     }
@@ -1223,6 +1229,7 @@ export class App extends React.Component<{}, IState> {
   }
 
   private handleAddOrder(addOrder: boolean, callBack?: () => void) {
+    console.log('HANDLE ADD ORDER');
     this.setState({addOrder}, () => {
       if (typeof callBack === 'function') {
         callBack();
@@ -1365,6 +1372,9 @@ export class App extends React.Component<{}, IState> {
               submitAvailability={this.submitAvailability}
               updateAvailability={this.updateAvailability}
               handleAddOrder={this.handleAddOrder}
+
+              products={this.state.products}
+              getProducts={this.getProducts}
             /> :
             <Redirect to='/admin/login' />
           )} />

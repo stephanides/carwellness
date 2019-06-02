@@ -1,5 +1,6 @@
 import { Document, Schema, model } from 'mongoose'
 import { IOrder } from '../interfaces/Order.interface'
+import { Products } from './Product.model';
 
 export class Order {
   city: number
@@ -16,6 +17,7 @@ export class Order {
   message: string
   phone: string
   program: Array<boolean>
+  products: Array<object>
   orderState: number
 
   constructor(data: {
@@ -33,6 +35,7 @@ export class Order {
     message: string
     phone: string
     program: Array<boolean>
+    products: Array<object>
     orderState: number
   }) {
     this.city = data.city
@@ -49,6 +52,7 @@ export class Order {
     this.message = data.message
     this.phone = data.phone
     this.program = data.program
+    this.products = data.products
     this.orderState = data.orderState
   }
 }
@@ -71,6 +75,10 @@ const OrderSchema = new Schema({
   message: String,
   phone: String,
   program: Array,
+  products: {
+    type: Array,
+    default: [],
+  },
   orderState: {
     type: Number,
     default: 0

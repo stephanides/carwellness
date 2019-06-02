@@ -13,5 +13,6 @@ export interface IOrder {
   message: string
   phone: string
   program: Array<boolean>
+  products: Array<object>
   orderState: number
 }

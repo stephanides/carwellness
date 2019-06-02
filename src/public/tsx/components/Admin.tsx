@@ -5,7 +5,8 @@ import { Filter } from './Filter'
 import { Modal } from './Modal'
 import Nav from './Nav';
 import { Orders } from './Orders'
-import Products from './Products';
+import AddOrder from './Orders/components/AddOrder';
+// import Products from './Products';
 // import { Redirect } from 'react-router';
 import { TabNav } from './TabNav'
 import { IUserPayLoad } from '../interfaces/UserPayLoad.interface'
@@ -42,6 +43,7 @@ interface Props {
   orderState: string[]
   workingHours: string[][]
   workingHoursAvailability: boolean[]
+  products?: object[]
 
   handlePDFData(pdf: object, callBack?: () => void): void
   changeDateFrom(dateFrom: number): void
@@ -71,6 +73,7 @@ interface Props {
   socketListener(): void 
   submitAvailability(i: number): void
   updateAvailability(item: object): void
+  getProducts(): Promise<void>
 }
 
 export class Admin extends React.Component<Props, {}> {
@@ -91,10 +94,13 @@ export class Admin extends React.Component<Props, {}> {
     return(
       <div>
         <Modal
+          addOrder={this.props.addOrder}
+          user={this.props.user}
           modalMessage={this.props.modalMessage}
           modalTitle={this.props.modalTitle}
           modalOrder={this.props.modalOrder}
           pdfData={this.props.pdfData}
+          handleSubmitOrder={this.props.handleSubmitOrder}
           handlePDFData={this.props.handlePDFData}
         />
         <div className='admin-content'>
@@ -138,6 +144,10 @@ export class Admin extends React.Component<Props, {}> {
                   orderByOrderState={this.props.orderByOrderState}
                   orderByOrderProgram={this.props.orderByOrderProgram}
                 />
+                <AddOrder
+                  handleAddOrder={this.props.handleAddOrder}
+                  handleModal={this.props.handleModal}
+                />
                 <Orders
                   carType={this.props.carType}
                   boss={this.props.user.city}
@@ -150,6 +160,7 @@ export class Admin extends React.Component<Props, {}> {
                   orderList={this.props.orderList}
                   orderState={this.props.orderState}
                   usersList={this.props.usersList}
+                  products={this.props.products}
 
                   handlePDFData={this.props.handlePDFData}
                   changeOrder={this.props.changeOrder}
@@ -161,6 +172,7 @@ export class Admin extends React.Component<Props, {}> {
                   handleModal={this.props.handleModal}
                   updateItem={this.props.updateOrder}
                   updateOrderArriveTime={this.props.updateOrderArriveTime}
+                  getProducts={this.props.getProducts}
                 />
               </div>
               <div className='tab-pane fade' id='claims' role='tabpanel' aria-labelledby='claims-tab'>

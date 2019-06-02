@@ -25,9 +25,15 @@ export class OrderController {
               else tmpArr.push(false)
             }
 
-            orderData['program'] = tmpArr
-          }
-          else orderData[Object.keys(req.body)[i]] = (<any>Object).values(req.body)[i]
+            orderData['program'] = tmpArr;
+          } /* else if (Object.keys(req.body)[i].indexOf('products') > -1) {
+            let tmpProdArray: object[] = [];
+            const arrayToIterate: string[] = (<any>Object).values(req.body)[i];
+
+            for(let j: number = 0; j < arrayToIterate.length; j++) {
+              
+            }
+          } */ else orderData[Object.keys(req.body)[i]] = (<any>Object).values(req.body)[i]
         }
 
         const newOrder: object = new Order(orderData as IOrder)

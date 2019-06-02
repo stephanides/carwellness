@@ -13,6 +13,7 @@ interface IProps {
   orderState?: string[]
   orderList?: object[]
   usersList?: object[]
+  products?: object[]
   
   handlePDFData(pdf: object, callBack?: () => void): void
   changeOrder(orders: object): void
@@ -28,6 +29,7 @@ const initialState = {
 export default ({
   boss, carType, list, program, changeOrder, updateItem, orderState,
   usersList, employeeList, updateOrderArriveTime, handleModal, handlePDFData,
+  products,
 }: IProps) => {  
   // const [managedOrderStartTime, timeChange] = useState(initialState.managedOrderStartTime);
 
@@ -57,7 +59,7 @@ export default ({
           <th className='text-center' scope='col'>Vybavuje</th>
           <th>Info</th>
           <th>Objednávka</th>
-          <th className="text-center" scope="col">Doplnkové produkty/služby</th>
+          <th className="text-center" scope="col">Dopln. produkty/služby</th>
         </tr>
       </thead>
       <tbody>
@@ -81,6 +83,7 @@ export default ({
                 updateOrderArriveTime={updateOrderArriveTime}
                 handleModal={handleModal}
                 handlePDFData={handlePDFData}
+                products={products}
               />
             )) : (
             <tr>

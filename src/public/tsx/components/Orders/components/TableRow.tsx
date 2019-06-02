@@ -6,6 +6,7 @@ export default ({
   i, item, boss, list, changeOrder, updateItem, orderState,
   carType, program, usersList, employeeList, updateOrderArriveTime, handleModal,
   handlePDFData,
+  products,
 }) => {
   const dt: Date = new Date(item['date']);
   const day: number = dt.getDate();
@@ -184,7 +185,16 @@ export default ({
           </span>
         </button>
       </td>
-      <td>&nbsp;</td>
+      <td>
+        <select defaultValue="0">
+          <option value="0">Vybrať</option>
+          {
+            (products && products.length > 0) && products.map(({ _id, code, price, title }) => (
+              <option key={_id} value={price}>{title}</option>
+            ))
+          }
+        </select>
+      </td>
     </tr>
   );
 };
