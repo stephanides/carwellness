@@ -16,6 +16,10 @@ interface IProduct {
   price: number
   title: string
 }
+interface ICheckedProduct {
+  _id: string
+  checked: boolean
+}
 
 class MultiSelectCheckBox extends React.Component<IProps, IState> {
   constructor(props: IProps) {
@@ -28,16 +32,17 @@ class MultiSelectCheckBox extends React.Component<IProps, IState> {
 
     this.handleSelectOpen = this.handleSelectOpen.bind(this);
     this.handleWatchClick = this.handleWatchClick.bind(this);
+    this.handlePopulateSelectdProducts = this.handlePopulateSelectdProducts.bind(this);
   }
 
   handlePopulateSelectdProducts() {
     const { itemNum, orders, products } = this.props;
     const order = orders[itemNum];
-    let arr: object[] = [];
+    let arr: ICheckedProduct[] = [];
 
     if ((order as any).products.length > 0) {
       for (let i = 0; i < products.length; i++) {
-        let state = {
+        let state: ICheckedProduct = {
           _id: products[i]._id,
           checked: false,
         };
@@ -61,7 +66,17 @@ class MultiSelectCheckBox extends React.Component<IProps, IState> {
     }
     
 
-    this.setState({ selectedProducts: arr });
+    this.setState({ selectedProducts: arr }, () => {
+      console.log(this.state.selectedProducts);
+    });
+  }
+
+  handleUpdateSelectedProducts(array: object[], callback?: () => void) {
+    this.setState({ selectedProducts: array }, () => {
+      if (typeof callback === 'function') {
+        callback();
+      }
+    });
   }
 
   handleSelectOpen() {
@@ -96,28 +111,48 @@ class MultiSelectCheckBox extends React.Component<IProps, IState> {
           {
             (products && products.length > 0) && products.map(({ _id, code, price, title }, k: number) => {
               // (orders[itemNum] as any)
+              const { selectedProducts } = this.state;
+              const checkedProdut = selectedProducts.filter(item => (item as any)._id === _id).pop() as ICheckedProduct;
+              let checked = false;
+              // console.log(checkedProdut);
+              if (checkedProdut) {
+                checked = checkedProdut.checked;
+              }
+              // const { checked } = checkedProdut as ICheckedProduct;
+              // console.log(checked);
               return (
                 <li key={_id} className="multi-select-checkbox-item">
                   <input
                     type="checkbox"
                     id={`prod-${_id}`}
-                    onChange={() => {
-                      const { selectedProducts } = this.state;
+                    onChange={(e) => {
                       const orderToUpdate = orders[itemNum];
                       const product = { _id, code, price, title };
 
-                      const checkedProdut = selectedProducts.filter(item => (item as any)._id === _id).pop();
-                      const { checked } = checkedProdut;
-                      console.log(checked);
-  
                       if ((orderToUpdate as any).products) {
                         (orderToUpdate as any).products.push(product);
                       } else {
                         (orderToUpdate as any).products = [product];
                       }
 
-                      updateItem(orderToUpdate);
+                      // console.log(selectedProducts);
+
+                      const newArr = selectedProducts;
+                      newArr.push({
+                        _id,
+                        checked: !checked,
+                      });
+
+                      console.log(newArr);
+                      console.log(orderToUpdate);
+
+                      const callback = () => {
+                        updateItem(orderToUpdate)
+                      };
+
+                      this.handleUpdateSelectedProducts(newArr, callback);
                     }}
+                    checked={checked}
                   />
                   <label htmlFor={`prod-${_id}`}>{title}</label>
                 </li>
