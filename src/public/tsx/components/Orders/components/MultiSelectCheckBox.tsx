@@ -5,6 +5,7 @@ interface IProps {
   orders: object[]
   products: IProduct[]
   updateItem(order: object, callBack?: () => void): Promise<void>
+  getList(): void
 }
 interface IState {
   selectOpened: boolean
@@ -32,31 +33,45 @@ class MultiSelectCheckBox extends React.Component<IProps, IState> {
 
     this.handleSelectOpen = this.handleSelectOpen.bind(this);
     this.handleWatchClick = this.handleWatchClick.bind(this);
-    this.handlePopulateSelectdProducts = this.handlePopulateSelectdProducts.bind(this);
+    // this.handlePopulateSelectdProducts = this.handlePopulateSelectdProducts.bind(this);
   }
 
-  handlePopulateSelectdProducts() {
+  /* handlePopulateSelectdProducts() {
     const { itemNum, orders, products } = this.props;
     const order = orders[itemNum];
+    const orderProducts = (order as any).products;
     let arr: ICheckedProduct[] = [];
 
-    if ((order as any).products.length > 0) {
-      for (let i = 0; i < products.length; i++) {
-        let state: ICheckedProduct = {
+    console.log(order);
+    
+    if (orderProducts.length > 0) {
+      console.log('Order has products from DB');
+      let i = 0;
+
+      while (i < products.length) {
+        let j = 0;
+        const productObject = {
           _id: products[i]._id,
           checked: false,
         };
 
-        if ((order as any).products[i] && (order as any).products[i]._id === products[i]._id) {
-          state = {
-            _id: products[i]._id,
-            checked: true,
-          };
-        }
+        while(j < orderProducts.length) {
+          const checked = orderProducts.filter(item => item._id === products[i]._id).pop() && true;
 
-        arr.push(state);
+          if (checked) {
+            productObject.checked = true;
+            break;
+          }
+
+          j += 1;
+        }
+        console.log(productObject);
+        arr.push(productObject);
+
+        i += 1;
       }
     } else {
+      console.log('Order has no products in DB');
       for (let i = 0; i < products.length; i++) {
         arr.push({
           _id: products[i]._id,
@@ -65,23 +80,25 @@ class MultiSelectCheckBox extends React.Component<IProps, IState> {
       }
     }
     
+    // console.log(arr);
 
     this.setState({ selectedProducts: arr }, () => {
       console.log(this.state.selectedProducts);
     });
-  }
+  } */
 
-  handleUpdateSelectedProducts(array: object[], callback?: () => void) {
+  /* handleUpdateSelectedProducts(array: object[], callback?: () => void) {
     this.setState({ selectedProducts: array }, () => {
       if (typeof callback === 'function') {
         callback();
       }
     });
-  }
+  } */
 
   handleSelectOpen() {
     const { selectOpened } = this.state;
     this.setState({selectOpened: !selectOpened });
+    // console.log(this.state.selectedProducts);
   }
 
   handleWatchClick(e: Event) {
@@ -95,11 +112,11 @@ class MultiSelectCheckBox extends React.Component<IProps, IState> {
 
   componentDidMount() {
     document.addEventListener('mousedown', this.handleWatchClick);
-    this.handlePopulateSelectdProducts();
+    // this.handlePopulateSelectdProducts();
   }
 
   render() {
-    const { itemNum, orders, products, updateItem } = this.props;
+    const { itemNum, getList, orders, products, updateItem } = this.props;
     const { selectOpened } = this.state;
 
     return (
@@ -110,16 +127,8 @@ class MultiSelectCheckBox extends React.Component<IProps, IState> {
         <ul className={`multi-select-checkbox ${selectOpened ? 'open' : ''}`}>
           {
             (products && products.length > 0) && products.map(({ _id, code, price, title }, k: number) => {
-              // (orders[itemNum] as any)
-              const { selectedProducts } = this.state;
-              const checkedProdut = selectedProducts.filter(item => (item as any)._id === _id).pop() as ICheckedProduct;
-              let checked = false;
-              // console.log(checkedProdut);
-              if (checkedProdut) {
-                checked = checkedProdut.checked;
-              }
-              // const { checked } = checkedProdut as ICheckedProduct;
-              // console.log(checked);
+              const orderItem: any = orders[itemNum];
+              const checked = orderItem.products.filter(item => item._id === _id).pop() ? true : false;
               return (
                 <li key={_id} className="multi-select-checkbox-item">
                   <input
@@ -128,29 +137,24 @@ class MultiSelectCheckBox extends React.Component<IProps, IState> {
                     onChange={(e) => {
                       const orderToUpdate = orders[itemNum];
                       const product = { _id, code, price, title };
-
+                      
                       if ((orderToUpdate as any).products) {
-                        (orderToUpdate as any).products.push(product);
+                        const productExist = (orderToUpdate as any).products.filter(item => item._id === _id).pop();
+
+                        if(productExist) {
+                          for (let i = 0; i < (orderToUpdate as any).products.length; i++) {
+                            if((orderToUpdate as any).products[i]._id === productExist._id) {
+                              (orderToUpdate as any).products.splice(i, 1);
+                            }
+                          }
+                        } else {
+                          (orderToUpdate as any).products.push(product);
+                        }
                       } else {
                         (orderToUpdate as any).products = [product];
                       }
 
-                      // console.log(selectedProducts);
-
-                      const newArr = selectedProducts;
-                      newArr.push({
-                        _id,
-                        checked: !checked,
-                      });
-
-                      console.log(newArr);
-                      console.log(orderToUpdate);
-
-                      const callback = () => {
-                        updateItem(orderToUpdate)
-                      };
-
-                      this.handleUpdateSelectedProducts(newArr, callback);
+                      updateItem(orderToUpdate, getList);
                     }}
                     checked={checked}
                   />

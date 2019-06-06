@@ -1,5 +1,6 @@
 import * as React from 'react';
 import TableRow from './TableRow';
+import { getMaxListeners } from 'cluster';
 
 interface IProps {
   boss?: number
@@ -20,6 +21,7 @@ interface IProps {
   handleModal(message: string, success: boolean, order?: boolean): void
   updateItem(item: object, callBack?: () => void): void
   updateOrderArriveTime(orderedOrderList: Array<Object>): void
+  getList(): void
 }
 
 const initialState = {
@@ -28,6 +30,7 @@ const initialState = {
 
 export default ({
   boss, carType, list, program, changeOrder, updateItem, orderState,
+  getList,
   usersList, employeeList, updateOrderArriveTime, handleModal, handlePDFData,
   products,
 }: IProps) => {  
@@ -84,6 +87,7 @@ export default ({
                 handleModal={handleModal}
                 handlePDFData={handlePDFData}
                 products={products}
+                getList={getList}
               />
             )) : (
             <tr>

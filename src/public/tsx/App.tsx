@@ -908,8 +908,7 @@ export class App extends React.Component<{}, IState> {
           }
           else
             console.log(responseJSON['message'])
-        }
-        else {
+        } else {
           const responseJSON: object = await response.json()
           
           if(responseJSON)

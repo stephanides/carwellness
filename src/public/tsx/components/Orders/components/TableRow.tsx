@@ -5,7 +5,7 @@ import MultiSelectCheckBox from './MultiSelectCheckBox';
 
 export default ({
   i, item, boss, list, changeOrder, updateItem, orderState,
-  carType, program, usersList, employeeList, updateOrderArriveTime, handleModal,
+  carType, program, usersList, getList, employeeList, updateOrderArriveTime, handleModal,
   handlePDFData,
   products,
 }) => {
@@ -191,6 +191,7 @@ export default ({
           updateItem={updateItem}
           orders={list}
           itemNum={i}
+          getList={getList}
         />
       </td>
     </tr>

@@ -62,6 +62,7 @@ export class Orders extends React.Component<IProps, {}> {
           updateOrderArriveTime={this.props.updateOrderArriveTime}
           handlePDFData={this.props.handlePDFData}
           products={this.props.products}
+          getList={this.props.getList}
         />
         <div className='d-flex justify-content-end pagination-container'>
           <div className='form-group row mr-3'>
