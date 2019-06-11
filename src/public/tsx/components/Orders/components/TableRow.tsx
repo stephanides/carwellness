@@ -24,6 +24,8 @@ export default ({
     }
   }
 
+  const getSum = (total, num) => (total + num);
+
   return (
     <tr className={
       list[i]['orderState'] > 0 ?
@@ -61,8 +63,11 @@ export default ({
       <td className='d-flex flex-column text-center'>{programs}</td>
       <td className='text-center'>{item['carType'] > 1 ? carType[1] : carType[0]}</td>
       <td className='text-center'>{item['carTypeDetail']}</td>
-      <td className='text-center'>{item['fullName']}</td>
-      <td className='text-center'>{item['phone']}</td>
+      <td className='text-center'>
+      {item['fullName']}<br />
+      {item['phone']}
+      </td>
+      {/* <td className='text-center'></td> */}
       <td className='text-center'>
         <div className="row">
           <div className="col-6">
@@ -193,6 +198,13 @@ export default ({
           itemNum={i}
           getList={getList}
         />
+      </td>
+      <td>
+        <strong>{
+          item.products && item.products.length > 0
+            ? item.products.map((item) => item.price).reduce(getSum)
+            : 0
+        }</strong>€
       </td>
     </tr>
   );

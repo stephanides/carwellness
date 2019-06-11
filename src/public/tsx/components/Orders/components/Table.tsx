@@ -66,14 +66,15 @@ export default ({
             <th className='text-center' scope='col'>Program</th>
             <th className='text-center' scope='col'>Typ auta</th>
             <th className='text-center' scope='col'>ŠPZ</th>
-            <th className='text-center' scope='col'>Meno</th>
-            <th className='text-center' scope='col'>Telefón</th>
+            <th className='text-center' scope='col'>Kontakt</th>
+            {/* <th className='text-center' scope='col'>Telefón</th> */}
             {/* <th className='text-center' scope='col'>E-mail</th> */}
             <th className='text-center' scope='col'>Príchod</th>
             <th className='text-center' scope='col'>Vybavuje</th>
             <th>Info</th>
             <th>Objednávka</th>
             <th className="text-center" scope="col">Dopln. produkty/služby</th>
+            <th className="text-center" scope="col">Suma</th>
           </tr>
         </thead>
         <tbody>
