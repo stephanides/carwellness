@@ -320,6 +320,9 @@ block content
                   label(for='carType') ŠPZ (Evidenčné číslo vozidla)
                   input.form-control#orderCarType(placeholder='Evidenčné číslo vozidla' onchange="orderCarTypeResult()")
                 .form-group
+                  label(for='car') Typ auta(Škoda Octavia, Kia Ceed)
+                  input.form-control#orderCarCar(placeholder='Typ auta(Škoda Octavia, Kia Ceed)' onchange="orderCarCarResult()")
+                .form-group
                   label(for='sprava') Vaša správa
                   textarea.form-control#orderMessage(rows="6" placeholder='Správa pre nás' )
             .col-lg-6.padding-left-30
@@ -380,6 +383,7 @@ block content
                 h5#orderEmailResult Email nebol zvolený
                 h5#orderTelResult Telefonné číslo nebolo zvolené
                 h5#orderCarTypeResult Typ auta nebol zvolený
+                h5#orderCarCarResult Názov auta nebol zvolený
                 p &nbsp;
                 p Konečná suma:
                 h4.sum#orderSum Suma nie je zrátaná
