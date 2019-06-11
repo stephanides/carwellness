@@ -38,10 +38,13 @@ export default ({
 
   if (list && list.length > 0) {
     list.forEach(item => {
-      (item as any).products.forEach((product) => {
-        const { price } = product;
-        sum += price;
-      });
+      // console.log(item);
+      if ((item as any).orderState === 2) {
+        (item as any).products.forEach((product) => {
+          const { price } = product;
+          sum += price;
+        });
+      }
     });
   }
 
@@ -119,9 +122,9 @@ export default ({
         </tbody>
       </table>
       {
-        (boss === 0 && sum > 0) && (
+        boss === 0 && (
           <p className="text-right pr-2">
-            SUMA ZVOLENÝCH OBJEDNÁVOK: <strong>{`${sum}`}</strong>€
+            SUMA ZVOLENÝCH, VYBAVENÝCH OBJEDNÁVOK: <strong>{`${sum}`}</strong>€
           </p>
         )
       }
