@@ -53,12 +53,13 @@ export class Modal extends React.Component<IProps, IState> {
     const { addOrder, modalMessage, modalOrder, modalTitle, pdfData, user, handleSubmitOrder } = this.props;
     const { noteValue } = this.state;
 
-    const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+    /* const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
       const form: HTMLFormElement = e.currentTarget;
       const name = (form.name as any).value;
       const carType = parseInt((form.typVozidla as any).value);
+      const car = (form.vozidlo as any).value;
       const spz = (form.spz as any).value;
       const message = (form.message as any).value;
       const telefon = (form.telefon as any).value;
@@ -78,6 +79,7 @@ export class Modal extends React.Component<IProps, IState> {
         k++;
       }
       const newOrderData = {
+        car: car,
         carType: carType,
         carTypeDetail: spz, 
         city: city || user.city, 
@@ -88,6 +90,7 @@ export class Modal extends React.Component<IProps, IState> {
         program: programArr,
         date: time,
       };
+
       const url = '/order/order-create';
 
       try {
@@ -108,7 +111,7 @@ export class Modal extends React.Component<IProps, IState> {
 
       console.log('SUBMIT NEW ORDER');
       console.log(newOrderData);
-    };
+    }; */
     
     return (
       modalOrder ? (
@@ -221,6 +224,10 @@ export class Modal extends React.Component<IProps, IState> {
                           <option value={1}>Auto KLASIK</option>
                           <option value={2}>Auto SUV</option>
                         </select>
+                      </div>
+                      <div className="form-group">
+                        <label htmlFor="vozidlo">Vozidlo</label>
+                        <input type="text" id="vozidlo" className="form-control" placeholder="Napr. Škoda Oktávia"/>
                       </div>
                       <div className="form-group">
                         <label htmlFor="spz">Zadajte ŠPZ</label>

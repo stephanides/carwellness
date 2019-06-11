@@ -38,7 +38,6 @@ export default ({
 
   if (list && list.length > 0) {
     list.forEach(item => {
-      console.log(item);
       (item as any).products.forEach((product) => {
         const { price } = product;
         sum += price;
@@ -64,6 +63,7 @@ export default ({
             <th className='text-center' scope='col'>Termín</th>
             <th className='text-center' scope='col'>Stav Objednávky</th>
             <th className='text-center' scope='col'>Program</th>
+            <th className='text-center' scope='col'>Vozidlo</th>
             <th className='text-center' scope='col'>Typ auta</th>
             <th className='text-center' scope='col'>ŠPZ</th>
             <th className='text-center' scope='col'>Kontakt</th>

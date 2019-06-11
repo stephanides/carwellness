@@ -534,6 +534,7 @@ export class App extends React.Component<{}, IState> {
 
     const form: HTMLFormElement = e.currentTarget;
     const name = (form.name as any).value;
+    const car = (form.vozidlo as any).value;
     const carType = parseInt((form.typVozidla as any).value);
     const spz = (form.spz as any).value;
     const message = (form.message as any).value;
@@ -554,6 +555,7 @@ export class App extends React.Component<{}, IState> {
       k++;
     }
     const newOrderData = {
+      car,
       carType: carType,
       carTypeDetail: spz, 
       city: city || this.state.user.city, 
@@ -583,7 +585,7 @@ export class App extends React.Component<{}, IState> {
       console.log(err);
     }
 
-    console.log('SUBMIT NEW ORDER');
+    // console.log('SUBMIT NEW ORDER');
   };
 
   private async getOrderList() {

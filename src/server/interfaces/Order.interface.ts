@@ -1,5 +1,6 @@
 export interface IOrder {
   city: number
+  car: string
   carType: number
   carTypeDetail: string
   date: Date

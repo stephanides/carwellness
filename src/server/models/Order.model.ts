@@ -4,6 +4,7 @@ import { Products } from './Product.model';
 
 export class Order {
   city: number
+  car: string
   carType: number
   carTypeDetail: string
   date: Date
@@ -22,6 +23,7 @@ export class Order {
 
   constructor(data: {
     city: number
+    car: string
     carType: number
     carTypeDetail: string
     date: Date
@@ -39,6 +41,7 @@ export class Order {
     orderState: number
   }) {
     this.city = data.city
+    this.car = data.car
     this.carType = data.carType
     this.carTypeDetail = data.carTypeDetail
     this.date = data.date
@@ -59,6 +62,7 @@ export class Order {
 
 const OrderSchema = new Schema({
   city: Number,
+  car: String,
   carType: Number,
   carTypeDetail: String,
   date: Date,

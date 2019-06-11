@@ -61,6 +61,7 @@ export default ({
         </select>
       </td>
       <td className='d-flex flex-column text-center'>{programs}</td>
+      <td className='text-center'>{item['car'] ? item['car'] : ''}</td>
       <td className='text-center'>{item['carType'] > 1 ? carType[1] : carType[0]}</td>
       <td className='text-center'>{item['carTypeDetail']}</td>
       <td className='text-center'>
