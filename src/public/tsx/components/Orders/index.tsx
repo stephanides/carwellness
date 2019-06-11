@@ -65,7 +65,7 @@ export class Orders extends React.Component<IProps, {}> {
           getList={this.props.getList}
         />
         <div className='d-flex justify-content-end pagination-container'>
-          <div className='form-group row mr-3'>
+          <div className='form-group row mr-2'>
             <label className='col-form-label'>Počet zobrazených záznamov</label>
             <select className='form-control ml-3' onChange={e => {
               const pageItemsCountVal: number = parseInt(e.currentTarget.options[e.currentTarget.selectedIndex].value)

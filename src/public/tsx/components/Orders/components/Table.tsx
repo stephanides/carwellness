@@ -33,78 +33,97 @@ export default ({
   getList,
   usersList, employeeList, updateOrderArriveTime, handleModal, handlePDFData,
   products,
-}: IProps) => {  
-  // const [managedOrderStartTime, timeChange] = useState(initialState.managedOrderStartTime);
+}: IProps) => {
+  let sum = 0;
+
+  if (list && list.length > 0) {
+    list.forEach(item => {
+      console.log(item);
+      (item as any).products.forEach((product) => {
+        const { price } = product;
+        sum += price;
+      });
+    });
+  }
 
   return (
-    <table className='table'>
-      <caption>
-        Zoznam objednávok:
-        <span className='bg-new font-weight-bold'>NOVÁ</span>
-        <span className='bg-danger font-weight-bold'>ZRUŠENÁ</span>
-        <span className='bg-success font-weight-bold'>VYBAVENÁ</span>
-      </caption>
-      <thead>
-        <tr>
-          <th className='text-center'>#</th>
+    <div>
+      <table className='table'>
+        <caption>
+          Zoznam objednávok:
+          <span className='bg-new font-weight-bold'>NOVÁ</span>
+          <span className='bg-danger font-weight-bold'>ZRUŠENÁ</span>
+          <span className='bg-success font-weight-bold'>VYBAVENÁ</span>
+        </caption>
+        <thead>
+          <tr>
+            <th className='text-center'>#</th>
+            {
+              boss === 0 ? <th className='text-center'>Prevádzka</th> : null
+            }
+            <th className='text-center' scope='col'>Termín</th>
+            <th className='text-center' scope='col'>Stav Objednávky</th>
+            <th className='text-center' scope='col'>Program</th>
+            <th className='text-center' scope='col'>Typ auta</th>
+            <th className='text-center' scope='col'>ŠPZ</th>
+            <th className='text-center' scope='col'>Meno</th>
+            <th className='text-center' scope='col'>Telefón</th>
+            {/* <th className='text-center' scope='col'>E-mail</th> */}
+            <th className='text-center' scope='col'>Príchod</th>
+            <th className='text-center' scope='col'>Vybavuje</th>
+            <th>Info</th>
+            <th>Objednávka</th>
+            <th className="text-center" scope="col">Dopln. produkty/služby</th>
+          </tr>
+        </thead>
+        <tbody>
           {
-            boss === 0 ? <th className='text-center'>Prevádzka</th> : null
-          }
-          <th className='text-center' scope='col'>Termín</th>
-          <th className='text-center' scope='col'>Stav Objednávky</th>
-          <th className='text-center' scope='col'>Program</th>
-          <th className='text-center' scope='col'>Typ auta</th>
-          <th className='text-center' scope='col'>ŠPZ</th>
-          <th className='text-center' scope='col'>Meno</th>
-          <th className='text-center' scope='col'>Telefón</th>
-          {/* <th className='text-center' scope='col'>E-mail</th> */}
-          <th className='text-center' scope='col'>Príchod</th>
-          <th className='text-center' scope='col'>Vybavuje</th>
-          <th>Info</th>
-          <th>Objednávka</th>
-          <th className="text-center" scope="col">Dopln. produkty/služby</th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          list ?
-          (
-            list.length > 0 ? list.map((item, i) => (
-              <TableRow
-                i={i}
-                item={item}
-                changeOrder={changeOrder}
-                updateItem={updateItem}
-                boss={boss}
-                carType={carType}
-                list={list}
-                program={program}
-                orderState={orderState}
-                usersList={usersList}
-                employeeList={employeeList}
-                key={i}
-                updateOrderArriveTime={updateOrderArriveTime}
-                handleModal={handleModal}
-                handlePDFData={handlePDFData}
-                products={products}
-                getList={getList}
-              />
-            )) : (
+            list ?
+            (
+              list.length > 0 ? list.map((item, i) => (
+                <TableRow
+                  i={i}
+                  item={item}
+                  changeOrder={changeOrder}
+                  updateItem={updateItem}
+                  boss={boss}
+                  carType={carType}
+                  list={list}
+                  program={program}
+                  orderState={orderState}
+                  usersList={usersList}
+                  employeeList={employeeList}
+                  key={i}
+                  updateOrderArriveTime={updateOrderArriveTime}
+                  handleModal={handleModal}
+                  handlePDFData={handlePDFData}
+                  products={products}
+                  getList={getList}
+                />
+              )) : (
+              <tr>
+                <td colSpan={12}>
+                  <h6 className='text-center'>Neboli nájdené žiadne objednávky</h6>
+                </td>
+              </tr>
+              )
+            ) : (
             <tr>
               <td colSpan={12}>
                 <h6 className='text-center'>Neboli nájdené žiadne objednávky</h6>
               </td>
             </tr>
             )
-          ) : (
-          <tr>
-            <td colSpan={12}>
-              <h6 className='text-center'>Neboli nájdené žiadne objednávky</h6>
-            </td>
-          </tr>
-          )
-        }
-      </tbody>
-    </table>
+          }
+        </tbody>
+      </table>
+      {
+        (boss === 0 && sum > 0) && (
+          <p className="text-right pr-2">
+            SUMA ZVOLENÝCH OBJEDNÁVOK: <strong>{`${sum}`}</strong>€
+          </p>
+        )
+      }
+    </div>
   );
 };
