@@ -1314,4 +1314,13 @@ img[data-src] {
   display: none;
 }
 
-
+button[disabled] { 
+  pointer-events: none;
+}
+.orderChooseCity{
+  p{
+    strong{
+      color:$carwellness-red;
+    }
+  }
+}
