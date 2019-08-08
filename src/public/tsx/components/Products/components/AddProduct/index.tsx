@@ -11,7 +11,7 @@ const AddProduct = ({ submitProductCreate }) => (
         <input type="text" className="form-control" id="code" placeholder="Kód produktu/služby" required />
       </div>
       <div className="form-group mb-2 mr-2">
-        <input type="number" className="form-control" id="price" placeholder="Cena produktu/služby" required />
+        <input type="number" className="form-control" id="price" step="0.01" placeholder="Cena produktu/služby" required />
       </div>
       <button type="submit" className="btn btn-primary mb-2">Vytvoriť</button>
     </form>
