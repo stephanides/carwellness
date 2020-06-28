@@ -149,12 +149,12 @@ var orderObjectToSend = {
 };
 
 var inaccessibleTimeMorningFrom = "00:00:00";
-var inaccessibleTimeMorningTo = "07:00:00";
+var inaccessibleTimeMorningTo = "09:00:00";
 var inaccessibleTimeEveningFrom = "21:01:00";
 var inaccessibleTimeEveningTo = "23:59:00";
 
-var timesObjectZilina = [["00:00:00", "07:00:00"],["21:01:00", "23:59:00"]];
-var timesObjectNitra = [["00:00:00", "08:00:00"],["21:01:00", "23:59:00"]];
+var timesObjectZilina = [["00:00:00", "09:00:00"],["21:01:00", "23:59:00"]];
+var timesObjectNitra = [["00:00:00", "09:00:00"],["21:01:00", "23:59:00"]];
 
 function setTimes(object){
 	$(document.getElementById("timepicker")).timepicker("option", "disableTimeRanges", object);
@@ -189,20 +189,20 @@ function cityForOrder(e){
         
 		if (orderCity == 1) {
 			if(day === 6 || day === 0) {
-				timesObjectNitra[0] = ["00:00:00", "08:30:00"];
+				timesObjectNitra[0] = ["00:00:00", "09:00:00"];
 				setTimes(timesObjectNitra);
 			} else {
-				timesObjectNitra[0] = ["00:00:00", "08:00:00"];
+				timesObjectNitra[0] = ["00:00:00", "09:00:00"];
 				setTimes(timesObjectNitra);
 			}
 		}
 
 		if (orderCity === 2) {
 			if(day == 6 || day == 0){
-				timesObjectZilina[0] = ["00:00:00", "08:00:00"];
+				timesObjectZilina[0] = ["00:00:00", "09:00:00"];
 				setTimes(timesObjectZilina);
 			} else {
-				timesObjectZilina[0] = ["00:00:00", "07:00:00"];
+				timesObjectZilina[0] = ["00:00:00", "09:00:00"];
 				setTimes(timesObjectZilina);
 			}
 		}
@@ -427,20 +427,20 @@ function orderDateResult(){
 
 	if (orderCity === 1) {
 		if (day === 6 || day === 0) {
-			timesObjectNitra[0] = ["00:00:00", "08:30:00"];
+			timesObjectNitra[0] = ["00:00:00", "09:00:00"];
 			setTimes(timesObjectNitra);
 		} else {
-			timesObjectNitra[0] = ["00:00:00", "08:00:00"];
+			timesObjectNitra[0] = ["00:00:00", "09:00:00"];
 			setTimes(timesObjectNitra);
 		}
 	}
 
 	if (orderCity === 2) {
 		if(day === 6 || day === 0) {
-			timesObjectZilina[0] = ["00:00:00", "08:00:00"];
+			timesObjectZilina[0] = ["00:00:00", "09:00:00"];
 			setTimes(timesObjectZilina);
 		} else {
-			timesObjectZilina[0] = ["00:00:00", "07:00:00"];
+			timesObjectZilina[0] = ["00:00:00", "09:00:00"];
 			setTimes(timesObjectZilina);
 		}
 	}
