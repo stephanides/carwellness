@@ -111,7 +111,7 @@ export class Availability extends React.Component<IProps, {}> {
                           (
                             this.props.dayOfWeek < 6 && this.props.dayOfWeek != 0 ?
                             (
-                              i > 13  && i < this.props.workingHours.length - 5 ?
+                              i > 16  && i < this.props.workingHours.length - 5 ?
                               <tr key={i} className={this.props.workingHoursAvailability[i] ? 'bg-light' : 'bg-danger'}>
                                 <td>{item[0]}</td><td>{item[1]}</td>
                                 <td className='text-center'>
@@ -130,7 +130,7 @@ export class Availability extends React.Component<IProps, {}> {
                             )
                               :
                             (
-                              i > 15 && i < this.props.workingHours.length - 5 ?
+                              i > 16 && i < this.props.workingHours.length - 5 ?
                               <tr key={i} className={this.props.workingHoursAvailability[i] ? 'bg-light' : 'bg-danger'}>
                                 <td>{item[0]}</td><td>{item[1]}</td>
                                 <td className='text-center'>
@@ -151,7 +151,7 @@ export class Availability extends React.Component<IProps, {}> {
                           (
                             this.props.dayOfWeek < 6 && this.props.dayOfWeek != 0 ?
                             (
-                              i > 15 && i < this.props.workingHours.length - 5 ?
+                              i > 16 && i < this.props.workingHours.length - 5 ?
                               <tr key={i} className={this.props.workingHoursAvailability[i] ? 'bg-light' : 'bg-danger'}>
                                 <td>{item[0]}</td><td>{item[1]}</td>
                                 <td className='text-center'>
@@ -194,7 +194,7 @@ export class Availability extends React.Component<IProps, {}> {
                           (
                           this.props.dayOfWeek < 6 && this.props.dayOfWeek != 0 ?
                             (
-                              i > 13  && i < this.props.workingHours.length - 5 ?
+                              i > 16  && i < this.props.workingHours.length - 5 ?
                               <tr key={i} className={this.props.workingHoursAvailability[i] ? 'bg-light' : 'bg-danger'}>
                                 <td>{item[0]}</td><td>{item[1]}</td>
                                 <td className='text-center'>
@@ -212,7 +212,7 @@ export class Availability extends React.Component<IProps, {}> {
                               </tr> : null
                             ) :
                             (
-                              i > 15 && i < this.props.workingHours.length - 5 ?
+                              i > 16 && i < this.props.workingHours.length - 5 ?
                               <tr key={i} className={this.props.workingHoursAvailability[i] ? 'bg-light' : 'bg-danger'}>
                                 <td>{item[0]}</td><td>{item[1]}</td>
                                 <td className='text-center'>
@@ -233,7 +233,7 @@ export class Availability extends React.Component<IProps, {}> {
                           (
                             this.props.dayOfWeek < 6 && this.props.dayOfWeek != 0 ?
                             (
-                              i > 15 && i < this.props.workingHours.length - 5 ?
+                              i > 16 && i < this.props.workingHours.length - 5 ?
                               <tr key={i} className={this.props.workingHoursAvailability[i] ? 'bg-light' : 'bg-danger'}>
                                 <td>{item[0]}</td><td>{item[1]}</td>
                                 <td className='text-center'>
