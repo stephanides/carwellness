@@ -1,0 +1,129 @@
+extends layout
+
+block vars
+  - var pageTitle= 'CARwellness - profesionálna autoumyváreň | Ponuka vozidiel'
+
+block css
+  include main-styles.pug
+
+block content
+  style.
+    .social-icon {
+      font-size: 21px;
+    }
+    .top-150 {
+      top: 150px;
+    }
+     
+  #wrapper
+    include navbar.pug
+
+    .container-fluid.serviceshead
+      img.headpicture(src='./assets/images/price-listhead.jpg' alt='')
+      .container.headContainer
+        h3 Ponuka vozidiel
+        
+    .container.price-listContent
+      h4 Pozrite si ponuku vozidiel na prenájom
+      p.mb-0.mt-1 Pristavenie vozidiel v Nitre a Trnave, alebo na žiadosť podľa dohody.
+      p.mb-0.mt-1 Záloha za rezerváciu vozidiel Škoda ZDARMA.
+      p.mb-0.mt-1 Pri rezervácii vozidiel Hummer H2 a Nissan Navara je možná potreba platby zálohy, ktorá Vám bude vrátená. 
+      p.mb-0.mt-1 Pri prenájme vozidiel si vyhradzujeme právo prijať depozit, ktorý Vám bude po prenájme vrátený. 
+    
+    .container.car-rent
+      .row
+        .col-lg-4.col-md-6.col-sm-12
+          img(src='./assets/images/cars/skoda_rapid_1.6.jpg' alt='')
+          h4 Škoda Rapid 1.6 TDI
+          .price-holder
+            .price 30€/deň
+            a.info(href="https://www.mmotors.sk/skoda-rapid-tdi" target="_blank") VIAC INFORMÁCII
+        .col-lg-4.col-md-6.col-sm-12
+          img(src='./assets/images/cars/ford_fiesta.jpg' alt='')
+          h4 Ford Fiesta
+          .price-holder
+            .price 30€/deň
+            a.info(href="https://www.mmotors.sk/ford-fiesta" target="_blank") VIAC INFORMÁCII
+        .col-lg-4.col-md-6.col-sm-12
+          img(src='./assets/images/cars/skoda_rapid_1.2.jpg' alt='')
+          h4 ​Škoda Rapid 1.2 TSI
+          .price-holder
+            .price 30€/deň
+            a.info(href="https://www.mmotors.sk/copy-of-skoda-fabia-iii-1-4-tdi" target="_blank") VIAC INFORMÁCII
+        .col-lg-4.col-md-6.col-sm-12
+          img(src='./assets/images/cars/peugeot_308.jpg' alt='')
+          h4 Peugeot 308 SW
+          .price-holder
+            .price 30€/deň
+            a.info(href="https://www.mmotors.sk/peugeot-308" target="_blank") VIAC INFORMÁCII
+        .col-lg-4.col-md-6.col-sm-12
+          img(src='./assets/images/cars/skoda_fabia_3.jpg' alt='')
+          h4 ​Škoda Fabia III 1.4 TDI
+          .price-holder
+            .price 30€/deň
+            a.info(href="https://www.mmotors.sk/skoda-fabia-3" target="_blank") VIAC INFORMÁCII
+        .col-lg-4.col-md-6.col-sm-12
+          img(src='./assets/images/cars/skoda_fabia_1.6.jpg' alt='')
+          h4 ​Škoda Fabia 1.6 TDI
+          .price-holder
+            .price 18€/deň
+            a.info(href="https://www.mmotors.sk/prenajom-skoda-fabia-16-tdi" target="_blank") VIAC INFORMÁCII
+        .col-lg-4.col-md-6.col-sm-12
+          img(src='./assets/images/cars/citroen_c5.jpg' alt='')
+          h4 Citroen C5
+          .price-holder
+            .price 30€/deň
+            a.info(href="https://www.mmotors.sk/prenajom-citroen-c5" target="_blank") VIAC INFORMÁCII
+        .col-lg-4.col-md-6.col-sm-12
+          img(src='./assets/images/cars/kia_ceed.jpg' alt='')
+          h4 KIA Cee'd
+          .price-holder
+            .price 30€/deň
+            a.info(href="https://www.mmotors.sk/prenajom-kia-ceed" target="_blank") VIAC INFORMÁCII
+        .col-lg-4.col-md-6.col-sm-12
+          img(src='./assets/images/cars/fiat_linea.jpg' alt='')
+          h4 FIAT Linea
+          .price-holder
+            .price 30€/deň
+            a.info(href="https://www.mmotors.sk/fiat-linea" target="_blank") VIAC INFORMÁCII
+        .col-lg-4.col-md-6.col-sm-12
+          img(src='./assets/images/cars/seat_ibiza.jpg' alt='')
+          h4 SEAT Ibiza 1.2 TDI
+          .price-holder
+            .price 30€/deň
+            a.info(href="https://www.mmotors.sk/seat-ibiza-1-2-tdi" target="_blank") VIAC INFORMÁCII
+        .col-lg-4.col-md-6.col-sm-12
+          img(src='./assets/images/cars/renault_fluence.jpg' alt='')
+          h4 Renault Fluence 1,5 DCI
+          .price-holder
+            .price 30€/deň
+            a.info(href="https://www.mmotors.sk/renault-fluence-1-5-dci" target="_blank") VIAC INFORMÁCII
+        .col-lg-4.col-md-6.col-sm-12
+          img(src='./assets/images/cars/skoda_octavia.jpg' alt='')
+          h4 Škoda Octavia 2,0 TDI
+          .price-holder
+            .price 30€/deň
+            a.info(href="https://www.mmotors.sk/skoda-octavia-2-0-tdi" target="_blank") VIAC INFORMÁCII
+        .col-lg-4.col-md-6.col-sm-12
+          img(src='./assets/images/cars/audi_a8.jpg' alt='')
+          h4 Audi A8
+          .price-holder
+            .price Dohodou
+            a.info(href="https://www.mmotors.sk/audi-a8" target="_blank") VIAC INFORMÁCII
+        .col-lg-4.col-md-6.col-sm-12
+          img(src='./assets/images/cars/hummer_h2.jpg' alt='')
+          h4 HUMMER H2
+          .price-holder
+            .price 150€/deň
+            a.info(href="https://www.mmotors.sk/prenajom-hummer-h2" target="_blank") VIAC INFORMÁCII
+        .col-lg-4.col-md-6.col-sm-12
+          img(src='./assets/images/cars/toyota_land_cruiser.jpg' alt='')
+          h4 Toyota Land Cruiser 3,0 TDI
+          .price-holder
+            .price 150€/deň
+            a.info(href="https://www.mmotors.sk/toyota-land-cruiser-3-0-tdi" target="_blank") VIAC INFORMÁCII
+    .position-relative
+      include footer.pug
+block script
+  include main-scripts.pug
+  script(src='./assets/js/carwellness-main.min.js')

@@ -207,27 +207,12 @@ block content
         .container.headContainer
           h3 Online objednávka
 
-      .container.price-listContent
-        h4 Vyberte si #[strong CAR]wellness vo vašom meste.
-        p O vaše auto sa postará profesionálny tím, ktorý spraví maximum pre Vašu spokojnosť.
 
       .container.orderContainer
-        .container.orderChooseCity
-          .row
-            p.pl-3.pt-4 #[strong UPOZORNENIE] ! Carwellness Žilina (Aupark) bude dňa 01.07.2019 z technických príčin zatvorená. Od 02.07 - 04.07 25 % zľava pre online objednávku v Carwellness Žilina.
-            h4 1. Vyberte si autoumyvárku
-            .container
-              .row
-                .col-md-10
-                  .row
-                    .col-md-6
-                      button.btn-block#cityForOrder-2(onclick='cityForOrder(2)') CARwellness Žilina (Aupark)
-                    .col-md-6
-                      button.btn-block#cityForOrder-1(onclick='cityForOrder(1)') CARwellness Nitra (Mlyny)
 
         .container.orderChooseCarType
           .row
-            h4 2. Vyberte si typ auta
+            h4 1. Vyberte si typ auta
             .container
               .row
                 .col-md-10
@@ -239,53 +224,55 @@ block content
 
         .container.orderChooseProgram
           .row
-            h4 3. Vyberte si program
+            h4 2. Vyberte si program
             .container
               .row.ml-0
-                .col-md-3#programOrder-0(onclick='programOrder(0)')
-                  h5 COMFORT
-                  h6 Čas trvania: #[strong 1h 30m]
-                  button(type="button" data-toggle="modal" data-target="#programComfort") Viac o programe
-                  p.price 30,00 €
-                .col-md-3#programOrder-1(onclick='programOrder(1)')
-                  h5 EXCLUSIVE
-                  h6 Čas trvania: #[strong 4 hodiny]
-                  button(type="button" data-toggle="modal" data-target="#programExclusive") Viac o programe
-                  p.price 78,00 €
                 .col-md-3#programOrder-2(onclick='programOrder(2)')
                   h5 EXTERIÉR
                   h6 Čas trvania: #[strong 45 minút]
                   button(type="button" data-toggle="modal" data-target="#programExterier") Viac o programe
-                  p.price 16,00 €
+                  p.price 18,00 €
                 .col-md-3#programOrder-3(onclick='programOrder(3)')
                   h5 INTERIÉR
                   h6 Čas trvania: #[strong 45 minút]
                   button(type="button" data-toggle="modal" data-target="#programInterier") Viac o programe
-                  p.price 21,00 €
+                  p.price 24,00 €
+                .col-md-3#programOrder-0(onclick='programOrder(0)')
+                  h5 COMFORT
+                  h6 Čas trvania: #[strong 1h 30m]
+                  button(type="button" data-toggle="modal" data-target="#programComfort") Viac o programe
+                  p.price 33,00 €
+                .col-md-3#programOrder-6(onclick='programOrder(6)')
+                  h5 AVANGARDE
+                  h6 Čas trvania: #[strong 2 hodiny]
+                  button(type="button" data-toggle="modal" data-target="#programAvangarde") Viac o programe
+                  p.price 66,00 €
+                .col-md-3#programOrder-7(onclick='programOrder(7)')
+                  h5 TOP GLANZ
+                  h6 Čas trvania: #[strong 2 hodiny]
+                  button(type="button" data-toggle="modal" data-target="#programTopGlanz") Viac o programe
+                  p.price 68,00 €
+                .col-md-3#programOrder-1(onclick='programOrder(1)')
+                  h5 EXCLUSIVE
+                  h6 Čas trvania: #[strong 4 hodiny]
+                  button(type="button" data-toggle="modal" data-target="#programExclusive") Viac o programe
+                  p.price 88,00 €
                 .col-md-3#programOrder-4(onclick='programOrder(4)')
                   h5 PREMIUM EXTERIÉR
-                  h6 Čas trvania: #[strong 12 hodín]
+                  h6 Čas trvania: #[strong 5 hodín]
                   button(type="button" data-toggle="modal" data-target="#programPremiumExterier") Viac o programe
-                  p.price 98,00 €
+                  p.price 108,00 €
                 .col-md-3#programOrder-5(onclick='programOrder(5)')
                   h5 PREMIUM INTERIÉR
                   h6 Čas trvania: #[strong 12 hodín]
                   button(type="button" data-toggle="modal" data-target="#programPremiumInterier") Viac o programe
-                  p.price 108,00 €
-                .col-md-3#programOrder-6(onclick='programOrder(6)')
-                  h5 AVANGARDE
-                  h6 Čas trvania: #[strong 2h 15m]
-                  button(type="button" data-toggle="modal" data-target="#programAvangarde") Viac o programe
-                  p.price 58,00 €
-                .col-md-3#programOrder-7(onclick='programOrder(7)')
-                  h5 TOP GLANZ
-                  h6 Čas trvania: #[strong 3 hodiny]
-                  button(type="button" data-toggle="modal" data-target="#programTopGlanz") Viac o programe
-                  p.price 68,00 €
+                  p.price 118,00 €
+                
+                
 
         .container.orderChooseDate
           .row
-            h4 4. Vyberte si dátum a čas
+            h4 3. Vyberte si dátum a čas
             .container#dateContainer
               form(onsubmit='return false;')
                 .row
@@ -300,13 +287,11 @@ block content
                       path(d="M0 0h24v24H0z" fill="none")
                       path(d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z")
                     input#timepicker(type='text' placeholder='00:00' onchange="orderTimeResult()")
-                  .col-lg-4.alert.alert-danger#dateDanger(role="alert")
-                    p Nezvolili ste si žiadnu #[strong autoumyváreň!]
 
         .container.orderMoreInfo
           .row
             .col-lg-6
-              h4 5. Doplňujúce informácie
+              h4 4. Doplňujúce informácie
               form(onsubmit='return false;')
                 .form-group
                   label(for='nameSurname') Meno a priezvisko
@@ -328,41 +313,38 @@ block content
                   textarea.form-control#orderMessage(rows="6" placeholder='Správa pre nás' )
             .col-lg-6.padding-left-30
               .row
-                h4 6. Súhrn objednávky
-                p Autoumývarka:
-                h5#orderChoosedCity Nebola zvolená žiadna autoumyvárka
-                p &nbsp;
+                h4 5. Súhrn objednávky
                 p ŠPZ
                 h5#orderChoosedCarType Nebolo zvolené žiadne Evidenčné číslo vozidla
                 p &nbsp;
                 p Vybrané programy:
                 div.d-none.justify-content-between.w-100.margin-top-20#orderChoosedProgram-0
                   span Comfort
-                  span.price 30,00 €
+                  span.price 33,00 €
                     button(onclick='removeProgram(0)') &times;
                 div.d-none.justify-content-between.w-100#orderChoosedProgram-1
                   span Exclusive
-                  span.price 78,00 €
+                  span.price 88,00 €
                     button(onclick='removeProgram(1)') &times;
                 div.d-none.justify-content-between.w-100#orderChoosedProgram-2
                   span Exteriér
-                  span.price 16,00 €
+                  span.price 18,00 €
                     button(onclick='removeProgram(2)') &times;
                 div.d-none.justify-content-between.w-100#orderChoosedProgram-3
                   span Interiér
-                  span.price 21,00 €
+                  span.price 24,00 €
                     button(onclick='removeProgram(3)') &times;
                 div.d-none.justify-content-between.w-100#orderChoosedProgram-4
                   span Premium exteriér
-                  span.price 98,00 €
+                  span.price 108,00 €
                     button(onclick='removeProgram(4)') &times;
                 div.d-none.justify-content-between.w-100#orderChoosedProgram-5
                   span Premium interiér
-                  span.price 108,00 €
+                  span.price 118,00 €
                     button(onclick='removeProgram(5)') &times;
                 div.d-none.justify-content-between.w-100#orderChoosedProgram-6
                   span Avangarde
-                  span.price 58,00 €
+                  span.price 68,00 €
                     button(onclick='removeProgram(6)') &times;
                 div.d-none.justify-content-between.w-100#orderChoosedProgram-7
                   span Top glanz
@@ -388,8 +370,6 @@ block content
                 p &nbsp;
                 p Konečná suma:
                 h4.sum#orderSum Suma nie je zrátaná
-
-
           .row
         .container.p-0
           button.btn-block.orderButton(onclick='sendOrder()') OBJEDNAŤ

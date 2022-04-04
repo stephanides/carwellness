@@ -1,0 +1,88 @@
+extends layout
+
+block vars
+  - var pageTitle= 'CARwellness - profesionálna autoumyváreň | Škoda RAPID 1.6 TDI'
+
+block css
+  include main-styles.pug
+  link(rel='preload' href='https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css' as='style' onload='this.rel="stylesheet"' media='screen')
+  noscript
+    link(rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.3.5/jquery.fancybox.min.css' media='screen')
+
+block content
+  style.
+    .social-icon {
+      font-size: 21px;
+    }
+    .top-150 {
+      top: 150px;
+    }
+     
+  #wrapper.car-rent-detail
+    include navbar.pug
+        
+    .container.price-listContent-noimg
+      h4 ŠKODA RAPID 1.6 TDI (Spaceback)
+      p.mb-0.mt-1.danger NAJNOVŠIE VOZIDLO V PONUKE ZA AKCIOVÚ CENU
+      p.mb-0.mt-1 Combi
+    
+    .container
+      .row.detail
+        .col-md-6
+          p <strong>Motor:</strong> 1.6 TDI (diesel)
+          p <strong>Verzia:</strong> Spaceback (combi)
+          p <strong>Miest na sedenie:</strong> 5
+          p <strong>Farba:</strong> modrá metalíza
+          p <strong>Kombinovaná spotreba:</strong> 4.3 l 
+        .col-md-6
+          h4 CENNÍK PRENÁJMU:
+          p <strong>1 deň:</strong> 45 €
+          p <strong>2-3 dni:</strong> 40 € / deň
+          p <strong>4-8 dní:</strong> 35 € / deň
+          p <strong>9 a viac dní:</strong> 30 € / deň
+        .col-12.mt-4
+          span <strong>*Ceny uvedené v cenníku na tejto stránke sú orientačné.<br> Koncová cena záleží od dohody s prenajímateľom.</strong>
+    .container.galleryContent#fancybox
+      h4 Reálna galéria vozidla Škoda Rapid v našej ponuke:
+      .row.m-t-60
+        .col-lg-3.col-md-4.col-sm-6.thumb
+          a.fancybox(href="./assets/images/gallery/0.jpg" data-fancybox="images")
+            img.zoom.img-fluid.lazy(data-src="./assets/images/gallery/0.jpg" alt="")
+        .col-lg-3.col-md-4.col-sm-6.thumb
+          a.fancybox(href="./assets/images/gallery/1.jpg" data-fancybox="images")
+            img.zoom.img-fluid.lazy(data-src="./assets/images/gallery/1.jpg" alt="")
+        .col-lg-3.col-md-4.col-sm-6.thumb
+          a.fancybox(href="./assets/images/gallery/2.jpg" data-fancybox="images")
+            img.zoom.img-fluid.lazy(data-src="./assets/images/gallery/2.jpg" alt="")
+        .col-lg-3.col-md-4.col-sm-6.thumb
+          a.fancybox(href="./assets/images/gallery/3.jpg" data-fancybox="images")
+            img.zoom.img-fluid.lazy(data-src="./assets/images/gallery/3.jpg" alt="")
+        .col-lg-3.col-md-4.col-sm-6.thumb
+          a.fancybox(href="./assets/images/gallery/4.jpg" data-fancybox="images")
+            img.zoom.img-fluid.lazy(data-src="./assets/images/gallery/4.jpg" alt="")
+        .col-lg-3.col-md-4.col-sm-6.thumb
+          a.fancybox(href="./assets/images/gallery/5.jpg" data-fancybox="images")
+            img.zoom.img-fluid.lazy(data-src="./assets/images/gallery/5.jpg" alt="")
+        .col-lg-3.col-md-4.col-sm-6.thumb
+          a.fancybox(href="./assets/images/gallery/6.jpg" data-fancybox="images")
+            img.zoom.img-fluid.lazy(data-src="./assets/images/gallery/6.jpg" alt="")
+        .col-lg-3.col-md-4.col-sm-6.thumb
+          a.fancybox(href="./assets/images/gallery/7.jpg" data-fancybox="images")
+            img.zoom.img-fluid.lazy(data-src="./assets/images/gallery/7.jpg" alt="")
+        .col-lg-3.col-md-4.col-sm-6.thumb
+          a.fancybox(href="./assets/images/gallery/8.jpg" data-fancybox="images")
+            img.zoom.img-fluid.lazy(data-src="./assets/images/gallery/8.jpg" alt="")
+        .col-lg-3.col-md-4.col-sm-6.thumb
+          a.fancybox(href="./assets/images/gallery/9.jpg" data-fancybox="images")
+            img.zoom.img-fluid.lazy(data-src="./assets/images/gallery/9.jpg" alt="")
+        .col-lg-3.col-md-4.col-sm-6.thumb
+          a.fancybox(href="./assets/images/gallery/10.jpg" data-fancybox="images")
+            img.zoom.img-fluid.lazy(data-src="./assets/images/gallery/10.jpg" alt="")
+        .col-lg-3.col-md-4.col-sm-6.thumb
+          a.fancybox(href="./assets/images/gallery/11.jpg" data-fancybox="images")
+            img.zoom.img-fluid.lazy(data-src="./assets/images/gallery/11.jpg" alt="")
+    .position-relative
+      include footer.pug
+block script
+  include main-scripts.pug
+  script(src='../assets/js/carwellness-main.min.js')

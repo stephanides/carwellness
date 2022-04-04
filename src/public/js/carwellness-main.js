@@ -6,47 +6,9 @@ var _baseURI = window.location.protocol + "//" + window.location.host;
 
 //**Map functions**//
 
-function mapZilina() {
-	console.log("mapa");
-	
-	var mapOptions = {
-		zoom: 14,
-		center: new google.maps.LatLng(49.220597, 18.740918),
-		mapTypeId: google.maps.MapTypeId.HYBRID
-	};
 
-	loadJSON(function(response) {
-		var loaded_json = JSON.parse(response);
-		var styledMapType = new google.maps.StyledMapType(loaded_json, {name: "Map"});
-
-		map.mapTypes.set("styled_map", styledMapType);
-		map.setMapTypeId("styled_map");
-	});
-
-	function loadJSON(callback) {
-		var xobj = new XMLHttpRequest();
-		xobj.overrideMimeType("application/json");
-		xobj.open("GET", window.location.origin + "/assets/js/map.json", true);
-		xobj.onreadystatechange = function () {
-			if (xobj.readyState == 4 && xobj.status == "200") {
-				callback(xobj.responseText);
-			}
-		};
-		xobj.send(null);
-	}
-	
-	var map = new google.maps.Map(document.getElementById("mapZilina"), mapOptions);
-
-	var marker = new google.maps.Marker({
-		position: new google.maps.LatLng(49.220597, 18.740918),
-		map: map,
-		title: "CarWellness Žilina",
-		fullscreenControl: false
-	});
-}
 
 function mapNitra() {
-	console.log("mapa");
 	
 	var mapOptions = {
 			center: new google.maps.LatLng(48.306872, 18.087049),
@@ -115,7 +77,7 @@ if(document.getElementById("fancybox")){
 }
 
 //** Order part**//
-var orderCity = null;
+var orderCity = 1;
 var orderCarType = null;
 var orderCarCar = "";
 var orderProgram = [false,false,false,false,false,false,false,false];
@@ -160,54 +122,28 @@ function setTimes(object){
 	$(document.getElementById("timepicker")).timepicker("option", "disableTimeRanges", object);
 }
 
-function cityForOrder(e){
-	document.getElementById("cityForOrder-2").classList.remove("choosed");
-	document.getElementById("cityForOrder-1").classList.remove("choosed");
-	document.getElementById("cityForOrder-2").classList.remove("unlisted");
-	document.getElementById("cityForOrder-1").classList.remove("unlisted");
-	document.getElementById("cityForOrder-"+e).classList.add("choosed");
-
-	if(e == 1){
-		document.getElementById("orderChoosedCity").innerHTML = "Autoumyváreň Nitra";
-		setTimes(timesObjectNitra);
-	}
-
-	if(e == 2){
-		document.getElementById("orderChoosedCity").innerHTML = "Autoumyváreň Žilina";
-		setTimes(timesObjectZilina);
-	}
-
-	orderCity = e;
-	document.getElementById("dateContainer").style.pointerEvents = "all";
-	document.getElementById("dateDanger").style.display = "none";
-
-	console.log(orderCity);
-
-	var date = $(document.getElementById("datepicker")).datepicker("getDate");
+if(document.getElementById("timepicker")){
+  document.getElementById("dateContainer").style.pointerEvents = "all";
+  var date = $(document.getElementById("datepicker")).datepicker("getDate");
 	if (date != null) {
 		var day = date.getDay();
         
 		if (orderCity == 1) {
 			if(day === 6 || day === 0) {
 				timesObjectNitra[0] = ["00:00:00", "09:00:00"];
-				setTimes(timesObjectNitra);
+				$(document.getElementById("timepicker")).timepicker("option", "disableTimeRanges", timesObjectNitra);
 			} else {
 				timesObjectNitra[0] = ["00:00:00", "09:00:00"];
-				setTimes(timesObjectNitra);
-			}
-		}
-
-		if (orderCity === 2) {
-			if(day == 6 || day == 0){
-				timesObjectZilina[0] = ["00:00:00", "09:00:00"];
-				setTimes(timesObjectZilina);
-			} else {
-				timesObjectZilina[0] = ["00:00:00", "09:00:00"];
-				setTimes(timesObjectZilina);
+				$(document.getElementById("timepicker")).timepicker("option", "disableTimeRanges", timesObjectNitra);;
 			}
 		}
 	}
+  
 }
+
+
+
+	
 
 function carTypeOrder(e) {
 	document.getElementById("carTypeOrder-2").classList.remove("choosed");
@@ -252,25 +188,25 @@ function programOrder(e) {
 
 		switch(e) {
 			case 0:
-				orderSum = orderSum - 30;
+				orderSum = orderSum - 33;
 				break;
 			case 1:
-				orderSum = orderSum - 78;
+				orderSum = orderSum - 88;
 				break;
 			case 2:
-				orderSum = orderSum - 16;
+				orderSum = orderSum - 18;
 				break;
 			case 3:
-				orderSum = orderSum - 21;
+				orderSum = orderSum - 24;
 				break;
 			case 4:
-				orderSum = orderSum - 98;
-				break;
-			case 5:
 				orderSum = orderSum - 108;
 				break;
+			case 5:
+				orderSum = orderSum - 118;
+				break;
 			case 6:
-				orderSum = orderSum - 58;
+				orderSum = orderSum - 66;
 				break;
 			case 7:
 				orderSum = orderSum - 68;
@@ -284,25 +220,25 @@ function programOrder(e) {
 
 		switch(e) {
 			case 0:
-				orderSum = orderSum + 30;
+				orderSum = orderSum + 33;
 				break;
 			case 1:
-				orderSum = orderSum + 78;
+				orderSum = orderSum + 88;
 				break;
 			case 2:
-				orderSum = orderSum + 16;
+				orderSum = orderSum + 18;
 				break;
 			case 3:
-				orderSum = orderSum + 21;
+				orderSum = orderSum + 24;
 				break;
 			case 4:
-				orderSum = orderSum + 98;
-				break;
-			case 5:
 				orderSum = orderSum + 108;
 				break;
+			case 5:
+				orderSum = orderSum + 118;
+				break;
 			case 6:
-				orderSum = orderSum + 58;
+				orderSum = orderSum + 66;
 				break;
 			case 7:
 				orderSum = orderSum + 68;
@@ -322,25 +258,25 @@ function removeProgram(e){
 
 	switch(e) {
 			case 0:
-				orderSum = orderSum - 30;
+				orderSum = orderSum - 33;
 				break;
 			case 1:
-				orderSum = orderSum - 78;
+				orderSum = orderSum - 88;
 				break;
 			case 2:
-				orderSum = orderSum - 16;
+				orderSum = orderSum - 18;
 				break;
 			case 3:
-				orderSum = orderSum - 21;
+				orderSum = orderSum - 24;
 				break;
 			case 4:
-				orderSum = orderSum - 98;
-				break;
-			case 5:
 				orderSum = orderSum - 108;
 				break;
+			case 5:
+				orderSum = orderSum - 118;
+				break;
 			case 6:
-				orderSum = orderSum - 58;
+				orderSum = orderSum - 66;
 				break;
 			case 7:
 				orderSum = orderSum - 68;
@@ -557,7 +493,7 @@ function sendOrder() {
 }
 
 //** Claim part - creating of JSon for Server**//
-var claimCity = null;
+var claimCity = 1;
 var claimName = "";
 var claimEmail = "";
 var claimTel = "";
@@ -573,18 +509,6 @@ var claimObjectToSend = {
 };
 var claimReady = false;
 
-function cityForClaim(e) {
-	document.getElementById("city-1").classList.remove("choosed");
-	document.getElementById("city-2").classList.remove("choosed");
-	document.getElementById("city-1").classList.remove("unlisted");
-	document.getElementById("city-2").classList.remove("unlisted");
-	document.getElementById("city-"+e).classList.add("choosed");
-
-	claimCity = e;
-	claimReady = true;
-}
-
-
 function sendClaim() {
 	claimName = document.getElementById("claimName").value;
 	claimEmail = document.getElementById("claimEmail").value;
@@ -598,11 +522,7 @@ function sendClaim() {
 	claimObjectToSend.image = claimImage;
 	claimObjectToSend.message = claimMessage;
 
-	if (claimCity == null) {
-		claimReady = false;
-		document.getElementById("city-1").classList.add("unlisted");
-		document.getElementById("city-2").classList.add("unlisted");
-	}
+	
 
 	if (!document.getElementById("claimName").checkValidity()) {
 		claimReady = false;
@@ -628,7 +548,6 @@ function sendClaim() {
 				console.log(response);
 				// SERVICE WORKER CALL
 				if(socket) {
-					console.log("GOING EMIT SOCKET");
 					socket.emit("claim created");
 					
 					$(document.getElementById("claimModal")).modal("show");

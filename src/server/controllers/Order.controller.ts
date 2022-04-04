@@ -63,24 +63,14 @@ export class OrderController {
           html: `<h2>Vaša objednávka bola prijatá. Ďakujeme za rezerváciu a tešíme sa na Vás <span style="color:#dc002e;">${newDate}</span> o <span style="color:#dc002e;">${newTime}</span>.</h2>
           <p><strong>S pozdravom / With Kind Regards</strong></p>
           <img src='https://carwellness.sk/assets/images/logo.png' />
-          <p style="color:#dc002e;"><strong>CAR wellness s.r.o.</strong></p>
-          <p><strong>J. Grešáka 2877/22</strong></p>
-          <p><strong>Bardejov 085 01</strong></p>
-          <p>&nbsp;</p>
-          <p><strong>Prevádzky:</strong></p>
-          <p>&nbsp;</p>
-          <p style="color:#dc002e;"><strong>CARwellness I</strong></p>
-          <p><strong>Veľká okružná 59A, Aupark -1.podlažie</strong></p>
-          <p><strong>Žilina 010 01</strong></p>
-          <p>&nbsp;</p>
-          <p style="color:#dc002e;"><strong>CARwellness II</strong></p>
+          <p style="color:#dc002e;"><strong>CW partners s.r.o.</strong></p>
+          <p><strong>Karpatské námestie 7770/10A</strong></p>
+          <p><strong>831 06 Bratislava</strong></p>
+          <p style="color:#dc002e;"><strong>CARwellness</strong></p>
           <p><strong>Štefánikova trieda 61, Galéria Mlyny 0. podlažie</strong></p>
-          <p>&nbsp;</p>
-          <p><strong>IČO: 46 471 308</strong></p>
-          <p><strong>DIČ: 2023405230</strong></p>
-          <p>&nbsp;</p>
+          <p><strong>IČO: 515 568 98</strong></p>
+          <p><strong>DIČ: 2120728687</strong></p>
           <p><strong>Mobil: +421 903 716 656</strong></p>
-          <p>&nbsp;</p>
           <p style="color:#dc002e;"><strong>www.carwellness.sk</strong></p>
            `,
         });

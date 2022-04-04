@@ -1,116 +1,119 @@
-
 //variables
-$carwellness-red:rgb(220,0,46);
-$card-background:rgb(60,65,71);
-$break-extralarge:1280px;
-$break-large:1200px;
-$break-medium:991px;
-$break-mediumsmall:767px;
-$break-small:576px;
+$carwellness-red: rgb(220, 0, 46);
+$card-background: rgb(60, 65, 71);
+$break-extralarge: 1280px;
+$break-large: 1200px;
+$break-medium: 991px;
+$break-mediumsmall: 767px;
+$break-small: 576px;
 
-* { font-family: 'Source Sans Pro', sans-serif; }
-.hide-mobile{
-  @media screen and (max-width: $break-medium){
-    display:none;
+* {
+  font-family: "Source Sans Pro", sans-serif;
+}
+.hide-mobile {
+  @media screen and (max-width: $break-medium) {
+    display: none;
   }
 }
-.hide-desktop{
-  @media screen and (min-width: $break-medium){
-    display:none;
+.hide-desktop {
+  @media screen and (min-width: $break-medium) {
+    display: none;
   }
 }
-.socNetworks{
+.socNetworks {
   display: flex;
-  @media screen and (max-width: $break-mediumsmall){
+  @media screen and (max-width: $break-mediumsmall) {
     justify-content: center;
   }
-  a{
+  a {
     color: #dc002e;
-    &:hover{
-    color: #dc002e;
+    &:hover {
+      color: #dc002e;
     }
   }
 }
 
-
-
 #wrapper {
-  
-  .gdpr{
-    color:$carwellness-red !important;
+  .gdpr {
+    color: $carwellness-red !important;
     font-size: 14px !important;
     margin-bottom: 10px !important;
   }
-  .navbar{
-    padding-top:0;
-    padding-bottom:0;
+  .navbar {
+    padding-top: 0;
+    padding-bottom: 0;
     background-color: rgba(255, 255, 255, 0.99); //white;
-    .nav-link{
-      font-size:16px;
-      font-weight:bold;
-      color:rgb(120, 124, 135);
-      cursor:pointer;
+    .nav-link {
+      font-size: 16px;
+      font-weight: bold;
+      color: rgb(120, 124, 135);
+      cursor: pointer;
       padding: 30px 10px;
-      @media screen and (max-width: $break-medium){
+      @media screen and (max-width: $break-medium) {
         padding: 10px 10px;
       }
-      &:hover{
-        color:$carwellness-red;
+      &:hover {
+        color: $carwellness-red;
       }
-      &.active{
-        color:$carwellness-red !important;
-      }
-    }
-    .online-order{
-      background-color:$carwellness-red;
-      color:white;
-      &:hover{
-        background-color:$carwellness-red!important;
-        color:white!important;
+      &.active {
+        color: $carwellness-red !important;
       }
     }
-    .navbar-collapse{
-      .navbar-nav{
-        @media screen and (max-width: $break-medium){
-          height:100vh;
+    .online-order {
+      background-color: $carwellness-red;
+      color: white;
+      &:hover {
+        background-color: $carwellness-red !important;
+        color: white !important;
+      }
+    }
+    .not-active {
+      background-color: #3c4147;
+      pointer-events: none;
+      cursor: default;
+    }
+    .navbar-collapse {
+      .navbar-nav {
+        @media screen and (max-width: $break-medium) {
+          height: 100vh;
         }
       }
     }
-    .navbar-brand{
+    .navbar-brand {
       padding: 1rem;
     }
   }
-  .carousel-inner{
-    img{
-      width:100%;
+  .carousel-inner {
+    img {
+      width: 100%;
       //min-height: 220px;
-      height:100%;
+      height: 100%;
     }
-    .carousel-item.active{
+    .carousel-item.active {
       display: flex !important;
-      .container{
+      .container {
         position: absolute;
         margin: 0 auto;
         left: 0;
         right: 0;
         padding-left: 50px;
-        h3{
-          color:white;
+        h3 {
+          color: white;
           margin-bottom: 30px;
         }
-        a{
-          color:white;
+        a {
+          color: white;
           text-decoration: none;
-          border:2px solid white;
+          border: 2px solid white;
           padding: 12px 20px;
         }
       }
     }
   }
-  .main-carousel{
-    top:84px;
-    position:relative;
-    padding:0;
+  .main-carousel {
+    margin-top: 84px;
+    position: relative;
+    padding: 0;
 
     img {
       width: 100%;
@@ -118,26 +121,26 @@ $break-small:576px;
       height: 100%;
     }
   }
-  .services{
-    top:84px;
-    position:relative;
-    text-align:center;
-    padding-left:30px;
-    padding-right:30px;
-    h3{
-      font-size:38px;
-      color:rgb(60,65,71);
+  .services {
+    margin-top: 84px;
+    position: relative;
+    text-align: center;
+    padding-left: 30px;
+    padding-right: 30px;
+    h3 {
+      font-size: 38px;
+      color: rgb(60, 65, 71);
       font-weight: bold;
-      margin-top:80px;
+      margin-top: 80px;
     }
-    p{
-      font-size:16px;
-      color:rgb(120,124,135);
+    p {
+      font-size: 16px;
+      color: rgb(120, 124, 135);
     }
-    .services-carousel{
-      margin-top:50px;
-      position:relative;
-      padding:0;
+    .services-carousel {
+      margin-top: 50px;
+      position: relative;
+      padding: 0;
       .carousel-inner .carousel-item.active,
       .carousel-inner .carousel-item-next,
       .carousel-inner .carousel-item-prev {
@@ -147,30 +150,30 @@ $break-small:576px;
       .carousel-inner .carousel-item-next {
         transform: translateX(25%);
       }
-      .carousel-inner .carousel-item-left.active, 
+      .carousel-inner .carousel-item-left.active,
       .carousel-inner .carousel-item-prev {
         transform: translateX(-25%);
       }
       .carousel-inner .carousel-item-right,
-      .carousel-inner .carousel-item-left{ 
+      .carousel-inner .carousel-item-left {
         transform: translateX(0);
       }
-      img{
-        width:auto;
+      img {
+        width: auto;
       }
-      .carousel-item{
-        background-color:white !important;
-        margin-left:0;
+      .carousel-item {
+        background-color: white !important;
+        margin-left: 0;
       }
-      h4{
-        font-size:22px;
-        font-weight:bold;
-        color:black;
-        margin-top:20px;
+      h4 {
+        font-size: 22px;
+        font-weight: bold;
+        color: black;
+        margin-top: 20px;
       }
-      p{
-        font-size:16px;
-        color:rgb(120,124,135);
+      p {
+        font-size: 16px;
+        color: rgb(120, 124, 135);
       }
       /*.col-lg-3{
         cursor:pointer;
@@ -181,842 +184,856 @@ $break-small:576px;
         }
       }*/
     }
-    .carousel-control-prev{
-      width:unset;
-      left:-15px;
-      opacity:.65;
-     }
-    .carousel-control-next{
-      width:unset;
-      right:-15px;
-      opacity:.65;
+    .carousel-control-prev {
+      width: unset;
+      left: -15px;
+      opacity: 0.65;
     }
-    .carousel-control-prev-icon{
-      width:24px;
-      height:24px;
+    .carousel-control-next {
+      width: unset;
+      right: -15px;
+      opacity: 0.65;
+    }
+    .carousel-control-prev-icon {
+      width: 24px;
+      height: 24px;
       background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ff0000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
     }
-    .carousel-control-next-icon{
-      width:24px;
-      height:24px;
+    .carousel-control-next-icon {
+      width: 24px;
+      height: 24px;
       background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23ff0000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
     }
   }
 
-  .aboutus{
-    position:relative;
-    top:150px;
-    padding:0;
-    display:flex;
-    overflow-x:hidden;
-    .container{
-      z-index:1001;
+  .aboutus {
+    position: relative;
+    margin-top: 80px;
+    padding: 0;
+    display: flex;
+    overflow-x: hidden;
+    .container {
+      z-index: 1001;
     }
-    .col-lg-6{
-      @media screen and (max-width: $break-medium){
-        text-align:center;
+    .col-lg-6 {
+      @media screen and (max-width: $break-medium) {
+        text-align: center;
       }
-      img{
-        width:calc(100% + 70px);
+      img {
+        width: calc(100% + 70px);
         left: -70px;
         position: relative;
-        @media screen and (max-width: $break-extralarge){
-          width:100%;
-          left:0;
+        @media screen and (max-width: $break-extralarge) {
+          width: 100%;
+          left: 0;
         }
       }
-      h3{
-        font-size:34px;
-        color:rgb(60,65,71);
-        font-weight:bold;
-        margin-top:80px;
-        @media screen and (max-width: $break-extralarge){
-          margin-top:60px;
+      h3 {
+        font-size: 34px;
+        color: rgb(60, 65, 71);
+        font-weight: bold;
+        margin-top: 80px;
+        @media screen and (max-width: $break-extralarge) {
+          margin-top: 60px;
         }
-        @media screen and (max-width: $break-large){
-          margin-top:16px;
-          font-size:28px;
+        @media screen and (max-width: $break-large) {
+          margin-top: 16px;
+          font-size: 28px;
         }
       }
-      p{
-        font-size:16px;
-        color:rgb(120,124,135);
-        @media screen and (max-width: $break-large){
-          font-size:14px;
+      p {
+        font-size: 16px;
+        color: rgb(120, 124, 135);
+        @media screen and (max-width: $break-large) {
+          font-size: 14px;
         }
       }
     }
-    strong{
-      color:$carwellness-red;
+    strong {
+      color: $carwellness-red;
     }
-    .rightpanel{
-      width:100vw;
-      background-color:rgb(236,238,242);
-      height:100%;
-      position:absolute;
+    .rightpanel {
+      width: 100vw;
+      background-color: rgb(236, 238, 242);
+      height: 100%;
+      position: absolute;
       z-index: 1000;
-      margin-left:500px;
-      @media screen and (max-width: $break-large){
-          margin-left:400px;
+      margin-left: 500px;
+      @media screen and (max-width: $break-large) {
+        margin-left: 400px;
       }
     }
-    button, .online-order-btn {
+    button,
+    .online-order-btn {
       padding: 15px 30px;
-      background-color:$carwellness-red;
-      border:none;
-      color:white;
-      outline:none;
-      cursor:pointer;
+      background-color: $carwellness-red;
+      border: none;
+      color: white;
+      outline: none;
+      cursor: pointer;
       margin-top: 15px;
       display: inline-block;
-      &:hover{
-        background-color:#ae0024;
+      &:hover {
+        background-color: #ae0024;
       }
     }
   }
-  .gallery{
-    position:relative;
-    top:120px;
+  .gallery {
+    position: relative;
+    margin-top: 120px;
     margin-bottom: 80px;
-    h3{
-      font-size:34px;
-      color:rgb(60,65,71);
+    h3 {
+      font-size: 34px;
+      color: rgb(60, 65, 71);
       font-weight: bold;
-      margin-top:80px;
-      text-align:center;
+      margin-top: 80px;
+      text-align: center;
     }
-    p{
-      font-size:16px;
-      color:rgb(120,124,135);
-      text-align:center;
-      margin-bottom:3em;
+    p {
+      font-size: 16px;
+      color: rgb(120, 124, 135);
+      text-align: center;
+      margin-bottom: 3em;
     }
-    h4{
-      font-size:22px;
-      color:rgb(60,65,71);
-      font-weight:bold;
-      margin-top:10px;
-      text-align:center;
-      @media screen and (max-width: $break-medium){
-          margin-top:15px;
-          margin-bottom:15px;
-          text-align:center;
-          font-size:32px;
+    h4 {
+      font-size: 22px;
+      color: rgb(60, 65, 71);
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: center;
+      @media screen and (max-width: $break-medium) {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        text-align: center;
+        font-size: 32px;
       }
     }
-    img{
-      transition: transform .2s;
-      cursor:pointer;
-      display:block;
-      margin:0 auto;
-      &:hover{
+    img {
+      transition: transform 0.2s;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto;
+      &:hover {
         transform: scale(1.05);
       }
-      @media screen and (max-width: $break-large){
-          width:100%;
+      @media screen and (max-width: $break-large) {
+        width: 100%;
       }
     }
   }
-  .footer{
-    position:relative;
-    top:100px;
-    background-color:rgb(236,238,242);
-    .container{
-      padding-bottom:80px;
-      padding-top:80px;
-      @media screen and (max-width: $break-mediumsmall){
-        text-align:center;
+  .footer {
+    position: relative;
+    margin-top: 40px;
+    background-color: rgb(236, 238, 242);
+    .container {
+      padding-bottom: 80px;
+      padding-top: 80px;
+      @media screen and (max-width: $break-mediumsmall) {
+        text-align: center;
       }
     }
-    h4{
-      font-size:22px;
-      color:rgb(60,65,71);
+    h4 {
+      font-size: 22px;
+      color: rgb(60, 65, 71);
       font-weight: bold;
-      @media screen and (max-width: $break-mediumsmall){
-        margin-top:30px;
+      @media screen and (max-width: $break-mediumsmall) {
+        margin-top: 30px;
       }
     }
-    .divider{
-      width:100px;
+    .divider {
+      width: 100px;
       height: 4px;
-      background-color:$carwellness-red;
-      margin-bottom:20px;
-      @media screen and (max-width: $break-mediumsmall){
-        margin:0 auto;
-        margin-bottom:20px;
+      background-color: $carwellness-red;
+      margin-bottom: 20px;
+      @media screen and (max-width: $break-mediumsmall) {
+        margin: 0 auto;
+        margin-bottom: 20px;
       }
     }
-    strong{
-      color:$carwellness-red;
+    strong {
+      color: $carwellness-red;
     }
-    h6{
-      font-weight:600;
-      font-size:18px;
+    h6 {
+      font-weight: 600;
+      font-size: 18px;
     }
-    p{
-      font-size:18px;
-      color:rgb(120,124,135);
-      margin-bottom:0.4rem;
+    p {
+      font-size: 18px;
+      color: rgb(120, 124, 135);
+      margin-bottom: 0.4rem;
     }
-    .highlight{
-      color:$carwellness-red;
-      text-decoration:underline;
+    .highlight {
+      color: $carwellness-red;
+      text-decoration: underline;
     }
-    .padding-left-30{
-      padding-left:30px;
+    .padding-left-30 {
+      padding-left: 30px;
     }
-    .strongblack{
-      font-weight:bold;
-      color:black !important;
+    .strongblack {
+      font-weight: bold;
+      color: black !important;
     }
-    .goMap{
+    .goMap {
       padding: 15px 30px;
-      background-color:$carwellness-red;
-      border:none;
-      color:white;
-      outline:none;
-      cursor:pointer;
+      background-color: $carwellness-red;
+      border: none;
+      color: white;
+      outline: none;
+      cursor: pointer;
       margin-top: 15px;
       display: block;
       text-align: center;
       text-decoration: none;
-      &:hover{
-        background-color:#ae0024;
+      &:hover {
+        background-color: #ae0024;
       }
     }
   }
-.businessContainer{
-  position: relative;
-  top: 200px;
-  h5{
-    font-weight: bold;
-  }
-}
-.serviceshead{
-    position:relative;
-    top:84px;
-    float:right;
-    padding:0;
-    display:flex;
-    align-items:center;
-    img{
-      @media screen and (max-width: $break-extralarge){
-        height:250px;
-      }
-    }
-    .headpicture{
-      width:100%;
-    }
-    .headContainer{
-      position:absolute;
-      color:white;
-      margin-left:50%;
-      transform:translateX(-50%);
-    }
-    h3{
-      font-size:54px;
-      font-weight:bold;
-      margin:0;
+  .businessContainer {
+    position: relative;
+    margin-top: 200px;
+    h5 {
+      font-weight: bold;
     }
   }
-  .serviceContent{
-    position:relative;
-    top:160px;
-    text-align:center;
-    h4{
-      font-size:38px;
-      font-weight:bold;
-      strong{
-        color:$carwellness-red;
+  .serviceshead {
+    position: relative;
+    margin-top: 84px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    img {
+      @media screen and (max-width: $break-extralarge) {
+        height: 250px;
       }
     }
-    p{
-      font-size:16px;
-      color:rgb(120,124,135);
+    .headpicture {
+      width: 100%;
+    }
+    .headContainer {
+      position: absolute;
+      color: white;
+      margin-left: 50%;
+      transform: translateX(-50%);
+    }
+    h3 {
+      font-size: 54px;
+      font-weight: bold;
+      margin: 0;
     }
   }
-  .rowservice{
-    position:relative;
-    top:160px;
-    margin-top:100px;
-    .col-lg-6{
-      @media screen and (max-width: $break-medium){
-        text-align:center;
+  .serviceContent {
+    position: relative;
+    margin-top: 160px;
+    text-align: center;
+    h4 {
+      font-size: 38px;
+      font-weight: bold;
+      strong {
+        color: $carwellness-red;
       }
-      img{
-        width:100%;
+    }
+    p {
+      font-size: 16px;
+      color: rgb(120, 124, 135);
+    }
+  }
+  .rowservice {
+    position: relative;
+    margin-top: 100px;
+    .col-lg-6 {
+      @media screen and (max-width: $break-medium) {
+        text-align: center;
       }
-      h4{
-        font-size:34px;
-        color:rgb(60,65,71);
-        font-weight:bold;
+      img {
+        width: 100%;
       }
-      p{
-        font-size:16px;
-        color:rgb(120,124,135);
-        @media screen and (max-width: $break-medium){
-          padding-bottom:20px;
+      h4 {
+        font-size: 34px;
+        color: rgb(60, 65, 71);
+        font-weight: bold;
+      }
+      p {
+        font-size: 16px;
+        color: rgb(120, 124, 135);
+        @media screen and (max-width: $break-medium) {
+          padding-bottom: 20px;
         }
-        @media screen and (max-width: $break-large){
-          font-size:13px;
+        @media screen and (max-width: $break-large) {
+          font-size: 13px;
         }
       }
-      a{
+      a {
         padding: 15px 30px;
-        background-color:$carwellness-red;
-        border:none;
-        color:white;
-        outline:none;
-        cursor:pointer;
+        background-color: $carwellness-red;
+        border: none;
+        color: white;
+        outline: none;
+        cursor: pointer;
         margin-top: 15px;
-        position:absolute;
-        bottom:0;
-        text-decoration:none;
-        &:hover{
-          background-color:#ae0024;
+        position: absolute;
+        bottom: 0;
+        text-decoration: none;
+        &:hover {
+          background-color: #ae0024;
         }
-        @media screen and (max-width: $break-medium){
-        position:relative;
+        @media screen and (max-width: $break-medium) {
+          position: relative;
         }
       }
     }
   }
-  .price-listContent{
-    position:relative;
-    top:160px;
-    text-align:center;
-    h4{
-      font-size:38px;
-      font-weight:bold;
-      strong{
-        color:$carwellness-red;
+  .price-listContent {
+    position: relative;
+    margin-top: 60px;
+    margin-bottom: 40px;
+    text-align: center;
+    h4 {
+      font-size: 38px;
+      font-weight: bold;
+      strong {
+        color: $carwellness-red;
       }
     }
-    p{
-      font-size:16px;
-      color:rgb(120,124,135);
-    }
-  }
-  .price-added-services{
-    position:relative;
-    top:240px;
-    text-align:center;
-    h4{
-      font-size:38px;
-      font-weight:bold;
-      strong{
-        color:$carwellness-red;
-      }
-    }
-    p{
-      font-size:16px;
-      color:rgb(120,124,135);
+    p {
+      font-size: 16px;
+      color: rgb(120, 124, 135);
     }
   }
-  .price-list-price{
-    position:relative;
-    top:200px;
-    text-align:center;
-    .card-deck{
-      @media screen and (max-width: $break-medium){
-        flex-direction:column;
+  .price-listContent-noimg {
+    position: relative;
+    margin-top: 140px;
+    margin-bottom: 40px;
+    text-align: center;
+    h4 {
+      font-size: 38px;
+      font-weight: bold;
+      strong {
+        color: $carwellness-red;
       }
-      .card-body{
-        padding:0;
-        background-color:rgb(225,227,232);
+    }
+    p {
+      font-size: 16px;
+      color: rgb(120, 124, 135);
+    }
+  }
+  .price-added-services {
+    position: relative;
+    margin-top: 40px;
+    text-align: center;
+    h4 {
+      font-size: 38px;
+      font-weight: bold;
+      strong {
+        color: $carwellness-red;
       }
-      .card-body-header{
-        background-color:$card-background;
-        padding:24px;
-          h4{
-            font-size:22px;
-            color:white;
-            font-weight:bold;
-          }
-          h5{
-            font-size:16px;
-            color:rgb(120,124,135);
-            strong{
-              color:white;
-            }
-          } 
+    }
+    p {
+      font-size: 16px;
+      color: rgb(120, 124, 135);
+    }
+  }
+  .price-list-price {
+    position: relative;
+    text-align: center;
+    .card-deck {
+      @media screen and (max-width: $break-medium) {
+        flex-direction: column;
       }
-      .card-body-body{
-        padding-bottom:140px;
-        @media screen and (max-width: $break-medium){
-          padding-bottom:200px;
+      .card-body {
+        padding: 0;
+        background-color: rgb(225, 227, 232);
+      }
+      .card-body-header {
+        background-color: $card-background;
+        padding: 24px;
+        h4 {
+          font-size: 22px;
+          color: white;
+          font-weight: bold;
         }
-        .light-grey{
-          background-color:rgb(242,243,246);
-        }
-        .dark-grey{
-          background-color:rgb(225,227,232);
-        }
-        p{
-          font-size:14px;
-          color:rgb(60,65,71);
-          font-weight:bold;
-          padding:6px 20px;
-          margin:0;
-        }
-        .price{
-          font-size:34px;
-          color:rgb(120,124,135);
-          font-weight:bold;
-          position:absolute;
-          bottom:64px;
-          width:100%;
-        }
-        a{
-          background-color:$carwellness-red;
-          font-size:16px;
-          color:white;
-          font-weight:bold;
-          position:absolute;
-          bottom:0;
-          width:100%;
-          left:0;
-          padding:20px;
-          outline:none;
-          border:none;
-          cursor:pointer;
-          text-decoration:none;
-          &:hover{
-            background-color:#ae0024;
+        h5 {
+          font-size: 16px;
+          color: rgb(120, 124, 135);
+          strong {
+            color: white;
           }
         }
-      } 
-    }
-  }
-  .top-240{
-    top:240px;
-  }
-  .top-260{
-    top:260px;
-  }
-  .added-services{
-    top:300px;
-    .row{
-      @media screen and (max-width: $break-small){
-          display:inline-flex;
-          width:100%;
+      }
+      .card-body-body {
+        padding-bottom: 140px;
+        @media screen and (max-width: $break-medium) {
+          padding-bottom: 200px;
+        }
+        .light-grey {
+          background-color: rgb(242, 243, 246);
+        }
+        .dark-grey {
+          background-color: rgb(225, 227, 232);
+        }
+        p {
+          font-size: 14px;
+          color: rgb(60, 65, 71);
+          font-weight: bold;
+          padding: 6px 20px;
+          margin: 0;
+        }
+        .price {
+          font-size: 34px;
+          color: rgb(120, 124, 135);
+          font-weight: bold;
+          position: absolute;
+          bottom: 64px;
+          width: 100%;
+        }
+        a {
+          background-color: $carwellness-red;
+          font-size: 16px;
+          color: white;
+          font-weight: bold;
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          left: 0;
+          padding: 20px;
+          outline: none;
+          border: none;
+          cursor: pointer;
+          text-decoration: none;
+          &:hover {
+            background-color: #ae0024;
+          }
+        }
       }
     }
-    .col-lg-6{
-      @media screen and (max-width: $break-small){
-        padding:0;
+  }
+  .top-240 {
+    margin-top: 40px;
+  }
+  .top-260 {
+    margin-top: 40px;
+  }
+  .added-services {
+    margin-top: 40px;
+    .row {
+      @media screen and (max-width: $break-small) {
+        display: inline-flex;
+        width: 100%;
       }
     }
-    h5{
-      font-size:22px;
-      color:rgb(60,65,71);
-      font-weight:bold;
+    .col-lg-6 {
+      @media screen and (max-width: $break-small) {
+        padding: 0;
+      }
+    }
+    h5 {
+      font-size: 22px;
+      color: rgb(60, 65, 71);
+      font-weight: bold;
       padding: 20px 40px;
       background-color: #f2f3f6;
-      text-align:left;
+      text-align: left;
       margin-bottom: 30px;
     }
-    p{
-      font-size:14px;
-      color: rgb(60,65,71);
-      font-weight:bold;
+    p {
+      font-size: 14px;
+      color: rgb(60, 65, 71);
+      font-weight: bold;
       text-align: left;
       margin: 0;
       padding: 4px 40px;
-      padding-right:0;
-      @media screen and (max-width: $break-large){
-          padding-left:0;
+      padding-right: 0;
+      @media screen and (max-width: $break-large) {
+        padding-left: 0;
       }
-      strong{
-        text-align:right;
-        color:black;
-      }
-    }
-    .col-sm-9{
-      padding-right:0;
-      @media screen and (max-width: $break-small){
-        width:70%;
+      strong {
+        text-align: right;
+        color: black;
       }
     }
-    .col-sm-3{
-      padding:0;
-      padding-right:15px;
-      @media screen and (max-width: $break-small){
-        width:30%;
-      }
-      p{
-        text-align:right;
+    .col-sm-9 {
+      padding-right: 0;
+      @media screen and (max-width: $break-small) {
+        width: 70%;
       }
     }
-    .col-sm-11{
-      padding-right:0;
-      @media screen and (max-width: $break-small){
-        width:90%;
+    .col-sm-3 {
+      padding: 0;
+      padding-right: 15px;
+      @media screen and (max-width: $break-small) {
+        width: 30%;
       }
-    }  
-    .col-sm-1{
-      padding-left:0;
-      @media screen and (max-width: $break-small){
-        width:10%;
+      p {
+        text-align: right;
       }
-      p{
-        text-align:right;
-        padding-left:0;
+    }
+    .col-sm-11 {
+      padding-right: 0;
+      @media screen and (max-width: $break-small) {
+        width: 90%;
+      }
+    }
+    .col-sm-1 {
+      padding-left: 0;
+      @media screen and (max-width: $break-small) {
+        width: 10%;
+      }
+      p {
+        text-align: right;
+        padding-left: 0;
       }
     }
   }
-  .contact{
-    position:relative;
-    top:240px;
-    @media screen and (max-width: $break-medium){
-      top:140px;
+  .contact {
+    position: relative;
+    margin-top: 40px;
+    @media screen and (max-width: $break-medium) {
+      margin-top: 40px;
     }
-    h4{
-      font-size:22px;
-      color:rgb(60,65,71);
+    h4 {
+      font-size: 22px;
+      color: rgb(60, 65, 71);
       font-weight: bold;
-      margin-bottom:32px;
-      @media screen and (max-width: $break-medium){
-        margin-top:60px;
+      margin-bottom: 32px;
+      @media screen and (max-width: $break-medium) {
+        margin-top: 60px;
       }
     }
-    .col-md-6{
-      @media screen and (max-width: $break-medium){
-        text-align:center;
+    .col-md-6 {
+      @media screen and (max-width: $break-medium) {
+        text-align: center;
       }
     }
-    .col-lg-6{
-      h4{
-        @media screen and (max-width: $break-medium){
-          text-align:center;
+    .col-lg-6 {
+      h4 {
+        @media screen and (max-width: $break-medium) {
+          text-align: center;
         }
       }
     }
-    .divider{
-      width:100px;
+    .divider {
+      width: 100px;
       height: 4px;
-      background-color:$carwellness-red;
-      margin-bottom:20px;
+      background-color: $carwellness-red;
+      margin-bottom: 20px;
     }
-    strong{
-      color:$carwellness-red;
+    strong {
+      color: $carwellness-red;
     }
-    h6{
-      font-weight:600;
-      font-size:18px;
+    h6 {
+      font-weight: 600;
+      font-size: 18px;
     }
-    p{
-      font-size:18px;
-      color:rgb(120,124,135);
+    p {
+      font-size: 18px;
+      color: rgb(120, 124, 135);
       margin-bottom: 1px;
     }
-    .highlight{
-      color:$carwellness-red;
-      text-decoration:underline;
+    .highlight {
+      color: $carwellness-red;
+      text-decoration: underline;
     }
-    .padding-left-30{
-      padding-left:30px;
+    .padding-left-30 {
+      padding-left: 30px;
     }
-    .strongblack{
-      font-weight:bold;
-      color:black !important;
+    .strongblack {
+      font-weight: bold;
+      color: black !important;
     }
-    button{
+    button {
       padding: 15px 30px;
-      background-color:$carwellness-red;
-      border:none;
-      color:white;
-      outline:none;
-      cursor:pointer;
+      background-color: $carwellness-red;
+      border: none;
+      color: white;
+      outline: none;
+      cursor: pointer;
       margin-top: 0px;
-      &:hover{
-        background-color:#ae0024;
+      &:hover {
+        background-color: #ae0024;
       }
-      width:100%;
+      width: 100%;
     }
-    .padding-left-100{
-      padding-left:100px;
-      @media screen and (max-width: $break-medium){
-        padding-left:15px;
+    .padding-left-100 {
+      padding-left: 100px;
+      @media screen and (max-width: $break-medium) {
+        padding-left: 15px;
       }
     }
-    form{
-      label{
-        font-size:18px;
+    form {
+      label {
+        font-size: 18px;
         color: rgb(120, 124, 135);
         font-weight: bold;
       }
-      input{
-        font-size:16px;
+      input {
+        font-size: 16px;
         color: rgb(120, 124, 135);
       }
-      textarea{
-        font-size:16px;
+      textarea {
+        font-size: 16px;
         color: rgb(120, 124, 135);
       }
-      .form-control{
-        padding:10px 26px;
-        border:2px solid #b8b9c0;
-        box-shadow:none !important;
+      .form-control {
+        padding: 10px 26px;
+        border: 2px solid #b8b9c0;
+        box-shadow: none !important;
       }
     }
   }
-  .mapcontainer{
-    position:relative;
-    top:300px;
-    .map{
-      height:360px;
+  .mapcontainer {
+    position: relative;
+    margin-top: 40px;
+    .map {
+      height: 360px;
     }
-    h4{
-      font-size:22px;
-      color:rgb(60,65,71);
+    h4 {
+      font-size: 22px;
+      color: rgb(60, 65, 71);
       font-weight: bold;
-      margin-bottom:32px;
-      text-align:center;
+      margin-bottom: 32px;
+      text-align: center;
     }
-    strong{
-      color:$carwellness-red;
+    strong {
+      color: $carwellness-red;
     }
   }
-  .footerContactSection{
-    top:320px;
+  .footerContactSection {
+    margin-top: 40px;
   }
-  .orderwrapper{
-
-    .orderContainer{
-      position:relative;
-      top:240px;
-      border-top:6px solid $carwellness-red;
+  .orderwrapper {
+    .orderContainer {
+      position: relative;
+      margin-top: 40px;
+      border-top: 6px solid $carwellness-red;
       padding-top: 15px;
-      padding:0;
-      background-color:#eceef2;
-      h4{
+      padding: 0;
+      background-color: #eceef2;
+      h4 {
         font-size: 22px;
         color: rgb(60, 65, 71);
-        font-weight:bold;
-        padding-left:15px;
+        font-weight: bold;
+        padding-left: 15px;
         margin-bottom: 15px;
         margin-top: 50px;
-        width:100%;
+        width: 100%;
       }
-      .orderChooseCity{
-        padding-left:40px;
+      .orderChooseCity {
+        padding-left: 40px;
         padding-right: 40px;
-        button{
+        button {
           padding: 15px 30px;
-          background-color:#e1e3e8;
-          border:none;
-          color:#787c87;
-          outline:none;
-          cursor:pointer;
+          background-color: #e1e3e8;
+          border: none;
+          color: #787c87;
+          outline: none;
+          cursor: pointer;
           margin-top: 0px;
           margin-right: 15px;
-          border:solid 2px #c6cad2;
+          border: solid 2px #c6cad2;
           font-size: 18px;
           font-weight: bold;
-          &:hover{
-            background-color:#dc002e;
-            color:white;
-            border:solid 2px #dc002e;
+          &:hover {
+            background-color: #dc002e;
+            color: white;
+            border: solid 2px #dc002e;
           }
         }
-        .choosed{
-          background-color:$carwellness-red;
-          color:white;
-          border:solid 2px #dc002e;
+        .choosed {
+          background-color: $carwellness-red;
+          color: white;
+          border: solid 2px #dc002e;
         }
       }
-      .orderChooseCarType{
-        padding-left:40px;
+      .orderChooseCarType {
+        padding-left: 40px;
         padding-right: 40px;
-        button{
+        button {
           padding: 15px 30px;
-          background-color:#e1e3e8;
-          border:none;
-          color:#787c87;
-          outline:none;
-          cursor:pointer;
+          background-color: #e1e3e8;
+          border: none;
+          color: #787c87;
+          outline: none;
+          cursor: pointer;
           margin-top: 0px;
           margin-right: 15px;
-          border:solid 2px #c6cad2;
+          border: solid 2px #c6cad2;
           font-size: 18px;
           font-weight: bold;
-          &:hover{
-            background-color:#dc002e;
-            color:white;
-            border:solid 2px #dc002e;
+          &:hover {
+            background-color: #dc002e;
+            color: white;
+            border: solid 2px #dc002e;
           }
         }
-        .choosed{
-          background-color:$carwellness-red;
-          color:white;
-          border:solid 2px #dc002e;
+        .choosed {
+          background-color: $carwellness-red;
+          color: white;
+          border: solid 2px #dc002e;
         }
       }
-      .orderChooseProgram{
-        padding-left:40px;
+      .orderChooseProgram {
+        padding-left: 40px;
         padding-right: 40px;
-        h5{
+        h5 {
           color: rgb(120, 124, 135);
-          font-weight:bold;
-          font-size:18px;
-          padding-top:20px;
+          font-weight: bold;
+          font-size: 18px;
+          padding-top: 20px;
         }
-        h6{
+        h6 {
           color: rgb(120, 124, 135);
-          font-size:16px;
-          padding-bottom:80px;
+          font-size: 16px;
+          padding-bottom: 80px;
         }
-        p{
-          font-size:34px;
+        p {
+          font-size: 34px;
           color: rgb(120, 124, 135);
-          font-weight:bold;
+          font-weight: bold;
         }
-        .col-md-3{
-          text-align:center;
-          background-color:#e1e3e8;
-          border:solid 2px #eceef2;
-          margin-bottom:2%;
-          cursor:pointer;
-          &:hover{
+        .col-md-3 {
+          text-align: center;
+          background-color: #e1e3e8;
+          border: solid 2px #eceef2;
+          margin-bottom: 2%;
+          cursor: pointer;
+          &:hover {
             background-color: #c6cad2;
             border: 2px solid #c6cad2;
           }
         }
-        .choosed{
-          background-color:#dc002e;
-          border:solid 2px #dc002e;
-          &:hover{
-            background-color:#dc002e;
-            border:solid 2px #dc002e;
+        .choosed {
+          background-color: #dc002e;
+          border: solid 2px #dc002e;
+          &:hover {
+            background-color: #dc002e;
+            border: solid 2px #dc002e;
           }
-          h5{
-              color:white;
+          h5 {
+            color: white;
           }
-          h6{
-            color:white;
+          h6 {
+            color: white;
           }
-          p{
-            color:white;
+          p {
+            color: white;
           }
         }
-        button{
+        button {
           background-color: $carwellness-red;
-          border:none;
-          color:white;
-          cursor:pointer;
+          border: none;
+          color: white;
+          cursor: pointer;
           padding: 10px 15px;
-          outline:none;
+          outline: none;
           transition: all 0.3s ease-in-out;
-          &:hover{
+          &:hover {
             transform: scale(1.1);
           }
         }
-         
       }
-      .orderChooseDate{
-        padding-left:40px;
+      .orderChooseDate {
+        padding-left: 40px;
         padding-right: 40px;
-        #dateContainer{
-          pointer-events:none;
+        #dateContainer {
+          pointer-events: none;
         }
-        .alert{
-          margin-left:20px;
+        .alert {
+          margin-left: 20px;
           padding: 0;
           text-align: center;
-          p{
+          p {
             padding-top: 13px;
           }
         }
-        .form-group{
-          display:flex;
+        .form-group {
+          display: flex;
           width: 260px;
           height: 56px;
-          background-color:#e1e3e8;
-          border:solid 2px #c6cad2;
-          align-items:center;
+          background-color: #e1e3e8;
+          border: solid 2px #c6cad2;
+          align-items: center;
           margin-left: 20px;
           /*svg{
           }*/
-          input{
-            background-color:transparent;
-            border:none;
-            outline:none;
+          input {
+            background-color: transparent;
+            border: none;
+            outline: none;
             left: 20px;
             position: relative;
             color: rgb(120, 124, 135);
             font-weight: bold;
           }
         }
-        button{
+        button {
           width: 260px;
           height: 56px;
-          background-color:#00af43;
-          border:solid 2px #00af43;
+          background-color: #00af43;
+          border: solid 2px #00af43;
           margin-left: 20px;
-          color:white;
-          cursor:pointer;
-          outline:none;
-        }   
+          color: white;
+          cursor: pointer;
+          outline: none;
+        }
       }
-      .orderMoreInfo{
-        padding-left:40px;
+      .orderMoreInfo {
+        padding-left: 40px;
         padding-right: 40px;
-        .col-lg-6{
-          margin-top:50px;
-          h4{
-          padding-left:0;
-          margin-top:0;
-          width:100%;
+        .col-lg-6 {
+          margin-top: 50px;
+          h4 {
+            padding-left: 0;
+            margin-top: 0;
+            width: 100%;
+          }
+          p {
+            width: 100%;
+            font-size: 16px;
+            color: rgb(120, 124, 135);
+            font-weight: bold;
+            margin-bottom: 0;
+          }
+          h5 {
+            width: 100%;
+            font-size: 20px;
+            color: rgb(60, 65, 71);
+            font-weight: bold;
+          }
         }
-        p{
-          width:100%;
-          font-size:16px;
-          color: rgb(120, 124, 135);
-          font-weight: bold;
-          margin-bottom:0;
-        }
-        h5{
-          width:100%;
-          font-size: 20px;
-          color: rgb(60, 65, 71);
-          font-weight:bold;
-        }
-        }
-        form{
-          label{
-            font-size:18px;
+        form {
+          label {
+            font-size: 18px;
             color: rgb(120, 124, 135);
             font-weight: bold;
           }
-          input{
-            font-size:16px;
+          input {
+            font-size: 16px;
             color: rgb(120, 124, 135);
           }
-          textarea{
-            font-size:16px;
+          textarea {
+            font-size: 16px;
             color: rgb(120, 124, 135);
           }
-          .form-control{
-            padding:10px 26px;
-            border:2px solid #b8b9c0;
-            box-shadow:none !important;
+          .form-control {
+            padding: 10px 26px;
+            border: 2px solid #b8b9c0;
+            box-shadow: none !important;
           }
         }
-        .padding-left-30{
-          padding-left:30px;
+        .padding-left-30 {
+          padding-left: 30px;
         }
-        span{
-          font-size:18px;
+        span {
+          font-size: 18px;
           color: rgb(60, 65, 71);
           font-weight: bold;
           padding: 4px 0px;
-          &.price{
-            color:$carwellness-red;
-            margin-right:30px;
+          &.price {
+            color: $carwellness-red;
+            margin-right: 30px;
           }
-          button{
-            margin-left:20px;
+          button {
+            margin-left: 20px;
             outline: none;
             border: none;
             background-color: transparent;
@@ -1024,307 +1041,359 @@ $break-small:576px;
             cursor: pointer;
           }
         }
-        .margin-top-20{
-          margin-top:20px;
+        .margin-top-20 {
+          margin-top: 20px;
         }
       }
     }
-    .unlisted{
-      border:solid 2px $carwellness-red !important;
-      color:$carwellness-red !important;
-      &:hover{
-        color:white !important;
+    .unlisted {
+      border: solid 2px $carwellness-red !important;
+      color: $carwellness-red !important;
+      &:hover {
+        color: white !important;
       }
     }
-    .form-group{
-      .unlisted{
-        &:hover{
-          color:grey !important;
+    .form-group {
+      .unlisted {
+        &:hover {
+          color: grey !important;
         }
       }
     }
-    .gallery{
-      top:260px;
+    .gallery {
+      margin-top: 40px;
+      margin-bottom: 40px;
     }
-    .footer{
-      top:260px;
+    .footer {
+      margin-top: 40px;
     }
   }
-  .claimContainer{
-    position:relative;
-    top:260px;
-    .unlisted{
-      border:solid 2px $carwellness-red !important;
-      color:$carwellness-red !important;
-      &:hover{
-        color:white !important;
+  .claimContainer {
+    position: relative;
+    margin-top: 40px;
+    .unlisted {
+      border: solid 2px $carwellness-red !important;
+      color: $carwellness-red !important;
+      &:hover {
+        color: white !important;
       }
     }
-    @media screen and (max-width: $break-medium){
-      top:200px;
+    @media screen and (max-width: $break-medium) {
+      margin-top: 40px;
     }
-    .col-lg-6{
-      @media screen and (max-width: $break-medium){
-        text-align:left;
+    .col-lg-6 {
+      @media screen and (max-width: $break-medium) {
+        text-align: left;
       }
     }
-    .md-center{
-      @media screen and (max-width: $break-medium){
-        text-align:center;
+    .md-center {
+      @media screen and (max-width: $break-medium) {
+        text-align: center;
       }
     }
-    h5{
-      font-size:22px;
+    h5 {
+      font-size: 22px;
       color: rgb(60, 65, 71);
       font-weight: bold;
       margin-bottom: 20px;
     }
-    h6{
-      font-size:18px;
+    h6 {
+      font-size: 18px;
       color: rgb(120, 124, 135);
       font-weight: bold;
     }
-    p{
-      font-size:16px;
+    p {
+      font-size: 16px;
       color: rgb(120, 124, 135);
       margin-bottom: 20px;
     }
-    h6{
-      font-size:18px;
-      font-weight:bold;
-    }
-    .highlight{
-      color:$carwellness-red;
-      text-decoration:underline;
-      @media screen and (max-width: $break-medium){
-        margin-bottom:50px;
-      }
-    }
-    button{
-      padding: 15px 30px;
-      background-color:#e1e3e8;
-      border:none;
-      color:#787c87;
-      outline:none;
-      cursor:pointer;
-      margin-top: 10px;
-      margin-bottom:10px;
-      margin-right: 15px;
-      border:solid 2px #c6cad2;
+    h6 {
       font-size: 18px;
       font-weight: bold;
-      &:hover{
-        background-color:#dc002e;
-        color:white;
-        border:solid 2px #dc002e;
+    }
+    .highlight {
+      color: $carwellness-red;
+      text-decoration: underline;
+      @media screen and (max-width: $break-medium) {
+        margin-bottom: 50px;
       }
-      @media screen and (max-width: $break-small){
-        width:50%;
+    }
+    button {
+      padding: 15px 30px;
+      background-color: #e1e3e8;
+      border: none;
+      color: #787c87;
+      outline: none;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      margin-right: 15px;
+      border: solid 2px #c6cad2;
+      font-size: 18px;
+      font-weight: bold;
+      &:hover {
+        background-color: #dc002e;
+        color: white;
+        border: solid 2px #dc002e;
+      }
+      @media screen and (max-width: $break-small) {
+        width: 50%;
         display: block;
         margin: 0 auto;
         margin-bottom: 10px;
       }
     }
-    .choosed{
-      background-color:#dc002e;
-      color:white;
-      border:solid 2px #dc002e;
+    .choosed {
+      background-color: #dc002e;
+      color: white;
+      border: solid 2px #dc002e;
     }
-    form{
-      label{
-        font-size:18px;
+    form {
+      label {
+        font-size: 18px;
         color: rgb(120, 124, 135);
         font-weight: bold;
       }
-      input{
-        font-size:16px;
+      input {
+        font-size: 16px;
         color: rgb(120, 124, 135);
       }
-      textarea{
-        font-size:16px;
+      textarea {
+        font-size: 16px;
         color: rgb(120, 124, 135);
       }
-      .form-control{
-        padding:10px 26px;
-        border:2px solid #b8b9c0;
-        box-shadow:none !important;
+      .form-control {
+        padding: 10px 26px;
+        border: 2px solid #b8b9c0;
+        box-shadow: none !important;
       }
-      #file{
-        border:none;
+      #file {
+        border: none;
       }
-      button{
+      button {
         padding: 15px 30px;
-        background-color:$carwellness-red;
-        border:none;
-        color:white;
-        outline:none;
-        cursor:pointer;
+        background-color: $carwellness-red;
+        border: none;
+        color: white;
+        outline: none;
+        cursor: pointer;
         margin-top: 0px;
-        &:hover{
-          background-color:#ae0024;
-          border:none;
+        &:hover {
+          background-color: #ae0024;
+          border: none;
         }
-        width:100%;
+        width: 100%;
       }
     }
   }
-  .orderCancelInfo{
-    position:relative;
-    top:260px;
-    p{
+  .orderCancelInfo {
+    position: relative;
+    margin-top: 40px;
+    p {
       font-size: 16px;
       color: rgb(120, 124, 135);
-      text-align:center;
+      text-align: center;
     }
   }
-  .galleryContent{
+  .galleryContent {
     position: relative;
-    top: 160px;
-    h4{
+    margin-top: 40px;
+    h4 {
       font-size: 24px;
       font-weight: bold;
       text-align: center;
     }
-    strong{
-      color:$carwellness-red;
+    strong {
+      color: $carwellness-red;
     }
-    img{
-      &.zoom{
-         width: 250px;
-         height: 200px;
-        -webkit-transition: all .3s ease-in-out;
-        -moz-transition: all .3s ease-in-out;
-        -o-transition: all .3s ease-in-out;
-        -ms-transition: all .3s ease-in-out;
-        @media screen and (max-width: $break-small){
-          margin:0 auto;
-          display:block;
+    img {
+      &.zoom {
+        width: 250px;
+        height: 200px;
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        -ms-transition: all 0.3s ease-in-out;
+        @media screen and (max-width: $break-small) {
+          margin: 0 auto;
+          display: block;
         }
       }
       &.transition {
-      -webkit-transform: scale(1.2); 
-      -moz-transform: scale(1.2);
-      -o-transform: scale(1.2);
-      transform: scale(1.2);
+        -webkit-transform: scale(1.2);
+        -moz-transform: scale(1.2);
+        -o-transform: scale(1.2);
+        transform: scale(1.2);
       }
     }
-    .thumb{
+    .thumb {
       margin-bottom: 20px;
-      @media screen and (max-width: $break-small){
-        max-width:unset;
-        flex:none;
+      @media screen and (max-width: $break-small) {
+        max-width: unset;
+        flex: none;
       }
     }
-        
-    .page-top{
-      margin-top:150px;
+
+    .page-top {
+      margin-top: 150px;
     }
   }
-  .m-t-60{
-    margin-top:60px;
+  .m-t-60 {
+    margin-top: 60px;
   }
-  .copyrights{
+  .copyrights {
     padding-top: 20px !important;
     padding-bottom: 20px !important;
-    p{
+    p {
       font-size: 14px;
       color: rgb(153, 153, 153);
-      a{
+      a {
         margin-right: 10px;
         cursor: pointer;
-        &:hover{
-          color:$carwellness-red;
+        &:hover {
+          color: $carwellness-red;
         }
       }
     }
   }
 }
-.ui-timepicker-list{
-  li{
-    &:hover{
-    background-color:#dc002e !important;
-    color:white !important;
+.ui-timepicker-list {
+  li {
+    &:hover {
+      background-color: #dc002e !important;
+      color: white !important;
     }
   }
 }
-.ui-datepicker-header{
-  background-color:#dc002e !important;
-  color:white !important;
+.ui-datepicker-header {
+  background-color: #dc002e !important;
+  color: white !important;
 }
-.ui-state-highlight{
-  background-color:#dc002e !important;
-  color:white !important;
+.ui-state-highlight {
+  background-color: #dc002e !important;
+  color: white !important;
 }
-.ui-state-active{
-  background-color:#dc002e !important;
-  border:solid 1px #dc002e;
-  color:white !important;
+.ui-state-active {
+  background-color: #dc002e !important;
+  border: solid 1px #dc002e;
+  color: white !important;
 }
-.ui-state-default{
-  &:hover{
-    background-color:#dc002e !important;
-    border:solid 1px #dc002e;
-    color:white !important;
+.ui-state-default {
+  &:hover {
+    background-color: #dc002e !important;
+    border: solid 1px #dc002e;
+    color: white !important;
   }
 }
-.orderButton{
+.orderButton {
   padding: 22px 30px;
-  background-color:$carwellness-red;
-  border:none;
-  color:white;
-  outline:none;
-  cursor:pointer;
+  background-color: $carwellness-red;
+  border: none;
+  color: white;
+  outline: none;
+  cursor: pointer;
   margin-top: 40px;
-  font-size:22px;
-  font-weight:bold;
-  &:hover{
-    background-color:#ae0024;
+  font-size: 22px;
+  font-weight: bold;
+  &:hover {
+    background-color: #ae0024;
   }
 }
 
 img {
-	opacity: 1;
-	transition: opacity 0.3s;
+  opacity: 1;
+  transition: opacity 0.3s;
 }
 
 img[data-src] {
-	opacity: 0;
+  opacity: 0;
 }
-.atention{
+.atention {
   position: relative;
-  margin-top: 320px;
-  h4{
-    font-size:38px;
-    font-weight:bold;
+  margin-top: 40px;
+  h4 {
+    font-size: 38px;
+    font-weight: bold;
     text-align: center;
-    strong{
-      color:$carwellness-red;
+    strong {
+      color: $carwellness-red;
     }
   }
-  p{
-    font-size:16px;
-    color:rgb(120,124,135);
+  p {
+    font-size: 16px;
+    color: rgb(120, 124, 135);
   }
 }
 
-.bg-light{
+.bg-light {
   background-color: #f2f3f6;
 }
-#suvChecked{
+#suvChecked {
   display: none;
 }
 
-button[disabled] { 
+button[disabled] {
   pointer-events: none;
 }
-.orderChooseCity{
-  p{
-    strong{
-      color:$carwellness-red;
+.orderChooseCity {
+  p {
+    strong {
+      color: $carwellness-red;
     }
   }
 }
-#zlavaText{
-  color:$carwellness-red !important;
+#zlavaText {
+  color: $carwellness-red !important;
   display: none;
+}
+.car-rent {
+  @media (max-width: 768px) {
+    text-align: center;
+  }
+  img {
+    width: 100%;
+  }
+  h4 {
+    font-size: 22px;
+    color: #3c4147;
+    font-weight: bold;
+    margin-bottom: 32px;
+    margin-top: 0.5rem;
+  }
+  .price-holder {
+    display: flex;
+    margin-bottom: 2rem;
+    justify-content: space-between;
+    .price {
+      color: #dc002e;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    .info {
+      color: white !important;
+      background-color: #dc002e;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      &:hover {
+        background-color: #ae0024;
+        text-decoration: none;
+      }
+    }
+  }
+}
+.car-rent-detail {
+  .detail {
+    h4 {
+      font-size: 1.25rem;
+      font-weight: bold;
+    }
+    p {
+      margin: 0;
+      font-size: 1.25rem;
+    }
+  }
+  .danger {
+    color: #dc002e !important;
+    font-weight: bold;
+  }
 }

@@ -114,6 +114,7 @@ class App {
     this.router.get('/admin/:action', (req, res) => { res.render('admin') })
     this.router.get('/cennik', (req, res) => { res.render('price-list', { page: 'price-list' }) })
     this.router.get('/galeria', (req, res) => { res.render('gallery', { page: 'gallery' }) })
+    this.router.get('/ponuka-vozidiel', (req, res) => { res.render('car-rent', { page: 'car-rent' }) })
     this.router.get('/gdpr', (req, res) => { res.render('gdpr', { page: 'gdpr' }) })
     this.router.get('/kontakt', (req, res) => { res.render('contact', { page: 'contact' }) })
     this.router.get('/obchodne-podmienky', (req, res) => { res.render('business-conditions', { page: 'business-conditions' }) })

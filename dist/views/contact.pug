@@ -11,9 +11,6 @@ block content
     .social-icon {
       font-size: 21px;
     }
-    .footerContactSection {
-      top: 230px!important;
-    }
 
   .modal#contactModal
     .modal-dialog
@@ -28,7 +25,7 @@ block content
   #wrapper
     include navbar.pug
         
-    .container.price-listContent
+    .container.price-listContent-noimg
       h4 Kontaktuje nás, ochotne pomôžeme.
       p Neváhajte nás kontaktovať s akoukoľvek otázkou.
 
@@ -38,26 +35,19 @@ block content
           .row
             .col-md-6
               h4 Kontaktné údaje
-              h6 #[strong Car ]wellness s.r.o
-              p Kolačkov 72
-              p Nová Ľubovňa 065 11
+              h6 #[strong CW ]partners s.r.o
+              p Karpatské námestie 7770/10A
+              p 831 06 Bratislava
               p Slovenská republika
               p &nbsp;
-              p IČO: 46 471 308
-              p DIČ: 2023405230
+              p IČO: 515 568 98
+              p DIČ: 2120728687
               p &nbsp;
               h6 Zodpovedný vedúci / Manager
               p Jiří Laník
               p +421 903 716 656
-              p.highlight j.lanik@carwellness.sk
+              p.highlight cwpartners.nr@gmail.com
             .col-md-6
-              h4 Prevádzky
-              h6 Aupark Shopping Center Žilina
-              p Veľká okružná 59A, -1 podlažie
-              p 010 01 Žilina
-              p Slovenská republika
-              p +421 902 060 060
-              p &nbsp;
               h6 Galéria Mlyny Nitra
               p Štefániková trieda 61
               p 949 01 Nitra
@@ -89,10 +79,7 @@ block content
 
     .container-fluid.mapcontainer     
       .row
-        .col-lg-6
-          h4 #[strong Car]wellness Žilina
-          #mapZilina.map
-        .col-lg-6
+        .col-lg-12
           h4 #[strong Car]wellness Nitra
           #mapNitra.map
 
@@ -104,5 +91,4 @@ block script
   script(src='https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyD-OdlYGW1IfuJOVxqDXlhLCUJnLRucgPk' deffer)
   script(src='./assets/js/carwellness-main.min.js')
   script.
-    mapZilina();
     mapNitra();
