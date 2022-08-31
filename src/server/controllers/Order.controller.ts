@@ -40,13 +40,10 @@ export class OrderController {
         const saveOrder = await Orders.create(newOrder);
 
         const transporter = nodemailer.createTransport({
-          host: 'mail.carwellness.sk',
-          port: 25,
-          secure: false,
-          ignoreTLS: true,
+          service: 'gmail',
           auth: {
-            user: 'info@carwellness.sk',
-            pass: 'car2019',
+            user: 'objednavky.mlyny@gmail.com',
+            pass: 'rjqxkwwwuhnwkjkj',
           },
         });
         const sMPort = 'http'; // https
@@ -61,15 +58,10 @@ export class OrderController {
           to: `${req.body.email}`,
           subject: 'CARwellness | Potvrdenie objednávky',
           html: `<h2>Vaša objednávka bola prijatá. Ďakujeme za rezerváciu a tešíme sa na Vás <span style="color:#dc002e;">${newDate}</span> o <span style="color:#dc002e;">${newTime}</span>.</h2>
-          <p><strong>S pozdravom / With Kind Regards</strong></p>
+          <p><strong>S pozdravom</strong></p>
           <img src='https://carwellness.sk/assets/images/logo.png' />
-          <p style="color:#dc002e;"><strong>CW partners s.r.o.</strong></p>
-          <p><strong>Karpatské námestie 7770/10A</strong></p>
-          <p><strong>831 06 Bratislava</strong></p>
-          <p style="color:#dc002e;"><strong>CARwellness</strong></p>
-          <p><strong>Štefánikova trieda 61, Galéria Mlyny 0. podlažie</strong></p>
-          <p><strong>IČO: 515 568 98</strong></p>
-          <p><strong>DIČ: 2120728687</strong></p>
+          <p><strong>OC MLYNY</strong></p>
+          <p><strong>Štefánikova trieda 61, 949 01 Nitra</strong></p>
           <p><strong>Mobil: +421 903 716 656</strong></p>
           <p style="color:#dc002e;"><strong>www.carwellness.sk</strong></p>
            `,
